@@ -1,4 +1,4 @@
-baseurl = "https://username.github.io"
+baseurl = "https://pmassicotte.github.io"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Beautiful Hugo"
