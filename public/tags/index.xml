@@ -2,14 +2,105 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Beautiful Hugo</title>
-    <link>/competent-wing-2e0e05.netlify.com/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Some Person)</managingEditor>
-    <webMaster>youremail@domain.com (Some Person)</webMaster>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
+    <lastBuildDate>Fri, 14 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/competent-wing-2e0e05.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>EEMs</title>
+      <link>/tags/eems/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/eems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fluorescence</title>
+      <link>/tags/fluorescence/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/fluorescence/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PARAFAC</title>
+      <link>/tags/parafac/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/parafac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spectrofluorometer</title>
+      <link>/tags/spectrofluorometer/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/spectrofluorometer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ASM2018</title>
+      <link>/tags/asm2018/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/asm2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ArcticNet</title>
+      <link>/tags/arcticnet/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/arcticnet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>STEMWomen</title>
+      <link>/tags/stemwomen/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/stemwomen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Women in STEM</title>
+      <link>/tags/women-in-stem/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/women-in-stem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R 101</title>
+      <link>/tags/r-101/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/r-101/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

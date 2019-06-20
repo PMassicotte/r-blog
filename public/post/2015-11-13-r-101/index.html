@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>R 101 - Beautiful Hugo</title>
+  <meta property="og:title" content="R 101" />
+  <meta name="twitter:title" content="R 101" />
+  <meta name="description" content="Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.">
+  <meta property="og:description" content="Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.">
+  <meta name="twitter:description" content="Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using …">
+  <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Beautiful Hugo",
+    
+    "url": "\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "\/post\/2015-11-13-r-101\/",
+          "name": "R 101"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Philippe Massicotte"
+  },
+  "headline": "R 101",
+  "description" : "Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.",
+  "inLanguage" : "en",
+  "wordCount":  1109 ,
+  "datePublished" : "0001-01-01T00:00:00",
+  "dateModified" : "0001-01-01T00:00:00",
+  "image" : "\/img\/avatar-icon.png",
+  "keywords" : [ "R, R 101" ],
+  "mainEntityOfPage" : "\/post\/2015-11-13-r-101\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="R 101" />
+<meta property="og:description" content="Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.">
+<meta property="og:image" content="/img/avatar-icon.png" />
+<meta property="og:url" content="/post/2015-11-13-r-101/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Beautiful Hugo" />
+
+  <meta name="twitter:title" content="R 101" />
+  <meta name="twitter:description" content="Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using …">
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <meta property="og:url" content="/post/2015-11-13-r-101/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Beautiful Hugo" />
+
+  <meta name="generator" content="Hugo 0.55.6" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Beautiful Hugo"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Beautiful Hugo</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Presentations" href="/page/presentations/">Presentations</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Publications" href="/page/publication/">Publications</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Beautiful Hugo" href="/">
+            <img class="avatar-img" src="/img/avatar-icon.png" alt="Beautiful Hugo" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>R 101</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1109&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>Sometimes when you open a data file (lets say a <em>.csv</em>), variables will be recognized as <em>factor</em> whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using <em>as.numeric()</em>. Big mistake! If you use directly <em>as.numeric()</em> on a variable of the type <em>factor</em>, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with <em>as.character()</em> and thereafter use <em>as.numeric()</em>.</p>
+<pre class="r"><code>x &lt;- as.factor(rnorm(5))
+x</code></pre>
+<pre><code>## [1] 0.233253209962139  0.1104040655313    0.751454630261749 
+## [4] -0.016191952426712 1.39188417247678  
+## 5 Levels: -0.016191952426712 0.1104040655313 ... 1.39188417247678</code></pre>
+<pre class="r"><code>## Wrong way
+as.numeric(x)</code></pre>
+<pre><code>## [1] 3 2 4 1 5</code></pre>
+<pre class="r"><code>## Right way
+as.numeric(as.character(x))</code></pre>
+<pre><code>## [1]  0.23325321  0.11040407  0.75145463 -0.01619195  1.39188417</code></pre>
+<p>Another way to prevent numeric to be converted into factor would be to use <em>as.is = T</em> when opening the data file with <em>read.csv</em>.</p>
+<div id="remove-all-objects-in-the-workspace" class="section level2">
+<h2>Remove all objects in the workspace**</h2>
+<pre class="r"><code>rm(list = ls())</code></pre>
+</div>
+<div id="replacing-values-of-a-data-frame-with-na" class="section level2">
+<h2>Replacing values of a data frame with NA</h2>
+<pre class="r"><code>library(xtable)
+
+## Random matrix with with some (50) zeros
+df &lt;- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] &lt;- 0
+
+df &lt;- data.frame(df)
+
+print(xtable(df), type = &quot;html&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:20 2019 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+X1
+</th>
+<th>
+X2
+</th>
+<th>
+X3
+</th>
+<th>
+X4
+</th>
+<th>
+X5
+</th>
+<th>
+X6
+</th>
+<th>
+X7
+</th>
+<th>
+X8
+</th>
+<th>
+X9
+</th>
+<th>
+X10
+</th>
+</tr>
+<tr>
+<td align="right">
+1
+</td>
+<td align="right">
+-0.61
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-1.12
+</td>
+<td align="right">
+-0.11
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-2.32
+</td>
+<td align="right">
+0.82
+</td>
+<td align="right">
+-0.57
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+2
+</td>
+<td align="right">
+1.24
+</td>
+<td align="right">
+-0.83
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+1.89
+</td>
+<td align="right">
+1.64
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-1.38
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+3
+</td>
+<td align="right">
+1.57
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.22
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-1.33
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.95
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+4
+</td>
+<td align="right">
+0.62
+</td>
+<td align="right">
+-2.48
+</td>
+<td align="right">
+-0.15
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.28
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.25
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+5
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-1.42
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.09
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.76
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td align="right">
+1.80
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.87
+</td>
+<td align="right">
+1.12
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.30
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.94
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+7
+</td>
+<td align="right">
+-2.08
+</td>
+<td align="right">
+0.17
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+1.29
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.76
+</td>
+</tr>
+<tr>
+<td align="right">
+8
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.38
+</td>
+<td align="right">
+1.46
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.62
+</td>
+<td align="right">
+1.68
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+9
+</td>
+<td align="right">
+-0.27
+</td>
+<td align="right">
+-0.08
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.41
+</td>
+<td align="right">
+-0.59
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-1.15
+</td>
+<td align="right">
+2.09
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+<tr>
+<td align="right">
+10
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.81
+</td>
+<td align="right">
+-0.15
+</td>
+<td align="right">
+1.27
+</td>
+<td align="right">
+1.90
+</td>
+<td align="right">
+0.61
+</td>
+<td align="right">
+-2.29
+</td>
+<td align="right">
+-1.02
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+</tr>
+</table>
+<pre class="r"><code>## Replace the 0 with NA
+df[df == 0] &lt;- NA
+
+print(xtable(df), type = &quot;html&quot;, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:20 2019 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+X1
+</th>
+<th>
+X2
+</th>
+<th>
+X3
+</th>
+<th>
+X4
+</th>
+<th>
+X5
+</th>
+<th>
+X6
+</th>
+<th>
+X7
+</th>
+<th>
+X8
+</th>
+<th>
+X9
+</th>
+<th>
+X10
+</th>
+</tr>
+<tr>
+<td align="right">
+1
+</td>
+<td align="right">
+-0.61
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.12
+</td>
+<td align="right">
+-0.11
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-2.32
+</td>
+<td align="right">
+0.82
+</td>
+<td align="right">
+-0.57
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+2
+</td>
+<td align="right">
+1.24
+</td>
+<td align="right">
+-0.83
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.89
+</td>
+<td align="right">
+1.64
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.38
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+3
+</td>
+<td align="right">
+1.57
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.22
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.33
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.95
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+4
+</td>
+<td align="right">
+0.62
+</td>
+<td align="right">
+-2.48
+</td>
+<td align="right">
+-0.15
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.28
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.25
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+5
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.42
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.09
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.76
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td align="right">
+1.80
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.87
+</td>
+<td align="right">
+1.12
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.30
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.94
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+7
+</td>
+<td align="right">
+-2.08
+</td>
+<td align="right">
+0.17
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.29
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.76
+</td>
+</tr>
+<tr>
+<td align="right">
+8
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.38
+</td>
+<td align="right">
+1.46
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.62
+</td>
+<td align="right">
+1.68
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+9
+</td>
+<td align="right">
+-0.27
+</td>
+<td align="right">
+-0.08
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.41
+</td>
+<td align="right">
+-0.59
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.15
+</td>
+<td align="right">
+2.09
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+10
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.81
+</td>
+<td align="right">
+-0.15
+</td>
+<td align="right">
+1.27
+</td>
+<td align="right">
+1.90
+</td>
+<td align="right">
+0.61
+</td>
+<td align="right">
+-2.29
+</td>
+<td align="right">
+-1.02
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+</table>
+<p>##Count % of missing values per column</p>
+<p>The other day I was working with a large database. I was looking for a way to calculate % of missing values for each variable. Here is how I calculated it.</p>
+<pre class="r"><code>## Generate some data
+df &lt;- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] &lt;- NA
+
+df &lt;- data.frame(df)
+
+print(xtable(df), type = &quot;html&quot;, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:20 2019 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+X1
+</th>
+<th>
+X2
+</th>
+<th>
+X3
+</th>
+<th>
+X4
+</th>
+<th>
+X5
+</th>
+<th>
+X6
+</th>
+<th>
+X7
+</th>
+<th>
+X8
+</th>
+<th>
+X9
+</th>
+<th>
+X10
+</th>
+</tr>
+<tr>
+<td align="right">
+1
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.41
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.54
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.14
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+2
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-1.99
+</td>
+<td align="right">
+-0.08
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.33
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.62
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+3
+</td>
+<td align="right">
+-0.46
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.03
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.95
+</td>
+<td align="right">
+0.50
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.92
+</td>
+<td align="right">
+0.05
+</td>
+</tr>
+<tr>
+<td align="right">
+4
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-2.69
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.59
+</td>
+<td align="right">
+0.19
+</td>
+<td align="right">
+1.68
+</td>
+<td align="right">
+-1.37
+</td>
+<td align="right">
+0.13
+</td>
+<td align="right">
+0.72
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+5
+</td>
+<td align="right">
+1.17
+</td>
+<td align="right">
+-0.44
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.56
+</td>
+<td align="right">
+-0.01
+</td>
+<td align="right">
+-0.12
+</td>
+<td align="right">
+-0.50
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td align="right">
+-0.19
+</td>
+<td align="right">
+-0.41
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.91
+</td>
+<td align="right">
+-0.40
+</td>
+<td align="right">
+0.81
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.91
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.86
+</td>
+</tr>
+<tr>
+<td align="right">
+7
+</td>
+<td align="right">
+-0.34
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.76
+</td>
+<td align="right">
+-0.02
+</td>
+<td align="right">
+0.06
+</td>
+<td align="right">
+-0.85
+</td>
+<td align="right">
+0.18
+</td>
+</tr>
+<tr>
+<td align="right">
+8
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-2.01
+</td>
+<td align="right">
+-1.18
+</td>
+<td align="right">
+-0.52
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+9
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.41
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.04
+</td>
+<td align="right">
+1.36
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.14
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td align="right">
+10
+</td>
+<td align="right">
+1.25
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.76
+</td>
+<td align="right">
+0.61
+</td>
+<td align="right">
+-0.45
+</td>
+</tr>
+</table>
+<pre class="r"><code>## Find % of missing values in each column with apply
+missing &lt;- apply(df, 2, function(x) sum(is.na(x)))/nrow(df)*100
+
+## Print the result
+df2 &lt;- data.frame(variable = names(df), missing = missing)
+
+print(xtable(df2), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:20 2019 -->
+<table border="1">
+<tr>
+<th>
+variable
+</th>
+<th>
+missing
+</th>
+</tr>
+<tr>
+<td>
+X1
+</td>
+<td align="right">
+50.00
+</td>
+</tr>
+<tr>
+<td>
+X2
+</td>
+<td align="right">
+50.00
+</td>
+</tr>
+<tr>
+<td>
+X3
+</td>
+<td align="right">
+80.00
+</td>
+</tr>
+<tr>
+<td>
+X4
+</td>
+<td align="right">
+60.00
+</td>
+</tr>
+<tr>
+<td>
+X5
+</td>
+<td align="right">
+40.00
+</td>
+</tr>
+<tr>
+<td>
+X6
+</td>
+<td align="right">
+30.00
+</td>
+</tr>
+<tr>
+<td>
+X7
+</td>
+<td align="right">
+40.00
+</td>
+</tr>
+<tr>
+<td>
+X8
+</td>
+<td align="right">
+40.00
+</td>
+</tr>
+<tr>
+<td>
+X9
+</td>
+<td align="right">
+50.00
+</td>
+</tr>
+<tr>
+<td>
+X10
+</td>
+<td align="right">
+60.00
+</td>
+</tr>
+</table>
+</div>
+<div id="grouping-data-frame" class="section level2">
+<h2>Grouping data frame</h2>
+<p>Tsshere is various way to merge data frame in R. For me, the most easiest way is to use the join functions from the <code>dplyr</code> package.</p>
+<p><img src="{{ site.baseurl }}/assets/join_types.svg" /></p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>df1 &lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), x = rnorm(10))
+df2 &lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rnorm(10))
+
+print(xtable(df1), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.19
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-0.98
+</td>
+</tr>
+<tr>
+<td>
+J
+</td>
+<td align="right">
+-1.47
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.56
+</td>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.97
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-2.90
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-0.29
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+0.63
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-2.52
+</td>
+</tr>
+<tr>
+<td>
+G
+</td>
+<td align="right">
+1.04
+</td>
+</tr>
+</table>
+<pre class="r"><code>print(xtable(df2), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.33
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+0.55
+</td>
+</tr>
+<tr>
+<td>
+H
+</td>
+<td align="right">
+-0.06
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+1.16
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td>
+T
+</td>
+<td align="right">
+-0.02
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+1.63
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.90
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+0.44
+</td>
+</tr>
+<tr>
+<td>
+A
+</td>
+<td align="right">
+1.02
+</td>
+</tr>
+</table>
+<pre class="r"><code>inner_join(df1, df2, by = &quot;ID&quot;)</code></pre>
+<pre><code>## Warning: Column `ID` joining factors with different levels, coercing to
+## character vector</code></pre>
+<p>ID x y
+1 N 0.1894666 0.8992321
+2 O 0.5604596 0.5838905
+3 E 0.9676300 0.3298096
+4 S -2.8972541 0.4384004
+5 I -0.2907328 0.5547686
+6 K 0.6253622 1.6347416
+7 L -2.5173477 1.1633747</p>
+<pre class="r"><code>df_exact_match &lt;- merge(df1,df2, by = &quot;ID&quot;) ## Exact match
+print(xtable(df_exact_match), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.97
+</td>
+<td align="right">
+0.33
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.55
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+0.63
+</td>
+<td align="right">
+1.63
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-2.52
+</td>
+<td align="right">
+1.16
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.19
+</td>
+<td align="right">
+0.90
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.56
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-2.90
+</td>
+<td align="right">
+0.44
+</td>
+</tr>
+</table>
+<pre class="r"><code>df_all_x &lt;- merge(df1,df2, by = &quot;ID&quot;, all.x = T) ## Keep all x (discard y that are not matched)
+print(xtable(df_all_x), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.97
+</td>
+<td align="right">
+0.33
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-0.98
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+G
+</td>
+<td align="right">
+1.04
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.55
+</td>
+</tr>
+<tr>
+<td>
+J
+</td>
+<td align="right">
+-1.47
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+0.63
+</td>
+<td align="right">
+1.63
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-2.52
+</td>
+<td align="right">
+1.16
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.19
+</td>
+<td align="right">
+0.90
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.56
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-2.90
+</td>
+<td align="right">
+0.44
+</td>
+</tr>
+</table>
+<pre class="r"><code>df_all_y &lt;- merge(df1,df2, by = &quot;ID&quot;, all.y = T) ## Keep all y (discard x that are not matched)
+print(xtable(df_all_y), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.97
+</td>
+<td align="right">
+0.33
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.55
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+0.63
+</td>
+<td align="right">
+1.63
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-2.52
+</td>
+<td align="right">
+1.16
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.19
+</td>
+<td align="right">
+0.90
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.56
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-2.90
+</td>
+<td align="right">
+0.44
+</td>
+</tr>
+<tr>
+<td>
+A
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.02
+</td>
+</tr>
+<tr>
+<td>
+H
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.06
+</td>
+</tr>
+<tr>
+<td>
+T
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.02
+</td>
+</tr>
+</table>
+<pre class="r"><code>df_all &lt;- merge(df1,df2, by = &quot;ID&quot;, all = T) ## Keep everything
+print(xtable(df_all), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.0 by xtable 1.8-4 package -->
+<!-- Thu Jun 20 19:24:21 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.97
+</td>
+<td align="right">
+0.33
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-0.98
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+G
+</td>
+<td align="right">
+1.04
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-0.29
+</td>
+<td align="right">
+0.55
+</td>
+</tr>
+<tr>
+<td>
+J
+</td>
+<td align="right">
+-1.47
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+K
+</td>
+<td align="right">
+0.63
+</td>
+<td align="right">
+1.63
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-2.52
+</td>
+<td align="right">
+1.16
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.19
+</td>
+<td align="right">
+0.90
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+0.56
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-2.90
+</td>
+<td align="right">
+0.44
+</td>
+</tr>
+<tr>
+<td>
+A
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.02
+</td>
+</tr>
+<tr>
+<td>
+H
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.06
+</td>
+</tr>
+<tr>
+<td>
+T
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.02
+</td>
+</tr>
+</table>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="//tags/r/">R</a>&nbsp;
+            
+              <a href="//tags/r-101/">R 101</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2f2015-11-13-r-101%2f&amp;text=R%20101&amp;via=philmassicotte" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2f2015-11-13-r-101%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2f2015-11-13-r-101%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2f2015-11-13-r-101%2f&amp;title=R%20101" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2f2015-11-13-r-101%2f&amp;title=R%20101" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2f2015-11-13-r-101%2f&amp;title=R%20101" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2f2015-11-13-r-101%2f&amp;description=R%20101" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+          <h4 class="see-also">See also</h4>
+          <ul>
+          
+            <li><a href="/post/2019-06-14-eemr-1-0-0/">eemR 1.0.0</a></li>
+          
+            <li><a href="/post/2019-06-05-trying-the-vroom-package/">Trying the new R vroom Package</a></li>
+          
+            <li><a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/">Extracting Weather Data From Canadian Archive</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/2016-05-02-eemr-0.1.3/" data-toggle="tooltip" data-placement="top" title="eemR 0.1.3 is now on CRAN">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="/post/2016-03-07-not_in/" data-toggle="tooltip" data-placement="top" title="Quick tip">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:pmassicotte@hotmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/pmassicotte" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/PMassicotte" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/philmassicotte" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/5558188/philippe-massicotte" title="StackOverflow">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://500px.com/persican" title="500px">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-500px fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="PMassicotte.github.io">Philippe Massicotte</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">Beautiful Hugo</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

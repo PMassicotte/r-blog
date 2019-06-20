@@ -1,0 +1,46 @@
+---
+title: "Calculating daylight in R"
+layout: post
+tags:
+  - R
+---
+
+
+
+<p>A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY). The formula used can be found <a href="http://stackoverflow.com/questions/6372802/calculate-daylight-hours-based-on-gegraphical-coordinates">here</a>.</p>
+<pre class="r"><code>dl &lt;- function(doy, latitude) {
+
+  p &lt;- asin(0.39795 * cos(0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186)))))
+
+  d &lt;- 24 - (24 / pi) * acos((sin(0.8333 * pi / 180) + sin(latitude * pi / 180) * sin(p)) / 
+    cos(latitude * pi / 180) * cos(p))
+
+  return(d)
+}
+
+doy &lt;- 1:365
+
+mtl &lt;- dl(doy = doy, latitude = 45.501689) ## Montreal latitude
+cph &lt;- dl(doy = doy, latitude = 55.676097) ## Copenhagen latitude
+
+df &lt;- data.frame(mtl = mtl, cph = cph, date = as.Date(doy, origin = &quot;2015-01-01&quot;))</code></pre>
+<pre class="r"><code>library(ggplot2)
+
+ggplot(df, aes(x = date)) +
+  geom_line(aes(y = mtl, color = &quot;Montreal&quot;)) +
+  geom_line(aes(y = cph, color = &quot;Copenhagen&quot;)) +
+  labs(color = &quot;City&quot;) +
+  theme_bw() +
+  xlab(&quot;Months&quot;) +
+  ylab(&quot;Daylight (hours)&quot;) +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)</code></pre>
+<p><img src="/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Now lets calculate the daylight difference between the two cities.</p>
+<pre class="r"><code>ggplot(df, aes(x = date, y = cph - mtl)) +
+  geom_line() +
+  xlab(&quot;Months&quot;) +
+  ylab(&quot;Daylight difference&quot;) +
+  theme_bw() +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)</code></pre>
+<p><img src="/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Voilà!</p>

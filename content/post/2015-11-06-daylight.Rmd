@@ -1,0 +1,54 @@
+---
+title: "Calculating daylight in R"
+layout: post
+tags:
+  - R
+---
+
+A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY). The formula used can be found [here](http://stackoverflow.com/questions/6372802/calculate-daylight-hours-based-on-gegraphical-coordinates).
+
+```{r}
+dl <- function(doy, latitude) {
+
+  p <- asin(0.39795 * cos(0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186)))))
+
+  d <- 24 - (24 / pi) * acos((sin(0.8333 * pi / 180) + sin(latitude * pi / 180) * sin(p)) / 
+    cos(latitude * pi / 180) * cos(p))
+
+  return(d)
+}
+
+doy <- 1:365
+
+mtl <- dl(doy = doy, latitude = 45.501689) ## Montreal latitude
+cph <- dl(doy = doy, latitude = 55.676097) ## Copenhagen latitude
+
+df <- data.frame(mtl = mtl, cph = cph, date = as.Date(doy, origin = "2015-01-01"))
+
+```
+
+```{r, message = FALSE}
+library(ggplot2)
+
+ggplot(df, aes(x = date)) +
+  geom_line(aes(y = mtl, color = "Montreal")) +
+  geom_line(aes(y = cph, color = "Copenhagen")) +
+  labs(color = "City") +
+  theme_bw() +
+  xlab("Months") +
+  ylab("Daylight (hours)") +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)
+```
+
+Now lets calculate the daylight difference between the two cities.
+
+```{r}
+ggplot(df, aes(x = date, y = cph - mtl)) +
+  geom_line() +
+  xlab("Months") +
+  ylab("Daylight difference") +
+  theme_bw() +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)
+```
+
+Voilà!

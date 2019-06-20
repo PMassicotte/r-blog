@@ -1,0 +1,82 @@
+---
+title: Extracting Weather Data From Canadian Archive
+author: Philippe Massicotte
+date: '2019-05-22'
+tags:
+  - R
+---
+
+
+
+<p>To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the <a href="http://climat.meteo.gc.ca/climate_data/daily_data_f.html?hlyRange=2005-03-24%7C2019-05-21&amp;dlyRange=1992-12-04%7C2019-05-21&amp;mlyRange=1998-01-01%7C2016-03-01&amp;StationID=26892&amp;Prov=QC&amp;urlExtension=_f.html&amp;searchType=stnName&amp;optLimit=yearRange&amp;StartYear=2018&amp;EndYear=2019&amp;selRowPerPage=25&amp;Line=2&amp;searchMethod=contains&amp;Month=5&amp;Day=21&amp;txtStationName=quebec&amp;timeframe=2&amp;Year=2019">Government of Canada</a> have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.</p>
+<pre class="r"><code>library(extrafont)
+library(tidyverse)
+library(glue)
+
+## Set default ggplot2 font size and font familly
+
+loadfonts(quiet = TRUE)
+theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;))</code></pre>
+<p>The first thing I did was to create a <code>tibble</code> with all the dates for which I wanted to extract the weather information. This was also a good chance to use the <code>glue</code> package.</p>
+<pre class="r"><code>url &lt;- &quot;http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?format=csv&amp;stationID=26892&amp;Year={year}&amp;Month={month}&amp;Day={day}&amp;timeframe=2&amp;submit=T%C3%A9l%C3%A9charger+des+donn%C3%A9es&quot;
+
+df &lt;- tibble(
+  date = seq(as.Date(&quot;2018-01-01&quot;), as.Date(&quot;2019-05-15&quot;), by = &quot;1 month&quot;),
+  url = glue(
+    url,
+    year = lubridate::year(date),
+    month = lubridate::month(date),
+    day = lubridate::day(date)
+  )
+)
+
+df</code></pre>
+<pre><code>## # A tibble: 17 x 2
+##    date       url                                                          
+##    &lt;date&gt;     &lt;glue&gt;                                                       
+##  1 2018-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  2 2018-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  3 2018-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  4 2018-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  5 2018-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  6 2018-06-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  7 2018-07-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  8 2018-08-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  9 2018-09-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 10 2018-10-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 11 2018-11-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 12 2018-12-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 13 2019-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 14 2019-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 15 2019-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 16 2019-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 17 2019-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~</code></pre>
+<p>Now, I will create a function that will download, read and clean each data file.</p>
+<pre class="r"><code>download_weather &lt;- function(url) {
+  t &lt;- tempfile()
+  curl::curl_download(url, t, quiet = TRUE)
+  df &lt;- read_csv(t, skip = 25, locale = locale(decimal_mark = &quot;,&quot;)) %&gt;%
+    janitor::clean_names() %&gt;%
+    select(date_heure, temp_moy_c)
+
+  return(df)
+}</code></pre>
+<p>With the urls constructed, I can now download all the data. Here I am using the <code>rowwise()</code> function from <code>dplyr</code>. Then, I extract the day of the year and the year.</p>
+<pre class="r"><code>res &lt;- df %&gt;%
+  rowwise() %&gt;%
+  mutate(data = list(download_weather(url))) %&gt;%
+  unnest(data) %&gt;%
+  mutate(doy = lubridate::yday(date_heure)) %&gt;%
+  mutate(year = lubridate::year(date_heure)) %&gt;%
+  filter(between(doy, 100, lubridate::yday(Sys.time())))</code></pre>
+<p>With the downloaded data, it was easy to make a plot. Indeed, this year is cooler!</p>
+<pre class="r"><code>res %&gt;%
+  drop_na() %&gt;%
+  ggplot(aes(x = doy, y = temp_moy_c, color = factor(year))) +
+  geom_line() +
+  geom_point(show.legend = FALSE) +
+  scale_y_continuous(breaks = seq(-10, 20, by = 2)) +
+  xlab(&quot;Day of year&quot;) +
+  ylab(expression(&quot;Average daily temperature &quot; ~ (degree ~ C))) +
+  theme(legend.title = element_blank())</code></pre>
+<p><img src="/post/2019-05-22-extracting-weather-data-from-canadian-archive.en_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>

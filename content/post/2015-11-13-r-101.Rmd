@@ -1,0 +1,108 @@
+---
+title: "R 101"
+layout: post
+tags:
+  - R
+  - R 101
+---
+
+Sometimes when you open a data file (lets say a *.csv*), variables will be recognized as *factor* whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using *as.numeric()*. Big mistake! If you use directly *as.numeric()* on a variable of the type *factor*, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with *as.character()* and thereafter use *as.numeric()*.
+
+```{r}
+x <- as.factor(rnorm(5))
+x
+
+## Wrong way
+as.numeric(x)
+
+## Right way
+as.numeric(as.character(x))
+
+```
+
+Another way to prevent numeric to be converted into factor would be to use *as.is = T* when opening the data file with *read.csv*.
+
+## Remove all objects in the workspace**
+
+```{r}
+rm(list = ls())
+```
+
+## Replacing values of a data frame with NA
+
+
+```{r, results = "asis", warning = FALSE}
+
+library(xtable)
+
+## Random matrix with with some (50) zeros
+df <- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] <- 0
+
+df <- data.frame(df)
+
+print(xtable(df), type = "html")
+
+## Replace the 0 with NA
+df[df == 0] <- NA
+
+print(xtable(df), type = "html", NA.string = "NA")
+```
+
+##Count % of missing values per column
+
+The other day I was working with a large database. I was looking for a way to calculate % of missing values for each variable. Here is how I calculated it.
+
+```{r, results = "asis"}
+
+## Generate some data
+df <- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] <- NA
+
+df <- data.frame(df)
+
+print(xtable(df), type = "html", NA.string = "NA")
+
+## Find % of missing values in each column with apply
+missing <- apply(df, 2, function(x) sum(is.na(x)))/nrow(df)*100
+
+## Print the result
+df2 <- data.frame(variable = names(df), missing = missing)
+
+print(xtable(df2), type = "html", include.rownames = FALSE)
+```
+
+## Grouping data frame
+
+Tsshere is various way to merge data frame in R. For me, the most easiest way is to use the join functions from the `dplyr` package.
+
+
+<img src="{{ site.baseurl }}/assets/join_types.svg" />
+
+
+```{r, results = "asis"}
+
+library(dplyr)
+
+df1 <- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), x = rnorm(10))
+df2 <- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rnorm(10))
+
+print(xtable(df1), type = "html", include.rownames = FALSE)
+print(xtable(df2), type = "html", include.rownames = FALSE)
+
+inner_join(df1, df2, by = "ID")
+
+df_exact_match <- merge(df1,df2, by = "ID") ## Exact match
+print(xtable(df_exact_match), type = "html", include.rownames = FALSE, NA.string = "NA")
+
+df_all_x <- merge(df1,df2, by = "ID", all.x = T) ## Keep all x (discard y that are not matched)
+print(xtable(df_all_x), type = "html", include.rownames = FALSE, NA.string = "NA")
+
+df_all_y <- merge(df1,df2, by = "ID", all.y = T) ## Keep all y (discard x that are not matched)
+print(xtable(df_all_y), type = "html", include.rownames = FALSE, NA.string = "NA")
+
+df_all <- merge(df1,df2, by = "ID", all = T) ## Keep everything
+print(xtable(df_all), type = "html", include.rownames = FALSE, NA.string = "NA")
+```

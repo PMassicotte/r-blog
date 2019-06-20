@@ -2,24 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Beautiful Hugo</title>
-    <link>/competent-wing-2e0e05.netlify.com/page/</link>
+    <link>/page/</link>
     <description>Recent content in Pages on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Some Person)</managingEditor>
-    <webMaster>youremail@domain.com (Some Person)</webMaster>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     
-	<atom:link href="/competent-wing-2e0e05.netlify.com/page/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>About me</title>
-      <link>/competent-wing-2e0e05.netlify.com/page/about/</link>
+      <title></title>
+      <link>/page/publication/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Some Person)</author>
-      <guid>/competent-wing-2e0e05.netlify.com/page/about/</guid>
-      <description>My name is Inigo Montoya. I have the following qualities:
- I rock a great mustache I&amp;rsquo;m extremely loyal to my family  What else do you need?
-my history To be honest, I&amp;rsquo;m having some trouble remembering right now, so why don&amp;rsquo;t you just watch my movie and it will answer all your questions.</description>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/publication/</guid>
+      <description>[\[1\]](#cite-Asmala2018) E. Asmala, L. Haraguchi, H. H. Jakobsen, P. Massicotte and J. Carstensen. “Nutrient availability as major driver of phytoplankton-derived dissolved organic matter transformation in coastal environment”. In: *Biogeochemistry* 137.1-2 (Jan. 2018), pp. 93-104. ISSN: 0168-2563. DOI: [10.1007/s10533-017-0403-0](https://doi.org/10.1007/s10533-017-0403-0). [\[2\]](#cite-Brandao2018) L. P. M. Brandão, L. S. Brighenti, P. A. Staehr, E. Asmala, P. Massicotte, D. Tonetta, F. A. R. Barbosa, D. Pujoni and J. F. Bezerra-Neto. “Distinctive effects of allochthonous and autochthonous organic matter on CDOM spectra in a tropical lake”.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/about/</guid>
+      <description>As a numerical ecologsist, the R statistical computing language is an important part of my daily work flow. I mainly use R for environmental modeling and data manipulation. In this not-so-serious blog I will present my recent R work as well as basic tips and tricks about R.
+Current research I am currently working as a research associate at the Takuvik Joint International Laboratory under the supervision of Dr. Marcel Babin.</description>
+    </item>
+    
+    <item>
+      <title>Presentations</title>
+      <link>/page/presentations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/presentations/</guid>
+      <description>2019 R à Québec Présentation sur la programmation fonctionnelle avec R lors du symposium R à Québec 2019.
+Link: http://www.pmassicotte.com/rquebec2019
+Green Edge side meeting Green Edge side meeting in Italia after the Gorodn conference.
+Link: http://www.pmassicotte.com/greenedge2019/
+Numerical ecology Numerical ecology in R teaching material used at Aarhus university in March 2019.
+Link: http://www.pmassicotte.com/stats-denmark-2019/</description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>/page/publication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/publication/</guid>
+      <description>[1] E. Asmala, L.Haraguchi, H. H. Jakobsen, P. Massicotte, and J. Carstensen.“Nutrient availability as major driver of phytoplankton-deriveddissolved organic matter transformation in coastal environment”.In: Biogeochemistry 137.1-2 (Jan. 2018), pp. 93-104. ISSN:0168-2563. DOI:10.1007/s10533-017-0403-0.
+[2] L. P. M.Brandão, L. S. Brighenti, P. A. Staehr, E. Asmala, P. Massicotte,D. Tonetta, F. A. R. Barbosa, D. Pujoni, and J. F. Bezerra-Neto.“Distinctive effects of allochthonous and autochthonous organicmatter on CDOM spectra in a tropical lake”.</description>
     </item>
     
   </channel>

@@ -1,0 +1,21 @@
+---
+layout: page
+title: Publications
+output: md_document
+---
+
+```{r results = "asis", echo = FALSE, warning=FALSE, message=FALSE, results='hide'}
+library(RefManageR)
+file <- "C:/Users/pmass/Documents/library.bib"
+# BibOptions(check.entries = FALSE)
+bib <- ReadBib(file, check = FALSE)
+BibOptions(
+  check.entries = FALSE, style = "markdown", cite.style = "authoryear",
+  bib.style = "numeric"
+)
+AutoCite(bib, author = "massicotte")
+```
+
+```{r results = "asis", echo = FALSE, warning=FALSE, message=FALSE}
+PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ydnt", max.names = 999, no.print.fields = c("url")))
+```

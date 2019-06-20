@@ -1,0 +1,21 @@
+---
+title: "Installing latest version of RStudio from R"
+layout: post
+---
+
+
+
+<p>If you are like me, chances are that you update <a href="https://www.rstudio.org/download/daily/desktop/ubuntu64/">RStudio</a> on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.</p>
+<pre class="r"><code>rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;
+
+r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
+
+file &lt;- regmatches(r, regexpr(&quot;https\\S+?deb&quot;, r))[1]
+file
+
+destfile &lt;- paste(&quot;/tmp/&quot;, basename(file))
+
+download.file(file, destfile = destfile)
+
+cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)
+system(cmd)</code></pre>

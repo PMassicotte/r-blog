@@ -1,0 +1,94 @@
+---
+title: Trying the new R vroom Package
+author: Philippe Massicotte
+date: '2019-06-05'
+tags:
+  - R
+draft: true
+---
+
+
+
+<p>There are many R packages that can be used to read plain rectangular data file. Among them, <code>readr</code> and <code>data.table</code> are quite popular options. Recently, the <a href="https://github.com/r-lib/vroom">vroom</a> package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scence, Jim says:</p>
+<blockquote>
+<p>But that’s impossible! How can it be so fast?</p>
+<p>vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.</p>
+</blockquote>
+<p>Because I often have to read large datafiles for my work, I decided to try this new promising package.</p>
+<pre class="r"><code>library(tidyverse)
+library(vroom)
+library(data.table)
+library(extrafont)
+library(glue)
+
+theme_set(theme_light(base_family = &quot;Poppins&quot;, base_size = 14))</code></pre>
+<pre class="r"><code>files &lt;- tibble(
+  file_name = glue(
+    &quot;https://s3.amazonaws.com/capitalbikeshare-data/2018{month}-capitalbikeshare-tripdata.zip&quot;,
+    month = str_pad(
+      1:12,
+      side = &quot;left&quot;,
+      width = 2,
+      pad = &quot;0&quot;
+    )
+  ),
+  destfile = tempfile(pattern = tools::file_path_sans_ext(basename(file_name)), fileext = &quot;.zip&quot;)
+)
+
+files</code></pre>
+<pre><code>## # A tibble: 12 x 2
+##    file_name                            destfile                           
+##    &lt;glue&gt;                               &lt;chr&gt;                              
+##  1 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  2 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  3 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  4 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  5 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  6 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  7 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  8 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+##  9 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+## 10 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+## 11 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~
+## 12 https://s3.amazonaws.com/capitalbik~ &quot;C:\\Users\\pmass\\AppData\\Local\~</code></pre>
+<p>With the file list created, we can download the data.</p>
+<pre class="r"><code>walk2(files$file_name, files$destfile, curl::curl_download)
+f &lt;- map(files$destfile, unzip, exdir = tempdir()) %&gt;% 
+  map_chr(1)</code></pre>
+<ul>
+<li>The <code>vroom()</code> function can use a list of files.</li>
+</ul>
+<pre class="r"><code>df &lt;- vroom(f, .name_repair = ~janitor::make_clean_names(.))</code></pre>
+<pre><code>## Observations: 3,542,684
+## Variables: 9
+## chr  [4]: Start station, End station, Bike number, Member type
+## dbl  [3]: Duration, Start station number, End station number
+## dttm [2]: Start date, End date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<pre class="r"><code>df</code></pre>
+<pre><code>## # A tibble: 3,542,684 x 9
+##    duration start_date          end_date            start_station_n~
+##       &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;                         &lt;dbl&gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # ... with 3,542,674 more rows, and 5 more variables: start_station &lt;chr&gt;,
+## #   end_station_number &lt;dbl&gt;, end_station &lt;chr&gt;, bike_number &lt;chr&gt;,
+## #   member_type &lt;chr&gt;</code></pre>
+<div id="benchmark" class="section level2">
+<h2>Benchmark</h2>
+<pre class="r"><code># res &lt;- microbenchmark::microbenchmark(vroom(f), map_df(f, read_csv), map_df(f, fread), times = 10)
+# autoplot(res)</code></pre>
+</div>
+<div id="compare-with-furrr" class="section level2">
+<h2>Compare with furrr</h2>
+</div>

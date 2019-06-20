@@ -1,0 +1,26 @@
+---
+title: "Quick tip"
+subtitle: "How to remove elements that are not in a list"
+layout: post
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+It is easy to verify if elements are within a list using the `%in%` operator in R. For example:
+
+```{r}
+c("a", "b") %in% letters[1:5]
+```
+
+However, I am often in a situation where I need to do the opposite. This can be easily achieved using the `Negate()` function.
+
+
+```{r}
+`%ni%` <- Negate(`%in%`)
+c("a", "b") %ni% letters[1:5]
+```
+
+Voilà!

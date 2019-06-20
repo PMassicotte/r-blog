@@ -1,0 +1,81 @@
+---
+title: Extracting Weather Data From Canadian Archive
+author: Philippe Massicotte
+date: '2019-05-22'
+tags:
+  - R
+---
+
+To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the [Government of Canada](http://climat.meteo.gc.ca/climate_data/daily_data_f.html?hlyRange=2005-03-24%7C2019-05-21&dlyRange=1992-12-04%7C2019-05-21&mlyRange=1998-01-01%7C2016-03-01&StationID=26892&Prov=QC&urlExtension=_f.html&searchType=stnName&optLimit=yearRange&StartYear=2018&EndYear=2019&selRowPerPage=25&Line=2&searchMethod=contains&Month=5&Day=21&txtStationName=quebec&timeframe=2&Year=2019) have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(extrafont)
+library(tidyverse)
+library(glue)
+
+## Set default ggplot2 font size and font familly
+
+loadfonts(quiet = TRUE)
+theme_set(theme_bw(base_size = 12, base_family = "Poppins"))
+```
+
+The first thing I did was to create a `tibble` with all the dates for which I wanted to extract the weather information. This was also a good chance to use the `glue` package.
+
+```{r}
+url <- "http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?format=csv&stationID=26892&Year={year}&Month={month}&Day={day}&timeframe=2&submit=T%C3%A9l%C3%A9charger+des+donn%C3%A9es"
+
+df <- tibble(
+  date = seq(as.Date("2018-01-01"), as.Date("2019-05-15"), by = "1 month"),
+  url = glue(
+    url,
+    year = lubridate::year(date),
+    month = lubridate::month(date),
+    day = lubridate::day(date)
+  )
+)
+
+df
+```
+
+Now, I will create a function that will download, read and clean each data file.
+
+```{r}
+download_weather <- function(url) {
+  t <- tempfile()
+  curl::curl_download(url, t, quiet = TRUE)
+  df <- read_csv(t, skip = 25, locale = locale(decimal_mark = ",")) %>%
+    janitor::clean_names() %>%
+    select(date_heure, temp_moy_c)
+
+  return(df)
+}
+```
+
+With the urls constructed, I can now download all the data. Here I am using the `rowwise()` function from `dplyr`. Then, I extract the day of the year and the year.
+
+```{r, message=FALSE}
+res <- df %>%
+  rowwise() %>%
+  mutate(data = list(download_weather(url))) %>%
+  unnest(data) %>%
+  mutate(doy = lubridate::yday(date_heure)) %>%
+  mutate(year = lubridate::year(date_heure)) %>%
+  filter(between(doy, 100, lubridate::yday(Sys.time())))
+```
+
+
+With the downloaded data, it was easy to make a plot. Indeed, this year is cooler!
+
+```{r}
+res %>%
+  drop_na() %>%
+  ggplot(aes(x = doy, y = temp_moy_c, color = factor(year))) +
+  geom_line() +
+  geom_point(show.legend = FALSE) +
+  scale_y_continuous(breaks = seq(-10, 20, by = 2)) +
+  xlab("Day of year") +
+  ylab(expression("Average daily temperature " ~ (degree ~ C))) +
+  theme(legend.title = element_blank())
+
+```
+

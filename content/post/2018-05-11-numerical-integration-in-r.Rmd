@@ -1,0 +1,76 @@
+---
+title: Numerical integration in R
+author: Philippe Massicotte
+date: '2018-05-11'
+slug: numerical-integration-in-r
+categories:
+  - R
+  - Mathematics
+tags:
+  - R
+subtitle: 'Math 101'
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+library(extrafont)
+library(tidyverse)
+
+## Set default ggplot2 font size and font familly
+loadfonts(quiet = TRUE)
+theme_set(theme_bw(base_size = 10, base_family = "IBM Plex Sans"))
+```
+
+Although R in not a symbolic language like [Mathematica](http://www.wolfram.com/mathematica/), [Maple](http://www.maplesoft.com/products/maple/) or [Matlab](http://www.mathworks.com/products/matlab/), it can be used for calculus operations. Let's get started. For the shake of simplicity, we will integrate the following equation:
+
+$$
+f(x) = \cos(x) + 2
+$$
+
+We first define the equation in the form of a function since it is a requirement to use the R [integrate](http://stat.ethz.ch/R-manual/R-devel/library/stats/html/integrate.html) function. Then, plot the function curve between 0 and 4.
+
+```{r}
+## Define the function we want to integrate cox(x) + 10
+myfunc <- function(x) {
+  cos(x) + 2
+}
+
+## Calculate the values
+df <- tibble(x = seq(0, 4, 0.01), y = myfunc(x))
+
+df %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA))
+```
+
+Now, let's say we want to integrate between 1 and 3 which correspond to the gray area in the figure below.
+
+```{r}
+df %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_area(data = filter(df, between(x, 1, 3)))
+```
+
+Analytically, the solution would look like this:
+
+$$
+\begin{eqnarray}
+ F(x)&=&\int\limits_1^3 \cos(x)+10 \,dx\\
+  &=&\lbrack\sin(x)+2x\rbrack_1^3\\
+  &=&[6 + \sin(3)] - [2 + \sin(1)]\\
+  &=&4 + \sin(3) - \sin(1)\\
+  &=&3.299649
+\end{eqnarray}
+$$
+
+Now, let's integrate with R
+```{r}
+## Inegrate
+integrate(myfunc, 1, 3)
+```
+The numerical and analytically solutions are consistent.
+
+If you are aware of interesting package for numerical integration let me know!
+
+

@@ -1,0 +1,76 @@
+---
+title: Trying the new R vroom Package
+author: Philippe Massicotte
+date: '2019-06-05'
+tags:
+  - R
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, dev = "svg")
+```
+
+There are many R packages that can be used to read plain rectangular data file. Among them, `readr` and `data.table` are quite popular options. Recently, the [vroom](https://github.com/r-lib/vroom) package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scence, Jim says:
+
+> But that’s impossible! How can it be so fast?
+>
+> vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.
+
+Because I often have to read large datafiles for my work, I decided to try this new promising package.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(vroom)
+library(data.table)
+library(extrafont)
+library(glue)
+
+theme_set(theme_light(base_family = "Poppins", base_size = 14))
+```
+
+
+```{r, cache = TRUE}
+files <- tibble(
+  file_name = glue(
+    "https://s3.amazonaws.com/capitalbikeshare-data/2018{month}-capitalbikeshare-tripdata.zip",
+    month = str_pad(
+      1:12,
+      side = "left",
+      width = 2,
+      pad = "0"
+    )
+  ),
+  destfile = tempfile(pattern = tools::file_path_sans_ext(basename(file_name)), fileext = ".zip")
+)
+
+files
+```
+
+With the file list created, we can download the data.
+
+```{r, cache = TRUE}
+walk2(files$file_name, files$destfile, curl::curl_download)
+f <- map(files$destfile, unzip, exdir = tempdir()) %>% 
+  map_chr(1)
+```
+
+- The `vroom()` function can use a list of files.
+
+```{r, cache = TRUE}
+df <- vroom(f, .name_repair = ~janitor::make_clean_names(.))
+
+df
+```
+
+## Benchmark
+
+```{r, message=FALSE, cache = TRUE}
+
+# res <- microbenchmark::microbenchmark(vroom(f), map_df(f, read_csv), map_df(f, fread), times = 10)
+# autoplot(res)
+```
+
+
+## Compare with furrr

@@ -1,0 +1,55 @@
+---
+title: Numerical integration in R
+author: Philippe Massicotte
+date: '2018-05-11'
+slug: numerical-integration-in-r
+categories:
+  - R
+  - Mathematics
+tags:
+  - R
+subtitle: 'Math 101'
+---
+
+
+
+<p>Although R in not a symbolic language like <a href="http://www.wolfram.com/mathematica/">Mathematica</a>, <a href="http://www.maplesoft.com/products/maple/">Maple</a> or <a href="http://www.mathworks.com/products/matlab/">Matlab</a>, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:</p>
+<p><span class="math display">\[
+f(x) = \cos(x) + 2
+\]</span></p>
+<p>We first define the equation in the form of a function since it is a requirement to use the R <a href="http://stat.ethz.ch/R-manual/R-devel/library/stats/html/integrate.html">integrate</a> function. Then, plot the function curve between 0 and 4.</p>
+<pre class="r"><code>## Define the function we want to integrate cox(x) + 10
+myfunc &lt;- function(x) {
+  cos(x) + 2
+}
+
+## Calculate the values
+df &lt;- tibble(x = seq(0, 4, 0.01), y = myfunc(x))
+
+df %&gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA))</code></pre>
+<p><img src="/post/2018-05-11-numerical-integration-in-r_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Now, let’s say we want to integrate between 1 and 3 which correspond to the gray area in the figure below.</p>
+<pre class="r"><code>df %&gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_area(data = filter(df, between(x, 1, 3)))</code></pre>
+<p><img src="/post/2018-05-11-numerical-integration-in-r_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Analytically, the solution would look like this:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+ F(x)&amp;=&amp;\int\limits_1^3 \cos(x)+10 \,dx\\
+  &amp;=&amp;\lbrack\sin(x)+2x\rbrack_1^3\\
+  &amp;=&amp;[6 + \sin(3)] - [2 + \sin(1)]\\
+  &amp;=&amp;4 + \sin(3) - \sin(1)\\
+  &amp;=&amp;3.299649
+\end{eqnarray}
+\]</span></p>
+<p>Now, let’s integrate with R</p>
+<pre class="r"><code>## Inegrate
+integrate(myfunc, 1, 3)</code></pre>
+<pre><code>## 3.299649 with absolute error &lt; 3.7e-14</code></pre>
+<p>The numerical and analytically solutions are consistent.</p>
+<p>If you are aware of interesting package for numerical integration let me know!</p>

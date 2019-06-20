@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>STEMWomen on Beautiful Hugo</title>
+    <link>/tags/stemwomen/</link>
+    <description>Recent content in STEMWomen on Beautiful Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
+    <lastBuildDate>Sat, 15 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/stemwomen/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Analysis of speaker genders at the 2018 ArcticNet Annual Scientific Meeting</title>
+      <link>/post/gender-asm2018/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/gender-asm2018/</guid>
+      <description>Last week I was participating to the ArcticNet Annual Scientific Meeting 2018 in Ottawa. I was pleasantly surprised to see that there was a large proportion of women present at the conference. After the panel discussion on women in northern science which took place on Thursday night, I decided to see if I could use R to scan the scientific PDF program to determine how many men and women were giving scientific presentations.</description>
+    </item>
+    
+  </channel>
+</rss>

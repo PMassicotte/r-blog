@@ -1,0 +1,39 @@
+---
+title: "eemR 0.1.3 is now on CRAN"
+subtitle: "With Shiny visualization!"
+layout: post
+output: github_document
+---
+
+
+
+<p><a href="https://cran.r-project.org/web/packages/eemR/index.html">eemR</a> has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:</p>
+<ul>
+<li><p>Shiny support: You can interactively visualize EEMS by using <code>interactive = TRUE</code>. Ex.: <code>plot(X, interactive = TRUE)</code>.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html">A vignette has been added</a>.</p></li>
+<li><ul>
+<li><code>eem_remove_blank()</code> and <code>eem_raman_normalisation()</code> can now try to implicitly use a blank eem from a <code>eemlist</code> object (#20). If blank is omitted (<code>blank = NA</code>), the functions will try to extract the blank from the <code>eemlist</code> object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+<ul>
+<li>“nano”</li>
+<li>“miliq”</li>
+<li>“milliq”</li>
+<li>“mq”</li>
+<li>“blank”</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="r"><code>library(eemR)
+library(magrittr)
+
+folder &lt;- system.file(&quot;extdata/cary/scans_day_1/&quot;, package = &quot;eemR&quot;)
+
+eems &lt;- eem_read(folder, recursive = TRUE, import_function = &quot;cary&quot;) %&gt;%
+  eem_raman_normalisation() %&gt;%
+  eem_remove_scattering(type = &quot;raman&quot;, order = 1) %&gt;%
+  eem_remove_scattering(type = &quot;rayleigh&quot;, order = 1)</code></pre>
+<pre><code>## A total of 1 blank EEMs will be averaged.</code></pre>
+<pre><code>## Raman area: 9.540904 
+## Raman area: 9.540904 
+## Raman area: 9.540904</code></pre>
+<pre class="r"><code>plot(eems, which = 3)</code></pre>
+<p><img src="/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>

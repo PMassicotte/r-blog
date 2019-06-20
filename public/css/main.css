@@ -25,6 +25,7 @@ body {
 p {
   line-height: 1.5;
   margin: 6px 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 p + p {
     margin: 24px 0 6px 0;
@@ -756,7 +757,7 @@ div.splitbox div.right {
     padding: 15px 25px;
   }
 }
-.disqus-comments button:hover, 
+.disqus-comments button:hover,
 .disqus-comments button:focus {
   color: #FFF;
   background: #0085a1;

@@ -1,0 +1,137 @@
+---
+title: Solving ODE with R
+author: Philippe Massicotte
+date: '2018-10-22'
+slug: solving-ode-with-r
+categories: []
+tags: []
+subtitle: ''
+---
+
+```{r, setup, include=FALSE}
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+$$
+\begin{align}  
+  &\frac{dx}{dt}=a\frac{150-x(t)}{200}\\[10pt]
+\end{align}
+$$
+
+
+With $$x(0) = 20$$
+
+The analytic solution is:
+
+$$
+\begin{align} 
+  &x(t)=150-130e^{-at/200}
+\end{align}
+$$
+
+**Step 1**
+
+Generate data using the analytic solution and add some random noise. Note that the ODE uses one parameter that has been fixed at $a = 0.75$.
+
+```{r}
+set.seed(1234)
+
+a <- 0.75 ## Fixed parameter used to simulate data.
+
+df <- tibble(
+  time = seq(1, 800, by = 10),
+  salt_concentration = 150 - 130 * exp(-a * time / 200), ## Simulate data 
+  salt_concentration_noise = salt_concentration + rnorm(time, sd = 5)
+)
+
+df %>% 
+  ggplot(aes(x = time)) +
+  geom_point(aes(y = salt_concentration_noise, color = "Observations")) +
+  geom_line(aes(y = salt_concentration, color = "True\nsolution")) +
+  ylab("Salt concentration (kg)") +
+  labs(color = element_blank())
+
+```
+
+**Step 2**
+
+```{r}
+library(deSolve)
+
+## Define the initial value for the state variable
+state <- c(x = 20)
+
+## Time range.
+times <- seq(1, 800, by = 10)
+
+## Parameters
+parameters <- c(a = 0.75)
+
+conc.modeled <- ode(y = state, times = times, func = salttank, parms = parameters, method = "rk4") %>% 
+  as_tibble()
+
+last_plot() +
+  geom_line(data = conc.modeled, aes(x = time, y = x), color = "red")
+```
+
+
+
+### Step 3
+
+Write a function that will be used to solve the ODE. While we there, solve it with fixed parameter $a = 0.75$.
+```{r}
+library(deSolve)
+
+salttank <- function(t, state, parameters) {
+  
+  with(as.list(c(state, parameters)), {
+
+    # rate of change
+    dx <- a * ((150 - x) / 200)
+
+    # return the rate of change
+    return(list(dx))
+  })
+}
+
+
+
+
+```
+
+This is where the magic happens. To fit parameters, I will use **nls.lm()** from the [**minpack.lm** package](http://cran.r-project.org/web/packages/minpack.lm/index.html). In its simplest form, the function uses *par* which is a list of guessed parameters and *fn* a function used to minimize the sum square of the residuals using the [Levenberg-Marquardt algorithm](http://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm). 
+
+Now we have to write a function (here I named it *ssq*) that will use ODE parameters as input (in this case only $a$) and produces a residuals vector as output.
+
+
+```{r chunk_8d}
+ssq  = function(params, observed){
+  
+  ## Range and initial condition as before.
+  times <- seq(1, 800, by = 10)
+  state <- c(x = 20)
+  
+  ## Resolve the ODE.
+  out <- ode(y = state, times = times, func = salttank, parms = params, method = "rk4")
+  
+  ## modeled - observed
+  ssq <- out[, "x"] - observed    
+}
+
+```
+
+**Step 4**
+
+Finally, we can estimate the parameter $a$.
+
+```{r chunk_8e}
+
+library(minpack.lm)
+
+## Start with a guess a = 1
+params.guessed = c(a = 1)
+params.fitted = nls.lm(par = params.guessed, fn = ssq, observed = df$salt_concentration)
+
+summary(params.fitted)
+```
