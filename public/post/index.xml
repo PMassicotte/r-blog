@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Beautiful Hugo</title>
-    <link>/post/</link>
+    <link>https://pmassicotte.github.io/post/</link>
     <description>Recent content in Posts on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>youremail@domain.com (Some Person)</managingEditor>
     <webMaster>youremail@domain.com (Some Person)</webMaster>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pmassicotte.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Introducing eemR</title>
-      <link>/post/2015-11-05-eemr/</link>
+      <link>https://pmassicotte.github.io/post/2015-11-05-eemr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Some Person)</author>
-      <guid>/post/2015-11-05-eemr/</guid>
+      <guid>https://pmassicotte.github.io/post/2015-11-05-eemr/</guid>
       <description>The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
 library(eemR) ls(&amp;quot;package:eemR&amp;quot;) ## [1] &amp;quot;absorbance&amp;quot; &amp;quot;eem_bind&amp;quot; ## [3] &amp;quot;eem_biological_index&amp;quot; &amp;quot;eem_coble_peaks&amp;quot; ## [5] &amp;quot;eem_cut&amp;quot; &amp;quot;eem_export_matlab&amp;quot; ## [7] &amp;quot;eem_extract&amp;quot; &amp;quot;eem_fluorescence_index&amp;quot; ## [9] &amp;quot;eem_humification_index&amp;quot; &amp;quot;eem_inner_filter_effect&amp;quot; ## [11] &amp;quot;eem_names&amp;quot; &amp;quot;eem_names&amp;lt;-&amp;quot; ## [13] &amp;quot;eem_peaks&amp;quot; &amp;quot;eem_raman_normalisation&amp;quot; ## [15] &amp;quot;eem_read&amp;quot; &amp;quot;eem_remove_blank&amp;quot; ## [17] &amp;quot;eem_remove_scattering&amp;quot; &amp;quot;eem_set_wavelengths&amp;quot; The package can be installed using the following command.</description>
     </item>

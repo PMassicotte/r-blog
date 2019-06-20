@@ -3,34 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://pmassicotte.github.io/</loc>
   </url>
   
   <url>
-    <loc>/page/about/</loc>
+    <loc>https://pmassicotte.github.io/page/about/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://pmassicotte.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/2015-11-05-eemr/</loc>
+    <loc>https://pmassicotte.github.io/post/2015-11-05-eemr/</loc>
   </url>
   
   <url>
-    <loc>/page/</loc>
+    <loc>https://pmassicotte.github.io/page/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>https://pmassicotte.github.io/post/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://pmassicotte.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
