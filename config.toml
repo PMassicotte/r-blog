@@ -1,4 +1,5 @@
-baseurl = "https://pmassicotte.github.io"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+baseurl = "competent-wing-2e0e05.netlify.com"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Beautiful Hugo"
