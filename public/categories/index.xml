@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Beautiful Hugo</title>
-    <link>https://pmassicotte.github.io/categories/</link>
+    <link>competent-wing-2e0e05.netlify.com/categories/</link>
     <description>Recent content in Categories on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>youremail@domain.com (Some Person)</managingEditor>
     <webMaster>youremail@domain.com (Some Person)</webMaster>
     
-	<atom:link href="https://pmassicotte.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="competent-wing-2e0e05.netlify.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

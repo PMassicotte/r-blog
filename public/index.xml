@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Beautiful Hugo</title>
-    <link>https://pmassicotte.github.io/</link>
+    <link>competent-wing-2e0e05.netlify.com/</link>
     <description>Recent content on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>youremail@domain.com (Some Person)</managingEditor>
     <webMaster>youremail@domain.com (Some Person)</webMaster>
     
-	<atom:link href="https://pmassicotte.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="competent-wing-2e0e05.netlify.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About me</title>
-      <link>https://pmassicotte.github.io/page/about/</link>
+      <link>competent-wing-2e0e05.netlify.com/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Some Person)</author>
-      <guid>https://pmassicotte.github.io/page/about/</guid>
+      <guid>competent-wing-2e0e05.netlify.com/page/about/</guid>
       <description>My name is Inigo Montoya. I have the following qualities:
  I rock a great mustache I&amp;rsquo;m extremely loyal to my family  What else do you need?
 my history To be honest, I&amp;rsquo;m having some trouble remembering right now, so why don&amp;rsquo;t you just watch my movie and it will answer all your questions.</description>
@@ -24,10 +24,10 @@ my history To be honest, I&amp;rsquo;m having some trouble remembering right now
     
     <item>
       <title>Introducing eemR</title>
-      <link>https://pmassicotte.github.io/post/2015-11-05-eemr/</link>
+      <link>competent-wing-2e0e05.netlify.com/post/2015-11-05-eemr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>youremail@domain.com (Some Person)</author>
-      <guid>https://pmassicotte.github.io/post/2015-11-05-eemr/</guid>
+      <guid>competent-wing-2e0e05.netlify.com/post/2015-11-05-eemr/</guid>
       <description>The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
 library(eemR) ls(&amp;quot;package:eemR&amp;quot;) ## [1] &amp;quot;absorbance&amp;quot; &amp;quot;eem_bind&amp;quot; ## [3] &amp;quot;eem_biological_index&amp;quot; &amp;quot;eem_coble_peaks&amp;quot; ## [5] &amp;quot;eem_cut&amp;quot; &amp;quot;eem_export_matlab&amp;quot; ## [7] &amp;quot;eem_extract&amp;quot; &amp;quot;eem_fluorescence_index&amp;quot; ## [9] &amp;quot;eem_humification_index&amp;quot; &amp;quot;eem_inner_filter_effect&amp;quot; ## [11] &amp;quot;eem_names&amp;quot; &amp;quot;eem_names&amp;lt;-&amp;quot; ## [13] &amp;quot;eem_peaks&amp;quot; &amp;quot;eem_raman_normalisation&amp;quot; ## [15] &amp;quot;eem_read&amp;quot; &amp;quot;eem_remove_blank&amp;quot; ## [17] &amp;quot;eem_remove_scattering&amp;quot; &amp;quot;eem_set_wavelengths&amp;quot; The package can be installed using the following command.</description>
     </item>
