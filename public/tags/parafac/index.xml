@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PARAFAC on Beautiful Hugo</title>
+    <title>PARAFAC on Another R blog</title>
     <link>/tags/parafac/</link>
-    <description>Recent content in PARAFAC on Beautiful Hugo</description>
+    <description>Recent content in PARAFAC on Another R blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
