@@ -1,16 +1,23 @@
 ---
-comments: false
-subtitle: Why you'd want to go on a date with me
+layout: page
 title: About me
+subtitle: Philippe Massicotte
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+As a *numerical ecologsist*, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily work flow. I mainly use R for environmental modeling and data manipulation. In this not-so-serious blog I will present my recent R work as well as basic tips and tricks about R.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+## Current research
 
-What else do you need?
+I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/) under the supervision of [Dr. Marcel Babin](http://www.takuvik.ulaval.ca/team/marcel_babin.php).
 
-### my history
+Some researches I am currently working on:
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+- Understand how surrounding landscapes of aquatic ecosystems determine the biogeocycling of **dissolved organic matter** (DOM).
+
+- Understand how DOM, as the main agent driving optical properties of aquatic ecosystems, influences their functioning.
+
+- Quantify how the complex mosaic composed of ice, snow, leads, melt ponds and open water influence underwater light regime.
+
+## Scientific interests (no specific order)
+
+Dissolved organic matter (DOM), numerical analyses, multivariate analyses, spatial analyses, system dynamic, limnology, fluorescence (optic), geomatic, mathematics, modeling, scientific programming, complex system, aquatic ecology, large rivers, carbon dynamic, community structure, remote sensing and image analysis, oceanography.
