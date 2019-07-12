@@ -5,7 +5,7 @@ DefaultContentLanguage = "en"
 title = "Another R blog"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
-pygmentsStyle = "trac"
+pygmentsStyle = "ocean"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
@@ -15,6 +15,7 @@ pygmentsCodefencesGuessSyntax = true
 #googleAnalytics = "XXX"
 
 [Params]
+  customCSS = ["css/overrides.css"]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Because we need more R blogs"
   logo = "img/avatar-icon.png" # Expecting square dimensions
@@ -68,6 +69,9 @@ pygmentsCodefencesGuessSyntax = true
 #  paypal = "username"
 #  telegram = "username"
   500px = "persican"
+
+[[params.customCSS]]
+     href = "css/overrides.css"
 
 [[menu.main]]
     name = "Blog"

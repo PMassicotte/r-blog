@@ -86,6 +86,7 @@ library(eemR) ls(&quot;package:eemR&quot;) ## [1] &quot;absorbance&quot; &quot;e
 
 <meta property="og:title" content="Introducing eemR" />
 <meta property="og:description" content="The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
+<<<<<<< HEAD
 library(eemR) ls(&quot;package:eemR&quot;) ## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot; ## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot; ## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot; The package can be installed using the following command.">
 <meta property="og:image" content="/img/avatar-icon.png" />
 <meta property="og:url" content="/post/2015-11-05-eemr/" />
@@ -646,3 +647,569 @@ eem_export_matlab(filename, eem)</code></pre>
   </body>
 </html>
 
+=======
+library(eemR)ls(&quot;package:eemR&quot;)## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot;## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot;## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot;The package can be installed using the following command.">
+<meta property="og:image" content="/img/avatar-icon.png" />
+<meta property="og:url" content="/post/2015-11-05-eemr/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Another R blog" />
+
+  <meta name="twitter:title" content="Introducing eemR" />
+  <meta name="twitter:description" content="The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from …">
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <meta property="og:url" content="/post/2015-11-05-eemr/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Another R blog" />
+
+  <meta name="generator" content="Hugo 0.55.6" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Another R blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Presentations" href="/page/presentations/">Presentations</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Publications" href="/page/publication/">Publications</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Another R blog" href="/">
+            <img class="avatar-img" src="/img/avatar-icon.png" alt="Another R blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Introducing eemR</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;640&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<link rel="stylesheet" href="/css/tomorrow.css" rel="stylesheet" id="theme-stylesheet">
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>The <a href="https://github.com/PMassicotte/eemR"><code>eemR</code></a> package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the <code>eem_</code> prefix. Please note this is a very alpha version of the package for testing purpose only.</p>
+<pre class="r"><code>library(eemR)
+ls(&quot;package:eemR&quot;)</code></pre>
+<pre><code>##  [1] &quot;absorbance&quot;              &quot;eem_bind&quot;               
+##  [3] &quot;eem_biological_index&quot;    &quot;eem_coble_peaks&quot;        
+##  [5] &quot;eem_cut&quot;                 &quot;eem_export_matlab&quot;      
+##  [7] &quot;eem_extract&quot;             &quot;eem_fluorescence_index&quot; 
+##  [9] &quot;eem_humification_index&quot;  &quot;eem_inner_filter_effect&quot;
+## [11] &quot;eem_names&quot;               &quot;eem_names&lt;-&quot;            
+## [13] &quot;eem_peaks&quot;               &quot;eem_raman_normalisation&quot;
+## [15] &quot;eem_read&quot;                &quot;eem_remove_blank&quot;       
+## [17] &quot;eem_remove_scattering&quot;   &quot;eem_set_wavelengths&quot;</code></pre>
+<p>The package can be installed using the following command.</p>
+<pre class="r"><code>devtools::install_github(&quot;PMassicotte/eemR&quot;)</code></pre>
+<div id="reading-excitation-emission" class="section level2">
+<h2>Reading excitation-emission</h2>
+<p>At the moment, to following EEM types are supported:</p>
+<ul>
+<li>Cary Eclipse <code>.csv</code> files</li>
+<li>Aqualog <code>.dat</code> files</li>
+</ul>
+<p>EEM can be read using the <code>eem_read()</code> function. <em>Please fill an <a href="https://github.com/PMassicotte/eemR/issues">issue</a> if you have other file formats you would like to add to the package</em>.</p>
+<pre class="r"><code>library(eemR)
+
+## Reading a single eem
+file &lt;- system.file(&quot;extdata/cary/scans_day_1&quot;, &quot;sample1.csv&quot;, package = &quot;eemR&quot;)
+eem &lt;- eem_read(file, import_function = &quot;cary&quot;)
+
+plot(eem)</code></pre>
+<p><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="implemented-metrics" class="section level1">
+<h1>Implemented metrics</h1>
+<p>The current implemented metrics are:</p>
+<ol style="list-style-type: decimal">
+<li><p>The fluorescence index (FI).</p></li>
+<li><p>The fluorescence peaks.</p></li>
+<li><p>The fluorescence humification index (HIX).</p></li>
+<li><p>The biological fluorescence index (BIX).</p></li>
+</ol>
+<pre class="r"><code>library(eemR)
+
+folder &lt;- system.file(&quot;extdata/cary/scans_day_1&quot;, package = &quot;eemR&quot;)
+eem &lt;- eem_read(folder, import_function = &quot;cary&quot;)
+
+eem_fluorescence_index(eem)</code></pre>
+<pre><code>##    sample         fi
+## 1    nano -0.5932057
+## 2 sample1  1.2647823
+## 3 sample2  1.4553330
+## 4 sample3  1.3294132</code></pre>
+<pre class="r"><code>eem_coble_peaks(eem)</code></pre>
+<pre><code>##    sample         b         t        a          m         c
+## 1    nano 0.8745673 0.1401188 0.140175 0.09653326 0.1255788
+## 2 sample1 1.5452981 1.0603312 3.731836 2.42409567 1.8149415
+## 3 sample2 1.2629968 0.6647042 1.583489 1.02359302 0.7709074
+## 4 sample3 1.4740862 1.3162812 8.416034 6.06335506 6.3179129</code></pre>
+<pre class="r"><code>eem_humification_index(eem)</code></pre>
+<pre><code>##    sample        hix
+## 1    nano  0.5568136
+## 2 sample1  6.3795618
+## 3 sample2  4.2548483
+## 4 sample3 13.0246234</code></pre>
+<pre class="r"><code>eem_biological_index(eem)</code></pre>
+<pre><code>##    sample       bix
+## 1    nano 2.6812045
+## 2 sample1 0.7062640
+## 3 sample2 0.8535423
+## 4 sample3 0.4867927</code></pre>
+</div>
+<div id="parafac-pre-processing" class="section level1">
+<h1>PARAFAC pre-processing</h1>
+<p>Three types of correction are currently supported:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>eem_remove_blank()</code> which subtract a water blank from the eem.</p></li>
+<li><p><code>eem_remove_scattering()</code> which remove both <em>Raman</em> and <em>Rayleigh</em> scattering.</p></li>
+<li><p><code>eem_raman_normalisation()</code> which normalize EEM fluoresence intensities.</p></li>
+<li><p><code>eem_inner_filter()</code> which correct for both primary and secondary inner-filter effect.</p></li>
+</ol>
+<div id="removing-raman-and-rayleigh-scattering-1st-and-2nd-order" class="section level2">
+<h2>Removing Raman and Rayleigh scattering (1st and 2nd order)</h2>
+<p>The <code>eem_remove_scattering()</code> function removes both Raman and Rayleigh scattering from EEMs.</p>
+<pre class="r"><code>file &lt;- system.file(&quot;extdata/cary/scans_day_1&quot;, &quot;sample1.csv&quot;, package = &quot;eemR&quot;)
+eem &lt;- eem_read(file, import_function = &quot;cary&quot;)
+
+res &lt;- eem_remove_scattering(eem = eem, type = &quot;raman&quot;, order = 1, width = 10)
+res &lt;- eem_remove_scattering(eem = res, type = &quot;rayleigh&quot;, order = 1, width = 10)
+
+plot(eem)
+plot(res)</code></pre>
+<p><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-4-1.png" width="300cm" height="250cm" /><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-4-2.png" width="300cm" height="250cm" /></p>
+</div>
+<div id="blank-removal" class="section level2">
+<h2>Blank removal</h2>
+<p>The <code>eem_remove_blank()</code> function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank.</p>
+<pre class="r"><code>file &lt;- system.file(&quot;extdata/cary/scans_day_1&quot;, &quot;nano.csv&quot;, package = &quot;eemR&quot;)
+blank &lt;- eem_read(file, import_function = &quot;cary&quot;)
+
+res &lt;- eem_remove_blank(res, blank)
+
+plot(res)</code></pre>
+<p><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="raman-normalization" class="section level2">
+<h2>Raman normalization</h2>
+<p>The <code>eem_raman_normalisation()</code> function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak.</p>
+<pre class="r"><code>res &lt;- eem_raman_normalisation(res, blank)</code></pre>
+<pre><code>## Raman area: 9.540904</code></pre>
+<pre class="r"><code>plot(res)</code></pre>
+<p><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="inner-filter-effect-correction" class="section level2">
+<h2>Inner-filter effect correction</h2>
+<p>To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs.</p>
+<pre class="r"><code>data(&quot;absorbance&quot;)
+
+res &lt;- eem_inner_filter_effect(res, absorbance, 1)</code></pre>
+<pre><code>## sample1 
+## Range of IFE correction factors: 1.0112 1.5546 
+## Range of total absorbance (Atotal) : 0.0096 0.3832</code></pre>
+<pre class="r"><code>plot(res)</code></pre>
+<p><img src="/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="export-to-matlab" class="section level2">
+<h2>Export to Matlab</h2>
+<p>PARAFAC analysis was made easy with the fantastic Matlab <a href="http://www.models.life.ku.dk/drEEM"><code>drEEM</code></a> toolbox. The function <code>eem_export_matlab()</code> can be used to export the EEMs into a <code>m-file</code> directly usable in Matlab by the <code>drEEM</code> toolbox.</p>
+<pre class="r"><code>folder &lt;- system.file(&quot;extdata/cary/scans_day_1&quot;, package = &quot;eemR&quot;)
+eem &lt;- eem_read(folder, import_function = &quot;cary&quot;)
+
+filename &lt;- paste(tempfile(), &quot;.mat&quot;, sep = &quot;&quot;)
+
+eem_export_matlab(filename, eem)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;R.oo&#39;:
+##   method        from       
+##   throw.default R.methodsS3</code></pre>
+<pre><code>## Successfully exported 4 EEMs to C:\Users\pmass\AppData\Local\Temp\RtmpUXBPrk\file4c405f323ad.mat.</code></pre>
+<p>Note that the name of the structure generated by the function will be <code>OriginalData</code> to <em>complement</em> with PARAFAC standard. Then, the importation into Matlab is made easy using the <code>load()</code> function.</p>
+<pre class="matlab"><code>load(&#39;FileName.mat&#39;);</code></pre>
+</div>
+</div>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2f2015-11-05-eemr%2f&amp;text=Introducing%20eemR&amp;via=philmassicotte" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2f2015-11-05-eemr%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2f2015-11-05-eemr%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2f2015-11-05-eemr%2f&amp;title=Introducing%20eemR" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2f2015-11-05-eemr%2f&amp;title=Introducing%20eemR" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2f2015-11-05-eemr%2f&amp;title=Introducing%20eemR" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2f2015-11-05-eemr%2f&amp;description=Introducing%20eemR" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/2016-03-07-not_in/" data-toggle="tooltip" data-placement="top" title="Quick tip">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="/post/2016-11-18-updating-rstudio/" data-toggle="tooltip" data-placement="top" title="Installing latest version of RStudio from R">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:pmassicotte@hotmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/pmassicotte" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/PMassicotte" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/philmassicotte" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/5558188/philippe-massicotte" title="StackOverflow">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://500px.com/persican" title="500px">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-500px fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="PMassicotte.github.io">Philippe Massicotte</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">Another R blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+
+>>>>>>> f6da96ecd8c7935f254644ebdcfdaba769624cca
