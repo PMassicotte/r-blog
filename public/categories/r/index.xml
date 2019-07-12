@@ -19,7 +19,7 @@
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/numerical-integration-in-r/</guid>
       <description>Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[f(x) = \cos(x) + 2\]
+\[ f(x) = \cos(x) + 2 \]
 We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.</description>
     </item>
     

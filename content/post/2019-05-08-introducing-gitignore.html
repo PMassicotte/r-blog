@@ -22,23 +22,23 @@ tags:
 <pre class="r"><code>library(gitignore)</code></pre>
 <p>Get the list of all available templates from <a href="gitignore.io">gitignore.io</a>:</p>
 <pre class="r"><code>head(gi_available_templates(), 50)</code></pre>
-<pre><code>##  [1] &quot;1c&quot;                   &quot;1c-bitrix&quot;            &quot;a-frame&quot;             
-##  [4] &quot;actionscript&quot;         &quot;ada&quot;                  &quot;adobe&quot;               
-##  [7] &quot;advancedinstaller&quot;    &quot;agda&quot;                 &quot;al&quot;                  
-## [10] &quot;alteraquartusii&quot;      &quot;altium&quot;               &quot;android&quot;             
-## [13] &quot;androidstudio&quot;        &quot;angular&quot;              &quot;anjuta&quot;              
-## [16] &quot;ansible&quot;              &quot;apachecordova&quot;        &quot;apachehadoop&quot;        
-## [19] &quot;appbuilder&quot;           &quot;appceleratortitanium&quot; &quot;appcode&quot;             
-## [22] &quot;appcode+all&quot;          &quot;appcode+iml&quot;          &quot;appengine&quot;           
-## [25] &quot;aptanastudio&quot;         &quot;arcanist&quot;             &quot;archive&quot;             
-## [28] &quot;archives&quot;             &quot;archlinuxpackages&quot;    &quot;aspnetcore&quot;          
-## [31] &quot;assembler&quot;            &quot;ate&quot;                  &quot;atmelstudio&quot;         
-## [34] &quot;ats&quot;                  &quot;audio&quot;                &quot;automationstudio&quot;    
-## [37] &quot;autotools&quot;            &quot;autotools+strict&quot;     &quot;backup&quot;              
-## [40] &quot;ballerina&quot;            &quot;basercms&quot;             &quot;basic&quot;               
-## [43] &quot;batch&quot;                &quot;bazaar&quot;               &quot;bazel&quot;               
-## [46] &quot;bitrise&quot;              &quot;bitrix&quot;               &quot;bittorrent&quot;          
-## [49] &quot;blackbox&quot;             &quot;bloop&quot;</code></pre>
+<pre><code>##  [1] &quot;1c&quot;                   &quot;1c-bitrix&quot;            &quot;actionscript&quot;        
+##  [4] &quot;ada&quot;                  &quot;adobe&quot;                &quot;advancedinstaller&quot;   
+##  [7] &quot;adventuregamestudio&quot;  &quot;a-frame&quot;              &quot;agda&quot;                
+## [10] &quot;al&quot;                   &quot;alteraquartusii&quot;      &quot;altium&quot;              
+## [13] &quot;android&quot;              &quot;androidstudio&quot;        &quot;angular&quot;             
+## [16] &quot;anjuta&quot;               &quot;ansible&quot;              &quot;apachecordova&quot;       
+## [19] &quot;apachehadoop&quot;         &quot;appbuilder&quot;           &quot;appceleratortitanium&quot;
+## [22] &quot;appcode&quot;              &quot;appcode+all&quot;          &quot;appcode+iml&quot;         
+## [25] &quot;appengine&quot;            &quot;aptanastudio&quot;         &quot;arcanist&quot;            
+## [28] &quot;archive&quot;              &quot;archives&quot;             &quot;archlinuxpackages&quot;   
+## [31] &quot;aspnetcore&quot;           &quot;assembler&quot;            &quot;ate&quot;                 
+## [34] &quot;atmelstudio&quot;          &quot;ats&quot;                  &quot;audio&quot;               
+## [37] &quot;automationstudio&quot;     &quot;autotools&quot;            &quot;autotools+strict&quot;    
+## [40] &quot;awr&quot;                  &quot;backup&quot;               &quot;ballerina&quot;           
+## [43] &quot;basercms&quot;             &quot;basic&quot;                &quot;batch&quot;               
+## [46] &quot;bazaar&quot;               &quot;bazel&quot;                &quot;bitrise&quot;             
+## [49] &quot;bitrix&quot;               &quot;bittorrent&quot;</code></pre>
 <p>The function <code>gi_fetch_templates()</code> can be used to fetch particular template(s). For example, one could want to get the <code>java</code> and <code>c++</code> templates as follow:</p>
 <pre class="r"><code>gi_fetch_templates(c(&quot;java&quot;, &quot;c++&quot;))</code></pre>
 <pre><code>## 

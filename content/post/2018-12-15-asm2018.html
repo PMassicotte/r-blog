@@ -46,7 +46,7 @@ res &lt;- map(dat[18:51], function(x) { # Only scan pages 18-51
 ##  8 MATTHEW    ASPLIN   
 ##  9 DUSTIN     WHALEN   
 ## 10 ALESSIA    GUZZI    
-## # ... with 376 more rows</code></pre>
+## # … with 376 more rows</code></pre>
 <p>Then, using the <code>gender</code> package, we can determine the genders.</p>
 <pre class="r"><code>library(gender)
 
@@ -54,23 +54,24 @@ res &lt;- res %&gt;%
   nest(c(first_name, last_name)) %&gt;%
   mutate(gender = map(data, ~ gender(.$first_name))) %&gt;%
   unnest(gender) %&gt;%
-  mutate(gender = str_to_title(gender))
-
-res</code></pre>
-<pre><code>## # A tibble: 347 x 6
-##    name      proportion_male proportion_female gender year_min year_max
-##    &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 ADRIAN             0.927             0.0732 Male       1932     2012
-##  2 AGATHE             0                 1      Female     1932     2012
-##  3 ALEJANDRO          0.992             0.0075 Male       1932     2012
-##  4 ALESSIA            0                 1      Female     1932     2012
-##  5 ALEXANDER          0.992             0.0079 Male       1932     2012
-##  6 ALEXANDRA          0.0037            0.996  Female     1932     2012
-##  7 ALEXANDRA          0.0037            0.996  Female     1932     2012
-##  8 ALEXANDRE          0.964             0.0355 Male       1932     2012
-##  9 ALEXIS             0.145             0.855  Female     1932     2012
-## 10 ALISON             0.0045            0.996  Female     1932     2012
-## # ... with 337 more rows</code></pre>
+  mutate(gender = str_to_title(gender))</code></pre>
+<pre><code>## Warning: All elements of `...` must be named.
+## Did you want `data = c(first_name, last_name)`?</code></pre>
+<pre class="r"><code>res</code></pre>
+<pre><code>## # A tibble: 347 x 7
+##         data name  proportion_male proportion_fema… gender year_min
+##    &lt;list&lt;df&gt; &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 [386 × 2] ADRI…          0.927            0.0732 Male       1932
+##  2 [386 × 2] AGAT…          0                1      Female     1932
+##  3 [386 × 2] ALEJ…          0.992            0.0075 Male       1932
+##  4 [386 × 2] ALES…          0                1      Female     1932
+##  5 [386 × 2] ALEX…          0.992            0.0079 Male       1932
+##  6 [386 × 2] ALEX…          0.0037           0.996  Female     1932
+##  7 [386 × 2] ALEX…          0.0037           0.996  Female     1932
+##  8 [386 × 2] ALEX…          0.964            0.0355 Male       1932
+##  9 [386 × 2] ALEX…          0.145            0.855  Female     1932
+## 10 [386 × 2] ALIS…          0.0045           0.996  Female     1932
+## # … with 337 more rows, and 1 more variable: year_max &lt;dbl&gt;</code></pre>
 <p>Finally, we can create a plot to visualize the data.</p>
 <pre class="r"><code>res %&gt;%
   count(gender) %&gt;%
