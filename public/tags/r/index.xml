@@ -23,6 +23,17 @@ An example In this example, we will learn how to create a import function for a 
     </item>
     
     <item>
+      <title>Trying the new R vroom Package</title>
+      <link>/post/2019-06-05-trying-the-vroom-package/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-06-05-trying-the-vroom-package/</guid>
+      <description>There are many R packages that can be used to read plain rectangular data file. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scence, Jim says:
+ But that’s impossible! How can it be so fast?
+vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.</description>
+    </item>
+    
+    <item>
       <title>Extracting Weather Data From Canadian Archive</title>
       <link>/post/2019-05-22-extracting-weather-data-from-canadian-archive/</link>
       <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>

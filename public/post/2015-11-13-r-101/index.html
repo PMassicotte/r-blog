@@ -63,7 +63,7 @@
   "headline": "R 101",
   "description" : "Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.",
   "inLanguage" : "en",
-  "wordCount":  1101 ,
+  "wordCount":  1093 ,
   "datePublished" : "0001-01-01T00:00:00",
   "dateModified" : "0001-01-01T00:00:00",
   "image" : "\/img\/avatar-icon.png",
@@ -267,7 +267,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1101&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1093&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -300,15 +300,15 @@
 <p>Sometimes when you open a data file (lets say a <em>.csv</em>), variables will be recognized as <em>factor</em> whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using <em>as.numeric()</em>. Big mistake! If you use directly <em>as.numeric()</em> on a variable of the type <em>factor</em>, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with <em>as.character()</em> and thereafter use <em>as.numeric()</em>.</p>
 <pre class="r"><code>x &lt;- as.factor(rnorm(5))
 x</code></pre>
-<pre><code>## [1] 0.193281646098428  -0.770587532698968 -1.88771943680243 
-## [4] 0.249336576629856  0.246157016812156 
-## 5 Levels: -1.88771943680243 -0.770587532698968 ... 0.249336576629856</code></pre>
+<pre><code>## [1] 0.910550269042217  -0.61082454512407  1.63183208379428  
+## [4] -0.734762999075495 0.0992008754648885
+## 5 Levels: -0.734762999075495 -0.61082454512407 ... 1.63183208379428</code></pre>
 <pre class="r"><code>## Wrong way
 as.numeric(x)</code></pre>
-<pre><code>## [1] 3 2 1 5 4</code></pre>
+<pre><code>## [1] 4 2 5 1 3</code></pre>
 <pre class="r"><code>## Right way
 as.numeric(as.character(x))</code></pre>
-<pre><code>## [1]  0.1932816 -0.7705875 -1.8877194  0.2493366  0.2461570</code></pre>
+<pre><code>## [1]  0.91055027 -0.61082455  1.63183208 -0.73476300  0.09920088</code></pre>
 <p>Another way to prevent numeric to be converted into factor would be to use <em>as.is = T</em> when opening the data file with <em>read.csv</em>.</p>
 <div id="remove-all-objects-in-the-workspace" class="section level2">
 <h2>Remove all objects in the workspace**</h2>
@@ -327,7 +327,7 @@ df &lt;- data.frame(df)
 
 print(xtable(df), type = &quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:51 2019 -->
+<!-- Tue Jul 16 13:53:07 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -368,13 +368,7 @@ X10
 1
 </td>
 <td align="right">
-0.47
-</td>
-<td align="right">
 0.00
-</td>
-<td align="right">
--0.63
 </td>
 <td align="right">
 0.00
@@ -383,19 +377,25 @@ X10
 0.00
 </td>
 <td align="right">
-0.11
+0.84
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
--0.38
+-0.15
 </td>
 <td align="right">
-0.00
+0.50
 </td>
 <td align="right">
-0.00
+-1.38
+</td>
+<td align="right">
+2.23
+</td>
+<td align="right">
+0.53
 </td>
 </tr>
 <tr>
@@ -403,13 +403,7 @@ X10
 2
 </td>
 <td align="right">
--0.68
-</td>
-<td align="right">
 0.00
-</td>
-<td align="right">
--0.12
 </td>
 <td align="right">
 0.00
@@ -421,16 +415,22 @@ X10
 0.00
 </td>
 <td align="right">
-0.25
+0.00
+</td>
+<td align="right">
+-0.93
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
-0.00
+0.61
 </td>
 <td align="right">
 0.00
+</td>
+<td align="right">
+0.35
 </td>
 </tr>
 <tr>
@@ -438,19 +438,7 @@ X10
 3
 </td>
 <td align="right">
-1.18
-</td>
-<td align="right">
-0.41
-</td>
-<td align="right">
-0.25
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
-0.69
+0.07
 </td>
 <td align="right">
 0.00
@@ -459,13 +447,25 @@ X10
 0.00
 </td>
 <td align="right">
--0.84
+0.00
+</td>
+<td align="right">
+0.10
+</td>
+<td align="right">
+-0.89
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
--1.94
+0.00
+</td>
+<td align="right">
+-0.62
+</td>
+<td align="right">
+0.00
 </td>
 </tr>
 <tr>
@@ -473,77 +473,13 @@ X10
 4
 </td>
 <td align="right">
--0.41
-</td>
-<td align="right">
-0.66
-</td>
-<td align="right">
--1.06
-</td>
-<td align="right">
--0.06
-</td>
-<td align="right">
 0.00
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
-0.00
-</td>
-<td align="right">
-0.95
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
-0.00
-</td>
-</tr>
-<tr>
-<td align="right">
-5
-</td>
-<td align="right">
--0.70
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
--0.76
-</td>
-<td align="right">
--1.35
-</td>
-<td align="right">
-0.34
-</td>
-<td align="right">
--0.23
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
-0.96
-</td>
-<td align="right">
-0.00
-</td>
-</tr>
-<tr>
-<td align="right">
-6
-</td>
-<td align="right">
--0.15
+-0.01
 </td>
 <td align="right">
 -0.36
@@ -552,19 +488,83 @@ X10
 0.00
 </td>
 <td align="right">
+0.75
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
 0.00
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
-0.69
+-0.28
+</td>
+</tr>
+<tr>
+<td align="right">
+5
 </td>
 <td align="right">
-0.55
+-0.26
 </td>
 <td align="right">
-0.45
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+1.59
+</td>
+<td align="right">
+1.37
+</td>
+<td align="right">
+0.26
+</td>
+<td align="right">
+-0.44
+</td>
+<td align="right">
+-0.39
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+2.36
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td align="right">
+0.38
+</td>
+<td align="right">
+2.04
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+1.68
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.24
+</td>
+<td align="right">
+-0.51
 </td>
 <td align="right">
 0.00
@@ -584,13 +584,10 @@ X10
 0.00
 </td>
 <td align="right">
--2.13
+0.04
 </td>
 <td align="right">
-0.45
-</td>
-<td align="right">
-0.00
+-0.49
 </td>
 <td align="right">
 0.00
@@ -599,13 +596,16 @@ X10
 0.00
 </td>
 <td align="right">
-0.00
+0.61
 </td>
 <td align="right">
-0.00
+-0.89
 </td>
 <td align="right">
--2.51
+0.13
+</td>
+<td align="right">
+-1.15
 </td>
 </tr>
 <tr>
@@ -613,19 +613,10 @@ X10
 8
 </td>
 <td align="right">
-0.91
-</td>
-<td align="right">
 0.00
 </td>
 <td align="right">
-0.64
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
-1.75
+-0.31
 </td>
 <td align="right">
 0.00
@@ -634,13 +625,22 @@ X10
 0.00
 </td>
 <td align="right">
--1.46
+0.32
 </td>
 <td align="right">
-0.62
+1.92
 </td>
 <td align="right">
--0.32
+0.10
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+-0.49
 </td>
 </tr>
 <tr>
@@ -651,31 +651,31 @@ X10
 0.00
 </td>
 <td align="right">
--0.63
+0.00
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
--1.30
+0.00
+</td>
+<td align="right">
+0.36
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
-1.18
-</td>
-<td align="right">
-1.87
-</td>
-<td align="right">
-1.35
+0.00
 </td>
 <td align="right">
 -1.34
 </td>
 <td align="right">
-0.18
+0.00
+</td>
+<td align="right">
+0.00
 </td>
 </tr>
 <tr>
@@ -683,34 +683,34 @@ X10
 10
 </td>
 <td align="right">
-1.25
+1.40
 </td>
 <td align="right">
-0.60
-</td>
-<td align="right">
-0.00
-</td>
-<td align="right">
--0.68
+-0.81
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
-0.00
+1.42
+</td>
+<td align="right">
+-0.75
 </td>
 <td align="right">
 0.00
 </td>
 <td align="right">
+0.85
+</td>
+<td align="right">
 0.00
 </td>
 <td align="right">
--0.54
+0.18
 </td>
 <td align="right">
-0.16
+0.38
 </td>
 </tr>
 </table>
@@ -719,7 +719,7 @@ df[df == 0] &lt;- NA
 
 print(xtable(df), type = &quot;html&quot;, NA.string = &quot;NA&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -760,13 +760,7 @@ X10
 1
 </td>
 <td align="right">
-0.47
-</td>
-<td align="right">
 NA
-</td>
-<td align="right">
--0.63
 </td>
 <td align="right">
 NA
@@ -775,19 +769,25 @@ NA
 NA
 </td>
 <td align="right">
-0.11
+0.84
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
--0.38
+-0.15
 </td>
 <td align="right">
-NA
+0.50
 </td>
 <td align="right">
-NA
+-1.38
+</td>
+<td align="right">
+2.23
+</td>
+<td align="right">
+0.53
 </td>
 </tr>
 <tr>
@@ -795,13 +795,7 @@ NA
 2
 </td>
 <td align="right">
--0.68
-</td>
-<td align="right">
 NA
-</td>
-<td align="right">
--0.12
 </td>
 <td align="right">
 NA
@@ -813,16 +807,22 @@ NA
 NA
 </td>
 <td align="right">
-0.25
+NA
+</td>
+<td align="right">
+-0.93
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-NA
+0.61
 </td>
 <td align="right">
 NA
+</td>
+<td align="right">
+0.35
 </td>
 </tr>
 <tr>
@@ -830,19 +830,22 @@ NA
 3
 </td>
 <td align="right">
-1.18
-</td>
-<td align="right">
-0.41
-</td>
-<td align="right">
-0.25
+0.07
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-0.69
+0.00
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.10
+</td>
+<td align="right">
+-0.89
 </td>
 <td align="right">
 NA
@@ -851,13 +854,10 @@ NA
 NA
 </td>
 <td align="right">
--0.84
+-0.62
 </td>
 <td align="right">
 NA
-</td>
-<td align="right">
--1.94
 </td>
 </tr>
 <tr>
@@ -865,77 +865,13 @@ NA
 4
 </td>
 <td align="right">
--0.41
-</td>
-<td align="right">
-0.66
-</td>
-<td align="right">
--1.06
-</td>
-<td align="right">
--0.06
-</td>
-<td align="right">
 NA
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-NA
-</td>
-<td align="right">
-0.95
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-NA
-</td>
-</tr>
-<tr>
-<td align="right">
-5
-</td>
-<td align="right">
--0.70
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
--0.76
-</td>
-<td align="right">
--1.35
-</td>
-<td align="right">
-0.34
-</td>
-<td align="right">
--0.23
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-0.96
-</td>
-<td align="right">
-NA
-</td>
-</tr>
-<tr>
-<td align="right">
-6
-</td>
-<td align="right">
--0.15
+-0.01
 </td>
 <td align="right">
 -0.36
@@ -944,19 +880,83 @@ NA
 NA
 </td>
 <td align="right">
+0.75
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
 NA
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-0.69
+-0.28
+</td>
+</tr>
+<tr>
+<td align="right">
+5
 </td>
 <td align="right">
-0.55
+-0.26
 </td>
 <td align="right">
-0.45
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.59
+</td>
+<td align="right">
+1.37
+</td>
+<td align="right">
+0.26
+</td>
+<td align="right">
+-0.44
+</td>
+<td align="right">
+-0.39
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+2.36
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td align="right">
+0.38
+</td>
+<td align="right">
+2.04
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.68
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.24
+</td>
+<td align="right">
+-0.51
 </td>
 <td align="right">
 NA
@@ -976,13 +976,10 @@ NA
 NA
 </td>
 <td align="right">
--2.13
+0.04
 </td>
 <td align="right">
-0.45
-</td>
-<td align="right">
-NA
+-0.49
 </td>
 <td align="right">
 NA
@@ -991,13 +988,16 @@ NA
 NA
 </td>
 <td align="right">
-NA
+0.61
 </td>
 <td align="right">
-NA
+-0.89
 </td>
 <td align="right">
--2.51
+0.13
+</td>
+<td align="right">
+-1.15
 </td>
 </tr>
 <tr>
@@ -1005,19 +1005,10 @@ NA
 8
 </td>
 <td align="right">
-0.91
-</td>
-<td align="right">
 NA
 </td>
 <td align="right">
-0.64
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-1.75
+-0.31
 </td>
 <td align="right">
 NA
@@ -1026,13 +1017,22 @@ NA
 NA
 </td>
 <td align="right">
--1.46
+0.32
 </td>
 <td align="right">
-0.62
+1.92
 </td>
 <td align="right">
--0.32
+0.10
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.49
 </td>
 </tr>
 <tr>
@@ -1043,31 +1043,31 @@ NA
 NA
 </td>
 <td align="right">
--0.63
+NA
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
--1.30
+NA
+</td>
+<td align="right">
+0.36
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-1.18
-</td>
-<td align="right">
-1.87
-</td>
-<td align="right">
-1.35
+NA
 </td>
 <td align="right">
 -1.34
 </td>
 <td align="right">
-0.18
+NA
+</td>
+<td align="right">
+NA
 </td>
 </tr>
 <tr>
@@ -1075,34 +1075,34 @@ NA
 10
 </td>
 <td align="right">
-1.25
+1.40
 </td>
 <td align="right">
-0.60
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
--0.68
+-0.81
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-NA
+1.42
+</td>
+<td align="right">
+-0.75
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
+0.85
+</td>
+<td align="right">
 NA
 </td>
 <td align="right">
--0.54
+0.18
 </td>
 <td align="right">
-0.16
+0.38
 </td>
 </tr>
 </table>
@@ -1117,7 +1117,7 @@ df &lt;- data.frame(df)
 
 print(xtable(df), type = &quot;html&quot;, NA.string = &quot;NA&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1158,10 +1158,7 @@ X10
 1
 </td>
 <td align="right">
-2.05
-</td>
-<td align="right">
-NA
+0.55
 </td>
 <td align="right">
 NA
@@ -1170,6 +1167,18 @@ NA
 -0.68
 </td>
 <td align="right">
+-0.92
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.72
+</td>
+<td align="right">
+0.87
+</td>
+<td align="right">
 NA
 </td>
 <td align="right">
@@ -1177,15 +1186,6 @@ NA
 </td>
 <td align="right">
 NA
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-1.58
-</td>
-<td align="right">
-0.48
 </td>
 </tr>
 <tr>
@@ -1196,13 +1196,16 @@ NA
 NA
 </td>
 <td align="right">
--0.30
+NA
 </td>
 <td align="right">
--1.55
+0.53
 </td>
 <td align="right">
--1.09
+-0.94
+</td>
+<td align="right">
+-0.55
 </td>
 <td align="right">
 NA
@@ -1211,16 +1214,13 @@ NA
 NA
 </td>
 <td align="right">
--0.09
-</td>
-<td align="right">
-1.27
-</td>
-<td align="right">
-0.71
-</td>
-<td align="right">
 NA
+</td>
+<td align="right">
+-1.28
+</td>
+<td align="right">
+-0.24
 </td>
 </tr>
 <tr>
@@ -1228,19 +1228,7 @@ NA
 3
 </td>
 <td align="right">
--1.03
-</td>
-<td align="right">
--0.22
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-1.27
+-0.13
 </td>
 <td align="right">
 NA
@@ -1252,7 +1240,19 @@ NA
 NA
 </td>
 <td align="right">
-0.91
+NA
+</td>
+<td align="right">
+-0.48
+</td>
+<td align="right">
+0.54
+</td>
+<td align="right">
+-0.75
+</td>
+<td align="right">
+NA
 </td>
 <td align="right">
 NA
@@ -1263,25 +1263,25 @@ NA
 4
 </td>
 <td align="right">
-0.50
+0.77
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-1.01
+-1.19
 </td>
 <td align="right">
--0.24
+1.18
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
--0.39
+-0.74
 </td>
 <td align="right">
-0.41
+NA
 </td>
 <td align="right">
 NA
@@ -1298,16 +1298,13 @@ NA
 5
 </td>
 <td align="right">
-0.51
+-0.91
 </td>
 <td align="right">
--1.60
+0.63
 </td>
 <td align="right">
-NA
-</td>
-<td align="right">
-2.71
+-0.24
 </td>
 <td align="right">
 NA
@@ -1316,16 +1313,19 @@ NA
 0.41
 </td>
 <td align="right">
-0.02
-</td>
-<td align="right">
--2.51
-</td>
-<td align="right">
 NA
 </td>
 <td align="right">
 NA
+</td>
+<td align="right">
+-0.75
+</td>
+<td align="right">
+-0.31
+</td>
+<td align="right">
+0.93
 </td>
 </tr>
 <tr>
@@ -1333,34 +1333,34 @@ NA
 6
 </td>
 <td align="right">
-1.31
-</td>
-<td align="right">
-0.18
-</td>
-<td align="right">
 NA
 </td>
 <td align="right">
--0.60
-</td>
-<td align="right">
--0.89
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-2.33
-</td>
-<td align="right">
--2.10
+-0.46
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
 NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.17
+</td>
+<td align="right">
+-0.15
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.14
 </td>
 </tr>
 <tr>
@@ -1374,19 +1374,7 @@ NA
 NA
 </td>
 <td align="right">
--0.47
-</td>
-<td align="right">
-0.67
-</td>
-<td align="right">
--1.86
-</td>
-<td align="right">
 NA
-</td>
-<td align="right">
--0.06
 </td>
 <td align="right">
 NA
@@ -1395,7 +1383,19 @@ NA
 NA
 </td>
 <td align="right">
-0.43
+-0.73
+</td>
+<td align="right">
+0.13
+</td>
+<td align="right">
+-0.65
+</td>
+<td align="right">
+1.69
+</td>
+<td align="right">
+1.19
 </td>
 </tr>
 <tr>
@@ -1403,34 +1403,34 @@ NA
 8
 </td>
 <td align="right">
-NA
+-0.05
+</td>
+<td align="right">
+-1.64
+</td>
+<td align="right">
+-0.35
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-NA
+-0.40
 </td>
 <td align="right">
--0.23
+0.48
 </td>
 <td align="right">
--0.88
+1.25
 </td>
 <td align="right">
--0.20
-</td>
-<td align="right">
-NA
+1.60
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
 NA
-</td>
-<td align="right">
-1.40
 </td>
 </tr>
 <tr>
@@ -1438,31 +1438,31 @@ NA
 9
 </td>
 <td align="right">
+0.67
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+1.59
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.74
+</td>
+<td align="right">
 NA
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
--0.07
+-0.01
 </td>
 <td align="right">
-0.48
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
--0.56
-</td>
-<td align="right">
-0.60
-</td>
-<td align="right">
-NA
+0.63
 </td>
 <td align="right">
 NA
@@ -1473,22 +1473,10 @@ NA
 10
 </td>
 <td align="right">
-0.29
-</td>
-<td align="right">
--0.01
-</td>
-<td align="right">
--0.19
-</td>
-<td align="right">
 NA
 </td>
 <td align="right">
-0.02
-</td>
-<td align="right">
--1.57
+0.52
 </td>
 <td align="right">
 NA
@@ -1497,10 +1485,22 @@ NA
 NA
 </td>
 <td align="right">
+-0.59
+</td>
+<td align="right">
 NA
 </td>
 <td align="right">
--0.68
+0.98
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.41
+</td>
+<td align="right">
+NA
 </td>
 </tr>
 </table>
@@ -1512,7 +1512,7 @@ df2 &lt;- data.frame(variable = names(df), missing = missing)
 
 print(xtable(df2), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1535,7 +1535,7 @@ X1
 X2
 </td>
 <td align="right">
-50.00
+60.00
 </td>
 </tr>
 <tr>
@@ -1543,7 +1543,7 @@ X2
 X3
 </td>
 <td align="right">
-50.00
+40.00
 </td>
 </tr>
 <tr>
@@ -1551,7 +1551,7 @@ X3
 X4
 </td>
 <td align="right">
-20.00
+70.00
 </td>
 </tr>
 <tr>
@@ -1567,7 +1567,7 @@ X5
 X6
 </td>
 <td align="right">
-60.00
+50.00
 </td>
 </tr>
 <tr>
@@ -1583,7 +1583,7 @@ X7
 X8
 </td>
 <td align="right">
-60.00
+40.00
 </td>
 </tr>
 <tr>
@@ -1591,7 +1591,7 @@ X8
 X9
 </td>
 <td align="right">
-70.00
+50.00
 </td>
 </tr>
 <tr>
@@ -1622,7 +1622,7 @@ df2 &lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rnorm(1
 
 print(xtable(df1), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1634,50 +1634,10 @@ x
 </tr>
 <tr>
 <td>
-D
+T
 </td>
 <td align="right">
-0.05
-</td>
-</tr>
-<tr>
-<td>
-H
-</td>
-<td align="right">
-0.51
-</td>
-</tr>
-<tr>
-<td>
-F
-</td>
-<td align="right">
-0.06
-</td>
-</tr>
-<tr>
-<td>
-P
-</td>
-<td align="right">
-1.11
-</td>
-</tr>
-<tr>
-<td>
-S
-</td>
-<td align="right">
-0.38
-</td>
-</tr>
-<tr>
-<td>
-G
-</td>
-<td align="right">
--0.80
+1.12
 </td>
 </tr>
 <tr>
@@ -1685,23 +1645,23 @@ G
 I
 </td>
 <td align="right">
-0.68
+-1.26
 </td>
 </tr>
 <tr>
 <td>
-M
+A
 </td>
 <td align="right">
--0.56
+1.45
 </td>
 </tr>
 <tr>
 <td>
-L
+D
 </td>
 <td align="right">
--0.46
+-0.86
 </td>
 </tr>
 <tr>
@@ -1709,13 +1669,53 @@ L
 C
 </td>
 <td align="right">
--1.14
+0.81
+</td>
+</tr>
+<tr>
+<td>
+R
+</td>
+<td align="right">
+-0.24
+</td>
+</tr>
+<tr>
+<td>
+H
+</td>
+<td align="right">
+0.23
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-1.42
+</td>
+</tr>
+<tr>
+<td>
+P
+</td>
+<td align="right">
+0.31
+</td>
+</tr>
+<tr>
+<td>
+J
+</td>
+<td align="right">
+0.98
 </td>
 </tr>
 </table>
 <pre class="r"><code>print(xtable(df2), type = &quot;html&quot;, include.rownames = FALSE)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1727,26 +1727,10 @@ y
 </tr>
 <tr>
 <td>
-F
-</td>
-<td align="right">
--0.61
-</td>
-</tr>
-<tr>
-<td>
-O
-</td>
-<td align="right">
--0.65
-</td>
-</tr>
-<tr>
-<td>
 B
 </td>
 <td align="right">
-0.31
+-0.53
 </td>
 </tr>
 <tr>
@@ -1754,39 +1738,7 @@ B
 J
 </td>
 <td align="right">
-0.56
-</td>
-</tr>
-<tr>
-<td>
-P
-</td>
-<td align="right">
-0.63
-</td>
-</tr>
-<tr>
-<td>
-D
-</td>
-<td align="right">
-1.09
-</td>
-</tr>
-<tr>
-<td>
-S
-</td>
-<td align="right">
-0.35
-</td>
-</tr>
-<tr>
-<td>
-H
-</td>
-<td align="right">
--1.48
+-0.76
 </td>
 </tr>
 <tr>
@@ -1794,15 +1746,63 @@ H
 A
 </td>
 <td align="right">
-3.35
+0.75
 </td>
 </tr>
 <tr>
 <td>
-K
+O
 </td>
 <td align="right">
-0.05
+0.03
+</td>
+</tr>
+<tr>
+<td>
+M
+</td>
+<td align="right">
+0.20
+</td>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+0.11
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+-0.23
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+0.54
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-1.40
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+-0.84
 </td>
 </tr>
 </table>
@@ -1810,15 +1810,13 @@ K
 <pre><code>## Warning: Column `ID` joining factors with different levels, coercing to
 ## character vector</code></pre>
 <p>ID x y
-1 D 0.04685277 1.0917207
-2 H 0.51150032 -1.4782089
-3 F 0.05752599 -0.6120852
-4 P 1.10941382 0.6309991
-5 S 0.38478602 0.3480321</p>
+1 A 1.4511853 0.7500123
+2 F -1.4168499 -1.3981136
+3 J 0.9787424 -0.7618463</p>
 <pre class="r"><code>df_exact_match &lt;- merge(df1,df2, by = &quot;ID&quot;) ## Exact match
 print(xtable(df_exact_match), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1833,13 +1831,13 @@ y
 </tr>
 <tr>
 <td>
-D
+A
 </td>
 <td align="right">
-0.05
+1.45
 </td>
 <td align="right">
-1.09
+0.75
 </td>
 </tr>
 <tr>
@@ -1847,50 +1845,28 @@ D
 F
 </td>
 <td align="right">
-0.06
+-1.42
 </td>
 <td align="right">
--0.61
+-1.40
 </td>
 </tr>
 <tr>
 <td>
-H
+J
 </td>
 <td align="right">
-0.51
+0.98
 </td>
 <td align="right">
--1.48
-</td>
-</tr>
-<tr>
-<td>
-P
-</td>
-<td align="right">
-1.11
-</td>
-<td align="right">
-0.63
-</td>
-</tr>
-<tr>
-<td>
-S
-</td>
-<td align="right">
-0.38
-</td>
-<td align="right">
-0.35
+-0.76
 </td>
 </tr>
 </table>
 <pre class="r"><code>df_all_x &lt;- merge(df1,df2, by = &quot;ID&quot;, all.x = T) ## Keep all x (discard y that are not matched)
 print(xtable(df_all_x), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -1905,10 +1881,21 @@ y
 </tr>
 <tr>
 <td>
+A
+</td>
+<td align="right">
+1.45
+</td>
+<td align="right">
+0.75
+</td>
+</tr>
+<tr>
+<td>
 C
 </td>
 <td align="right">
--1.14
+0.81
 </td>
 <td align="right">
 NA
@@ -1919,10 +1906,10 @@ NA
 D
 </td>
 <td align="right">
-0.05
+-0.86
 </td>
 <td align="right">
-1.09
+NA
 </td>
 </tr>
 <tr>
@@ -1930,21 +1917,10 @@ D
 F
 </td>
 <td align="right">
-0.06
+-1.42
 </td>
 <td align="right">
--0.61
-</td>
-</tr>
-<tr>
-<td>
-G
-</td>
-<td align="right">
--0.80
-</td>
-<td align="right">
-NA
+-1.40
 </td>
 </tr>
 <tr>
@@ -1952,10 +1928,10 @@ NA
 H
 </td>
 <td align="right">
-0.51
+0.23
 </td>
 <td align="right">
--1.48
+NA
 </td>
 </tr>
 <tr>
@@ -1963,7 +1939,7 @@ H
 I
 </td>
 <td align="right">
-0.68
+-1.26
 </td>
 <td align="right">
 NA
@@ -1971,24 +1947,13 @@ NA
 </tr>
 <tr>
 <td>
-L
+J
 </td>
 <td align="right">
--0.46
+0.98
 </td>
 <td align="right">
-NA
-</td>
-</tr>
-<tr>
-<td>
-M
-</td>
-<td align="right">
--0.56
-</td>
-<td align="right">
-NA
+-0.76
 </td>
 </tr>
 <tr>
@@ -1996,28 +1961,39 @@ NA
 P
 </td>
 <td align="right">
-1.11
+0.31
 </td>
 <td align="right">
-0.63
+NA
 </td>
 </tr>
 <tr>
 <td>
-S
+R
 </td>
 <td align="right">
-0.38
+-0.24
 </td>
 <td align="right">
-0.35
+NA
+</td>
+</tr>
+<tr>
+<td>
+T
+</td>
+<td align="right">
+1.12
+</td>
+<td align="right">
+NA
 </td>
 </tr>
 </table>
 <pre class="r"><code>df_all_y &lt;- merge(df1,df2, by = &quot;ID&quot;, all.y = T) ## Keep all y (discard x that are not matched)
 print(xtable(df_all_y), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
 <!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
+<!-- Tue Jul 16 13:53:08 2019 -->
 <table border="1">
 <tr>
 <th>
@@ -2032,13 +2008,13 @@ y
 </tr>
 <tr>
 <td>
-D
+A
 </td>
 <td align="right">
-0.05
+1.45
 </td>
 <td align="right">
-1.09
+0.75
 </td>
 </tr>
 <tr>
@@ -2046,54 +2022,21 @@ D
 F
 </td>
 <td align="right">
-0.06
+-1.42
 </td>
 <td align="right">
--0.61
+-1.40
 </td>
 </tr>
 <tr>
 <td>
-H
+J
 </td>
 <td align="right">
-0.51
+0.98
 </td>
 <td align="right">
--1.48
-</td>
-</tr>
-<tr>
-<td>
-P
-</td>
-<td align="right">
-1.11
-</td>
-<td align="right">
-0.63
-</td>
-</tr>
-<tr>
-<td>
-S
-</td>
-<td align="right">
-0.38
-</td>
-<td align="right">
-0.35
-</td>
-</tr>
-<tr>
-<td>
-A
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-3.35
+-0.76
 </td>
 </tr>
 <tr>
@@ -2104,123 +2047,18 @@ B
 NA
 </td>
 <td align="right">
-0.31
+-0.53
 </td>
 </tr>
 <tr>
 <td>
-J
+E
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-0.56
-</td>
-</tr>
-<tr>
-<td>
-K
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-0.05
-</td>
-</tr>
-<tr>
-<td>
-O
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
--0.65
-</td>
-</tr>
-</table>
-<pre class="r"><code>df_all &lt;- merge(df1,df2, by = &quot;ID&quot;, all = T) ## Keep everything
-print(xtable(df_all), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
-<!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
-<!-- Fri Jul 12 11:40:52 2019 -->
-<table border="1">
-<tr>
-<th>
-ID
-</th>
-<th>
-x
-</th>
-<th>
-y
-</th>
-</tr>
-<tr>
-<td>
-C
-</td>
-<td align="right">
--1.14
-</td>
-<td align="right">
-NA
-</td>
-</tr>
-<tr>
-<td>
-D
-</td>
-<td align="right">
-0.05
-</td>
-<td align="right">
-1.09
-</td>
-</tr>
-<tr>
-<td>
-F
-</td>
-<td align="right">
-0.06
-</td>
-<td align="right">
--0.61
-</td>
-</tr>
-<tr>
-<td>
-G
-</td>
-<td align="right">
--0.80
-</td>
-<td align="right">
-NA
-</td>
-</tr>
-<tr>
-<td>
-H
-</td>
-<td align="right">
-0.51
-</td>
-<td align="right">
--1.48
-</td>
-</tr>
-<tr>
-<td>
-I
-</td>
-<td align="right">
-0.68
-</td>
-<td align="right">
-NA
+0.11
 </td>
 </tr>
 <tr>
@@ -2228,10 +2066,10 @@ NA
 L
 </td>
 <td align="right">
--0.46
+NA
 </td>
 <td align="right">
-NA
+-0.84
 </td>
 </tr>
 <tr>
@@ -2239,76 +2077,21 @@ NA
 M
 </td>
 <td align="right">
--0.56
-</td>
-<td align="right">
 NA
 </td>
-</tr>
-<tr>
-<td>
-P
-</td>
 <td align="right">
-1.11
-</td>
-<td align="right">
-0.63
+0.20
 </td>
 </tr>
 <tr>
 <td>
-S
-</td>
-<td align="right">
-0.38
-</td>
-<td align="right">
-0.35
-</td>
-</tr>
-<tr>
-<td>
-A
+N
 </td>
 <td align="right">
 NA
 </td>
 <td align="right">
-3.35
-</td>
-</tr>
-<tr>
-<td>
-B
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-0.31
-</td>
-</tr>
-<tr>
-<td>
-J
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-0.56
-</td>
-</tr>
-<tr>
-<td>
-K
-</td>
-<td align="right">
-NA
-</td>
-<td align="right">
-0.05
+0.54
 </td>
 </tr>
 <tr>
@@ -2319,7 +2102,222 @@ O
 NA
 </td>
 <td align="right">
--0.65
+0.03
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.23
+</td>
+</tr>
+</table>
+<pre class="r"><code>df_all &lt;- merge(df1,df2, by = &quot;ID&quot;, all = T) ## Keep everything
+print(xtable(df_all), type = &quot;html&quot;, include.rownames = FALSE, NA.string = &quot;NA&quot;)</code></pre>
+<!-- html table generated in R 3.6.1 by xtable 1.8-2 package -->
+<!-- Tue Jul 16 13:53:08 2019 -->
+<table border="1">
+<tr>
+<th>
+ID
+</th>
+<th>
+x
+</th>
+<th>
+y
+</th>
+</tr>
+<tr>
+<td>
+A
+</td>
+<td align="right">
+1.45
+</td>
+<td align="right">
+0.75
+</td>
+</tr>
+<tr>
+<td>
+C
+</td>
+<td align="right">
+0.81
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+D
+</td>
+<td align="right">
+-0.86
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+F
+</td>
+<td align="right">
+-1.42
+</td>
+<td align="right">
+-1.40
+</td>
+</tr>
+<tr>
+<td>
+H
+</td>
+<td align="right">
+0.23
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+I
+</td>
+<td align="right">
+-1.26
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+J
+</td>
+<td align="right">
+0.98
+</td>
+<td align="right">
+-0.76
+</td>
+</tr>
+<tr>
+<td>
+P
+</td>
+<td align="right">
+0.31
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+R
+</td>
+<td align="right">
+-0.24
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+T
+</td>
+<td align="right">
+1.12
+</td>
+<td align="right">
+NA
+</td>
+</tr>
+<tr>
+<td>
+B
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.53
+</td>
+</tr>
+<tr>
+<td>
+E
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.11
+</td>
+</tr>
+<tr>
+<td>
+L
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.84
+</td>
+</tr>
+<tr>
+<td>
+M
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.20
+</td>
+</tr>
+<tr>
+<td>
+N
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.54
+</td>
+</tr>
+<tr>
+<td>
+O
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+0.03
+</td>
+</tr>
+<tr>
+<td>
+S
+</td>
+<td align="right">
+NA
+</td>
+<td align="right">
+-0.23
 </td>
 </tr>
 </table>
@@ -2407,9 +2405,9 @@ NA
           
             <li><a href="/post/2019-06-14-eemr-1-0-0/">eemR 1.0.0</a></li>
           
-            <li><a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/">Extracting Weather Data From Canadian Archive</a></li>
+            <li><a href="/post/2019-06-05-trying-the-vroom-package/">Trying the new R vroom Package</a></li>
           
-            <li><a href="/post/2019-05-08-introducing-gitignore/">Introducing gitignore</a></li>
+            <li><a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/">Extracting Weather Data From Canadian Archive</a></li>
           
           </ul>
           
