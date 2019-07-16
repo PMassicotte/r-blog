@@ -4,7 +4,7 @@ title: About me
 subtitle: Philippe Massicotte
 ---
 
-As a *numerical ecologsist*, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily work flow. I mainly use R for environmental modeling and data manipulation. In this not-so-serious blog I will present my recent R work as well as basic tips and tricks about R.
+As a *numerical ecologist*, the [R statistical computing language](https://www.r-project.org/) is an important part of my daily work flow. I mainly use R for environmental modeling and data manipulation. In this not-so-serious blog I will present my recent R work as well as basic tips and tricks about R.
 
 ## Current research
 
@@ -16,7 +16,7 @@ Some researches I am currently working on:
 
 - Understand how DOM, as the main agent driving optical properties of aquatic ecosystems, influences their functioning.
 
-- Quantify how the complex mosaic composed of ice, snow, leads, melt ponds and open water influence underwater light regime.
+- Quantify how the complex mosaic composed of ice, snow, leads, melt ponds and open water influence underwater light regime in aquatic ecosystems.
 
 ## Scientific interests (no specific order)
 
