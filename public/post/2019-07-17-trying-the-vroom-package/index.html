@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Trying the new R vroom Package - Another R blog</title>
+  <meta property="og:title" content="Trying the new R vroom Package" />
+  <meta name="twitter:title" content="Trying the new R vroom Package" />
+  <meta name="description" content="Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
+ But that’s impossible! How can it be so fast?
+vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.">
+  <meta property="og:description" content="Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
+ But that’s impossible! How can it be so fast?
+vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.">
+  <meta name="twitter:description" content="Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. …">
+  <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Another R blog",
+    
+    "url": "\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "\/post\/2019-07-17-trying-the-vroom-package\/",
+          "name": "Trying the new r vroom package"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Philippe Massicotte"
+  },
+  "headline": "Trying the new R vroom Package",
+  "description" : "Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:\n But that’s impossible! How can it be so fast?\nvroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.",
+  "inLanguage" : "en",
+  "wordCount":  823 ,
+  "datePublished" : "2019-07-17T00:00:00",
+  "dateModified" : "2019-07-17T00:00:00",
+  "image" : "\/img\/avatar-icon.png",
+  "keywords" : [ "R, R package, vroom" ],
+  "mainEntityOfPage" : "\/post\/2019-07-17-trying-the-vroom-package\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Trying the new R vroom Package" />
+<meta property="og:description" content="Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
+ But that’s impossible! How can it be so fast?
+vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.">
+<meta property="og:image" content="/img/avatar-icon.png" />
+<meta property="og:url" content="/post/2019-07-17-trying-the-vroom-package/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Another R blog" />
+
+  <meta name="twitter:title" content="Trying the new R vroom Package" />
+  <meta name="twitter:description" content="Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. …">
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <meta property="og:url" content="/post/2019-07-17-trying-the-vroom-package/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Another R blog" />
+
+  <meta name="generator" content="Hugo 0.55.2" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Another R blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Presentations" href="/page/presentations/">Presentations</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Publications" href="/page/publication/">Publications</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Another R blog" href="/">
+            <img class="avatar-img" src="/img/avatar-icon.png" alt="Another R blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Trying the new R vroom Package</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 17, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;823&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<link rel="stylesheet" href="/css/tomorrow.css" rel="stylesheet" id="theme-stylesheet">
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>Many R packages can be used to read plain rectangular data files. Among them, <code>readr</code> and <code>data.table</code> are quite popular options. Recently, the <a href="https://github.com/r-lib/vroom">vroom</a> package have been published on CRAN by <a href="https://twitter.com/jimhester_?lang=en">Jim Hester</a>. While I do not know much about the technology behind the scene, Jim says:</p>
+<blockquote>
+<p>But that’s impossible! How can it be so fast?</p>
+<p>vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.</p>
+</blockquote>
+<p>Because I often have to read large data files, I decided to try this new promising package.</p>
+<pre class="r"><code>library(tidyverse)
+library(vroom)
+library(data.table)
+library(ggpmthemes)
+
+theme_set(theme_poppins(base_size = 14))</code></pre>
+<p>In the next sections, I will compare several methods to read a plain CSV file. The file I will be using contains bike commute data from <a href="https://www.capitalbikeshare.com/system-data">capital bike share</a>. The file contains roughly 170 000 observations and 9 variables.</p>
+<pre class="r"><code>file &lt;- curl::curl_download(&quot;https://s3.amazonaws.com/capitalbikeshare-data/201801-capitalbikeshare-tripdata.zip&quot;, destfile = tempfile(fileext = &quot;.zip&quot;))
+file &lt;- unzip(file, exdir = tempdir())
+read_csv(file)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Duration = col_double(),
+##   `Start date` = col_datetime(format = &quot;&quot;),
+##   `End date` = col_datetime(format = &quot;&quot;),
+##   `Start station number` = col_double(),
+##   `Start station` = col_character(),
+##   `End station number` = col_double(),
+##   `End station` = col_character(),
+##   `Bike number` = col_character(),
+##   `Member type` = col_character()
+## )</code></pre>
+<pre><code>## # A tibble: 168,590 x 9
+##    Duration `Start date`        `End date`          `Start station …
+##       &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;                         &lt;dbl&gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 168,580 more rows, and 5 more variables: `Start station` &lt;chr&gt;,
+## #   `End station number` &lt;dbl&gt;, `End station` &lt;chr&gt;, `Bike number` &lt;chr&gt;,
+## #   `Member type` &lt;chr&gt;</code></pre>
+<p>Because the <code>vroom()</code> function can use a vector of files, I will duplicate <code>file</code> 10 times.</p>
+<pre class="r"><code>files &lt;- rep(file, 10)
+files</code></pre>
+<pre><code>##  [1] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [2] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [3] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [4] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [5] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [6] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [7] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [8] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+##  [9] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;
+## [10] &quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
+<p>I can now simply use this character vector with <code>vroom()</code>. Note that I can also use the <code>.name_repair</code> argument to clean column names.</p>
+<pre class="r"><code>df &lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))</code></pre>
+<pre><code>## Observations: 1,685,900
+## Variables: 9
+## chr  [4]: Start station, End station, Bike number, Member type
+## dbl  [3]: Duration, Start station number, End station number
+## dttm [2]: Start date, End date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<pre class="r"><code>df</code></pre>
+<pre><code>## # A tibble: 1,685,900 x 9
+##    duration start_date          end_date            start_station_n…
+##       &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;                         &lt;dbl&gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 1,685,890 more rows, and 5 more variables: start_station &lt;chr&gt;,
+## #   end_station_number &lt;dbl&gt;, end_station &lt;chr&gt;, bike_number &lt;chr&gt;,
+## #   member_type &lt;chr&gt;</code></pre>
+<div id="benchmark" class="section level2">
+<h2>Benchmark</h2>
+<p>One advantage of <code>vroom</code> is its speed. In what follows, I will compare different methods to read the <code>files</code> vector that contains 10 files. I will also use the <code>furrr</code> package to use map in parallel.</p>
+<pre class="r"><code>library(furrr)
+
+# How many cores to use
+plan(multiprocess(workers = availableCores() - 1))
+
+res &lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  map_df(files, read_csv),
+  map_df(files, fread),
+  future_map_dfr(files, vroom),
+  future_map_dfr(files, read_csv),
+  future_map_dfr(files, fread), 
+  times = 10
+)
+
+autoplot(res)</code></pre>
+<p><img src="/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark1-1.svg" width="672" /></p>
+<p>As we can see, the <code>vroom</code> package is the winner. It is even considerably faster than the versions using map in parallel, which surprises me! Please leave a message below if you have an explanation.</p>
+</div>
+<div id="using-altrep" class="section level2">
+<h2>Using Altrep</h2>
+<p>Another feature of the <code>vroom()</code> function is that we can decide which column types are using Altrep. Setting <code>altrep_opts = TRUE</code> will enable Altrep for all column types. As seen below, this increases further the speed of the <code>vroom()</code> function.</p>
+<pre class="r"><code>res &lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  vroom(files, altrep_opts = TRUE),
+  times = 10
+)
+
+autoplot(res)</code></pre>
+<p><img src="/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark2-1.svg" width="672" /></p>
+<p>Based on these results, I think that <code>vroom</code> will become part of my daily workflow from now on.</p>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="//tags/r/">R</a>&nbsp;
+            
+              <a href="//tags/r-package/">R package</a>&nbsp;
+            
+              <a href="//tags/vroom/">vroom</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f&amp;text=Trying%20the%20new%20R%20vroom%20Package&amp;via=philmassicotte" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2f2019-07-17-trying-the-vroom-package%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f&amp;title=Trying%20the%20new%20R%20vroom%20Package" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f&amp;title=Trying%20the%20new%20R%20vroom%20Package" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f&amp;title=Trying%20the%20new%20R%20vroom%20Package" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2f2019-07-17-trying-the-vroom-package%2f&amp;description=Trying%20the%20new%20R%20vroom%20Package" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+          <h4 class="see-also">See also</h4>
+          <ul>
+          
+            <li><a href="/post/2019-06-14-eemr-1-0-0/">eemR 1.0.0</a></li>
+          
+            <li><a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/">Extracting Weather Data From Canadian Archive</a></li>
+          
+            <li><a href="/post/2019-05-08-introducing-gitignore/">Introducing gitignore</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/2019-06-14-eemr-1-0-0/" data-toggle="tooltip" data-placement="top" title="eemR 1.0.0">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pmassicotte" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:pmassicotte@hotmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/pmassicotte" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/PMassicotte" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/philmassicotte" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/5558188/philippe-massicotte" title="StackOverflow">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://500px.com/persican" title="500px">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-500px fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="PMassicotte.github.io">Philippe Massicotte</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">Another R blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

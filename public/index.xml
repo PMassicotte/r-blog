@@ -6,10 +6,141 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Fri, 14 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jul 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Trying the new R vroom Package</title>
+      <link>/post/2019-07-17-trying-the-vroom-package/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-07-17-trying-the-vroom-package/</guid>
+      <description>
+
+
+&lt;p&gt;Many R packages can be used to read plain rectangular data files. Among them, &lt;code&gt;readr&lt;/code&gt; and &lt;code&gt;data.table&lt;/code&gt; are quite popular options. Recently, the &lt;a href=&#34;https://github.com/r-lib/vroom&#34;&gt;vroom&lt;/a&gt; package have been published on CRAN by &lt;a href=&#34;https://twitter.com/jimhester_?lang=en&#34;&gt;Jim Hester&lt;/a&gt;. While I do not know much about the technology behind the scene, Jim says:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;But that’s impossible! How can it be so fast?&lt;/p&gt;
+&lt;p&gt;vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Because I often have to read large data files, I decided to try this new promising package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(vroom)
+library(data.table)
+library(ggpmthemes)
+
+theme_set(theme_poppins(base_size = 14))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the next sections, I will compare several methods to read a plain CSV file. The file I will be using contains bike commute data from &lt;a href=&#34;https://www.capitalbikeshare.com/system-data&#34;&gt;capital bike share&lt;/a&gt;. The file contains roughly 170 000 observations and 9 variables.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file &amp;lt;- curl::curl_download(&amp;quot;https://s3.amazonaws.com/capitalbikeshare-data/201801-capitalbikeshare-tripdata.zip&amp;quot;, destfile = tempfile(fileext = &amp;quot;.zip&amp;quot;))
+file &amp;lt;- unzip(file, exdir = tempdir())
+read_csv(file)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   Duration = col_double(),
+##   `Start date` = col_datetime(format = &amp;quot;&amp;quot;),
+##   `End date` = col_datetime(format = &amp;quot;&amp;quot;),
+##   `Start station number` = col_double(),
+##   `Start station` = col_character(),
+##   `End station number` = col_double(),
+##   `End station` = col_character(),
+##   `Bike number` = col_character(),
+##   `Member type` = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 168,590 x 9
+##    Duration `Start date`        `End date`          `Start station …
+##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 168,580 more rows, and 5 more variables: `Start station` &amp;lt;chr&amp;gt;,
+## #   `End station number` &amp;lt;dbl&amp;gt;, `End station` &amp;lt;chr&amp;gt;, `Bike number` &amp;lt;chr&amp;gt;,
+## #   `Member type` &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because the &lt;code&gt;vroom()&lt;/code&gt; function can use a vector of files, I will duplicate &lt;code&gt;file&lt;/code&gt; 10 times.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- rep(file, 10)
+files&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [2] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [3] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [4] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [5] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [6] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [7] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [8] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [9] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;
+## [10] &amp;quot;/tmp/RtmpeP2x7u/201801_capitalbikeshare_tripdata.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I can now simply use this character vector with &lt;code&gt;vroom()&lt;/code&gt;. Note that I can also use the &lt;code&gt;.name_repair&lt;/code&gt; argument to clean column names.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Observations: 1,685,900
+## Variables: 9
+## chr  [4]: Start station, End station, Bike number, Member type
+## dbl  [3]: Duration, Start station number, End station number
+## dttm [2]: Start date, End date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,685,900 x 9
+##    duration start_date          end_date            start_station_n…
+##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 1,685,890 more rows, and 5 more variables: start_station &amp;lt;chr&amp;gt;,
+## #   end_station_number &amp;lt;dbl&amp;gt;, end_station &amp;lt;chr&amp;gt;, bike_number &amp;lt;chr&amp;gt;,
+## #   member_type &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;benchmark&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Benchmark&lt;/h2&gt;
+&lt;p&gt;One advantage of &lt;code&gt;vroom&lt;/code&gt; is its speed. In what follows, I will compare different methods to read the &lt;code&gt;files&lt;/code&gt; vector that contains 10 files. I will also use the &lt;code&gt;furrr&lt;/code&gt; package to use map in parallel.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(furrr)
+
+# How many cores to use
+plan(multiprocess(workers = availableCores() - 1))
+
+res &amp;lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  map_df(files, read_csv),
+  map_df(files, fread),
+  future_map_dfr(files, vroom),
+  future_map_dfr(files, read_csv),
+  future_map_dfr(files, fread), 
+  times = 10
+)
+
+autoplot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark1-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see, the &lt;code&gt;vroom&lt;/code&gt; package is the winner. It is even considerably faster than the versions using map in parallel, which surprises me! Please leave a message below if you have an explanation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-altrep&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Using Altrep&lt;/h2&gt;
+&lt;p&gt;Another feature of the &lt;code&gt;vroom()&lt;/code&gt; function is that we can decide which column types are using Altrep. Setting &lt;code&gt;altrep_opts = TRUE&lt;/code&gt; will enable Altrep for all column types. As seen below, this increases further the speed of the &lt;code&gt;vroom()&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res &amp;lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  vroom(files, altrep_opts = TRUE),
+  times = 10
+)
+
+autoplot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark2-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Based on these results, I think that &lt;code&gt;vroom&lt;/code&gt; will become part of my daily workflow from now on.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>eemR 1.0.0</title>
@@ -123,101 +254,6 @@ eem_coble_peaks(eem)&lt;/code&gt;&lt;/pre&gt;
 ## requested wavelengths.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##        sample  b        t        a       m        c
 ## 1 custom_cary NA 10.86736 83.44561 61.2534 49.55256&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Trying the new R vroom Package</title>
-      <link>/post/2019-06-05-trying-the-vroom-package/</link>
-      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/2019-06-05-trying-the-vroom-package/</guid>
-      <description>
-
-
-&lt;p&gt;There are many R packages that can be used to read plain rectangular data file. Among them, &lt;code&gt;readr&lt;/code&gt; and &lt;code&gt;data.table&lt;/code&gt; are quite popular options. Recently, the &lt;a href=&#34;https://github.com/r-lib/vroom&#34;&gt;vroom&lt;/a&gt; package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scence, Jim says:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;But that’s impossible! How can it be so fast?&lt;/p&gt;
-&lt;p&gt;vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Because I often have to read large datafiles for my work, I decided to try this new promising package.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
-library(vroom)
-library(data.table)
-library(extrafont)
-library(glue)
-
-theme_set(theme_light(base_family = &amp;quot;Poppins&amp;quot;, base_size = 14))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- tibble(
-  file_name = glue(
-    &amp;quot;https://s3.amazonaws.com/capitalbikeshare-data/2018{month}-capitalbikeshare-tripdata.zip&amp;quot;,
-    month = str_pad(
-      1:12,
-      side = &amp;quot;left&amp;quot;,
-      width = 2,
-      pad = &amp;quot;0&amp;quot;
-    )
-  ),
-  destfile = tempfile(pattern = tools::file_path_sans_ext(basename(file_name)), fileext = &amp;quot;.zip&amp;quot;)
-)
-
-files&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 12 x 2
-##    file_name                            destfile                           
-##    &amp;lt;glue&amp;gt;                               &amp;lt;chr&amp;gt;                              
-##  1 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  2 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  3 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  4 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  5 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  6 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  7 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  8 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-##  9 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-## 10 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-## 11 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~
-## 12 https://s3.amazonaws.com/capitalbik~ &amp;quot;C:\\Users\\pmass\\AppData\\Local\~&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;With the file list created, we can download the data.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;walk2(files$file_name, files$destfile, curl::curl_download)
-f &amp;lt;- map(files$destfile, unzip, exdir = tempdir()) %&amp;gt;% 
-  map_chr(1)&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;The &lt;code&gt;vroom()&lt;/code&gt; function can use a list of files.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- vroom(f, .name_repair = ~janitor::make_clean_names(.))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 3,542,684
-## Variables: 9
-## chr  [4]: Start station, End station, Bike number, Member type
-## dbl  [3]: Duration, Start station number, End station number
-## dttm [2]: Start date, End date
-## 
-## Call `spec()` for a copy-pastable column specification
-## Specify the column types with `col_types` to quiet this message&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 3,542,684 x 9
-##    duration start_date          end_date            start_station_n~
-##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
-##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
-##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
-##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
-##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
-##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
-##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
-##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
-##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
-##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
-## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
-## # ... with 3,542,674 more rows, and 5 more variables: start_station &amp;lt;chr&amp;gt;,
-## #   end_station_number &amp;lt;dbl&amp;gt;, end_station &amp;lt;chr&amp;gt;, bike_number &amp;lt;chr&amp;gt;,
-## #   member_type &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;benchmark&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Benchmark&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# res &amp;lt;- microbenchmark::microbenchmark(vroom(f), map_df(f, read_csv), map_df(f, fread), times = 10)
-# autoplot(res)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;compare-with-furrr&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Compare with furrr&lt;/h2&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -1095,7 +1131,7 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Registered S3 method overwritten by &amp;#39;R.oo&amp;#39;:
 ##   method        from       
 ##   throw.default R.methodsS3&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Successfully exported 4 EEMs to /tmp/Rtmpnn2S5o/file56bd70f01278.mat.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Successfully exported 4 EEMs to /tmp/Rtmpd9jXFk/file40ba1ea7d69c.mat.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that the name of the structure generated by the function will be &lt;code&gt;OriginalData&lt;/code&gt; to &lt;em&gt;complement&lt;/em&gt; with PARAFAC standard. Then, the importation into Matlab is made easy using the &lt;code&gt;load()&lt;/code&gt; function.&lt;/p&gt;
 &lt;pre class=&#34;matlab&#34;&gt;&lt;code&gt;load(&amp;#39;FileName.mat&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -1401,15 +1437,15 @@ c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %ni% letters[1:5]&lt;/code&gt;&l
 &lt;p&gt;Sometimes when you open a data file (lets say a &lt;em&gt;.csv&lt;/em&gt;), variables will be recognized as &lt;em&gt;factor&lt;/em&gt; whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using &lt;em&gt;as.numeric()&lt;/em&gt;. Big mistake! If you use directly &lt;em&gt;as.numeric()&lt;/em&gt; on a variable of the type &lt;em&gt;factor&lt;/em&gt;, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with &lt;em&gt;as.character()&lt;/em&gt; and thereafter use &lt;em&gt;as.numeric()&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- as.factor(rnorm(5))
 x&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.910550269042217  -0.61082454512407  1.63183208379428  
-## [4] -0.734762999075495 0.0992008754648885
-## 5 Levels: -0.734762999075495 -0.61082454512407 ... 1.63183208379428&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.814291555108604  0.0628283009112317 -1.73798276947442 
+## [4] 0.142749911518816  -0.889154289849649
+## 5 Levels: -1.73798276947442 -0.889154289849649 ... 0.814291555108604&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Wrong way
 as.numeric(x)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 4 2 5 1 3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 3 1 4 2&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Right way
 as.numeric(as.character(x))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1]  0.91055027 -0.61082455  1.63183208 -0.73476300  0.09920088&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  0.8142916  0.0628283 -1.7379828  0.1427499 -0.8891543&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another way to prevent numeric to be converted into factor would be to use &lt;em&gt;as.is = T&lt;/em&gt; when opening the data file with &lt;em&gt;read.csv&lt;/em&gt;.&lt;/p&gt;
 &lt;div id=&#34;remove-all-objects-in-the-workspace&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Remove all objects in the workspace**&lt;/h2&gt;
@@ -1428,7 +1464,7 @@ df &amp;lt;- data.frame(df)
 
 print(xtable(df), type = &amp;quot;html&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:07 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -1475,10 +1511,16 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+0.89
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.84
+0.15
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -1487,16 +1529,10 @@ X10
 -0.15
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.50
+1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.38
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-2.23
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.53
+0.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1504,13 +1540,83 @@ X10
 2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+0.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.33
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.81
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.45
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -1522,86 +1628,16 @@ X10
 -0.93
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-0.17
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.35
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-3
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.07
+0.16
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.10
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.89
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.62
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-4
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.01
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.36
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.75
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.28
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1609,7 +1645,7 @@ X10
 5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.26
+-0.08
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -1618,25 +1654,25 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.59
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.26
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.44
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.39
+1.76
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.36
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+3.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.73
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1644,34 +1680,34 @@ X10
 6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.38
+1.08
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.04
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
+1.23
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.68
+-1.90
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.24
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.51
+-0.14
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+0.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.64
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1679,34 +1715,34 @@ X10
 7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.43
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.17
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.66
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.04
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.49
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.89
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.13
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.15
+0.56
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1714,25 +1750,13 @@ X10
 8
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-0.69
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.31
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.32
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.92
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.10
+0.83
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -1741,7 +1765,19 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.49
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1755,28 +1791,28 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+-0.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.38
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.36
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.34
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
+1.69
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1784,34 +1820,34 @@ X10
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.40
+-2.49
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.81
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.42
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.75
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.85
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.57
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.18
+-0.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.38
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.60
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -1820,7 +1856,7 @@ df[df == 0] &amp;lt;- NA
 
 print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -1867,10 +1903,16 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+0.89
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.84
+0.15
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -1879,16 +1921,10 @@ NA
 -0.15
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.50
+1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.38
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-2.23
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.53
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1896,13 +1932,83 @@ NA
 2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+0.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.33
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.81
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.45
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -1914,86 +2020,16 @@ NA
 -0.93
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.17
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.35
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-3
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.07
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.10
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.89
+0.16
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.62
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-4
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.01
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.36
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.75
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.28
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2001,7 +2037,7 @@ NA
 5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.26
+-0.08
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2010,25 +2046,25 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.59
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.26
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.44
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.39
+1.76
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.36
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+3.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.73
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2036,34 +2072,34 @@ NA
 6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.38
+1.08
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.04
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+1.23
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.68
+-1.90
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.24
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.51
+-0.14
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+0.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.64
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2071,34 +2107,34 @@ NA
 7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.43
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.17
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.66
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.04
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.49
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.89
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.13
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.15
+0.56
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2106,25 +2142,13 @@ NA
 8
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.69
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.31
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.32
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.92
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.10
+0.83
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2133,7 +2157,19 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.49
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2147,28 +2183,28 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+-0.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.38
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.36
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.34
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+1.69
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2176,34 +2212,34 @@ NA
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.40
+-2.49
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.81
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.42
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.75
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.85
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.57
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.18
+-0.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.38
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.60
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -2218,7 +2254,7 @@ df &amp;lt;- data.frame(df)
 
 print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2259,25 +2295,16 @@ X10
 1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.55
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.68
+0.24
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.92
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.87
+-0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2287,6 +2314,15 @@ NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.91
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2300,28 +2336,28 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.53
+1.59
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.94
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.55
+0.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.28
+0.44
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.24
+-1.56
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.30
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2329,7 +2365,19 @@ NA
 3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.13
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.20
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.77
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.84
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2338,19 +2386,7 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.48
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.54
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.75
+0.71
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2364,22 +2400,7 @@ NA
 4
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.77
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.19
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.18
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.74
+0.12
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2388,10 +2409,25 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.60
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.72
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.11
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.83
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2399,19 +2435,13 @@ NA
 5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.91
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.63
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.24
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.41
+-0.67
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2420,13 +2450,19 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.75
+-0.51
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.31
+1.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.93
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.48
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2437,31 +2473,31 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.46
+-0.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.23
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.69
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.63
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+1.42
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.17
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.15
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.14
+0.92
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2469,6 +2505,15 @@ NA
 7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+1.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.02
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
@@ -2478,25 +2523,16 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.58
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.73
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.13
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.65
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.69
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.19
+0.29
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2504,34 +2540,34 @@ NA
 8
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.05
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.64
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.35
+-0.19
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.38
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.40
+-0.85
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.48
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.25
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.60
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+-0.98
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2539,19 +2575,7 @@ NA
 9
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.67
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.59
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.74
+0.91
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2560,13 +2584,25 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.01
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.63
+-1.58
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2574,25 +2610,25 @@ NA
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+1.70
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.52
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+-1.43
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.59
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.45
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -2601,7 +2637,7 @@ NA
 0.41
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.59
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -2613,7 +2649,7 @@ df2 &amp;lt;- data.frame(variable = names(df), missing = missing)
 
 print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2628,7 +2664,7 @@ missing
 X1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+60.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2636,7 +2672,7 @@ X1
 X2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-60.00
+70.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2644,7 +2680,7 @@ X2
 X3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+30.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2652,7 +2688,7 @@ X3
 X4
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-70.00
+40.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2660,7 +2696,7 @@ X4
 X5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+60.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2668,7 +2704,7 @@ X5
 X6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+60.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2676,7 +2712,7 @@ X6
 X7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+50.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2684,7 +2720,7 @@ X7
 X8
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+70.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2700,7 +2736,7 @@ X9
 X10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-60.00
+10.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -2723,7 +2759,7 @@ df2 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rno
 
 print(xtable(df1), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2738,28 +2774,12 @@ x
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.12
+-1.97
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-I
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.26
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-A
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.45
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-D
+K
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 -0.86
@@ -2767,18 +2787,18 @@ D
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-C
+G
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.81
+2.01
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-R
+N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.24
+1.51
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2786,7 +2806,7 @@ R
 H
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.23
+0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2794,15 +2814,23 @@ H
 F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.42
+-1.35
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+L
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.31
+-0.52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.50
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2810,13 +2838,21 @@ P
 J
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.11
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+B
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.79
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2828,66 +2864,10 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-B
+D
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.53
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-J
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.76
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-A
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.75
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-O
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.03
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-M
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.20
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-E
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.11
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-S
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.23
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-N
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.54
+0.15
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2895,15 +2875,71 @@ N
 F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.40
+-0.21
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-L
+K
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.84
+0.35
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.01
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.57
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+P
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -2911,13 +2947,16 @@ L
 &lt;pre&gt;&lt;code&gt;## Warning: Column `ID` joining factors with different levels, coercing to
 ## character vector&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;ID x y
-1 A 1.4511853 0.7500123
-2 F -1.4168499 -1.3981136
-3 J 0.9787424 -0.7618463&lt;/p&gt;
+1 T -1.9722302 -0.008881157
+2 K -0.8550254 0.351498102
+3 G 2.0056166 1.358769862
+4 N 1.5094165 -0.649026955
+5 F -1.3454974 -0.213258487
+6 J 0.1101509 -1.468723663&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_exact_match &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;) ## Exact match
 print(xtable(df_exact_match), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2932,24 +2971,24 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-A
+F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.45
+-1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.75
+-0.21
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-F
+G
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.42
+2.01
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.40
+1.36
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2957,17 +2996,50 @@ F
 J
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.11
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.76
+-1.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+K
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.97
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.01
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_x &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.x = T) ## Keep all x (discard y that are not matched)
 print(xtable(df_all_x), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -2982,32 +3054,10 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-A
+B
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.45
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.75
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-C
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.81
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-D
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.86
+0.79
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3018,10 +3068,21 @@ NA
 F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.42
+-1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.40
+-0.21
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.01
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.36
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3029,18 +3090,7 @@ F
 H
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.23
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-I
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.26
+0.10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3051,18 +3101,29 @@ NA
 J
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.11
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.76
+-1.47
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+K
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.31
+-0.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.52
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3070,10 +3131,21 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-R
+N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.24
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.50
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3084,17 +3156,17 @@ NA
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.12
+-1.97
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.01
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_y &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.y = T) ## Keep all y (discard x that are not matched)
 print(xtable(df_all_y), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -3109,24 +3181,24 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-A
+F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.45
+-1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.75
+-0.21
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-F
+G
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.42
+2.01
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.40
+1.36
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3134,21 +3206,65 @@ F
 J
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.11
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.76
+-1.47
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-B
+K
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.97
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.01
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+A
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.53
+0.57
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+D
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.15
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3159,69 +3275,25 @@ E
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.11
+-0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-L
+P
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.84
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-M
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.20
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-N
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.54
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-O
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.03
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-S
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.23
+0.39
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all = T) ## Keep everything
 print(xtable(df_all), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Tue Jul 16 13:53:08 2019 --&gt;
+&lt;!-- Wed Jul 17 10:29:26 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -3236,32 +3308,10 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-A
+B
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.45
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.75
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-C
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.81
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-D
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.86
+0.79
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3272,10 +3322,21 @@ NA
 F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.42
+-1.35
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.40
+-0.21
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.01
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.36
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3283,18 +3344,7 @@ F
 H
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.23
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-I
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.26
+0.10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3305,18 +3355,29 @@ NA
 J
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.11
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.76
+-1.47
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+K
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.31
+-0.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.35
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.52
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3324,10 +3385,21 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-R
+N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.24
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.50
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3338,21 +3410,32 @@ NA
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.12
+-1.97
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.01
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-B
+A
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.53
+0.57
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+D
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.15
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3363,62 +3446,18 @@ E
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.11
+-0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-L
+P
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.84
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-M
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.20
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-N
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.54
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-O
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.03
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-S
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.23
+0.39
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;

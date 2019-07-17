@@ -12,3 +12,6 @@ vroom
 data.table
 extrafont
 glue
+ggpmthemes
+future
+furrr
