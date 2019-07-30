@@ -233,6 +233,55 @@
           
           
             <article class="post-preview">
+              <a href="/post/2016-03-07-not_in/">
+                <h2 class="post-title">Quick tip</h2>
+                
+                  <h3 class="post-subtitle">
+                  How to remove elements that are not in a list
+                  </h3>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;62&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  
+
+
+<p>It is easy to verify if elements are within a list using the <code>%in%</code> operator in R. For example:</p>
+<pre class="r"><code>c(&quot;a&quot;, &quot;b&quot;) %in% letters[1:5]</code></pre>
+<pre><code>## [1] TRUE TRUE</code></pre>
+<p>However, I am often in a situation where I need to do the opposite. This can be easily achieved using the <code>Negate()</code> function.</p>
+<pre class="r"><code>`%ni%` &lt;- Negate(`%in%`)
+c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
+<pre><code>## [1] FALSE FALSE</code></pre>
+<p>Voilà!</p>
+
+                
+              </div>
+
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="/post/2015-11-13-r-101/">
                 <h2 class="post-title">R 101</h2>
                 

@@ -208,7 +208,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 17, 2019
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 28, 2019
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
@@ -242,6 +242,50 @@
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
         <div class="posts-list">
+          
+            <article class="post-preview">
+              <a href="/post/chernobyl-cesium-137/">
+                <h2 class="post-title">chernobyl-cesium-137</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 28, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;314&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  df &lt;-readxl::read_excel(&quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give#&gt; correct centroids for longitude/latitude dataworld %&gt;%ggplot() +geom_sf(size = 0.
+                  <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/chernobyl/">Chernobyl</a>&nbsp;
+                  
+                </div>
+              
+
+            </article>
           
             <article class="post-preview">
               <a href="/post/2019-07-17-trying-the-vroom-package/">
@@ -667,58 +711,6 @@ system(cmd)</code></pre>
                   The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
 library(eemR)ls(&quot;package:eemR&quot;)## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot;## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot;## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot;The package can be installed using the following command.
                   <a href="/post/2015-11-05-eemr/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/2016-03-07-not_in/">
-                <h2 class="post-title">Quick tip</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    How to remove elements that are not in a list
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;62&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  
-
-
-<p>It is easy to verify if elements are within a list using the <code>%in%</code> operator in R. For example:</p>
-<pre class="r"><code>c(&quot;a&quot;, &quot;b&quot;) %in% letters[1:5]</code></pre>
-<pre><code>## [1] TRUE TRUE</code></pre>
-<p>However, I am often in a situation where I need to do the opposite. This can be easily achieved using the <code>Negate()</code> function.</p>
-<pre class="r"><code>`%ni%` &lt;- Negate(`%in%`)
-c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
-<pre><code>## [1] FALSE FALSE</code></pre>
-<p>Voilà!</p>
-
                 
               </div>
 

@@ -4,13 +4,42 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-07-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/chernobyl/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-07-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/chernobyl-cesium-137/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -21,12 +50,6 @@
   
   <url>
     <loc>/tags/r-package/</loc>
-    <lastmod>2019-07-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-07-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -111,12 +134,6 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/categories/mathematics/</loc>
     <lastmod>2018-05-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -125,12 +142,6 @@
   <url>
     <loc>/post/numerical-integration-in-r/</loc>
     <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2018-05-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

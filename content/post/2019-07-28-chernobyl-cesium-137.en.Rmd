@@ -1,0 +1,141 @@
+---
+title: chernobyl-cesium-137
+author: Philippe Massicotte
+date: '2019-07-28'
+slug: chernobyl-cesium-137
+categories:
+  - R
+tags:
+  - Chernobyl
+type: ''
+subtitle: ''
+image: ''
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  # out.width = "70%",
+  fig.align = "center",
+  fig.width = 8,
+  # fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  dev = "svg"
+)
+
+
+library(tidyverse)
+library(glue)
+library(lubridate)
+library(ggpmthemes)
+library(tmap)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+theme_set(ggpmthemes::theme_poppins())
+```
+
+```{r, cache=TRUE}
+df <-
+  readxl::read_excel(
+    "c:/Users/pmass/Downloads/CHERNAIR.xls",
+    na = c("<", "", "N", "L")
+  ) %>%
+  janitor::clean_names() %>%
+  mutate(date = lubridate::ymd(date)) %>%
+  mutate(date_time = make_datetime(
+    year(date),
+    month(date),
+    day(date),
+    hour(end_of_sampling),
+    minute(end_of_sampling),
+    second(end_of_sampling)
+  ))
+```
+
+## Map
+
+```{r, fig.height=10}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+df2 <- df %>%
+  count(pays, ville, x, y) %>%
+  st_as_sf(
+    coords = c("x", "y"),
+    crs = "+proj=longlat +datum=WGS84"
+  ) %>% 
+  st_transform(st_crs(world))
+
+world_points <- cbind(world, st_coordinates(st_centroid(world$geometry)))
+
+
+world %>%
+  ggplot() +
+  geom_sf(size = 0.3) +
+  geom_text(data= world_points,aes(x=X, y=Y, label=name), check_overlap = TRUE, size = 2) +
+  geom_sf(
+    data = df2,
+    aes(size = n),
+    show.legend = "point",
+    stroke = 0.1,
+    fill = "red",
+    color = "black",
+    shape = 21
+  ) +
+  coord_sf(xlim = st_bbox(df2)[c(1, 3)], ylim = st_bbox(df2)[c(2, 4)]) +
+  scale_size_continuous(range = c(0.5, 5)) +
+  labs(subtitle = str_wrap("Geolocalisations of the measurements", 100)) +
+  labs(title = "Map of the data") 
+
+```
+ 
+
+```{r, fig.height=8}
+
+df %>%
+  drop_na(cs_137_bq_m3) %>%
+  group_by(ville) %>%
+  filter(cs_137_bq_m3 == max(cs_137_bq_m3)) %>%
+  ungroup() %>%
+  top_n(16, cs_137_bq_m3) %>%
+  mutate(ville = glue("{str_to_title(ville)} ({pays})")) %>%
+  mutate(ville = fct_reorder(ville, cs_137_bq_m3)) %>%
+  ggplot(aes(x = ville, y = cs_137_bq_m3)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
+  scale_x_discrete(expand = c(0, 0)) +
+  geom_text(aes(label = format(round(cs_137_bq_m3, digits = 2), nsmall = 2)),
+    vjust = 0.5,
+    color = "white",
+    hjust = 1.2
+  ) +
+  geom_text(
+    aes(label = date),
+    vjust = 0.5,
+    color = "white",
+    hjust = 0,
+    size = 4,
+    y = 0.3
+  ) +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(panel.grid.minor.y = element_blank()) +
+  xlab(NULL) +
+  labs(
+    title = str_wrap("Caesium-137 in different cities after the Chernobyl incident", width = 40),
+    subtitle = str_wrap("Top 16 cities and the date at which maximum caesium-137 was measured.", 60)
+  ) +
+  theme(axis.ticks.y = element_blank()) +
+  ylab(bquote("Caesium-137 concentration in" ~ Bq ~ m^{
+    -3
+  } ~ ~"(aerosol particles)")) +
+  labs(caption = "Data extracted from REM data bank at CEC Joint Research Centre Ispra") +
+  theme(plot.caption = element_text(colour = "grey50"))
+```
+
