@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tidytuesday on Another R blog</title>
+    <link>/categories/tidytuesday/</link>
+    <description>Recent content in Tidytuesday on Another R blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
+    <lastBuildDate>Tue, 30 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tidytuesday: video games</title>
+      <link>/post/tidytuesday-video-games/</link>
+      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-video-games/</guid>
+      <description>I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.
+video_games &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&amp;quot;) %&amp;gt;%mutate(release_date = as.Date(release_date, &amp;quot;%b %d, %Y&amp;quot;)) %&amp;gt;%distinct(game, developer, publisher, .keep_all = TRUE)#&amp;gt; Parsed with column specification:#&amp;gt; cols(#&amp;gt; number = col_double(),#&amp;gt; game = col_character(),#&amp;gt; release_date = col_character(),#&amp;gt; price = col_double(),#&amp;gt; owners = col_character(),#&amp;gt; developer = col_character(),#&amp;gt; publisher = col_character(),#&amp;gt; average_playtime = col_double(),#&amp;gt; median_playtime = col_double(),#&amp;gt; metascore = col_double()#&amp;gt; )Top played gamesvideo_games %&amp;gt;%top_n(16, average_playtime) %&amp;gt;%mutate(game = glue(&amp;quot;{game} ({lubridate::year(release_date)})&amp;quot;)) %&amp;gt;%mutate(game = fct_reorder(game, average_playtime)) %&amp;gt;%ggplot(aes(x = game, y = average_playtime / 60)) +geom_col() +coord_flip() +xlab(NULL) +ylab(&amp;quot;Average played time (hours)&amp;quot;) +labs(title = str_wrap(&amp;quot;Average played time for the last two weeks&amp;quot;, 25)) +labs(subtitle = &amp;quot;Only the top 16 averaged played game are shown&amp;quot;)video_games %&amp;gt;% drop_na(metascore) %&amp;gt;% add_count(publisher) %&amp;gt;%filter(dense_rank(desc(n)) &amp;lt;= 6) %&amp;gt;% group_by(year = lubridate::year(release_date), publisher) %&amp;gt;% summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&amp;gt;% ggplot(aes(x = year, y = mean_metascore)) +geom_line(size = 2) +facet_wrap(~publisher, scale = &amp;quot;free_x&amp;quot;) +scale_x_continuous(breaks = scales::pretty_breaks())#&amp;gt; Warning: Removed 1 rows containing missing values (geom_path).</description>
+    </item>
+    
+  </channel>
+</rss>

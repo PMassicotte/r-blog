@@ -6,10 +6,72 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 28 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jul 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tidytuesday: video games</title>
+      <link>/post/tidytuesday-video-games/</link>
+      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-video-games/</guid>
+      <description>
+
+
+&lt;p&gt;I must admit, I played a lot of video games when I was younger. Among them: &lt;em&gt;Battlefield&lt;/em&gt;, &lt;em&gt;Half-life&lt;/em&gt;, &lt;em&gt;Dark Age of Camelot&lt;/em&gt;, &lt;em&gt;World of Warcraft&lt;/em&gt;, &lt;em&gt;Diablo&lt;/em&gt;. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&amp;quot;) %&amp;gt;%
+  mutate(release_date = as.Date(release_date, &amp;quot;%b %d, %Y&amp;quot;)) %&amp;gt;%
+  distinct(game, developer, publisher, .keep_all = TRUE)
+#&amp;gt; Parsed with column specification:
+#&amp;gt; cols(
+#&amp;gt;   number = col_double(),
+#&amp;gt;   game = col_character(),
+#&amp;gt;   release_date = col_character(),
+#&amp;gt;   price = col_double(),
+#&amp;gt;   owners = col_character(),
+#&amp;gt;   developer = col_character(),
+#&amp;gt;   publisher = col_character(),
+#&amp;gt;   average_playtime = col_double(),
+#&amp;gt;   median_playtime = col_double(),
+#&amp;gt;   metascore = col_double()
+#&amp;gt; )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;top-played-games&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Top played games&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;%
+  top_n(16, average_playtime) %&amp;gt;%
+  mutate(game = glue(&amp;quot;{game} ({lubridate::year(release_date)})&amp;quot;)) %&amp;gt;%
+  mutate(game = fct_reorder(game, average_playtime)) %&amp;gt;%
+  ggplot(aes(x = game, y = average_playtime / 60)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&amp;quot;Average played time (hours)&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Average played time for the last two weeks&amp;quot;, 25)) +
+  labs(subtitle = &amp;quot;Only the top 16 averaged played game are shown&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;% 
+  drop_na(metascore) %&amp;gt;% 
+  add_count(publisher) %&amp;gt;%
+  filter(dense_rank(desc(n)) &amp;lt;= 6) %&amp;gt;% 
+  group_by(year = lubridate::year(release_date), publisher) %&amp;gt;% 
+  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&amp;gt;% 
+  ggplot(aes(x = year, y = mean_metascore)) +
+  geom_line(size = 2) +
+  facet_wrap(~publisher, scale = &amp;quot;free_x&amp;quot;) +
+  scale_x_continuous(breaks = scales::pretty_breaks())
+#&amp;gt; Warning: Removed 1 rows containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ideas&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Ideas&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Heat map with price&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>chernobyl-cesium-137</title>

@@ -1,0 +1,67 @@
+---
+title: 'Tidytuesday: video games'
+author: Philippe Massicotte
+date: '2019-07-30'
+slug: tidytuesday-video-games
+categories:
+  - R
+  - Tidytuesday
+tags: []
+type: ''
+subtitle: ''
+image: ''
+draft: yes
+---
+
+
+
+<p>I must admit, I played a lot of video games when I was younger. Among them: <em>Battlefield</em>, <em>Half-life</em>, <em>Dark Age of Camelot</em>, <em>World of Warcraft</em>, <em>Diablo</em>. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.</p>
+<pre class="r"><code>video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%
+  mutate(release_date = as.Date(release_date, &quot;%b %d, %Y&quot;)) %&gt;%
+  distinct(game, developer, publisher, .keep_all = TRUE)
+#&gt; Parsed with column specification:
+#&gt; cols(
+#&gt;   number = col_double(),
+#&gt;   game = col_character(),
+#&gt;   release_date = col_character(),
+#&gt;   price = col_double(),
+#&gt;   owners = col_character(),
+#&gt;   developer = col_character(),
+#&gt;   publisher = col_character(),
+#&gt;   average_playtime = col_double(),
+#&gt;   median_playtime = col_double(),
+#&gt;   metascore = col_double()
+#&gt; )</code></pre>
+<div id="top-played-games" class="section level2">
+<h2>Top played games</h2>
+<pre class="r"><code>video_games %&gt;%
+  top_n(16, average_playtime) %&gt;%
+  mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%
+  mutate(game = fct_reorder(game, average_playtime)) %&gt;%
+  ggplot(aes(x = game, y = average_playtime / 60)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&quot;Average played time (hours)&quot;) +
+  labs(title = str_wrap(&quot;Average played time for the last two weeks&quot;, 25)) +
+  labs(subtitle = &quot;Only the top 16 averaged played game are shown&quot;)</code></pre>
+<p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-2-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>video_games %&gt;% 
+  drop_na(metascore) %&gt;% 
+  add_count(publisher) %&gt;%
+  filter(dense_rank(desc(n)) &lt;= 6) %&gt;% 
+  group_by(year = lubridate::year(release_date), publisher) %&gt;% 
+  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;% 
+  ggplot(aes(x = year, y = mean_metascore)) +
+  geom_line(size = 2) +
+  facet_wrap(~publisher, scale = &quot;free_x&quot;) +
+  scale_x_continuous(breaks = scales::pretty_breaks())
+#&gt; Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
+<p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-3-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ideas" class="section level2">
+<h2>Ideas</h2>
+<ul>
+<li>Heat map with price</li>
+</ul>
+</div>

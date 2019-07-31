@@ -1,0 +1,77 @@
+---
+title: 'Tidytuesday: video games'
+author: Philippe Massicotte
+date: '2019-07-30'
+slug: tidytuesday-video-games
+categories:
+  - R
+  - Tidytuesday
+tags: []
+type: ''
+subtitle: ''
+image: ''
+draft: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  dpi = 300,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  dev = "svg"
+)
+
+library(tidyverse)
+library(ggpmthemes)
+library(glue)
+theme_set(theme_poppins())
+```
+
+I must admit, I played a lot of video games when I was younger. Among them: *Battlefield*, *Half-life*, *Dark Age of Camelot*, *World of Warcraft*, *Diablo*. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.
+
+
+```{r}
+video_games <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv") %>%
+  mutate(release_date = as.Date(release_date, "%b %d, %Y")) %>%
+  distinct(game, developer, publisher, .keep_all = TRUE)
+```
+
+## Top played games
+
+```{r}
+video_games %>%
+  top_n(16, average_playtime) %>%
+  mutate(game = glue("{game} ({lubridate::year(release_date)})")) %>%
+  mutate(game = fct_reorder(game, average_playtime)) %>%
+  ggplot(aes(x = game, y = average_playtime / 60)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab("Average played time (hours)") +
+  labs(title = str_wrap("Average played time for the last two weeks", 25)) +
+  labs(subtitle = "Only the top 16 averaged played game are shown")
+```
+
+```{r}
+video_games %>% 
+  drop_na(metascore) %>% 
+  add_count(publisher) %>%
+  filter(dense_rank(desc(n)) <= 6) %>% 
+  group_by(year = lubridate::year(release_date), publisher) %>% 
+  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %>% 
+  ggplot(aes(x = year, y = mean_metascore)) +
+  geom_line(size = 2) +
+  facet_wrap(~publisher, scale = "free_x") +
+  scale_x_continuous(breaks = scales::pretty_breaks())
+```
+
+## Ideas
+
+- Heat map with price
+
