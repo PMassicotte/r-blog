@@ -10,11 +10,11 @@
   <title>Tidytuesday: video games - Another R blog</title>
   <meta property="og:title" content="Tidytuesday: video games" />
   <meta name="twitter:title" content="Tidytuesday: video games" />
-  <meta name="description" content="I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.
-video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%mutate(release_date = as.Date(release_date, &quot;%b %d, %Y&quot;)) %&gt;%distinct(game, developer, publisher, .keep_all = TRUE)#&gt; Parsed with column specification:#&gt; cols(#&gt; number = col_double(),#&gt; game = col_character(),#&gt; release_date = col_character(),#&gt; price = col_double(),#&gt; owners = col_character(),#&gt; developer = col_character(),#&gt; publisher = col_character(),#&gt; average_playtime = col_double(),#&gt; median_playtime = col_double(),#&gt; metascore = col_double()#&gt; )Top played gamesvideo_games %&gt;%top_n(16, average_playtime) %&gt;%mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%mutate(game = fct_reorder(game, average_playtime)) %&gt;%ggplot(aes(x = game, y = average_playtime / 60)) &#43;geom_col() &#43;coord_flip() &#43;xlab(NULL) &#43;ylab(&quot;Average played time (hours)&quot;) &#43;labs(title = str_wrap(&quot;Average played time for the last two weeks&quot;, 25)) &#43;labs(subtitle = &quot;Only the top 16 averaged played game are shown&quot;)video_games %&gt;% drop_na(metascore) %&gt;% add_count(publisher) %&gt;%filter(dense_rank(desc(n)) &lt;= 6) %&gt;% group_by(year = lubridate::year(release_date), publisher) %&gt;% summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;% ggplot(aes(x = year, y = mean_metascore)) &#43;geom_line(size = 2) &#43;facet_wrap(~publisher, scale = &quot;free_x&quot;) &#43;scale_x_continuous(breaks = scales::pretty_breaks())#&gt; Warning: Removed 1 rows containing missing values (geom_path).">
-  <meta property="og:description" content="I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.
-video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%mutate(release_date = as.Date(release_date, &quot;%b %d, %Y&quot;)) %&gt;%distinct(game, developer, publisher, .keep_all = TRUE)#&gt; Parsed with column specification:#&gt; cols(#&gt; number = col_double(),#&gt; game = col_character(),#&gt; release_date = col_character(),#&gt; price = col_double(),#&gt; owners = col_character(),#&gt; developer = col_character(),#&gt; publisher = col_character(),#&gt; average_playtime = col_double(),#&gt; median_playtime = col_double(),#&gt; metascore = col_double()#&gt; )Top played gamesvideo_games %&gt;%top_n(16, average_playtime) %&gt;%mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%mutate(game = fct_reorder(game, average_playtime)) %&gt;%ggplot(aes(x = game, y = average_playtime / 60)) &#43;geom_col() &#43;coord_flip() &#43;xlab(NULL) &#43;ylab(&quot;Average played time (hours)&quot;) &#43;labs(title = str_wrap(&quot;Average played time for the last two weeks&quot;, 25)) &#43;labs(subtitle = &quot;Only the top 16 averaged played game are shown&quot;)video_games %&gt;% drop_na(metascore) %&gt;% add_count(publisher) %&gt;%filter(dense_rank(desc(n)) &lt;= 6) %&gt;% group_by(year = lubridate::year(release_date), publisher) %&gt;% summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;% ggplot(aes(x = year, y = mean_metascore)) &#43;geom_line(size = 2) &#43;facet_wrap(~publisher, scale = &quot;free_x&quot;) &#43;scale_x_continuous(breaks = scales::pretty_breaks())#&gt; Warning: Removed 1 rows containing missing values (geom_path).">
-  <meta name="twitter:description" content="I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good …">
+  <meta name="description" content="I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
+Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.">
+  <meta property="og:description" content="I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
+Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.">
+  <meta name="twitter:description" content="I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a …">
   <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -63,9 +63,9 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
     "name" : "Philippe Massicotte"
   },
   "headline": "Tidytuesday: video games",
-  "description" : "I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.\nvideo_games \x26lt;- readr::read_csv(\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-07-30\/video_games.csv\x26quot;) %\x26gt;%\rmutate(release_date = as.Date(release_date, \x26quot;%b %d, %Y\x26quot;)) %\x26gt;%\rdistinct(game, developer, publisher, .keep_all = TRUE)\r#\x26gt; Parsed with column specification:\r#\x26gt; cols(\r#\x26gt; number = col_double(),\r#\x26gt; game = col_character(),\r#\x26gt; release_date = col_character(),\r#\x26gt; price = col_double(),\r#\x26gt; owners = col_character(),\r#\x26gt; developer = col_character(),\r#\x26gt; publisher = col_character(),\r#\x26gt; average_playtime = col_double(),\r#\x26gt; median_playtime = col_double(),\r#\x26gt; metascore = col_double()\r#\x26gt; )\rTop played games\rvideo_games %\x26gt;%\rtop_n(16, average_playtime) %\x26gt;%\rmutate(game = glue(\x26quot;{game} ({lubridate::year(release_date)})\x26quot;)) %\x26gt;%\rmutate(game = fct_reorder(game, average_playtime)) %\x26gt;%\rggplot(aes(x = game, y = average_playtime \/ 60)) \x2b\rgeom_col() \x2b\rcoord_flip() \x2b\rxlab(NULL) \x2b\rylab(\x26quot;Average played time (hours)\x26quot;) \x2b\rlabs(title = str_wrap(\x26quot;Average played time for the last two weeks\x26quot;, 25)) \x2b\rlabs(subtitle = \x26quot;Only the top 16 averaged played game are shown\x26quot;)\rvideo_games %\x26gt;% drop_na(metascore) %\x26gt;% add_count(publisher) %\x26gt;%\rfilter(dense_rank(desc(n)) \x26lt;= 6) %\x26gt;% group_by(year = lubridate::year(release_date), publisher) %\x26gt;% summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %\x26gt;% ggplot(aes(x = year, y = mean_metascore)) \x2b\rgeom_line(size = 2) \x2b\rfacet_wrap(~publisher, scale = \x26quot;free_x\x26quot;) \x2b\rscale_x_continuous(breaks = scales::pretty_breaks())\r#\x26gt; Warning: Removed 1 rows containing missing values (geom_path).",
+  "description" : "I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.\nVideo Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.",
   "inLanguage" : "en",
-  "wordCount":  226 ,
+  "wordCount":  699 ,
   "datePublished" : "2019-07-30T00:00:00",
   "dateModified" : "2019-07-30T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -85,15 +85,15 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
 </script>
 
 <meta property="og:title" content="Tidytuesday: video games" />
-<meta property="og:description" content="I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.
-video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%mutate(release_date = as.Date(release_date, &quot;%b %d, %Y&quot;)) %&gt;%distinct(game, developer, publisher, .keep_all = TRUE)#&gt; Parsed with column specification:#&gt; cols(#&gt; number = col_double(),#&gt; game = col_character(),#&gt; release_date = col_character(),#&gt; price = col_double(),#&gt; owners = col_character(),#&gt; developer = col_character(),#&gt; publisher = col_character(),#&gt; average_playtime = col_double(),#&gt; median_playtime = col_double(),#&gt; metascore = col_double()#&gt; )Top played gamesvideo_games %&gt;%top_n(16, average_playtime) %&gt;%mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%mutate(game = fct_reorder(game, average_playtime)) %&gt;%ggplot(aes(x = game, y = average_playtime / 60)) &#43;geom_col() &#43;coord_flip() &#43;xlab(NULL) &#43;ylab(&quot;Average played time (hours)&quot;) &#43;labs(title = str_wrap(&quot;Average played time for the last two weeks&quot;, 25)) &#43;labs(subtitle = &quot;Only the top 16 averaged played game are shown&quot;)video_games %&gt;% drop_na(metascore) %&gt;% add_count(publisher) %&gt;%filter(dense_rank(desc(n)) &lt;= 6) %&gt;% group_by(year = lubridate::year(release_date), publisher) %&gt;% summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;% ggplot(aes(x = year, y = mean_metascore)) &#43;geom_line(size = 2) &#43;facet_wrap(~publisher, scale = &quot;free_x&quot;) &#43;scale_x_continuous(breaks = scales::pretty_breaks())#&gt; Warning: Removed 1 rows containing missing values (geom_path).">
+<meta property="og:description" content="I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
+Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.">
 <meta property="og:image" content="/img/pmassicotte.jpg" />
 <meta property="og:url" content="/post/tidytuesday-video-games/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Another R blog" />
 
   <meta name="twitter:title" content="Tidytuesday: video games" />
-  <meta name="twitter:description" content="I must admit, I played a lot of video games when I was younger. Among them: Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo. This is why this week tidytuesday was a good …">
+  <meta name="twitter:description" content="I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a …">
   <meta name="twitter:image" content="/img/pmassicotte.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@philmassicotte" />
@@ -108,7 +108,7 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.55.2" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -267,10 +267,10 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
   <i class="fas fa-calendar"></i>&nbsp;Posted on July 30, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;226&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;699&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -300,25 +300,20 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
         
 
 
-<p>I must admit, I played a lot of video games when I was younger. Among them: <em>Battlefield</em>, <em>Half-life</em>, <em>Dark Age of Camelot</em>, <em>World of Warcraft</em>, <em>Diablo</em>. This is why this week tidytuesday was a good occasion to participate to this weekly R visualization challenge.</p>
-<pre class="r"><code>video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%
+<p>I must admit, I played a lot of PC video games when I was younger, <em>Battlefield</em>, <em>Half-life</em>, <em>Dark Age of Camelot</em>, <em>World of Warcraft</em>, <em>Diablo</em> just to name a few. This is why this week <a href="https://github.com/rfordatascience/tidytuesday">tidytuesday</a> was a good occasion to participate in this weekly R visualization challenge.</p>
+<div id="video-games-dataset" class="section level2">
+<h2>Video Games Dataset</h2>
+<blockquote>
+<p>This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data. She was kind enough to provide a fairly clean dataset, and I have done some small additional clean up seen below. There is time played, ownership, release date, publishing information, and for some a metascore! Lots of ways to slice and dice this data!</p>
+</blockquote>
+<p>Let us get started! First, read the data and remove duplicated entries.</p>
+<pre class="r"><code>video_games &lt;- read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&quot;) %&gt;%
   mutate(release_date = as.Date(release_date, &quot;%b %d, %Y&quot;)) %&gt;%
-  distinct(game, developer, publisher, .keep_all = TRUE)
-#&gt; Parsed with column specification:
-#&gt; cols(
-#&gt;   number = col_double(),
-#&gt;   game = col_character(),
-#&gt;   release_date = col_character(),
-#&gt;   price = col_double(),
-#&gt;   owners = col_character(),
-#&gt;   developer = col_character(),
-#&gt;   publisher = col_character(),
-#&gt;   average_playtime = col_double(),
-#&gt;   median_playtime = col_double(),
-#&gt;   metascore = col_double()
-#&gt; )</code></pre>
+  distinct(game, developer, publisher, .keep_all = TRUE)</code></pre>
+</div>
 <div id="top-played-games" class="section level2">
 <h2>Top played games</h2>
+<p>Which games have the highest average playing time in the past two weeks? In the following graph, it can be seen that <em>Clicker Heroes</em> (released in 2015) has an average playtime of about 80 hours. That is 40 hours per week, a full-time job.</p>
 <pre class="r"><code>video_games %&gt;%
   top_n(16, average_playtime) %&gt;%
   mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%
@@ -331,24 +326,132 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
   labs(title = str_wrap(&quot;Average played time for the last two weeks&quot;, 25)) +
   labs(subtitle = &quot;Only the top 16 averaged played game are shown&quot;)</code></pre>
 <p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-2-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>video_games %&gt;% 
-  drop_na(metascore) %&gt;% 
+</div>
+<div id="temporal-evolution-of-metascore" class="section level2">
+<h2>Temporal evolution of metascore</h2>
+<p>What is the evolution of the metascore by the publishers? It seems that <em>high ranked</em> publishers have pretty constant metascore for their games. However, there is an interesting decreasing trend with <em>SEGA</em> that started in 2006.</p>
+<pre class="r"><code>equal_breaks &lt;- function(n = 3, s = 0.05, ...) {
+  function(x) {
+    # rescaling
+    d &lt;- s * diff(range(x)) / (1 + 2 * s)
+    seq(min(x) + d, max(x) - d, length = n)
+  }
+}
+
+video_games %&gt;%
+  drop_na(metascore) %&gt;%
   add_count(publisher) %&gt;%
-  filter(dense_rank(desc(n)) &lt;= 6) %&gt;% 
-  group_by(year = lubridate::year(release_date), publisher) %&gt;% 
-  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;% 
+  filter(dense_rank(desc(n)) &lt;= 6) %&gt;%
+  group_by(year = lubridate::year(release_date), publisher) %&gt;%
+  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&gt;%
   ggplot(aes(x = year, y = mean_metascore)) +
   geom_line(size = 2) +
   facet_wrap(~publisher, scale = &quot;free_x&quot;) +
-  scale_x_continuous(breaks = scales::pretty_breaks())
+  scale_x_continuous(
+    labels = function(x) floor(x),
+    breaks = equal_breaks(n = 4, s = 0.05)
+  ) +
+  xlab(NULL) +
+  ylab(&quot;Median metascore&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  theme(panel.spacing = unit(2, &quot;lines&quot;)) +
+  labs(title = &quot;Time series of metascore by publisher&quot;) +
+  labs(subtitle = &quot;Only the six publishers with the highest number of release are shown&quot;)
 #&gt; Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
 <p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-3-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ideas" class="section level2">
-<h2>Ideas</h2>
-<ul>
-<li>Heat map with price</li>
-</ul>
+<div id="price-evolution-of-games" class="section level2">
+<h2>Price evolution of games</h2>
+<p>The median prices of the released game appear to decrease between 2015 and 2018. Also, we can see the lowest prices are happening in January, right after Christmas.</p>
+<pre class="r"><code>video_games %&gt;%
+  drop_na(release_date) %&gt;%
+  group_by(year = lubridate::year(release_date), month = lubridate::month(release_date, label = TRUE)) %&gt;%
+  summarise(medan_price = median(price, na.rm = TRUE)) %&gt;%
+  ggplot(aes(x = year, y = month, fill = medan_price)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = &quot;A&quot;, labels = scales::dollar) +
+  coord_equal() +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(2000, 2020, by = 2)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  labs(fill = &quot;Median\nprice (USD)&quot;) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title = &quot;Price evolution of games&quot;) +
+  labs(subtitle = &quot;Median price calculated monthly and yearly&quot;)</code></pre>
+<p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>There is a clear peak in November 2006 which can be explained by few game prices above 10$.</p>
+<pre class="r"><code>video_games %&gt;%
+  filter(
+    lubridate::year(release_date) == 2006 &amp;
+      lubridate::month(release_date) == 11
+  ) %&gt;%
+  select(game, release_date, price) %&gt;%
+  arrange(desc(price)) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">game</th>
+<th align="left">release_date</th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">RACE - The WTCC Game</td>
+<td align="left">2006-11-24</td>
+<td align="right">39.99</td>
+</tr>
+<tr class="even">
+<td align="left">Total War: MEDIEVAL II – Definitive Edition</td>
+<td align="left">2006-11-15</td>
+<td align="right">24.99</td>
+</tr>
+<tr class="odd">
+<td align="left">Geneforge 4: Rebellion</td>
+<td align="left">2006-11-01</td>
+<td align="right">19.99</td>
+</tr>
+<tr class="even">
+<td align="left">Heroes of Annihilated Empires</td>
+<td align="left">2006-11-22</td>
+<td align="right">14.99</td>
+</tr>
+<tr class="odd">
+<td align="left">Garry’s Mod</td>
+<td align="left">2006-11-29</td>
+<td align="right">9.99</td>
+</tr>
+<tr class="even">
+<td align="left">RoboBlitz</td>
+<td align="left">2006-11-07</td>
+<td align="right">9.99</td>
+</tr>
+<tr class="odd">
+<td align="left">The Ship: Single Player</td>
+<td align="left">2006-11-20</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="most-expensive-games" class="section level2">
+<h2>Most expensive games</h2>
+<p>I was also surprised to see that the most expensive game was almost 600$ USD!</p>
+<pre class="r"><code>video_games %&gt;%
+  top_n(5, price) %&gt;%
+  mutate(game = glue(&quot;{game} ({lubridate::year(release_date)})&quot;)) %&gt;%
+  mutate(game = str_wrap(game, 30)) %&gt;%
+  mutate(game = fct_reorder(game, price)) %&gt;%
+  ggplot(aes(x = game, y = price)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&quot;Price (USD)&quot;) +
+  labs(title = &quot;Top priced games&quot;) +
+  labs(subtitle = &quot;Only shows the top 5 most expensive games&quot;) +
+  scale_y_continuous(labels = scales::dollar)</code></pre>
+<p><img src="/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-6-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 
 
@@ -553,7 +656,7 @@ video_games &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rforda
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>
