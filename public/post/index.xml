@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Tue, 30 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tidytuesday (2019-08-06)</title>
+      <link>/post/tidytuesday-2019-08-06/</link>
+      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-06/</guid>
+      <description>This week TidyTuesday is entitled Bob Ross - painting by the numbers. To cite fivethirtyeight:
+Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…</description>
+    </item>
     
     <item>
       <title>Tidytuesday: video games</title>
@@ -19,7 +29,7 @@
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/tidytuesday-video-games/</guid>
       <description>I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
-Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.</description>
+Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.</description>
     </item>
     
     <item>
@@ -28,7 +38,7 @@ Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Sp
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/chernobyl-cesium-137/</guid>
-      <description>df &amp;lt;- readxl::read_excel( &amp;quot;c:/Users/pmass/Downloads/CHERNAIR.xls&amp;quot;, na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;) ) %&amp;gt;% janitor::clean_names() %&amp;gt;% mutate(date = lubridate::ymd(date)) %&amp;gt;% mutate(date_time = make_datetime( year(date), month(date), day(date), hour(end_of_sampling), minute(end_of_sampling), second(end_of_sampling) )) Map world &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;) df2 &amp;lt;- df %&amp;gt;% count(pays, ville, x, y) %&amp;gt;% st_as_sf( coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot; ) %&amp;gt;% st_transform(st_crs(world)) world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry))) #&amp;gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give #&amp;gt; correct centroids for longitude/latitude data world %&amp;gt;% ggplot() + geom_sf(size = 0.</description>
+      <description>df &amp;lt;-readxl::read_excel(&amp;quot;c:/Users/pmass/Downloads/CHERNAIR.xls&amp;quot;,na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)) %&amp;gt;%janitor::clean_names() %&amp;gt;%mutate(date = lubridate::ymd(date)) %&amp;gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;)df2 &amp;lt;- df %&amp;gt;%count(pays, ville, x, y) %&amp;gt;%st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;),crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot;) %&amp;gt;% st_transform(st_crs(world))world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&amp;gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give#&amp;gt; correct centroids for longitude/latitude dataworld %&amp;gt;%ggplot() +geom_sf(size = 0.</description>
     </item>
     
     <item>
@@ -38,7 +48,7 @@ Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Sp
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2019-07-17-trying-the-vroom-package/</guid>
       <description>Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
- But that’s impossible! How can it be so fast?
+But that’s impossible! How can it be so fast?
 vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.</description>
     </item>
     
@@ -49,7 +59,7 @@ vroom doesn’t stop to actually read all of your data, it simply indexes where 
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2019-06-14-eemr-1-0-0/</guid>
       <description>When eemR was originally created, I wrote few functions to import eems derived from the spectrofluorometers I knew. Given the high diversity in file formats, eemR now offers the possibility for the user to write his/her own import function.
-An example In this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.</description>
+An exampleIn this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.</description>
     </item>
     
     <item>
@@ -59,7 +69,7 @@ An example In this example, we will learn how to create a import function for a 
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2019-05-22-extracting-weather-data-from-canadian-archive/</guid>
       <description>To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
-library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font size and font familly loadfonts(quiet = TRUE) theme_set(theme_bw(base_size = 12, base_family = &amp;quot;Poppins&amp;quot;)) The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.</description>
+library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font size and font famillyloadfonts(quiet = TRUE)theme_set(theme_bw(base_size = 12, base_family = &amp;quot;Poppins&amp;quot;))The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.</description>
     </item>
     
     <item>
@@ -69,8 +79,8 @@ library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font 
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2019-05-08-introducing-gitignore/</guid>
       <description>In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
-Basic idea gitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
- gi_available_templates(): to get a list of all templates available on gitignore.io. gi_fetch_templates(): to get one or more template(s).</description>
+Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
+gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).</description>
     </item>
     
     <item>
@@ -89,7 +99,7 @@ Basic idea gitignore is a simple R package that provide an interface to query gi
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/numerical-integration-in-r/</guid>
       <description>Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[ f(x) = \cos(x) + 2 \]
+\[f(x) = \cos(x) + 2\]
 We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.</description>
     </item>
     
@@ -108,8 +118,8 @@ We first define the equation in the form of a function since it is a requirement
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2016-11-18-updating-rstudio/</guid>
-      <description> If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &amp;lt;- &amp;quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&amp;quot; r &amp;lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &amp;lt;- regmatches(r, regexpr(&amp;quot;https\\S+?deb&amp;quot;, r))[1] file destfile &amp;lt;- paste(&amp;quot;/tmp/&amp;quot;, basename(file)) download.file(file, destfile = destfile) cmd &amp;lt;- sprintf(&amp;quot;dpkg -i %s&amp;quot;, destfile) system(cmd) </description>
+      <description>If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &amp;lt;- &amp;quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&amp;quot;r &amp;lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &amp;lt;- regmatches(r, regexpr(&amp;quot;https\\S+?deb&amp;quot;, r))[1]filedestfile &amp;lt;- paste(&amp;quot;/tmp/&amp;quot;, basename(file))download.file(file, destfile = destfile)cmd &amp;lt;- sprintf(&amp;quot;dpkg -i %s&amp;quot;, destfile)system(cmd)</description>
     </item>
     
     <item>
@@ -119,7 +129,7 @@ rstudio_ubuntu_daily_url &amp;lt;- &amp;quot;https://www.rstudio.org/download/da
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2015-11-05-eemr/</guid>
       <description>The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
-library(eemR) ls(&amp;quot;package:eemR&amp;quot;) ## [1] &amp;quot;absorbance&amp;quot; &amp;quot;eem_bind&amp;quot; ## [3] &amp;quot;eem_biological_index&amp;quot; &amp;quot;eem_coble_peaks&amp;quot; ## [5] &amp;quot;eem_cut&amp;quot; &amp;quot;eem_export_matlab&amp;quot; ## [7] &amp;quot;eem_extract&amp;quot; &amp;quot;eem_fluorescence_index&amp;quot; ## [9] &amp;quot;eem_humification_index&amp;quot; &amp;quot;eem_inner_filter_effect&amp;quot; ## [11] &amp;quot;eem_names&amp;quot; &amp;quot;eem_names&amp;lt;-&amp;quot; ## [13] &amp;quot;eem_peaks&amp;quot; &amp;quot;eem_raman_normalisation&amp;quot; ## [15] &amp;quot;eem_read&amp;quot; &amp;quot;eem_remove_blank&amp;quot; ## [17] &amp;quot;eem_remove_scattering&amp;quot; &amp;quot;eem_set_wavelengths&amp;quot; The package can be installed using the following command.</description>
+library(eemR)ls(&amp;quot;package:eemR&amp;quot;)## [1] &amp;quot;absorbance&amp;quot; &amp;quot;eem_bind&amp;quot; ## [3] &amp;quot;eem_biological_index&amp;quot; &amp;quot;eem_coble_peaks&amp;quot; ## [5] &amp;quot;eem_cut&amp;quot; &amp;quot;eem_export_matlab&amp;quot; ## [7] &amp;quot;eem_extract&amp;quot; &amp;quot;eem_fluorescence_index&amp;quot; ## [9] &amp;quot;eem_humification_index&amp;quot; &amp;quot;eem_inner_filter_effect&amp;quot;## [11] &amp;quot;eem_names&amp;quot; &amp;quot;eem_names&amp;lt;-&amp;quot; ## [13] &amp;quot;eem_peaks&amp;quot; &amp;quot;eem_raman_normalisation&amp;quot;## [15] &amp;quot;eem_read&amp;quot; &amp;quot;eem_remove_blank&amp;quot; ## [17] &amp;quot;eem_remove_scattering&amp;quot; &amp;quot;eem_set_wavelengths&amp;quot;The package can be installed using the following command.</description>
     </item>
     
     <item>
@@ -129,8 +139,8 @@ library(eemR) ls(&amp;quot;package:eemR&amp;quot;) ## [1] &amp;quot;absorbance&a
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2016-03-07-not_in/</guid>
       <description>It is easy to verify if elements are within a list using the %in% operator in R. For example:
-c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %in% letters[1:5] ## [1] TRUE TRUE However, I am often in a situation where I need to do the opposite. This can be easily achieved using the Negate() function.
-`%ni%` &amp;lt;- Negate(`%in%`) c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %ni% letters[1:5] ## [1] FALSE FALSE Voilà!</description>
+c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %in% letters[1:5]## [1] TRUE TRUEHowever, I am often in a situation where I need to do the opposite. This can be easily achieved using the Negate() function.
+`%ni%` &amp;lt;- Negate(`%in%`)c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %ni% letters[1:5]## [1] FALSE FALSEVoilà!</description>
     </item>
     
     <item>
@@ -149,9 +159,9 @@ c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %in% letters[1:5] ## [1] TRUE TR
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2016-05-02-eemr-0.1.3/</guid>
       <description>eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
- Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
- A vignette has been added.
-  eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.</description>
+Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
+A vignette has been added.
+eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.</description>
     </item>
     
   </channel>

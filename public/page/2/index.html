@@ -52,7 +52,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.55.2" />
+  <meta name="generator" content="Hugo 0.55.6" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -233,6 +233,57 @@
           
           
             <article class="post-preview">
+              <a href="/post/2016-11-18-updating-rstudio/">
+                <h2 class="post-title">Installing latest version of RStudio from R</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;79&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  
+
+
+<p>If you are like me, chances are that you update <a href="https://www.rstudio.org/download/daily/desktop/ubuntu64/">RStudio</a> on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.</p>
+<pre class="r"><code>rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;
+
+r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
+
+file &lt;- regmatches(r, regexpr(&quot;https\\S+?deb&quot;, r))[1]
+file
+
+destfile &lt;- paste(&quot;/tmp/&quot;, basename(file))
+
+download.file(file, destfile = destfile)
+
+cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)
+system(cmd)</code></pre>
+
+                
+              </div>
+
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="/post/2015-11-05-eemr/">
                 <h2 class="post-title">Introducing eemR</h2>
                 
@@ -260,7 +311,7 @@
               <div class="post-entry">
                 
                   The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
-library(eemR) ls(&quot;package:eemR&quot;) ## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot; ## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot; ## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot; The package can be installed using the following command.
+library(eemR)ls(&quot;package:eemR&quot;)## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot;## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot;## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot;The package can be installed using the following command.
                   <a href="/post/2015-11-05-eemr/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -392,9 +443,9 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
               <div class="post-entry">
                 
                   eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
- Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
- A vignette has been added.
-  eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
+Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
+A vignette has been added.
+eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
                   <a href="/post/2016-05-02-eemr-0.1.3/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -502,7 +553,7 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

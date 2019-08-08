@@ -55,7 +55,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.55.2" />
+  <meta name="generator" content="Hugo 0.55.6" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -258,7 +258,7 @@
               </p>
               <div class="post-entry">
                 
-                  df &lt;- readxl::read_excel( &quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;, na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;) ) %&gt;% janitor::clean_names() %&gt;% mutate(date = lubridate::ymd(date)) %&gt;% mutate(date_time = make_datetime( year(date), month(date), day(date), hour(end_of_sampling), minute(end_of_sampling), second(end_of_sampling) )) Map world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) df2 &lt;- df %&gt;% count(pays, ville, x, y) %&gt;% st_as_sf( coords = c(&quot;x&quot;, &quot;y&quot;), crs = &quot;+proj=longlat +datum=WGS84&quot; ) %&gt;% st_transform(st_crs(world)) world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry))) #&gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give #&gt; correct centroids for longitude/latitude data world %&gt;% ggplot() + geom_sf(size = 0.
+                  df &lt;-readxl::read_excel(&quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give#&gt; correct centroids for longitude/latitude dataworld %&gt;%ggplot() +geom_sf(size = 0.
                   <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -363,7 +363,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bob Ross on Another R blog</title>
+    <link>/tags/bob-ross/</link>
+    <description>Recent content in Bob Ross on Another R blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
+    <lastBuildDate>Tue, 06 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/bob-ross/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tidytuesday (2019-08-06)</title>
+      <link>/post/tidytuesday-2019-08-06/</link>
+      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-06/</guid>
+      <description>This week TidyTuesday is entitled Bob Ross - painting by the numbers. To cite fivethirtyeight:
+Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…</description>
+    </item>
+    
+  </channel>
+</rss>

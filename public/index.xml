@@ -6,10 +6,228 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Tue, 30 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Aug 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tidytuesday (2019-08-06)</title>
+      <link>/post/tidytuesday-2019-08-06/</link>
+      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-06/</guid>
+      <description>
+
+
+&lt;p&gt;This week &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-06&#34;&gt;TidyTuesday&lt;/a&gt; is entitled &lt;em&gt;Bob Ross - painting by the numbers&lt;/em&gt;. To cite &lt;a href=&#34;https://fivethirtyeight.com/features/a-statistical-analysis-of-the-work-of-bob-ross/&#34;&gt;fivethirtyeight&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div style=&#34;width:75%;height:0;padding-bottom:77%;position:relative;&#34;&gt;
+&lt;iframe src=&#34;https://giphy.com/embed/AbPNdmgk6TJK&#34; width=&#34;100%&#34; height=&#34;100%&#34; style=&#34;position:absolute&#34; frameBorder=&#34;0&#34; class=&#34;giphy-embed&#34; allowFullScreen&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://giphy.com/gifs/bob-ross-AbPNdmgk6TJK&#34;&gt;via GIPHY&lt;/a&gt;
+&lt;/p&gt;
+&lt;div id=&#34;the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;p&gt;The dataset consists of various keywords describing the content of Bob Ross paintings.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-06/bob-ross.csv&amp;quot;) %&amp;gt;%
+  janitor::clean_names() %&amp;gt;%
+  mutate(title = str_to_title(title))
+
+bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  select(-contains(&amp;quot;frame&amp;quot;)) %&amp;gt;%
+  pivot_longer(
+    -c(episode, title),
+    names_to = &amp;quot;keyword&amp;quot;,
+    values_to = &amp;quot;is_present&amp;quot;
+  ) %&amp;gt;%
+  separate(episode, into = c(&amp;quot;season&amp;quot;, &amp;quot;episode&amp;quot;), sep = &amp;quot;E&amp;quot;) %&amp;gt;%
+  mutate(season = str_extract(season, &amp;quot;[:digit:]+&amp;quot;)) %&amp;gt;%
+  mutate_at(vars(season, episode), parse_number) %&amp;gt;%
+  mutate(keyword = str_replace(keyword, &amp;quot;_&amp;quot;, &amp;quot; &amp;quot;)) %&amp;gt;%
+  mutate(keyword = str_to_title(keyword))
+
+bob_ross
+#&amp;gt; # A tibble: 20,553 x 5
+#&amp;gt;    season episode title                     keyword         is_present
+#&amp;gt;     &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;                     &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt;
+#&amp;gt;  1      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Aurora Borealis          0
+#&amp;gt;  2      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Barn                     0
+#&amp;gt;  3      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Beach                    0
+#&amp;gt;  4      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Boat                     0
+#&amp;gt;  5      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Bridge                   0
+#&amp;gt;  6      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Building                 0
+#&amp;gt;  7      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Bushes                   1
+#&amp;gt;  8      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cabin                    0
+#&amp;gt;  9      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cactus                   0
+#&amp;gt; 10      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cirrus                   0
+#&amp;gt; # ... with 20,543 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a total of 51 keywords used to describe his paintings. Upon my first exploration, I found some keywords were duplicated between words in singular and plural:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lake/lakes&lt;/li&gt;
+&lt;li&gt;mountain/mountains&lt;/li&gt;
+&lt;li&gt;tree/trees&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  pull(keyword)
+#&amp;gt;  [1] &amp;quot;Aurora Borealis&amp;quot; &amp;quot;Barn&amp;quot;            &amp;quot;Beach&amp;quot;          
+#&amp;gt;  [4] &amp;quot;Boat&amp;quot;            &amp;quot;Bridge&amp;quot;          &amp;quot;Building&amp;quot;       
+#&amp;gt;  [7] &amp;quot;Bushes&amp;quot;          &amp;quot;Cabin&amp;quot;           &amp;quot;Cactus&amp;quot;         
+#&amp;gt; [10] &amp;quot;Cirrus&amp;quot;          &amp;quot;Cliff&amp;quot;           &amp;quot;Clouds&amp;quot;         
+#&amp;gt; [13] &amp;quot;Conifer&amp;quot;         &amp;quot;Cumulus&amp;quot;         &amp;quot;Deciduous&amp;quot;      
+#&amp;gt; [16] &amp;quot;Diane Andre&amp;quot;     &amp;quot;Dock&amp;quot;            &amp;quot;Farm&amp;quot;           
+#&amp;gt; [19] &amp;quot;Fence&amp;quot;           &amp;quot;Fire&amp;quot;            &amp;quot;Flowers&amp;quot;        
+#&amp;gt; [22] &amp;quot;Fog&amp;quot;             &amp;quot;Grass&amp;quot;           &amp;quot;Guest&amp;quot;          
+#&amp;gt; [25] &amp;quot;Hills&amp;quot;           &amp;quot;Lake&amp;quot;            &amp;quot;Lakes&amp;quot;          
+#&amp;gt; [28] &amp;quot;Lighthouse&amp;quot;      &amp;quot;Mill&amp;quot;            &amp;quot;Moon&amp;quot;           
+#&amp;gt; [31] &amp;quot;Mountain&amp;quot;        &amp;quot;Mountains&amp;quot;       &amp;quot;Night&amp;quot;          
+#&amp;gt; [34] &amp;quot;Ocean&amp;quot;           &amp;quot;Palm Trees&amp;quot;      &amp;quot;Path&amp;quot;           
+#&amp;gt; [37] &amp;quot;Person&amp;quot;          &amp;quot;Portrait&amp;quot;        &amp;quot;River&amp;quot;          
+#&amp;gt; [40] &amp;quot;Rocks&amp;quot;           &amp;quot;Snow&amp;quot;            &amp;quot;Snowy Mountain&amp;quot; 
+#&amp;gt; [43] &amp;quot;Steve Ross&amp;quot;      &amp;quot;Structure&amp;quot;       &amp;quot;Sun&amp;quot;            
+#&amp;gt; [46] &amp;quot;Tree&amp;quot;            &amp;quot;Trees&amp;quot;           &amp;quot;Waterfall&amp;quot;      
+#&amp;gt; [49] &amp;quot;Waves&amp;quot;           &amp;quot;Windmill&amp;quot;        &amp;quot;Winter&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s do some more cleaning to the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  mutate(keyword = case_when(
+    keyword == &amp;quot;Lake&amp;quot; ~ &amp;quot;Lakes&amp;quot;,
+    keyword == &amp;quot;Mountain&amp;quot; ~ &amp;quot;Mountains&amp;quot;,
+    keyword == &amp;quot;Tree&amp;quot; ~ &amp;quot;Trees&amp;quot;,
+    TRUE ~ keyword
+  ))
+
+bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  group_by(season, episode, title, keyword) %&amp;gt;%
+  summarise(is_present = sum(is_present)) %&amp;gt;%
+  mutate(is_present = ifelse(is_present &amp;gt;= 1, 1, 0)) %&amp;gt;%
+  ungroup()
+
+bob_ross %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  pull()
+#&amp;gt;  [1] &amp;quot;Aurora Borealis&amp;quot; &amp;quot;Barn&amp;quot;            &amp;quot;Beach&amp;quot;          
+#&amp;gt;  [4] &amp;quot;Boat&amp;quot;            &amp;quot;Bridge&amp;quot;          &amp;quot;Building&amp;quot;       
+#&amp;gt;  [7] &amp;quot;Bushes&amp;quot;          &amp;quot;Cabin&amp;quot;           &amp;quot;Cactus&amp;quot;         
+#&amp;gt; [10] &amp;quot;Cirrus&amp;quot;          &amp;quot;Cliff&amp;quot;           &amp;quot;Clouds&amp;quot;         
+#&amp;gt; [13] &amp;quot;Conifer&amp;quot;         &amp;quot;Cumulus&amp;quot;         &amp;quot;Deciduous&amp;quot;      
+#&amp;gt; [16] &amp;quot;Diane Andre&amp;quot;     &amp;quot;Dock&amp;quot;            &amp;quot;Farm&amp;quot;           
+#&amp;gt; [19] &amp;quot;Fence&amp;quot;           &amp;quot;Fire&amp;quot;            &amp;quot;Flowers&amp;quot;        
+#&amp;gt; [22] &amp;quot;Fog&amp;quot;             &amp;quot;Grass&amp;quot;           &amp;quot;Guest&amp;quot;          
+#&amp;gt; [25] &amp;quot;Hills&amp;quot;           &amp;quot;Lakes&amp;quot;           &amp;quot;Lighthouse&amp;quot;     
+#&amp;gt; [28] &amp;quot;Mill&amp;quot;            &amp;quot;Moon&amp;quot;            &amp;quot;Mountains&amp;quot;      
+#&amp;gt; [31] &amp;quot;Night&amp;quot;           &amp;quot;Ocean&amp;quot;           &amp;quot;Palm Trees&amp;quot;     
+#&amp;gt; [34] &amp;quot;Path&amp;quot;            &amp;quot;Person&amp;quot;          &amp;quot;Portrait&amp;quot;       
+#&amp;gt; [37] &amp;quot;River&amp;quot;           &amp;quot;Rocks&amp;quot;           &amp;quot;Snow&amp;quot;           
+#&amp;gt; [40] &amp;quot;Snowy Mountain&amp;quot;  &amp;quot;Steve Ross&amp;quot;      &amp;quot;Structure&amp;quot;      
+#&amp;gt; [43] &amp;quot;Sun&amp;quot;             &amp;quot;Trees&amp;quot;           &amp;quot;Waterfall&amp;quot;      
+#&amp;gt; [46] &amp;quot;Waves&amp;quot;           &amp;quot;Windmill&amp;quot;        &amp;quot;Winter&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-painting-of-bob-ross&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The painting of Bob Ross&lt;/h2&gt;
+&lt;div id=&#34;most-painted-objects&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Most painted objects&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_painting_elements &amp;lt;- bob_ross %&amp;gt;%
+  group_by(keyword) %&amp;gt;%
+  summarise(n_painting = sum(is_present), total_painting = n_distinct(title)) %&amp;gt;%
+  mutate(percent_object = n_painting / total_painting) %&amp;gt;%
+  mutate(keyword = glue(&amp;quot;{keyword} ({round(percent_object * 100, digits = 0)}%)&amp;quot;)) %&amp;gt;%
+  mutate(keyword = fct_reorder(keyword, percent_object))
+
+top_painting_elements %&amp;gt;%
+  filter(percent_object &amp;gt;= 0.1) %&amp;gt;%
+  ggplot(aes(x = keyword, y = percent_object)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent, expand = expand_scale(mult = c(0, 0.1))) +
+  xlab(NULL) +
+  ylab(&amp;quot;Percentage (%)&amp;quot;) +
+  labs(title = &amp;quot;Bob Ross most painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Only showing items present more than 10% of the time&amp;quot;) +
+  theme(
+    panel.grid = element_line(colour = NULL),
+    panel.grid.minor = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.line = element_blank(),
+    panel.border = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_painting_element &amp;lt;- bob_ross %&amp;gt;%
+  group_by(keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  filter(dense_rank(desc(n)) &amp;lt; 10) %&amp;gt;%
+  inner_join(bob_ross) %&amp;gt;%
+  group_by(season, keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  arrange(desc(n))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;trends-in-most-painted-elements&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Trends in most painted elements&lt;/h3&gt;
+&lt;p&gt;Are there any trends in the most painted elements?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df &amp;lt;- top_painting_element %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  arrange(keyword) %&amp;gt;%
+  mutate(icon = case_when(
+    keyword == &amp;quot;Bushes&amp;quot; ~ emoji(&amp;quot;herb&amp;quot;),
+    keyword == &amp;quot;Clouds&amp;quot; ~ emoji(&amp;quot;cloud&amp;quot;),
+    keyword == &amp;quot;Conifer&amp;quot; ~ emoji(&amp;quot;palm_tree&amp;quot;),
+    keyword == &amp;quot;Deciduous&amp;quot; ~ emoji(&amp;quot;deciduous_tree&amp;quot;),
+    keyword == &amp;quot;Grass&amp;quot; ~ emoji(&amp;quot;seedling&amp;quot;),
+    keyword == &amp;quot;Lakes&amp;quot; ~ emoji(&amp;quot;ocean&amp;quot;),
+    keyword == &amp;quot;Mountains&amp;quot; ~ emoji(&amp;quot;mount_fuji&amp;quot;),
+    keyword == &amp;quot;River&amp;quot; ~ emoji(&amp;quot;ocean&amp;quot;),
+    keyword == &amp;quot;Trees&amp;quot; ~ emoji(&amp;quot;evergreen_tree&amp;quot;)
+  )) %&amp;gt;%
+  inner_join(top_painting_element) %&amp;gt;%
+  mutate(keyword = paste(keyword, icon))
+
+df %&amp;gt;%
+  mutate(keyword = fct_reorder(str_to_title(keyword), desc(n), .fun = sum)) %&amp;gt;%
+  ggplot(aes(x = season, y = n)) +
+  geom_line(size = 1) +
+  facet_wrap(~keyword) +
+  theme(legend.position = &amp;quot;none&amp;quot;) +
+  xlab(&amp;quot;Season #&amp;quot;) +
+  ylab(&amp;quot;Number of painted elements&amp;quot;) +
+  labs(title = &amp;quot;Most popular painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Based on the nine most painted elements for all the episodes&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-6-1.jpeg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Heat map showing all the 48 elements in the database.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross %&amp;gt;%
+  group_by(season, keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(keyword = str_replace(keyword, &amp;quot;_&amp;quot;, &amp;quot; &amp;quot;)) %&amp;gt;%
+  mutate(keyword = str_to_title(keyword)) %&amp;gt;%
+  mutate(keyword = fct_reorder(keyword, n, sum)) %&amp;gt;%
+  ggplot(aes(x = season, y = keyword, fill = n)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = &amp;quot;plasma&amp;quot;, labels = function(x) round(x)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 35, by = 5)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  xlab(&amp;quot;Season #&amp;quot;) +
+  ylab(NULL) +
+  labs(fill = &amp;quot;Number of painted element&amp;quot;) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;) +
+  guides(fill = guide_colourbar(title.position = &amp;quot;top&amp;quot;, title.hjust = 0.5)) +
+  labs(title = &amp;quot;Heat map of all painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Over all the season&amp;quot;) +
+  theme(
+    panel.border = element_blank(),
+    axis.ticks = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-7-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Tidytuesday: video games</title>
