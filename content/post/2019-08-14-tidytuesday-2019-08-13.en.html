@@ -17,6 +17,8 @@ editor_options:
 
 
 <p>This week, the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13">TidyTuesday challenge</a> is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.</p>
+<div id="the-data" class="section level2">
+<h2>The data</h2>
 <pre class="r"><code>emperors &lt;-
   readr::read_csv(
     &quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&quot;
@@ -39,12 +41,17 @@ emperors
 #&gt; # ... with 58 more rows, and 8 more variables: reign_start &lt;date&gt;,
 #&gt; #   reign_end &lt;date&gt;, cause &lt;chr&gt;, killer &lt;chr&gt;, dynasty &lt;chr&gt;, era &lt;chr&gt;,
 #&gt; #   notes &lt;chr&gt;, verif_who &lt;chr&gt;</code></pre>
-<p>In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.</p>
-<pre class="r"><code>emperors %&gt;%
+</div>
+<div id="exploratory-graph" class="section level2">
+<h2>Exploratory graph</h2>
+<p>In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor. First, lets calculate the age and the reign period of each emperor.</p>
+<pre class="r"><code>emperors &lt;- emperors %&gt;%
   drop_na(death, birth, reign_start, reign_end) %&gt;%
   filter(death &gt;= birth) %&gt;%
   mutate(age = lubridate::time_length(death - birth, unit = &quot;year&quot;)) %&gt;% 
-  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = &quot;year&quot;)) %&gt;% 
+  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = &quot;year&quot;)) </code></pre>
+<p>I can now graph the relationship between the age and the reign duration of each emperor.</p>
+<pre class="r"><code>emperors %&gt;% 
   mutate(
     name = glue(
       &quot;{name} ({round(age, digits = 0)} years old)&quot;
@@ -110,8 +117,61 @@ emperors
   ylab(NULL) +
   xlab(&quot;Years&quot;) +
   labs(color = &quot;Dynasty&quot;) +
-  labs(title = &quot;Roman Emperors&quot;) +
-  labs(subtitle = str_wrap(&quot;Colored bars represent the lifespan whereas the black bars the reign duration&quot;, 60)) +
+  labs(title = &quot;Roman emperors&quot;) +
+  labs(subtitle = str_wrap(&quot;Colored bars represent the lifespan whereas the black bars the duration of the reign of each emperor&quot;, 60)) +
   labs(caption = &quot;Data: https://bit.ly/2N2spWr | @philmassicotte&quot;) +
   scale_color_brewer(palette = &quot;Pastel2&quot;)</code></pre>
-<p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-2-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-3-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="causes-of-death" class="section level2">
+<h2>Causes of death</h2>
+<pre class="r"><code>emperors %&gt;% 
+  count(cause) %&gt;% 
+  mutate(cause = fct_reorder(cause, n)) %&gt;% 
+  ggplot(aes(x = cause, y = n)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&quot;Number of death&quot;) +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
+  labs(title = &quot;Principal causes of death&quot;) +
+  labs(subtitle = glue(&quot;Based on {nrow(emperors)} observations&quot;))</code></pre>
+<p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="some-stats" class="section level2">
+<h2>Some stats</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Stats</th>
+<th align="left">Age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Average age at death</td>
+<td align="left">49 years old</td>
+</tr>
+<tr class="even">
+<td align="left">Average reign duration</td>
+<td align="left">8 years old</td>
+</tr>
+<tr class="odd">
+<td align="left">Youngest emperor</td>
+<td align="left">19 years old</td>
+</tr>
+<tr class="even">
+<td align="left">Oldest emperor</td>
+<td align="left">79 years old</td>
+</tr>
+<tr class="odd">
+<td align="left">Longest reign</td>
+<td align="left">30.85 years</td>
+</tr>
+<tr class="even">
+<td align="left">Shortest reign</td>
+<td align="left">0.06 years</td>
+</tr>
+</tbody>
+</table>
+</div>
