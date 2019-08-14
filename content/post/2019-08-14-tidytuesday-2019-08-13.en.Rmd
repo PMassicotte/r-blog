@@ -19,14 +19,14 @@ draft: true
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE,
+  cache = FALSE,
   dpi = 300,
   out.width = "100%",
   fig.align = "center",
   fig.width = 8,
   fig.asp = 0.618, # 1 / phi
   fig.show = "hold",
-  dev = "svg",
+  dev = "svglite",
   message = FALSE,
   warning = FALSE,
   echo = TRUE
@@ -35,11 +35,12 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(ggpmthemes)
 library(glue)
+library(ggforce)
 
 theme_set(theme_poppins())
 ```
 
-This week
+This week, the [TidyTuesday challenge](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13) is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.
 
 ```{r}
 emperors <-
@@ -48,16 +49,19 @@ emperors <-
   )
 
 emperors
-
 ```
+
+In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.
 
 ```{r, fig.height=12, fig.asp=NA}
 emperors %>%
   drop_na(death, birth, reign_start, reign_end) %>%
   filter(death >= birth) %>%
+  mutate(age = lubridate::time_length(death - birth, unit = "year")) %>% 
+  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = "year")) %>% 
   mutate(
     name = glue(
-      "{name} ({round(lubridate::time_length(death - birth, unit = 'year'), digits = 0)} years old)"
+      "{name} ({round(age, digits = 0)} years old)"
     )
   ) %>%
   mutate(name = fct_reorder(name, death)) %>%
@@ -78,7 +82,7 @@ emperors %>%
     x = death,
     y = name,
     label = glue(
-      "Reign: {round(lubridate::time_length(reign_end - reign_start, unit = 'year'), digits = 2)} years"
+      "Reign: {round(reign_duration, digits = 2)} years"
     )
   ),
   hjust = -0.1,
@@ -86,14 +90,40 @@ emperors %>%
   size = 3,
   family = "Poppins"
   ) +
+  geom_mark_circle(
+    aes(
+      label = glue("{name}"),
+      description = "The oldest emperor",
+      filter = age == max(age),
+      color = dynasty
+    ),
+    expand = unit(0.01, "mm"),
+    label.family = c("Poppins"),
+    label.fontsize = 8,
+    label.buffer = unit(5, "mm"),
+    label.hjust = 1
+  ) +
+  geom_mark_circle(
+    aes(
+      label = glue("{name}"),
+      description = "The longest reign",
+      filter = reign_duration == max(reign_duration),
+      color = dynasty
+    ),
+    expand = unit(0.01, "mm"),
+    label.family = c("Poppins"),
+    label.fontsize = 8,
+    label.buffer = unit(5, "mm"),
+    label.hjust = 1
+  ) +
   theme(legend.position = "bottom") +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
-  scale_x_date(expand = expand_scale(mult = c(0.01, 0.3))) +
+  scale_x_date(expand = expand_scale(mult = c(0.02, 0.3))) +
   ylab(NULL) +
   xlab("Years") +
   labs(color = "Dynasty") +
   labs(title = "Roman Emperors") +
-  labs(subtitle = "Colored bars represent the lifespan whereas the black bars the reign duration") +
+  labs(subtitle = str_wrap("Colored bars represent the lifespan whereas the black bars the reign duration", 60)) +
   labs(caption = "Data: https://bit.ly/2N2spWr | @philmassicotte") +
   scale_color_brewer(palette = "Pastel2")
 ```

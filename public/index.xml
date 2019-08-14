@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;This week&lt;/p&gt;
+&lt;p&gt;This week, the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13&#34;&gt;TidyTuesday challenge&lt;/a&gt; is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors &amp;lt;-
   readr::read_csv(
     &amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;
@@ -43,12 +43,15 @@ emperors
 #&amp;gt; # ... with 58 more rows, and 8 more variables: reign_start &amp;lt;date&amp;gt;,
 #&amp;gt; #   reign_end &amp;lt;date&amp;gt;, cause &amp;lt;chr&amp;gt;, killer &amp;lt;chr&amp;gt;, dynasty &amp;lt;chr&amp;gt;, era &amp;lt;chr&amp;gt;,
 #&amp;gt; #   notes &amp;lt;chr&amp;gt;, verif_who &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors %&amp;gt;%
   drop_na(death, birth, reign_start, reign_end) %&amp;gt;%
   filter(death &amp;gt;= birth) %&amp;gt;%
+  mutate(age = lubridate::time_length(death - birth, unit = &amp;quot;year&amp;quot;)) %&amp;gt;% 
+  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = &amp;quot;year&amp;quot;)) %&amp;gt;% 
   mutate(
     name = glue(
-      &amp;quot;{name} ({round(lubridate::time_length(death - birth, unit = &amp;#39;year&amp;#39;), digits = 0)} years old)&amp;quot;
+      &amp;quot;{name} ({round(age, digits = 0)} years old)&amp;quot;
     )
   ) %&amp;gt;%
   mutate(name = fct_reorder(name, death)) %&amp;gt;%
@@ -69,7 +72,7 @@ emperors
     x = death,
     y = name,
     label = glue(
-      &amp;quot;Reign: {round(lubridate::time_length(reign_end - reign_start, unit = &amp;#39;year&amp;#39;), digits = 2)} years&amp;quot;
+      &amp;quot;Reign: {round(reign_duration, digits = 2)} years&amp;quot;
     )
   ),
   hjust = -0.1,
@@ -77,14 +80,40 @@ emperors
   size = 3,
   family = &amp;quot;Poppins&amp;quot;
   ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&amp;quot;{name}&amp;quot;),
+      description = &amp;quot;The oldest emperor&amp;quot;,
+      filter = age == max(age),
+      color = dynasty
+    ),
+    expand = unit(0.01, &amp;quot;mm&amp;quot;),
+    label.family = c(&amp;quot;Poppins&amp;quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &amp;quot;mm&amp;quot;),
+    label.hjust = 1
+  ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&amp;quot;{name}&amp;quot;),
+      description = &amp;quot;The longest reign&amp;quot;,
+      filter = reign_duration == max(reign_duration),
+      color = dynasty
+    ),
+    expand = unit(0.01, &amp;quot;mm&amp;quot;),
+    label.family = c(&amp;quot;Poppins&amp;quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &amp;quot;mm&amp;quot;),
+    label.hjust = 1
+  ) +
   theme(legend.position = &amp;quot;bottom&amp;quot;) +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
-  scale_x_date(expand = expand_scale(mult = c(0.01, 0.3))) +
+  scale_x_date(expand = expand_scale(mult = c(0.02, 0.3))) +
   ylab(NULL) +
   xlab(&amp;quot;Years&amp;quot;) +
   labs(color = &amp;quot;Dynasty&amp;quot;) +
   labs(title = &amp;quot;Roman Emperors&amp;quot;) +
-  labs(subtitle = &amp;quot;Colored bars represent the lifespan whereas the black bars the reign duration&amp;quot;) +
+  labs(subtitle = str_wrap(&amp;quot;Colored bars represent the lifespan whereas the black bars the reign duration&amp;quot;, 60)) +
   labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | @philmassicotte&amp;quot;) +
   scale_color_brewer(palette = &amp;quot;Pastel2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;

@@ -61,9 +61,9 @@
     "name" : "Philippe Massicotte"
   },
   "headline": "Tidytuesday (2019-08-13)",
-  "description" : "This week\nemperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~\r#\x26gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~\r#\x26gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~\r#\x26gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~\r#\x26gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~\r#\x26gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~\r#\x26gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~\r#\x26gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~\r#\x26gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~\r#\x26gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~\r#\x26gt; # .",
+  "description" : "This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.\nemperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~\r#\x26gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~\r#\x26gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~\r#\x26gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~\r#\x26gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~\r#\x26gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~\r#\x26gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~\r#\x26gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~\r#\x26gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~\r#\x26gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~\r#\x26gt; # .",
   "inLanguage" : "en",
-  "wordCount":  343 ,
+  "wordCount":  469 ,
   "datePublished" : "2019-08-14T00:00:00",
   "dateModified" : "2019-08-14T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -268,10 +268,10 @@
   <i class="fas fa-calendar"></i>&nbsp;Posted on August 14, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;343&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;469&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -301,7 +301,7 @@
         
 
 
-<p>This week</p>
+<p>This week, the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13">TidyTuesday challenge</a> is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.</p>
 <pre class="r"><code>emperors &lt;-
   readr::read_csv(
     &quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&quot;
@@ -324,12 +324,15 @@ emperors
 #&gt; # ... with 58 more rows, and 8 more variables: reign_start &lt;date&gt;,
 #&gt; #   reign_end &lt;date&gt;, cause &lt;chr&gt;, killer &lt;chr&gt;, dynasty &lt;chr&gt;, era &lt;chr&gt;,
 #&gt; #   notes &lt;chr&gt;, verif_who &lt;chr&gt;</code></pre>
+<p>In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.</p>
 <pre class="r"><code>emperors %&gt;%
   drop_na(death, birth, reign_start, reign_end) %&gt;%
   filter(death &gt;= birth) %&gt;%
+  mutate(age = lubridate::time_length(death - birth, unit = &quot;year&quot;)) %&gt;% 
+  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = &quot;year&quot;)) %&gt;% 
   mutate(
     name = glue(
-      &quot;{name} ({round(lubridate::time_length(death - birth, unit = &#39;year&#39;), digits = 0)} years old)&quot;
+      &quot;{name} ({round(age, digits = 0)} years old)&quot;
     )
   ) %&gt;%
   mutate(name = fct_reorder(name, death)) %&gt;%
@@ -350,7 +353,7 @@ emperors
     x = death,
     y = name,
     label = glue(
-      &quot;Reign: {round(lubridate::time_length(reign_end - reign_start, unit = &#39;year&#39;), digits = 2)} years&quot;
+      &quot;Reign: {round(reign_duration, digits = 2)} years&quot;
     )
   ),
   hjust = -0.1,
@@ -358,14 +361,40 @@ emperors
   size = 3,
   family = &quot;Poppins&quot;
   ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&quot;{name}&quot;),
+      description = &quot;The oldest emperor&quot;,
+      filter = age == max(age),
+      color = dynasty
+    ),
+    expand = unit(0.01, &quot;mm&quot;),
+    label.family = c(&quot;Poppins&quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &quot;mm&quot;),
+    label.hjust = 1
+  ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&quot;{name}&quot;),
+      description = &quot;The longest reign&quot;,
+      filter = reign_duration == max(reign_duration),
+      color = dynasty
+    ),
+    expand = unit(0.01, &quot;mm&quot;),
+    label.family = c(&quot;Poppins&quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &quot;mm&quot;),
+    label.hjust = 1
+  ) +
   theme(legend.position = &quot;bottom&quot;) +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
-  scale_x_date(expand = expand_scale(mult = c(0.01, 0.3))) +
+  scale_x_date(expand = expand_scale(mult = c(0.02, 0.3))) +
   ylab(NULL) +
   xlab(&quot;Years&quot;) +
   labs(color = &quot;Dynasty&quot;) +
   labs(title = &quot;Roman Emperors&quot;) +
-  labs(subtitle = &quot;Colored bars represent the lifespan whereas the black bars the reign duration&quot;) +
+  labs(subtitle = str_wrap(&quot;Colored bars represent the lifespan whereas the black bars the reign duration&quot;, 60)) +
   labs(caption = &quot;Data: https://bit.ly/2N2spWr | @philmassicotte&quot;) +
   scale_color_brewer(palette = &quot;Pastel2&quot;)</code></pre>
 <p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-2-1.svg" width="100%" style="display: block; margin: auto;" /></p>
