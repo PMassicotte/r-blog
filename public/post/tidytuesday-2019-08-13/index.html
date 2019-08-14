@@ -63,7 +63,7 @@
   "headline": "Tidytuesday (2019-08-13)",
   "description" : "This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.\nemperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~\r#\x26gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~\r#\x26gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~\r#\x26gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~\r#\x26gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~\r#\x26gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~\r#\x26gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~\r#\x26gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~\r#\x26gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~\r#\x26gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~\r#\x26gt; # .",
   "inLanguage" : "en",
-  "wordCount":  469 ,
+  "wordCount":  475 ,
   "datePublished" : "2019-08-14T00:00:00",
   "dateModified" : "2019-08-14T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -271,7 +271,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;469&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;475&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -372,7 +372,8 @@ emperors
     label.family = c(&quot;Poppins&quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &quot;mm&quot;),
-    label.hjust = 1
+    label.hjust = 1, 
+    show.legend = FALSE
   ) +
   geom_mark_circle(
     aes(
@@ -385,7 +386,8 @@ emperors
     label.family = c(&quot;Poppins&quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &quot;mm&quot;),
-    label.hjust = 1
+    label.hjust = 1,
+    show.legend = FALSE
   ) +
   theme(legend.position = &quot;bottom&quot;) +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +

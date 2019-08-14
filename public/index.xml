@@ -91,7 +91,8 @@ emperors
     label.family = c(&amp;quot;Poppins&amp;quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &amp;quot;mm&amp;quot;),
-    label.hjust = 1
+    label.hjust = 1, 
+    show.legend = FALSE
   ) +
   geom_mark_circle(
     aes(
@@ -104,7 +105,8 @@ emperors
     label.family = c(&amp;quot;Poppins&amp;quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &amp;quot;mm&amp;quot;),
-    label.hjust = 1
+    label.hjust = 1,
+    show.legend = FALSE
   ) +
   theme(legend.position = &amp;quot;bottom&amp;quot;) +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +

@@ -12,14 +12,13 @@ image: ''
 subtitle: 'Roman Emperors'
 editor_options:
   chunk_output_type: console
-draft: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
   dpi = 300,
   out.width = "100%",
   fig.align = "center",
@@ -53,7 +52,7 @@ emperors
 
 In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.
 
-```{r, fig.height=12, fig.asp=NA}
+```{r, fig.height=14, fig.asp=NA}
 emperors %>%
   drop_na(death, birth, reign_start, reign_end) %>%
   filter(death >= birth) %>%
@@ -101,7 +100,8 @@ emperors %>%
     label.family = c("Poppins"),
     label.fontsize = 8,
     label.buffer = unit(5, "mm"),
-    label.hjust = 1
+    label.hjust = 1, 
+    show.legend = FALSE
   ) +
   geom_mark_circle(
     aes(
@@ -114,7 +114,8 @@ emperors %>%
     label.family = c("Poppins"),
     label.fontsize = 8,
     label.buffer = unit(5, "mm"),
-    label.hjust = 1
+    label.hjust = 1,
+    show.legend = FALSE
   ) +
   theme(legend.position = "bottom") +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +

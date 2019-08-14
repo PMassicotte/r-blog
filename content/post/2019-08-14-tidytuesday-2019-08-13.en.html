@@ -12,7 +12,6 @@ image: ''
 subtitle: 'Roman Emperors'
 editor_options:
   chunk_output_type: console
-draft: true
 ---
 
 
@@ -88,7 +87,8 @@ emperors
     label.family = c(&quot;Poppins&quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &quot;mm&quot;),
-    label.hjust = 1
+    label.hjust = 1, 
+    show.legend = FALSE
   ) +
   geom_mark_circle(
     aes(
@@ -101,7 +101,8 @@ emperors
     label.family = c(&quot;Poppins&quot;),
     label.fontsize = 8,
     label.buffer = unit(5, &quot;mm&quot;),
-    label.hjust = 1
+    label.hjust = 1,
+    show.legend = FALSE
   ) +
   theme(legend.position = &quot;bottom&quot;) +
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
