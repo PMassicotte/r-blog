@@ -1,0 +1,100 @@
+---
+title: Tidytuesday (2019-08-13)
+author: Philippe Massicotte
+date: '2019-08-14'
+slug: tidytuesday-2019-08-13
+categories: []
+tags:
+  - Tidytuesday
+  - Tidyverse
+type: ''
+image: ''
+subtitle: 'Roman Emperors'
+editor_options:
+  chunk_output_type: console
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  dpi = 300,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "svg",
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+library(glue)
+
+theme_set(theme_poppins())
+```
+
+This week
+
+```{r}
+emperors <-
+  readr::read_csv(
+    "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv"
+  )
+
+emperors
+
+```
+
+```{r, fig.height=12, fig.asp=NA}
+emperors %>%
+  drop_na(death, birth, reign_start, reign_end) %>%
+  filter(death >= birth) %>%
+  mutate(
+    name = glue(
+      "{name} ({round(lubridate::time_length(death - birth, unit = 'year'), digits = 0)} years old)"
+    )
+  ) %>%
+  mutate(name = fct_reorder(name, death)) %>%
+  ggplot(aes(
+    x = birth,
+    xend = death,
+    y = name,
+    yend = name
+  )) +
+  geom_segment(size = 3, lineend = "round", aes(color = dynasty)) +
+  geom_segment(
+    aes(x = reign_start, xend = reign_end),
+    color = "black",
+    size = 1,
+    lineend = "round"
+  ) +
+  geom_label(aes(
+    x = death,
+    y = name,
+    label = glue(
+      "Reign: {round(lubridate::time_length(reign_end - reign_start, unit = 'year'), digits = 2)} years"
+    )
+  ),
+  hjust = -0.1,
+  label.size = 0,
+  size = 3,
+  family = "Poppins"
+  ) +
+  theme(legend.position = "bottom") +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
+  scale_x_date(expand = expand_scale(mult = c(0.01, 0.3))) +
+  ylab(NULL) +
+  xlab("Years") +
+  labs(color = "Dynasty") +
+  labs(title = "Roman Emperors") +
+  labs(subtitle = "Colored bars represent the lifespan whereas the black bars the reign duration") +
+  labs(caption = "Data: https://bit.ly/2N2spWr | @philmassicotte") +
+  scale_color_brewer(palette = "Pastel2")
+```
+

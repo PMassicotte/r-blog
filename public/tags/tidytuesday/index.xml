@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Tue, 06 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tidytuesday (2019-08-13)</title>
+      <link>/post/tidytuesday-2019-08-13/</link>
+      <pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-13/</guid>
+      <description>This week
+emperors &amp;lt;-readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;)emperors#&amp;gt; # A tibble: 68 x 16#&amp;gt; index name name_full birth death birth_cty birth_prv rise #&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;date&amp;gt; &amp;lt;date&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;#&amp;gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~#&amp;gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~#&amp;gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~#&amp;gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~#&amp;gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~#&amp;gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~#&amp;gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~#&amp;gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~#&amp;gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~#&amp;gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~#&amp;gt; # .</description>
+    </item>
     
     <item>
       <title>Tidytuesday (2019-08-06)</title>

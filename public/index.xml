@@ -6,10 +6,90 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Tue, 06 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tidytuesday (2019-08-13)</title>
+      <link>/post/tidytuesday-2019-08-13/</link>
+      <pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-13/</guid>
+      <description>
+
+
+&lt;p&gt;This week&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors &amp;lt;-
+  readr::read_csv(
+    &amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;
+  )
+
+emperors
+#&amp;gt; # A tibble: 68 x 16
+#&amp;gt;    index name  name_full birth      death      birth_cty birth_prv rise 
+#&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;date&amp;gt;     &amp;lt;date&amp;gt;     &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;
+#&amp;gt;  1     1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome      Italia    Birt~
+#&amp;gt;  2     2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome      Italia    Birt~
+#&amp;gt;  3     3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum   Italia    Birt~
+#&amp;gt;  4     4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum  Gallia L~ Birt~
+#&amp;gt;  5     5 Nero  NERO CLA~ 0037-12-15 0068-06-09 Antitum   Italia    Birt~
+#&amp;gt;  6     6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia    Seiz~
+#&amp;gt;  7     7 Otho  MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia    Appo~
+#&amp;gt;  8     8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome      Italia    Seiz~
+#&amp;gt;  9     9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia    Seiz~
+#&amp;gt; 10    10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome      Italia    Birt~
+#&amp;gt; # ... with 58 more rows, and 8 more variables: reign_start &amp;lt;date&amp;gt;,
+#&amp;gt; #   reign_end &amp;lt;date&amp;gt;, cause &amp;lt;chr&amp;gt;, killer &amp;lt;chr&amp;gt;, dynasty &amp;lt;chr&amp;gt;, era &amp;lt;chr&amp;gt;,
+#&amp;gt; #   notes &amp;lt;chr&amp;gt;, verif_who &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors %&amp;gt;%
+  drop_na(death, birth, reign_start, reign_end) %&amp;gt;%
+  filter(death &amp;gt;= birth) %&amp;gt;%
+  mutate(
+    name = glue(
+      &amp;quot;{name} ({round(lubridate::time_length(death - birth, unit = &amp;#39;year&amp;#39;), digits = 0)} years old)&amp;quot;
+    )
+  ) %&amp;gt;%
+  mutate(name = fct_reorder(name, death)) %&amp;gt;%
+  ggplot(aes(
+    x = birth,
+    xend = death,
+    y = name,
+    yend = name
+  )) +
+  geom_segment(size = 3, lineend = &amp;quot;round&amp;quot;, aes(color = dynasty)) +
+  geom_segment(
+    aes(x = reign_start, xend = reign_end),
+    color = &amp;quot;black&amp;quot;,
+    size = 1,
+    lineend = &amp;quot;round&amp;quot;
+  ) +
+  geom_label(aes(
+    x = death,
+    y = name,
+    label = glue(
+      &amp;quot;Reign: {round(lubridate::time_length(reign_end - reign_start, unit = &amp;#39;year&amp;#39;), digits = 2)} years&amp;quot;
+    )
+  ),
+  hjust = -0.1,
+  label.size = 0,
+  size = 3,
+  family = &amp;quot;Poppins&amp;quot;
+  ) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
+  scale_x_date(expand = expand_scale(mult = c(0.01, 0.3))) +
+  ylab(NULL) +
+  xlab(&amp;quot;Years&amp;quot;) +
+  labs(color = &amp;quot;Dynasty&amp;quot;) +
+  labs(title = &amp;quot;Roman Emperors&amp;quot;) +
+  labs(subtitle = &amp;quot;Colored bars represent the lifespan whereas the black bars the reign duration&amp;quot;) +
+  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | @philmassicotte&amp;quot;) +
+  scale_color_brewer(palette = &amp;quot;Pastel2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Tidytuesday (2019-08-06)</title>
