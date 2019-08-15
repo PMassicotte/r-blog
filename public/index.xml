@@ -121,9 +121,9 @@ emperors
   ylab(NULL) +
   xlab(&amp;quot;Years&amp;quot;) +
   labs(color = &amp;quot;Dynasty&amp;quot;) +
-  labs(title = &amp;quot;Roman emperors&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Roman emperors: their birth, death and reign&amp;quot;, 35)) +
   labs(subtitle = str_wrap(&amp;quot;Colored bars represent the lifespan whereas the black bars the duration of the reign of each emperor&amp;quot;, 60)) +
-  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | @philmassicotte&amp;quot;) +
+  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&amp;quot;) +
   scale_color_brewer(palette = &amp;quot;Pastel2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
@@ -139,7 +139,8 @@ emperors
   ylab(&amp;quot;Number of death&amp;quot;) +
   scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
   labs(title = &amp;quot;Principal causes of death&amp;quot;) +
-  labs(subtitle = glue(&amp;quot;Based on {nrow(emperors)} observations&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+  labs(subtitle = glue(&amp;quot;Based on {nrow(emperors)} observations&amp;quot;)) +
+  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;some-stats&#34; class=&#34;section level2&#34;&gt;

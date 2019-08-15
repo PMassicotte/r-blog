@@ -63,7 +63,7 @@
   "headline": "Tidytuesday (2019-08-13)",
   "description" : "This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.\nThe data\remperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~\r#\x26gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~\r#\x26gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~\r#\x26gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~\r#\x26gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~\r#\x26gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~\r#\x26gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~\r#\x26gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~\r#\x26gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~\r#\x26gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~\r#\x26gt; # .",
   "inLanguage" : "en",
-  "wordCount":  599 ,
+  "wordCount":  614 ,
   "datePublished" : "2019-08-14T00:00:00",
   "dateModified" : "2019-08-14T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -271,7 +271,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;599&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;614&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -402,9 +402,9 @@ emperors
   ylab(NULL) +
   xlab(&quot;Years&quot;) +
   labs(color = &quot;Dynasty&quot;) +
-  labs(title = &quot;Roman emperors&quot;) +
+  labs(title = str_wrap(&quot;Roman emperors: their birth, death and reign&quot;, 35)) +
   labs(subtitle = str_wrap(&quot;Colored bars represent the lifespan whereas the black bars the duration of the reign of each emperor&quot;, 60)) +
-  labs(caption = &quot;Data: https://bit.ly/2N2spWr | @philmassicotte&quot;) +
+  labs(caption = &quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&quot;) +
   scale_color_brewer(palette = &quot;Pastel2&quot;)</code></pre>
 <p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-3-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
@@ -420,7 +420,8 @@ emperors
   ylab(&quot;Number of death&quot;) +
   scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
   labs(title = &quot;Principal causes of death&quot;) +
-  labs(subtitle = glue(&quot;Based on {nrow(emperors)} observations&quot;))</code></pre>
+  labs(subtitle = glue(&quot;Based on {nrow(emperors)} observations&quot;)) +
+  labs(caption = &quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&quot;)</code></pre>
 <p><img src="/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="some-stats" class="section level2">

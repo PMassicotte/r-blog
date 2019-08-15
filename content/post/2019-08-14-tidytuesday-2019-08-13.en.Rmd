@@ -133,9 +133,9 @@ emperors %>%
   ylab(NULL) +
   xlab("Years") +
   labs(color = "Dynasty") +
-  labs(title = "Roman emperors") +
+  labs(title = str_wrap("Roman emperors: their birth, death and reign", 35)) +
   labs(subtitle = str_wrap("Colored bars represent the lifespan whereas the black bars the duration of the reign of each emperor", 60)) +
-  labs(caption = "Data: https://bit.ly/2N2spWr | @philmassicotte") +
+  labs(caption = "Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte") +
   scale_color_brewer(palette = "Pastel2")
 ```
 
@@ -152,7 +152,8 @@ emperors %>%
   ylab("Number of death") +
   scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
   labs(title = "Principal causes of death") +
-  labs(subtitle = glue("Based on {nrow(emperors)} observations"))
+  labs(subtitle = glue("Based on {nrow(emperors)} observations")) +
+  labs(caption = "Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte")
 ```
 
 ## Some stats
