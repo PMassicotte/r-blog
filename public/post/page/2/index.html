@@ -208,7 +208,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 14, 2019
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2019
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
@@ -242,6 +242,56 @@
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
         <div class="posts-list">
+          
+            <article class="post-preview">
+              <a href="/post/numerical-integration-in-r/">
+                <h2 class="post-title">Numerical integration in R</h2>
+
+                
+                  <h3 class="post-subtitle">
+                    Math 101
+                  </h3>
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 11, 2018
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;222&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
+\[ f(x) = \cos(x) + 2 \]
+We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
+                  <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/r/">R</a>&nbsp;
+                  
+                </div>
+              
+
+            </article>
           
             <article class="post-preview">
               <a href="/post/2015-11-06-daylight/">
@@ -371,7 +421,7 @@ system(cmd)</code></pre>
               <div class="post-entry">
                 
                   The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
-library(eemR)ls(&quot;package:eemR&quot;)## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot;## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot;## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot;The package can be installed using the following command.
+library(eemR) ls(&quot;package:eemR&quot;) ## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot; ## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot; ## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot; The package can be installed using the following command.
                   <a href="/post/2015-11-05-eemr/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -512,9 +562,9 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
               <div class="post-entry">
                 
                   eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
-Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
-A vignette has been added.
-eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
+ Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
+ A vignette has been added.
+  eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
                   <a href="/post/2016-05-02-eemr-0.1.3/" class="post-read-more">[Read More]</a>
                 
               </div>

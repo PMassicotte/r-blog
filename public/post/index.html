@@ -208,7 +208,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 14, 2019
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2019
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
@@ -242,6 +242,52 @@
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
         <div class="posts-list">
+          
+            <article class="post-preview">
+              <a href="/post/analyzing-the-programming-languages-used-in-r-packages/">
+                <h2 class="post-title">Analyzing the programming languages used in R packages</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1230&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicote
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C++ and Python. In this post I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.
+                  <a href="/post/analyzing-the-programming-languages-used-in-r-packages/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/programming-languages/">Programming languages</a>&nbsp;
+                  
+                    <a href="//tags/r-package/">R package</a>&nbsp;
+                  
+                </div>
+              
+
+            </article>
           
             <article class="post-preview">
               <a href="/post/tidytuesday-2019-08-13/">
@@ -377,7 +423,7 @@ The dataemperors &lt;-readr::read_csv(&quot;https://raw.githubusercontent.com
               <div class="post-entry">
                 
                   I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
-Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.
+Video Games Dataset  This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.
                   <a href="/post/tidytuesday-video-games/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -415,7 +461,7 @@ Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Sp
               </p>
               <div class="post-entry">
                 
-                  df &lt;-readxl::read_excel(&quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give#&gt; correct centroids for longitude/latitude dataworld %&gt;%ggplot() +geom_sf(size = 0.
+                  df &lt;- readxl::read_excel( &quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;, na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;) ) %&gt;% janitor::clean_names() %&gt;% mutate(date = lubridate::ymd(date)) %&gt;% mutate(date_time = make_datetime( year(date), month(date), day(date), hour(end_of_sampling), minute(end_of_sampling), second(end_of_sampling) )) Map world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) df2 &lt;- df %&gt;% count(pays, ville, x, y) %&gt;% st_as_sf( coords = c(&quot;x&quot;, &quot;y&quot;), crs = &quot;+proj=longlat +datum=WGS84&quot; ) %&gt;% st_transform(st_crs(world)) world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry))) #&gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give #&gt; correct centroids for longitude/latitude data world %&gt;% ggplot() + geom_sf(size = 0.
                   <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -460,7 +506,7 @@ Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Sp
               <div class="post-entry">
                 
                   Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
-But that’s impossible! How can it be so fast?
+ But that’s impossible! How can it be so fast?
 vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.
                   <a href="/post/2019-07-17-trying-the-vroom-package/" class="post-read-more">[Read More]</a>
                 
@@ -510,7 +556,7 @@ vroom doesn’t stop to actually read all of your data, it simply indexes where 
               <div class="post-entry">
                 
                   When eemR was originally created, I wrote few functions to import eems derived from the spectrofluorometers I knew. Given the high diversity in file formats, eemR now offers the possibility for the user to write his/her own import function.
-An exampleIn this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.
+An example In this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.
                   <a href="/post/2019-06-14-eemr-1-0-0/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -563,7 +609,7 @@ An exampleIn this example, we will learn how to create a import function for a 
               <div class="post-entry">
                 
                   To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
-library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font size and font famillyloadfonts(quiet = TRUE)theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;))The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
+library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font size and font familly loadfonts(quiet = TRUE) theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;)) The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
                   <a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -608,8 +654,8 @@ library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font 
               <div class="post-entry">
                 
                   In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
-Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
-gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).
+Basic idea gitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
+ gi_available_templates(): to get a list of all templates available on gitignore.io. gi_fetch_templates(): to get one or more template(s).
                   <a href="/post/2019-05-08-introducing-gitignore/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -668,56 +714,6 @@ Basic ideagitignore is a simple R package that provide an interface to query gi
                     <a href="//tags/asm2018/">ASM2018</a>&nbsp;
                   
                     <a href="//tags/arcticnet/">ArcticNet</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/numerical-integration-in-r/">
-                <h2 class="post-title">Numerical integration in R</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    Math 101
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 11, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;222&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[f(x) = \cos(x) + 2\]
-We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
-                  <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/r/">R</a>&nbsp;
                   
                 </div>
               
