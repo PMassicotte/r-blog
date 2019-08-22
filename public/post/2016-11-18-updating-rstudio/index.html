@@ -10,11 +10,11 @@
   <title>Installing latest version of RStudio from R - Another R blog</title>
   <meta property="og:title" content="Installing latest version of RStudio from R" />
   <meta name="twitter:title" content="Installing latest version of RStudio from R" />
-  <meta name="description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
-  <meta property="og:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
-  <meta name="twitter:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
+  <meta name="description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
+  <meta property="og:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
+  <meta name="twitter:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
   <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -63,7 +63,7 @@ rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desk
     "name" : "Philippe Massicotte"
   },
   "headline": "Installing latest version of RStudio from R",
-  "description" : " If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.\nrstudio_ubuntu_daily_url \x26lt;- \x26quot;https:\/\/www.rstudio.org\/download\/daily\/desktop\/ubuntu64\/\x26quot; r \x26lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file \x26lt;- regmatches(r, regexpr(\x26quot;https\\\\S\x2b?deb\x26quot;, r))[1] file destfile \x26lt;- paste(\x26quot;\/tmp\/\x26quot;, basename(file)) download.file(file, destfile = destfile) cmd \x26lt;- sprintf(\x26quot;dpkg -i %s\x26quot;, destfile) system(cmd) ",
+  "description" : "\rIf you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.\nrstudio_ubuntu_daily_url \x26lt;- \x26quot;https:\/\/www.rstudio.org\/download\/daily\/desktop\/ubuntu64\/\x26quot;\rr \x26lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))\rfile \x26lt;- regmatches(r, regexpr(\x26quot;https\\\\S\x2b?deb\x26quot;, r))[1]\rfile\rdestfile \x26lt;- paste(\x26quot;\/tmp\/\x26quot;, basename(file))\rdownload.file(file, destfile = destfile)\rcmd \x26lt;- sprintf(\x26quot;dpkg -i %s\x26quot;, destfile)\rsystem(cmd)\r",
   "inLanguage" : "en",
   "wordCount":  79 ,
   "datePublished" : "0001-01-01T00:00:00",
@@ -85,15 +85,15 @@ rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desk
 </script>
 
 <meta property="og:title" content="Installing latest version of RStudio from R" />
-<meta property="og:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
+<meta property="og:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
 <meta property="og:image" content="/img/pmassicotte.jpg" />
 <meta property="og:url" content="/post/2016-11-18-updating-rstudio/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Another R blog" />
 
   <meta name="twitter:title" content="Installing latest version of RStudio from R" />
-  <meta name="twitter:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
+  <meta name="twitter:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
   <meta name="twitter:image" content="/img/pmassicotte.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@philmassicotte" />
@@ -108,7 +108,7 @@ rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desk
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.57.1" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -396,7 +396,7 @@ system(cmd)</code></pre>
           
           
             <li class="next">
-              <a href="/post/2015-11-06-daylight/" data-toggle="tooltip" data-placement="top" title="Calculating daylight in R">Next Post &rarr;</a>
+              <a href="/post/2016-05-02-eemr-0.1.3/" data-toggle="tooltip" data-placement="top" title="eemR 0.1.3 is now on CRAN">Next Post &rarr;</a>
             </li>
           
         </ul>
@@ -521,7 +521,7 @@ system(cmd)</code></pre>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.57.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>
