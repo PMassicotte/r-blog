@@ -27,10 +27,17 @@ Some researches I am currently working on:
 ## Scientific interests (no specific order)
 
 - Aquatic ecosystems (limnology & oceanography)
+
 - Dissolved organic matter (DOM) and carbon cycling
+
 - Aquatic optic (fluorescence, absorbance, remote sensing)
+
 - Mathematics
+
 - Numerical analyses/modelling (multivariate analyses, spatial analyses, system dynamic)
+
 - Scientific programming
+
 - Image analysis
+
 - Geomatic
