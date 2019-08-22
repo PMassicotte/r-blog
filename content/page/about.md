@@ -12,9 +12,9 @@ Hi, my name is Philippe Massicotte. As a *numerical ecologist*, the [R statistic
 
 I am currently working as a research associate at the [Takuvik Joint International Laboratory](http://www.takuvik.ulaval.ca/) under the supervision of [Dr. Marcel Babin](http://www.takuvik.ulaval.ca/team/marcel_babin.php).
 
-Some researches I am currently working on:
+**Some researches I am currently working on:**
 
-- Understand how surrounding landscapes of aquatic ecosystems determine the biogeocycling of **dissolved organic matter** (DOM).
+- Understand how surrounding landscapes of aquatic ecosystems determine the biogeocycling of dissolved organic matter (DOM).
 
 - Understand how DOM, as the main agent driving the optical properties of aquatic ecosystems, influences their functioning.
 
