@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Arctic</title>
+      <link>/tags/arctic/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/arctic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sea ice</title>
+      <link>/tags/sea-ice/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/sea-ice/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Programming languages</title>
@@ -121,20 +139,20 @@
     </item>
     
     <item>
-      <title>ArcticNet</title>
-      <link>/tags/arcticnet/</link>
-      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/arcticnet/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ASM2018</title>
       <link>/tags/asm2018/</link>
       <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/tags/asm2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ArcticNet</title>
+      <link>/tags/arcticnet/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/arcticnet/</guid>
       <description></description>
     </item>
     

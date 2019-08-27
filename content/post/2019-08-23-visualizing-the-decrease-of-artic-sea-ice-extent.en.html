@@ -1,0 +1,222 @@
+---
+title: Visualizing the decrease of Artic sea ice extent
+author: Philippe Massicotte
+date: '2019-08-23'
+slug: visualizing-the-decrease-of-artic-sea-ice-extent
+categories: []
+tags:
+  - Sea ice
+  - Arctic
+type: ''
+subtitle: ''
+image: ''
+draft: true
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<div id="arctic-sea-ice-extent" class="section level2">
+<h2>Arctic sea ice extent</h2>
+<p>It is well known that the Arctic sea ice extent is decreasing at an increasing pace. As stated by the <a href="https://nsidc.org/cryosphere/seaice/characteristics/difference.html">National Snow &amp; Ice Data Center</a>:</p>
+<blockquote>
+<p>According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.</p>
+</blockquote>
+<p>Thanks to the NSIDC, the data is <a href="ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/">available for download</a>. For this post, I was interested in visualizing these scientific measurements.</p>
+</div>
+<div id="the-data" class="section level2">
+<h2>The data</h2>
+<p>The data consist in four variables:</p>
+<ul>
+<li><code>Year</code>, <code>Month</code>, <code>Day</code>: Period of the measurements.</li>
+<li><code>Extent</code>: Sea ice extent in millions km<span class="math inline">\(^2\)</span>.</li>
+</ul>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-3">Table 1: </span>Few observations of the downloaded data.
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Month
+</th>
+<th style="text-align:right;">
+Day
+</th>
+<th style="text-align:right;">
+Extent
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+10.231
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+10.420
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+10.557
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+10.670
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10.777
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+10.968
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+11.080
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+11.189
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11.314
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+11.460
+</td>
+</tr>
+</tbody>
+</table>
+<p>Summary of the data</p>
+<p>Skim summary statistics
+n obs: 13260
+n variables: 4</p>
+<p>– Variable type:numeric ———————————————————————————
+variable missing complete n mean sd p0 p25 p50
+day 0 13260 13260 15.73 8.8 1 8 16<br />
+extent 0 13260 13260 11.34 3.26 3.34 8.64 12.04
+month 0 13260 13260 6.51 3.44 1 4 7<br />
+year 0 13260 13260 2000.71 10.96 1978 1992 2001<br />
+p75 p100 hist
+23 31 &lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;
+14.23 16.64 &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2585&gt;
+10 12 &lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2587&gt;
+2010 2019 &lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="rate-of-change-of-the-arctic-sea-ice-extent" class="section level2">
+<h2>Rate of change of the Arctic sea ice extent</h2>
+<p>The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is it the same for all the months? The average decreasing rate of sea ice extent can be calculated with the slope of a linear regression between <code>year</code> and <code>sea ice extent</code>.</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-6-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Lets visualize the yearly average sea ice extent decrease for each month.</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-7-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Another way of visualizing the decrease of sea ice extent consists in using a heat map.</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-8-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>

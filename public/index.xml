@@ -6,27 +6,4661 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Posts</title>
-      <link>/post/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <title>Visualizing the decrease of Artic sea ice extent</title>
+      <link>/post/visualizing-the-decrease-of-artic-sea-ice-extent/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/</guid>
-      <description></description>
+      <guid>/post/visualizing-the-decrease-of-artic-sea-ice-extent/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;arctic-sea-ice-extent&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Arctic sea ice extent&lt;/h2&gt;
+&lt;p&gt;It is well known that the Arctic sea ice extent is decreasing at an increasing pace. As stated by the &lt;a href=&#34;https://nsidc.org/cryosphere/seaice/characteristics/difference.html&#34;&gt;National Snow &amp;amp; Ice Data Center&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Thanks to the NSIDC, the data is &lt;a href=&#34;ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/&#34;&gt;available for download&lt;/a&gt;. For this post, I was interested in visualizing these scientific measurements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;p&gt;The data consist in four variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Year&lt;/code&gt;, &lt;code&gt;Month&lt;/code&gt;, &lt;code&gt;Day&lt;/code&gt;: Period of the measurements.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Extent&lt;/code&gt;: Sea ice extent in millions km&lt;span class=&#34;math inline&#34;&gt;\(^2\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table class=&#34;table&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-3&#34;&gt;Table 1: &lt;/span&gt;Few observations of the downloaded data.
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Day
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Extent
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.231
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+28
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.420
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.557
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.670
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.777
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.968
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11.080
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11.189
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11.314
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1978
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11.460
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Summary of the data&lt;/p&gt;
+&lt;p&gt;Skim summary statistics
+n obs: 13260
+n variables: 4&lt;/p&gt;
+&lt;p&gt;– Variable type:numeric ———————————————————————————
+variable missing complete n mean sd p0 p25 p50
+day 0 13260 13260 15.73 8.8 1 8 16&lt;br /&gt;
+extent 0 13260 13260 11.34 3.26 3.34 8.64 12.04
+month 0 13260 13260 6.51 3.44 1 4 7&lt;br /&gt;
+year 0 13260 13260 2000.71 10.96 1978 1992 2001&lt;br /&gt;
+p75 p100 hist
+23 31 &amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2586&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;
+14.23 16.64 &amp;lt;U+2581&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2586&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;
+10 12 &amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;
+2010 2019 &amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rate-of-change-of-the-arctic-sea-ice-extent&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Rate of change of the Arctic sea ice extent&lt;/h2&gt;
+&lt;p&gt;The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is it the same for all the months? The average decreasing rate of sea ice extent can be calculated with the slope of a linear regression between &lt;code&gt;year&lt;/code&gt; and &lt;code&gt;sea ice extent&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-6-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Lets visualize the yearly average sea ice extent decrease for each month.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-7-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Another way of visualizing the decrease of sea ice extent consists in using a heat map.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
-      <title>Pages</title>
-      <link>/page/</link>
+      <title>Analyzing the programming languages used in R packages</title>
+      <link>/post/analyzing-the-programming-languages-used-in-r-packages/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
+      <description>
+
+
+&lt;p&gt;It is easy to integrate other programming languages withing R. For instance, &lt;a href=&#34;http://www.rcpp.org/&#34;&gt;Rcpp&lt;/a&gt; and &lt;a href=&#34;https://rstudio.github.io/reticulate/&#34;&gt;reticulate&lt;/a&gt; can be used to interface R with C++ and Python. In this post, I am analyzing the programming languages used in the R packages published on &lt;a href=&#34;https://cran.r-project.org/src/contrib/&#34;&gt;CRAN&lt;/a&gt;. I have downloaded all published packages and used &lt;a href=&#34;https://github.com/AlDanial/cloc&#34;&gt;cloc&lt;/a&gt; (v1.82) to count the number of lines of code in each package. &lt;em&gt;Disclaimer&lt;/em&gt;: cloc does not only count line of code for programming language. It also counts the number of lines in a markup language such as markdown. In this post, I make no difference between language types. At the time of writing this post, approximately 14 700 packages were analyzed.&lt;/p&gt;
+&lt;div id=&#34;setup&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;Let’s load all the packages needed for this analysis.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(rvest)
+library(glue)
+library(curl)
+library(fs)
+library(furrr)
+library(tidytext)
+library(ggpmthemes) # devtools::install_github(&amp;quot;pmassicotte/ggpmthemes&amp;quot;)
+
+theme_set(theme_exo())
+
+# Setup the number of cores to use with furrr
+plan(multiprocess(workers = availableCores() - 1))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;download-the-cran-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Download the CRAN packages&lt;/h2&gt;
+&lt;p&gt;The first step consists in downloading all the packages onto my hard drive. I am using &lt;code&gt;rvest&lt;/code&gt; and &lt;code&gt;curl&lt;/code&gt; for this operation.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;links &amp;lt;- read_html(&amp;quot;https://cran.r-project.org/src/contrib/&amp;quot;) %&amp;gt;%
+  html_nodes(&amp;quot;a&amp;quot;) %&amp;gt;%
+  html_attr(&amp;quot;href&amp;quot;) %&amp;gt;%
+  enframe(name = NULL, value = &amp;quot;link&amp;quot;) %&amp;gt;%
+  filter(str_ends(link, &amp;quot;tar.gz&amp;quot;)) %&amp;gt;%
+  mutate(destfile = glue(&amp;quot;g:/r-packages/{link}&amp;quot;)) %&amp;gt;%
+  mutate(link = glue(&amp;quot;https://cran.r-project.org/src/contrib/{link}&amp;quot;))
+
+# Download packages
+links %&amp;gt;%
+  future_pmap(~ curl_download(url = ..1, destfile = ..2), .progress = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;count-lines-of-code&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Count lines of code&lt;/h2&gt;
+&lt;p&gt;To count lines of code, &lt;a href=&#34;https://github.com/AlDanial/cloc&#34;&gt;cloc&lt;/a&gt; (v1.82) needs to be installed in your PATH. Once installed, you can use cloc to analyze a directory containing source code files. Furthermore, results generated by cloc can be exported into a CSV file. Here, one CSV file for each package will be generated.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+links &amp;lt;- links %&amp;gt;%
+  mutate(loc_csv = glue(&amp;quot;{tools::file_path_sans_ext(destfile)}.csv&amp;quot;))
+
+extract_loc &amp;lt;- function(destfile, loc_csv) {
+  untar(destfile, exdir = &amp;quot;g:/r-packages/&amp;quot;)
+  pkg_dir &amp;lt;- untar(destfile, exdir = &amp;quot;g:/r-packages/&amp;quot;, list = TRUE)
+  pkg_dir &amp;lt;- glue(&amp;quot;g:/r-packages/{pkg_dir}&amp;quot;, pkg_dir = pkg_dir[[1]])
+
+  system(
+    glue(
+      &amp;quot;cloc-1.82.exe {pkg_dir} --out={loc_csv} --csv&amp;quot;
+    )
+  )
+}
+
+# Count the number of code lines and write a CSV file.
+links %&amp;gt;%
+  future_pmap(~ extract_loc(..2, ..3), .progress = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, we can read all the generated CSV files.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;csv_files &amp;lt;- dir_ls(&amp;quot;g:/r-packages/&amp;quot;, regexp = &amp;quot;\\.csv$&amp;quot;)
+
+pkg &amp;lt;-
+  future_map_dfr(csv_files,
+    function(file) {
+      data.table::fread(
+        file,
+        header = FALSE,
+        skip = 1,
+        col.names = c(&amp;quot;file&amp;quot;, &amp;quot;language&amp;quot;, &amp;quot;blank&amp;quot;, &amp;quot;comment&amp;quot;, &amp;quot;code&amp;quot;)
+      ) %&amp;gt;%
+        mutate(pkg = !!file)
+    }
+  ) %&amp;gt;%
+  as_tibble() %&amp;gt;%
+  filter(language != &amp;quot;SUM&amp;quot;) %&amp;gt;%
+  extract(
+    col = pkg,
+    into = c(&amp;quot;pkg_name&amp;quot;, &amp;quot;version&amp;quot;),
+    regex = &amp;quot;G:/r-packages/(.*)_(.*).tar.csv&amp;quot;
+  )
+
+pkg
+#&amp;gt; # A tibble: 34,477 x 7
+#&amp;gt;     file language blank comment  code pkg_name    version
+#&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;  
+#&amp;gt;  1     2 R           96     353   365 A3          1.0.0  
+#&amp;gt;  2     1 HTML       347       5  2661 aaSEA       1.0.0  
+#&amp;gt;  3    23 R           63     325   676 aaSEA       1.0.0  
+#&amp;gt;  4     3 HTML       307       9  1275 abbyyR      0.5.5  
+#&amp;gt;  5    30 R          224     636   587 abbyyR      0.5.5  
+#&amp;gt;  6     5 Markdown   246       0   418 abbyyR      0.5.5  
+#&amp;gt;  7     1 HTML        26       1   190 ABC.RAP     0.9.0  
+#&amp;gt;  8    11 R           32     202   141 ABC.RAP     0.9.0  
+#&amp;gt;  9    10 R          104     333   406 ABCanalysis 1.2.1  
+#&amp;gt; 10    16 R          153      62   882 abcdeFBA    0.4    
+#&amp;gt; # ... with 34,467 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;languages-used-in-r-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Languages used in R packages&lt;/h2&gt;
+&lt;p&gt;There are a total of 108 programming languages used in CRAN R packages. The following graph shows the top 16 most used (determined by the number of lines).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;languages &amp;lt;- pkg %&amp;gt;% 
+  count(language, sort = TRUE, name = &amp;quot;n_package&amp;quot;)
+
+languages
+#&amp;gt; # A tibble: 108 x 2
+#&amp;gt;    language     n_package
+#&amp;gt;    &amp;lt;chr&amp;gt;            &amp;lt;int&amp;gt;
+#&amp;gt;  1 R                14689
+#&amp;gt;  2 Markdown          5710
+#&amp;gt;  3 HTML              3680
+#&amp;gt;  4 C                 2162
+#&amp;gt;  5 C++               2041
+#&amp;gt;  6 C/C++ Header      1867
+#&amp;gt;  7 Bourne Shell       500
+#&amp;gt;  8 CSS                459
+#&amp;gt;  9 TeX                401
+#&amp;gt; 10 JavaScript         370
+#&amp;gt; # ... with 98 more rows
+
+languages %&amp;gt;% 
+  top_n(16, n_package) %&amp;gt;% 
+  mutate(language = fct_reorder(language, n_package)) %&amp;gt;% 
+  ggplot(aes(x = language, y = n_package)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
+  xlab(NULL) +
+  ylab(&amp;quot;Number of package&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Number of R packages using the top 16 most used programming languages&amp;quot;, 40)) +
+  labs(subtitle = glue(&amp;quot;Based on {n_distinct(pkg$pkg_name)} packages&amp;quot;)) +
+  labs(caption = &amp;quot;Data: https://cran.r-project.org/src/contrib/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-18-analyzing-the-programming-languages-used-in-r-packages.en_files/figure-html/unnamed-chunk-6-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;count-the-number-of-loc-per-language&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Count the number of LOC per language&lt;/h2&gt;
+&lt;p&gt;What are the most used programming languages used in R packages? Obviously, R is the #1 language and there is a total of 22,822,548 lines of R code in published R packages. That is pretty impressive! The next graph shows the total number of lines of code found in all CRAN packages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;most_popular &amp;lt;- pkg %&amp;gt;% 
+  group_by(language) %&amp;gt;% 
+  summarise(total_loc = sum(code)) %&amp;gt;% 
+  filter(dense_rank(desc(total_loc)) &amp;lt;= 16) %&amp;gt;% 
+  mutate(language = fct_reorder(language, total_loc, .fun = sum)) 
+
+most_popular %&amp;gt;%
+  ggplot(aes(x = language, y = total_loc)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&amp;quot;Number of line of code&amp;quot;) +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2)), labels = scales::comma) +
+  labs(
+    title = str_wrap(&amp;quot;Top 16 programming languages used in R packages&amp;quot;, 40),
+    subtitle = glue(&amp;quot;Based on {n_distinct(pkg$pkg_name)} packages&amp;quot;),
+    caption = &amp;quot;Data: https://cran.r-project.org/src/contrib/&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-18-analyzing-the-programming-languages-used-in-r-packages.en_files/figure-html/unnamed-chunk-7-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;programming-languages-used-in-r-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Programming languages used in R packages&lt;/h2&gt;
+&lt;p&gt;The following graph shows the 18 packages with the highest number of lines of code differentiated by languages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pkg %&amp;gt;% 
+  group_by(pkg_name) %&amp;gt;% 
+  add_tally(code) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  filter(dense_rank(desc(n)) &amp;lt;= 18) %&amp;gt;% 
+  mutate(language = reorder_within(language, code, pkg_name)) %&amp;gt;% 
+  mutate(pkg_name = fct_reorder(pkg_name, code, sum, .desc = TRUE)) %&amp;gt;% 
+  ggplot(aes(x = language, y = code)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~ pkg_name, scales = &amp;quot;free&amp;quot;, ncol = 3) +
+  scale_x_reordered() +
+  scale_y_log10(expand = expand_scale(mult = c(0, 0.2))) +
+  xlab(NULL) +
+  ylab(&amp;quot;Number of line of code&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Programming languages used in packages with the most number of lines of code&amp;quot;, 40)) +
+  labs(subtitle = &amp;quot;Packages are arranged in descending order of the total number of lines of code&amp;quot;) +
+  labs(caption = &amp;quot;Data: https://cran.r-project.org/src/contrib/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-18-analyzing-the-programming-languages-used-in-r-packages.en_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-tidyverse&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The &lt;em&gt;tidyverse&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;The following graph shows the programming languages used by the package included in the &lt;em&gt;tidyverse&lt;/em&gt; ecosystem.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pkg %&amp;gt;%
+  filter(
+    pkg_name %in% c(
+      &amp;quot;ggplot2&amp;quot;,
+      &amp;quot;dplyr&amp;quot;,
+      &amp;quot;tidyr&amp;quot;,
+      &amp;quot;readr&amp;quot;,
+      &amp;quot;purrr&amp;quot;,
+      &amp;quot;tibble&amp;quot;,
+      &amp;quot;stringr&amp;quot;,
+      &amp;quot;focats&amp;quot;,
+      &amp;quot;lubridate&amp;quot;,
+      &amp;quot;hms&amp;quot;, 
+      &amp;quot;feather&amp;quot;, 
+      &amp;quot;haven&amp;quot;,
+      &amp;quot;jsonlite&amp;quot;,
+      &amp;quot;readxl&amp;quot;,
+      &amp;quot;rvest&amp;quot;,
+      &amp;quot;xml2&amp;quot;,
+      &amp;quot;modelr&amp;quot;,
+      &amp;quot;broom&amp;quot;
+    )
+  ) %&amp;gt;%
+  mutate(language = reorder_within(language, code, pkg_name)) %&amp;gt;%
+  mutate(pkg_name = fct_reorder(pkg_name, code, sum, .desc = TRUE)) %&amp;gt;%
+  ggplot(aes(x = language, y = code)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~pkg_name, scales = &amp;quot;free&amp;quot;, ncol = 3) +
+  scale_x_reordered() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
+  # scale_y_continuous(labels = scales::scientific) +
+  xlab(NULL) +
+  ylab(&amp;quot;Number of line of code&amp;quot;) +
+  labs(title = &amp;quot;Programming languages used in the tidyverse&amp;quot;) +
+  labs(subtitle = &amp;quot;Packages are arranged in descending order of the total number of lines of code&amp;quot;) +
+  labs(caption = &amp;quot;Data: https://cran.r-project.org/src/contrib/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-18-analyzing-the-programming-languages-used-in-r-packages.en_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-c-and-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;R, C++ and Python&lt;/h2&gt;
+&lt;p&gt;R, C++ and Python are the three programming languages I use the most. I wanted to know what was the proportion of lines of code were used by these languages in all CRAN packages. For the exercise, I regrouped C/C++ code together. It is interesting to see that C++ represent approximately 40% of the code lines of R packages. Thanks to Rcpp!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;big_three &amp;lt;- pkg %&amp;gt;% 
+  filter(language %in% c(&amp;quot;R&amp;quot;, &amp;quot;C++&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;C/C++ Header&amp;quot;, &amp;quot;Python&amp;quot;)) %&amp;gt;% 
+  mutate(language = case_when(
+    language %in% c(&amp;quot;C++&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;C/C++ Header&amp;quot;) ~ &amp;quot;C++&amp;quot;,
+    TRUE ~ language
+  )) %&amp;gt;% 
+  group_by(language) %&amp;gt;% 
+  summarise(percent = sum(code) / sum(.$code))
+
+big_three %&amp;gt;%
+  mutate(language = fct_reorder(language, percent)) %&amp;gt;%
+  ggplot(aes(x = language, y = percent)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent, expand = expand_scale(mult = c(0, 0.2))) +
+  xlab(NULL) +
+  ylab(&amp;quot;Percentage of line of code&amp;quot;) +
+  labs(
+    title = str_wrap(&amp;quot;Percentage of R, C++ and Python used in R packages&amp;quot;, 40),
+    subtitle = glue(&amp;quot;Based on {n_distinct(pkg$pkg_name)} packages&amp;quot;),
+    caption = &amp;quot;Data: https://cran.r-project.org/src/contrib/&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-18-analyzing-the-programming-languages-used-in-r-packages.en_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tidytuesday (2019-08-13)</title>
+      <link>/post/tidytuesday-2019-08-13/</link>
+      <pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-13/</guid>
+      <description>
+
+
+&lt;p&gt;This week, the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-13&#34;&gt;TidyTuesday challenge&lt;/a&gt; is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.&lt;/p&gt;
+&lt;div id=&#34;the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors &amp;lt;-
+  readr::read_csv(
+    &amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;
+  )
+
+emperors
+#&amp;gt; # A tibble: 68 x 16
+#&amp;gt;    index name  name_full birth      death      birth_cty birth_prv rise 
+#&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;date&amp;gt;     &amp;lt;date&amp;gt;     &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;
+#&amp;gt;  1     1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome      Italia    Birt~
+#&amp;gt;  2     2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome      Italia    Birt~
+#&amp;gt;  3     3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum   Italia    Birt~
+#&amp;gt;  4     4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum  Gallia L~ Birt~
+#&amp;gt;  5     5 Nero  NERO CLA~ 0037-12-15 0068-06-09 Antitum   Italia    Birt~
+#&amp;gt;  6     6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia    Seiz~
+#&amp;gt;  7     7 Otho  MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia    Appo~
+#&amp;gt;  8     8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome      Italia    Seiz~
+#&amp;gt;  9     9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia    Seiz~
+#&amp;gt; 10    10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome      Italia    Birt~
+#&amp;gt; # ... with 58 more rows, and 8 more variables: reign_start &amp;lt;date&amp;gt;,
+#&amp;gt; #   reign_end &amp;lt;date&amp;gt;, cause &amp;lt;chr&amp;gt;, killer &amp;lt;chr&amp;gt;, dynasty &amp;lt;chr&amp;gt;, era &amp;lt;chr&amp;gt;,
+#&amp;gt; #   notes &amp;lt;chr&amp;gt;, verif_who &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exploratory-graph&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Exploratory graph&lt;/h2&gt;
+&lt;p&gt;In the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor. First, lets calculate the age and the reign period of each emperor.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors &amp;lt;- emperors %&amp;gt;%
+  drop_na(death, birth, reign_start, reign_end) %&amp;gt;%
+  filter(death &amp;gt;= birth) %&amp;gt;%
+  mutate(age = lubridate::time_length(death - birth, unit = &amp;quot;year&amp;quot;)) %&amp;gt;% 
+  mutate(reign_duration = lubridate::time_length(reign_end - reign_start, unit = &amp;quot;year&amp;quot;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I can now graph the relationship between the age and the reign duration of each emperor.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors %&amp;gt;% 
+  mutate(
+    name = glue(
+      &amp;quot;{name} ({round(age, digits = 0)} years old)&amp;quot;
+    )
+  ) %&amp;gt;%
+  mutate(name = fct_reorder(name, death)) %&amp;gt;%
+  ggplot(aes(
+    x = birth,
+    xend = death,
+    y = name,
+    yend = name
+  )) +
+  geom_segment(size = 3, lineend = &amp;quot;round&amp;quot;, aes(color = dynasty)) +
+  geom_segment(
+    aes(x = reign_start, xend = reign_end),
+    color = &amp;quot;black&amp;quot;,
+    size = 1,
+    lineend = &amp;quot;round&amp;quot;
+  ) +
+  geom_label(aes(
+    x = death,
+    y = name,
+    label = glue(
+      &amp;quot;Reign: {round(reign_duration, digits = 2)} years&amp;quot;
+    )
+  ),
+  hjust = -0.1,
+  label.size = 0,
+  size = 3,
+  family = &amp;quot;Poppins&amp;quot;
+  ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&amp;quot;{name}&amp;quot;),
+      description = &amp;quot;The oldest emperor&amp;quot;,
+      filter = age == max(age),
+      color = dynasty
+    ),
+    expand = unit(0.01, &amp;quot;mm&amp;quot;),
+    label.family = c(&amp;quot;Poppins&amp;quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &amp;quot;mm&amp;quot;),
+    label.hjust = 1, 
+    show.legend = FALSE
+  ) +
+  geom_mark_circle(
+    aes(
+      label = glue(&amp;quot;{name}&amp;quot;),
+      description = &amp;quot;The longest reign&amp;quot;,
+      filter = reign_duration == max(reign_duration),
+      color = dynasty
+    ),
+    expand = unit(0.01, &amp;quot;mm&amp;quot;),
+    label.family = c(&amp;quot;Poppins&amp;quot;),
+    label.fontsize = 8,
+    label.buffer = unit(5, &amp;quot;mm&amp;quot;),
+    label.hjust = 1,
+    show.legend = FALSE
+  ) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank()) +
+  scale_x_date(expand = expand_scale(mult = c(0.02, 0.3))) +
+  ylab(NULL) +
+  xlab(&amp;quot;Years&amp;quot;) +
+  labs(color = &amp;quot;Dynasty&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Roman emperors: their birth, death and reign&amp;quot;, 35)) +
+  labs(subtitle = str_wrap(&amp;quot;Colored bars represent the lifespan whereas the black bars the duration of the reign of each emperor&amp;quot;, 60)) +
+  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&amp;quot;) +
+  scale_color_brewer(palette = &amp;quot;Pastel2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;causes-of-death&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Causes of death&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;emperors %&amp;gt;% 
+  count(cause) %&amp;gt;% 
+  mutate(cause = fct_reorder(cause, n)) %&amp;gt;% 
+  ggplot(aes(x = cause, y = n)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&amp;quot;Number of death&amp;quot;) +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.2))) +
+  labs(title = &amp;quot;Principal causes of death&amp;quot;) +
+  labs(subtitle = glue(&amp;quot;Based on {nrow(emperors)} observations&amp;quot;)) +
+  labs(caption = &amp;quot;Data: https://bit.ly/2N2spWr | Visualization: @philmassicotte&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-14-tidytuesday-2019-08-13.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;some-stats&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Some stats&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Stats&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Age&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Average age at death&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;49 years old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Average reign duration&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;8 years old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Youngest emperor&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;19 years old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Oldest emperor&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;79 years old&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Longest reign&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;30.85 years&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Shortest reign&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;0.06 years&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tidytuesday (2019-08-06)</title>
+      <link>/post/tidytuesday-2019-08-06/</link>
+      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-2019-08-06/</guid>
+      <description>
+
+
+&lt;p&gt;This week &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-08-06&#34;&gt;TidyTuesday&lt;/a&gt; is entitled &lt;em&gt;Bob Ross - painting by the numbers&lt;/em&gt;. To cite &lt;a href=&#34;https://fivethirtyeight.com/features/a-statistical-analysis-of-the-work-of-bob-ross/&#34;&gt;fivethirtyeight&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div style=&#34;width:75%;height:0;padding-bottom:77%;position:relative;&#34;&gt;
+&lt;iframe src=&#34;https://giphy.com/embed/AbPNdmgk6TJK&#34; width=&#34;100%&#34; height=&#34;100%&#34; style=&#34;position:absolute&#34; frameBorder=&#34;0&#34; class=&#34;giphy-embed&#34; allowFullScreen&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://giphy.com/gifs/bob-ross-AbPNdmgk6TJK&#34;&gt;via GIPHY&lt;/a&gt;
+&lt;/p&gt;
+&lt;div id=&#34;the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;p&gt;The dataset consists of various keywords describing the content of Bob Ross paintings.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-06/bob-ross.csv&amp;quot;) %&amp;gt;%
+  janitor::clean_names() %&amp;gt;%
+  mutate(title = str_to_title(title))
+
+bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  select(-contains(&amp;quot;frame&amp;quot;)) %&amp;gt;%
+  pivot_longer(
+    -c(episode, title),
+    names_to = &amp;quot;keyword&amp;quot;,
+    values_to = &amp;quot;is_present&amp;quot;
+  ) %&amp;gt;%
+  separate(episode, into = c(&amp;quot;season&amp;quot;, &amp;quot;episode&amp;quot;), sep = &amp;quot;E&amp;quot;) %&amp;gt;%
+  mutate(season = str_extract(season, &amp;quot;[:digit:]+&amp;quot;)) %&amp;gt;%
+  mutate_at(vars(season, episode), parse_number) %&amp;gt;%
+  mutate(keyword = str_replace(keyword, &amp;quot;_&amp;quot;, &amp;quot; &amp;quot;)) %&amp;gt;%
+  mutate(keyword = str_to_title(keyword))
+
+bob_ross
+#&amp;gt; # A tibble: 20,553 x 5
+#&amp;gt;    season episode title                     keyword         is_present
+#&amp;gt;     &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;                     &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt;
+#&amp;gt;  1      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Aurora Borealis          0
+#&amp;gt;  2      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Barn                     0
+#&amp;gt;  3      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Beach                    0
+#&amp;gt;  4      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Boat                     0
+#&amp;gt;  5      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Bridge                   0
+#&amp;gt;  6      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Building                 0
+#&amp;gt;  7      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Bushes                   1
+#&amp;gt;  8      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cabin                    0
+#&amp;gt;  9      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cactus                   0
+#&amp;gt; 10      1       1 &amp;quot;\&amp;quot;A Walk In The Woods\&amp;quot;&amp;quot; Cirrus                   0
+#&amp;gt; # ... with 20,543 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a total of 51 keywords used to describe his paintings. Upon my first exploration, I found some keywords were duplicated between words in singular and plural:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lake/lakes&lt;/li&gt;
+&lt;li&gt;mountain/mountains&lt;/li&gt;
+&lt;li&gt;tree/trees&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  pull(keyword)
+#&amp;gt;  [1] &amp;quot;Aurora Borealis&amp;quot; &amp;quot;Barn&amp;quot;            &amp;quot;Beach&amp;quot;          
+#&amp;gt;  [4] &amp;quot;Boat&amp;quot;            &amp;quot;Bridge&amp;quot;          &amp;quot;Building&amp;quot;       
+#&amp;gt;  [7] &amp;quot;Bushes&amp;quot;          &amp;quot;Cabin&amp;quot;           &amp;quot;Cactus&amp;quot;         
+#&amp;gt; [10] &amp;quot;Cirrus&amp;quot;          &amp;quot;Cliff&amp;quot;           &amp;quot;Clouds&amp;quot;         
+#&amp;gt; [13] &amp;quot;Conifer&amp;quot;         &amp;quot;Cumulus&amp;quot;         &amp;quot;Deciduous&amp;quot;      
+#&amp;gt; [16] &amp;quot;Diane Andre&amp;quot;     &amp;quot;Dock&amp;quot;            &amp;quot;Farm&amp;quot;           
+#&amp;gt; [19] &amp;quot;Fence&amp;quot;           &amp;quot;Fire&amp;quot;            &amp;quot;Flowers&amp;quot;        
+#&amp;gt; [22] &amp;quot;Fog&amp;quot;             &amp;quot;Grass&amp;quot;           &amp;quot;Guest&amp;quot;          
+#&amp;gt; [25] &amp;quot;Hills&amp;quot;           &amp;quot;Lake&amp;quot;            &amp;quot;Lakes&amp;quot;          
+#&amp;gt; [28] &amp;quot;Lighthouse&amp;quot;      &amp;quot;Mill&amp;quot;            &amp;quot;Moon&amp;quot;           
+#&amp;gt; [31] &amp;quot;Mountain&amp;quot;        &amp;quot;Mountains&amp;quot;       &amp;quot;Night&amp;quot;          
+#&amp;gt; [34] &amp;quot;Ocean&amp;quot;           &amp;quot;Palm Trees&amp;quot;      &amp;quot;Path&amp;quot;           
+#&amp;gt; [37] &amp;quot;Person&amp;quot;          &amp;quot;Portrait&amp;quot;        &amp;quot;River&amp;quot;          
+#&amp;gt; [40] &amp;quot;Rocks&amp;quot;           &amp;quot;Snow&amp;quot;            &amp;quot;Snowy Mountain&amp;quot; 
+#&amp;gt; [43] &amp;quot;Steve Ross&amp;quot;      &amp;quot;Structure&amp;quot;       &amp;quot;Sun&amp;quot;            
+#&amp;gt; [46] &amp;quot;Tree&amp;quot;            &amp;quot;Trees&amp;quot;           &amp;quot;Waterfall&amp;quot;      
+#&amp;gt; [49] &amp;quot;Waves&amp;quot;           &amp;quot;Windmill&amp;quot;        &amp;quot;Winter&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s do some more cleaning to the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  mutate(keyword = case_when(
+    keyword == &amp;quot;Lake&amp;quot; ~ &amp;quot;Lakes&amp;quot;,
+    keyword == &amp;quot;Mountain&amp;quot; ~ &amp;quot;Mountains&amp;quot;,
+    keyword == &amp;quot;Tree&amp;quot; ~ &amp;quot;Trees&amp;quot;,
+    TRUE ~ keyword
+  ))
+
+bob_ross &amp;lt;- bob_ross %&amp;gt;%
+  group_by(season, episode, title, keyword) %&amp;gt;%
+  summarise(is_present = sum(is_present)) %&amp;gt;%
+  mutate(is_present = ifelse(is_present &amp;gt;= 1, 1, 0)) %&amp;gt;%
+  ungroup()
+
+bob_ross %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  pull()
+#&amp;gt;  [1] &amp;quot;Aurora Borealis&amp;quot; &amp;quot;Barn&amp;quot;            &amp;quot;Beach&amp;quot;          
+#&amp;gt;  [4] &amp;quot;Boat&amp;quot;            &amp;quot;Bridge&amp;quot;          &amp;quot;Building&amp;quot;       
+#&amp;gt;  [7] &amp;quot;Bushes&amp;quot;          &amp;quot;Cabin&amp;quot;           &amp;quot;Cactus&amp;quot;         
+#&amp;gt; [10] &amp;quot;Cirrus&amp;quot;          &amp;quot;Cliff&amp;quot;           &amp;quot;Clouds&amp;quot;         
+#&amp;gt; [13] &amp;quot;Conifer&amp;quot;         &amp;quot;Cumulus&amp;quot;         &amp;quot;Deciduous&amp;quot;      
+#&amp;gt; [16] &amp;quot;Diane Andre&amp;quot;     &amp;quot;Dock&amp;quot;            &amp;quot;Farm&amp;quot;           
+#&amp;gt; [19] &amp;quot;Fence&amp;quot;           &amp;quot;Fire&amp;quot;            &amp;quot;Flowers&amp;quot;        
+#&amp;gt; [22] &amp;quot;Fog&amp;quot;             &amp;quot;Grass&amp;quot;           &amp;quot;Guest&amp;quot;          
+#&amp;gt; [25] &amp;quot;Hills&amp;quot;           &amp;quot;Lakes&amp;quot;           &amp;quot;Lighthouse&amp;quot;     
+#&amp;gt; [28] &amp;quot;Mill&amp;quot;            &amp;quot;Moon&amp;quot;            &amp;quot;Mountains&amp;quot;      
+#&amp;gt; [31] &amp;quot;Night&amp;quot;           &amp;quot;Ocean&amp;quot;           &amp;quot;Palm Trees&amp;quot;     
+#&amp;gt; [34] &amp;quot;Path&amp;quot;            &amp;quot;Person&amp;quot;          &amp;quot;Portrait&amp;quot;       
+#&amp;gt; [37] &amp;quot;River&amp;quot;           &amp;quot;Rocks&amp;quot;           &amp;quot;Snow&amp;quot;           
+#&amp;gt; [40] &amp;quot;Snowy Mountain&amp;quot;  &amp;quot;Steve Ross&amp;quot;      &amp;quot;Structure&amp;quot;      
+#&amp;gt; [43] &amp;quot;Sun&amp;quot;             &amp;quot;Trees&amp;quot;           &amp;quot;Waterfall&amp;quot;      
+#&amp;gt; [46] &amp;quot;Waves&amp;quot;           &amp;quot;Windmill&amp;quot;        &amp;quot;Winter&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-painting-of-bob-ross&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The painting of Bob Ross&lt;/h2&gt;
+&lt;div id=&#34;most-painted-objects&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Most painted objects&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_painting_elements &amp;lt;- bob_ross %&amp;gt;%
+  group_by(keyword) %&amp;gt;%
+  summarise(n_painting = sum(is_present), total_painting = n_distinct(title)) %&amp;gt;%
+  mutate(percent_object = n_painting / total_painting) %&amp;gt;%
+  mutate(keyword = glue(&amp;quot;{keyword} ({round(percent_object * 100, digits = 0)}%)&amp;quot;)) %&amp;gt;%
+  mutate(keyword = fct_reorder(keyword, percent_object))
+
+top_painting_elements %&amp;gt;%
+  filter(percent_object &amp;gt;= 0.1) %&amp;gt;%
+  ggplot(aes(x = keyword, y = percent_object)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent, expand = expand_scale(mult = c(0, 0.1))) +
+  xlab(NULL) +
+  ylab(&amp;quot;Percentage (%)&amp;quot;) +
+  labs(title = &amp;quot;Bob Ross most painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Only showing items present more than 10% of the time&amp;quot;) +
+  theme(
+    panel.grid = element_line(colour = NULL),
+    panel.grid.minor = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.line = element_blank(),
+    panel.border = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_painting_element &amp;lt;- bob_ross %&amp;gt;%
+  group_by(keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  filter(dense_rank(desc(n)) &amp;lt; 10) %&amp;gt;%
+  inner_join(bob_ross) %&amp;gt;%
+  group_by(season, keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  arrange(desc(n))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;trends-in-most-painted-elements&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Trends in most painted elements&lt;/h3&gt;
+&lt;p&gt;Are there any trends in the most painted elements?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df &amp;lt;- top_painting_element %&amp;gt;%
+  distinct(keyword) %&amp;gt;%
+  arrange(keyword) %&amp;gt;%
+  mutate(icon = case_when(
+    keyword == &amp;quot;Bushes&amp;quot; ~ emoji(&amp;quot;herb&amp;quot;),
+    keyword == &amp;quot;Clouds&amp;quot; ~ emoji(&amp;quot;cloud&amp;quot;),
+    keyword == &amp;quot;Conifer&amp;quot; ~ emoji(&amp;quot;palm_tree&amp;quot;),
+    keyword == &amp;quot;Deciduous&amp;quot; ~ emoji(&amp;quot;deciduous_tree&amp;quot;),
+    keyword == &amp;quot;Grass&amp;quot; ~ emoji(&amp;quot;seedling&amp;quot;),
+    keyword == &amp;quot;Lakes&amp;quot; ~ emoji(&amp;quot;ocean&amp;quot;),
+    keyword == &amp;quot;Mountains&amp;quot; ~ emoji(&amp;quot;mount_fuji&amp;quot;),
+    keyword == &amp;quot;River&amp;quot; ~ emoji(&amp;quot;ocean&amp;quot;),
+    keyword == &amp;quot;Trees&amp;quot; ~ emoji(&amp;quot;evergreen_tree&amp;quot;)
+  )) %&amp;gt;%
+  inner_join(top_painting_element) %&amp;gt;%
+  mutate(keyword = paste(keyword, icon))
+
+df %&amp;gt;%
+  mutate(keyword = fct_reorder(str_to_title(keyword), desc(n), .fun = sum)) %&amp;gt;%
+  ggplot(aes(x = season, y = n)) +
+  geom_line(size = 1) +
+  facet_wrap(~keyword) +
+  theme(legend.position = &amp;quot;none&amp;quot;) +
+  xlab(&amp;quot;Season #&amp;quot;) +
+  ylab(&amp;quot;Number of painted elements&amp;quot;) +
+  labs(title = &amp;quot;Most popular painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Based on the nine most painted elements for all the episodes&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-6-1.jpeg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Heat map showing all the 48 elements in the database.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bob_ross %&amp;gt;%
+  group_by(season, keyword) %&amp;gt;%
+  summarise(n = sum(is_present)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(keyword = str_replace(keyword, &amp;quot;_&amp;quot;, &amp;quot; &amp;quot;)) %&amp;gt;%
+  mutate(keyword = str_to_title(keyword)) %&amp;gt;%
+  mutate(keyword = fct_reorder(keyword, n, sum)) %&amp;gt;%
+  ggplot(aes(x = season, y = keyword, fill = n)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = &amp;quot;plasma&amp;quot;, labels = function(x) round(x)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 35, by = 5)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  xlab(&amp;quot;Season #&amp;quot;) +
+  ylab(NULL) +
+  labs(fill = &amp;quot;Number of painted element&amp;quot;) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;) +
+  guides(fill = guide_colourbar(title.position = &amp;quot;top&amp;quot;, title.hjust = 0.5)) +
+  labs(title = &amp;quot;Heat map of all painted elements&amp;quot;) +
+  labs(subtitle = &amp;quot;Over all the season&amp;quot;) +
+  theme(
+    panel.border = element_blank(),
+    axis.ticks = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-06-tidytuesday-2019-08-06.en_files/figure-html/unnamed-chunk-7-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tidytuesday: video games</title>
+      <link>/post/tidytuesday-video-games/</link>
+      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/tidytuesday-video-games/</guid>
+      <description>
+
+
+&lt;p&gt;I must admit, I played a lot of PC video games when I was younger, &lt;em&gt;Battlefield&lt;/em&gt;, &lt;em&gt;Half-life&lt;/em&gt;, &lt;em&gt;Dark Age of Camelot&lt;/em&gt;, &lt;em&gt;World of Warcraft&lt;/em&gt;, &lt;em&gt;Diablo&lt;/em&gt; just to name a few. This is why this week &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34;&gt;tidytuesday&lt;/a&gt; was a good occasion to participate in this weekly R visualization challenge.&lt;/p&gt;
+&lt;div id=&#34;video-games-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Video Games Dataset&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data. She was kind enough to provide a fairly clean dataset, and I have done some small additional clean up seen below. There is time played, ownership, release date, publishing information, and for some a metascore! Lots of ways to slice and dice this data!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let us get started! First, read the data and remove duplicated entries.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games &amp;lt;- read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv&amp;quot;) %&amp;gt;%
+  mutate(release_date = as.Date(release_date, &amp;quot;%b %d, %Y&amp;quot;)) %&amp;gt;%
+  distinct(game, developer, publisher, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;top-played-games&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Top played games&lt;/h2&gt;
+&lt;p&gt;Which games have the highest average playing time in the past two weeks? In the following graph, it can be seen that &lt;em&gt;Clicker Heroes&lt;/em&gt; (released in 2015) has an average playtime of about 80 hours. That is 40 hours per week, a full-time job.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;%
+  top_n(16, average_playtime) %&amp;gt;%
+  mutate(game = glue(&amp;quot;{game} ({lubridate::year(release_date)})&amp;quot;)) %&amp;gt;%
+  mutate(game = fct_reorder(game, average_playtime)) %&amp;gt;%
+  ggplot(aes(x = game, y = average_playtime / 60)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&amp;quot;Average played time (hours)&amp;quot;) +
+  labs(title = str_wrap(&amp;quot;Average played time for the last two weeks&amp;quot;, 25)) +
+  labs(subtitle = &amp;quot;Only the top 16 averaged played game are shown&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;temporal-evolution-of-metascore&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Temporal evolution of metascore&lt;/h2&gt;
+&lt;p&gt;What is the evolution of the metascore by the publishers? It seems that &lt;em&gt;high ranked&lt;/em&gt; publishers have pretty constant metascore for their games. However, there is an interesting decreasing trend with &lt;em&gt;SEGA&lt;/em&gt; that started in 2006.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;equal_breaks &amp;lt;- function(n = 3, s = 0.05, ...) {
+  function(x) {
+    # rescaling
+    d &amp;lt;- s * diff(range(x)) / (1 + 2 * s)
+    seq(min(x) + d, max(x) - d, length = n)
+  }
+}
+
+video_games %&amp;gt;%
+  drop_na(metascore) %&amp;gt;%
+  add_count(publisher) %&amp;gt;%
+  filter(dense_rank(desc(n)) &amp;lt;= 6) %&amp;gt;%
+  group_by(year = lubridate::year(release_date), publisher) %&amp;gt;%
+  summarise(mean_metascore = mean(metascore), sd_metascore = sd(metascore)) %&amp;gt;%
+  ggplot(aes(x = year, y = mean_metascore)) +
+  geom_line(size = 2) +
+  facet_wrap(~publisher, scale = &amp;quot;free_x&amp;quot;) +
+  scale_x_continuous(
+    labels = function(x) floor(x),
+    breaks = equal_breaks(n = 4, s = 0.05)
+  ) +
+  xlab(NULL) +
+  ylab(&amp;quot;Median metascore&amp;quot;) +
+  theme(legend.position = &amp;quot;none&amp;quot;) +
+  theme(panel.spacing = unit(2, &amp;quot;lines&amp;quot;)) +
+  labs(title = &amp;quot;Time series of metascore by publisher&amp;quot;) +
+  labs(subtitle = &amp;quot;Only the six publishers with the highest number of release are shown&amp;quot;)
+#&amp;gt; Warning: Removed 1 rows containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;price-evolution-of-games&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Price evolution of games&lt;/h2&gt;
+&lt;p&gt;The median prices of the released game appear to decrease between 2015 and 2018. Also, we can see the lowest prices are happening in January, right after Christmas.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;%
+  drop_na(release_date) %&amp;gt;%
+  group_by(year = lubridate::year(release_date), month = lubridate::month(release_date, label = TRUE)) %&amp;gt;%
+  summarise(medan_price = median(price, na.rm = TRUE)) %&amp;gt;%
+  ggplot(aes(x = year, y = month, fill = medan_price)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = &amp;quot;A&amp;quot;, labels = scales::dollar) +
+  coord_equal() +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(2000, 2020, by = 2)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  labs(fill = &amp;quot;Median\nprice (USD)&amp;quot;) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title = &amp;quot;Price evolution of games&amp;quot;) +
+  labs(subtitle = &amp;quot;Median price calculated monthly and yearly&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;There is a clear peak in November 2006 which can be explained by few game prices above 10$.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;%
+  filter(
+    lubridate::year(release_date) == 2006 &amp;amp;
+      lubridate::month(release_date) == 11
+  ) %&amp;gt;%
+  select(game, release_date, price) %&amp;gt;%
+  arrange(desc(price)) %&amp;gt;%
+  knitr::kable()&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;game&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;release_date&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;price&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;RACE - The WTCC Game&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-24&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Total War: MEDIEVAL II – Definitive Edition&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-15&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;24.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Geneforge 4: Rebellion&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-01&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;19.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Heroes of Annihilated Empires&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-22&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Garry’s Mod&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;9.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;RoboBlitz&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-07&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;9.99&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;The Ship: Single Player&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2006-11-20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;most-expensive-games&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Most expensive games&lt;/h2&gt;
+&lt;p&gt;I was also surprised to see that the most expensive game was almost 600$ USD!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_games %&amp;gt;%
+  top_n(5, price) %&amp;gt;%
+  mutate(game = glue(&amp;quot;{game} ({lubridate::year(release_date)})&amp;quot;)) %&amp;gt;%
+  mutate(game = str_wrap(game, 30)) %&amp;gt;%
+  mutate(game = fct_reorder(game, price)) %&amp;gt;%
+  ggplot(aes(x = game, y = price)) +
+  geom_col() +
+  coord_flip() +
+  xlab(NULL) +
+  ylab(&amp;quot;Price (USD)&amp;quot;) +
+  labs(title = &amp;quot;Top priced games&amp;quot;) +
+  labs(subtitle = &amp;quot;Only shows the top 5 most expensive games&amp;quot;) +
+  scale_y_continuous(labels = scales::dollar)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-30-tidytuesday-video-games.en_files/figure-html/unnamed-chunk-6-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>chernobyl-cesium-137</title>
+      <link>/post/chernobyl-cesium-137/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/chernobyl-cesium-137/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;-
+  readxl::read_excel(
+    &amp;quot;c:/Users/pmass/Downloads/CHERNAIR.xls&amp;quot;,
+    na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)
+  ) %&amp;gt;%
+  janitor::clean_names() %&amp;gt;%
+  mutate(date = lubridate::ymd(date)) %&amp;gt;%
+  mutate(date_time = make_datetime(
+    year(date),
+    month(date),
+    day(date),
+    hour(end_of_sampling),
+    minute(end_of_sampling),
+    second(end_of_sampling)
+  ))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Map&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;world &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;)
+
+df2 &amp;lt;- df %&amp;gt;%
+  count(pays, ville, x, y) %&amp;gt;%
+  st_as_sf(
+    coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;),
+    crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot;
+  ) %&amp;gt;% 
+  st_transform(st_crs(world))
+
+world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))
+#&amp;gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give
+#&amp;gt; correct centroids for longitude/latitude data
+
+
+world %&amp;gt;%
+  ggplot() +
+  geom_sf(size = 0.3) +
+  geom_text(data= world_points,aes(x=X, y=Y, label=name), check_overlap = TRUE, size = 2) +
+  geom_sf(
+    data = df2,
+    aes(size = n),
+    show.legend = &amp;quot;point&amp;quot;,
+    stroke = 0.1,
+    fill = &amp;quot;red&amp;quot;,
+    color = &amp;quot;black&amp;quot;,
+    shape = 21
+  ) +
+  coord_sf(xlim = st_bbox(df2)[c(1, 3)], ylim = st_bbox(df2)[c(2, 4)]) +
+  scale_size_continuous(range = c(0.5, 5)) +
+  labs(subtitle = str_wrap(&amp;quot;Geolocalisations of the measurements&amp;quot;, 100)) +
+  labs(title = &amp;quot;Map of the data&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-28-chernobyl-cesium-137.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;2400&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df %&amp;gt;%
+  drop_na(cs_137_bq_m3) %&amp;gt;%
+  group_by(ville) %&amp;gt;%
+  filter(cs_137_bq_m3 == max(cs_137_bq_m3)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  top_n(16, cs_137_bq_m3) %&amp;gt;%
+  mutate(ville = glue(&amp;quot;{str_to_title(ville)} ({pays})&amp;quot;)) %&amp;gt;%
+  mutate(ville = fct_reorder(ville, cs_137_bq_m3)) %&amp;gt;%
+  ggplot(aes(x = ville, y = cs_137_bq_m3)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
+  scale_x_discrete(expand = c(0, 0)) +
+  geom_text(aes(label = format(round(cs_137_bq_m3, digits = 2), nsmall = 2)),
+    vjust = 0.5,
+    color = &amp;quot;white&amp;quot;,
+    hjust = 1.2
+  ) +
+  geom_text(
+    aes(label = date),
+    vjust = 0.5,
+    color = &amp;quot;white&amp;quot;,
+    hjust = 0,
+    size = 4,
+    y = 0.3
+  ) +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(panel.grid.minor.y = element_blank()) +
+  xlab(NULL) +
+  labs(
+    title = str_wrap(&amp;quot;Caesium-137 in different cities after the Chernobyl incident&amp;quot;, width = 40),
+    subtitle = str_wrap(&amp;quot;Top 16 cities and the date at which maximum caesium-137 was measured.&amp;quot;, 60)
+  ) +
+  theme(axis.ticks.y = element_blank()) +
+  ylab(bquote(&amp;quot;Caesium-137 concentration in&amp;quot; ~ Bq ~ m^{
+    -3
+  } ~ ~&amp;quot;(aerosol particles)&amp;quot;)) +
+  labs(caption = &amp;quot;Data extracted from REM data bank at CEC Joint Research Centre Ispra&amp;quot;) +
+  theme(plot.caption = element_text(colour = &amp;quot;grey50&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-28-chernobyl-cesium-137.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;2400&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Trying the new R vroom Package</title>
+      <link>/post/2019-07-17-trying-the-vroom-package/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-07-17-trying-the-vroom-package/</guid>
+      <description>
+
+
+&lt;p&gt;Many R packages can be used to read plain rectangular data files. Among them, &lt;code&gt;readr&lt;/code&gt; and &lt;code&gt;data.table&lt;/code&gt; are quite popular options. Recently, the &lt;a href=&#34;https://github.com/r-lib/vroom&#34;&gt;vroom&lt;/a&gt; package have been published on CRAN by &lt;a href=&#34;https://twitter.com/jimhester_?lang=en&#34;&gt;Jim Hester&lt;/a&gt;. While I do not know much about the technology behind the scene, Jim says:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;But that’s impossible! How can it be so fast?&lt;/p&gt;
+&lt;p&gt;vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later. The vectors returned use the Altrep framework to lazily load the data on-demand when it is accessed, so you only pay for what you use. This lazy access is done automatically, so no changes to your R data-manipulation code are needed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Because I often have to read large data files, I decided to try this new promising package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(vroom)
+library(data.table)
+library(ggpmthemes)
+
+theme_set(theme_poppins(base_size = 14))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the next sections, I will compare several methods to read a plain CSV file. The file I will be using contains bike commute data from &lt;a href=&#34;https://www.capitalbikeshare.com/system-data&#34;&gt;capital bike share&lt;/a&gt;. The file contains roughly 170 000 observations and 9 variables.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file &amp;lt;- curl::curl_download(&amp;quot;https://s3.amazonaws.com/capitalbikeshare-data/201801-capitalbikeshare-tripdata.zip&amp;quot;, destfile = tempfile(fileext = &amp;quot;.zip&amp;quot;))
+file &amp;lt;- unzip(file, exdir = tempdir())
+read_csv(file)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   Duration = col_double(),
+##   `Start date` = col_datetime(format = &amp;quot;&amp;quot;),
+##   `End date` = col_datetime(format = &amp;quot;&amp;quot;),
+##   `Start station number` = col_double(),
+##   `Start station` = col_character(),
+##   `End station number` = col_double(),
+##   `End station` = col_character(),
+##   `Bike number` = col_character(),
+##   `Member type` = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 168,590 x 9
+##    Duration `Start date`        `End date`          `Start station …
+##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 168,580 more rows, and 5 more variables: `Start station` &amp;lt;chr&amp;gt;,
+## #   `End station number` &amp;lt;dbl&amp;gt;, `End station` &amp;lt;chr&amp;gt;, `Bike number` &amp;lt;chr&amp;gt;,
+## #   `Member type` &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because the &lt;code&gt;vroom()&lt;/code&gt; function can use a vector of files, I will duplicate &lt;code&gt;file&lt;/code&gt; 10 times.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- rep(file, 10)
+files&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [2] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [3] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [4] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [5] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [6] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [7] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [8] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [9] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;
+## [10] &amp;quot;/tmp/RtmpBIpDxC/201801_capitalbikeshare_tripdata.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I can now simply use this character vector with &lt;code&gt;vroom()&lt;/code&gt;. Note that I can also use the &lt;code&gt;.name_repair&lt;/code&gt; argument to clean column names.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Observations: 1,685,900
+## Variables: 9
+## chr  [4]: Start station, End station, Bike number, Member type
+## dbl  [3]: Duration, Start station number, End station number
+## dttm [2]: Start date, End date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,685,900 x 9
+##    duration start_date          end_date            start_station_n…
+##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
+##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
+##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
+##  3     1265 2018-01-01 00:14:53 2018-01-01 00:35:58            31321
+##  4      578 2018-01-01 00:15:31 2018-01-01 00:25:09            31406
+##  5      372 2018-01-01 00:18:02 2018-01-01 00:24:15            31618
+##  6      369 2018-01-01 00:18:07 2018-01-01 00:24:17            31618
+##  7      486 2018-01-01 00:19:07 2018-01-01 00:27:14            31042
+##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
+##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
+## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
+## # … with 1,685,890 more rows, and 5 more variables: start_station &amp;lt;chr&amp;gt;,
+## #   end_station_number &amp;lt;dbl&amp;gt;, end_station &amp;lt;chr&amp;gt;, bike_number &amp;lt;chr&amp;gt;,
+## #   member_type &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;benchmark&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Benchmark&lt;/h2&gt;
+&lt;p&gt;One advantage of &lt;code&gt;vroom&lt;/code&gt; is its speed. In what follows, I will compare different methods to read the &lt;code&gt;files&lt;/code&gt; vector that contains 10 files. I will also use the &lt;code&gt;furrr&lt;/code&gt; package to use map in parallel.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(furrr)
+
+# How many cores to use
+plan(multiprocess(workers = availableCores() - 1))
+
+res &amp;lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  map_df(files, read_csv),
+  map_df(files, fread),
+  future_map_dfr(files, vroom),
+  future_map_dfr(files, read_csv),
+  future_map_dfr(files, fread), 
+  times = 10
+)
+
+autoplot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark1-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see, the &lt;code&gt;vroom&lt;/code&gt; package is the winner. It is even considerably faster than the versions using map in parallel, which surprises me! Please leave a message below if you have an explanation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-altrep&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Using Altrep&lt;/h2&gt;
+&lt;p&gt;Another feature of the &lt;code&gt;vroom()&lt;/code&gt; function is that we can decide which column types are using Altrep. Setting &lt;code&gt;altrep_opts = TRUE&lt;/code&gt; will enable Altrep for all column types. As seen below, this increases further the speed of the &lt;code&gt;vroom()&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res &amp;lt;- microbenchmark::microbenchmark(
+  vroom(files),
+  vroom(files, altrep_opts = TRUE),
+  times = 10
+)
+
+autoplot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark2-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Based on these results, I think that &lt;code&gt;vroom&lt;/code&gt; will become part of my daily workflow from now on.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>eemR 1.0.0</title>
+      <link>/post/2019-06-14-eemr-1-0-0/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-06-14-eemr-1-0-0/</guid>
+      <description>
+
+
+&lt;p&gt;When &lt;code&gt;eemR&lt;/code&gt; was originally created, I wrote few functions to import eems derived from the spectrofluorometers I knew. Given the high diversity in file formats, &lt;code&gt;eemR&lt;/code&gt; now offers the possibility for the user to write his/her own import function.&lt;/p&gt;
+&lt;div id=&#34;an-example&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An example&lt;/h2&gt;
+&lt;p&gt;In this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of &lt;code&gt;custom_cary.csv&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file &amp;lt;- system.file(&amp;quot;extdata/custom_cary.csv&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+
+cat(readLines(file, n = 5), sep = &amp;quot;\n&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Wavelength (nm),Intensity (a.u.),Z Axis,
+,01_SYN_50.00,01_SYN_55.00,01_SYN_60.00,01_SYN_65.00,01_SYN_70.00,01_SYN_75.00,01_SYN_80.00,01_SYN_85.00,01_SYN_90.00,01_SYN_95.00,01_SYN_100.00,01_SYN_105.00,01_SYN_110.00,01_SYN_115.00,01_SYN_120.00,01_SYN_125.00,01_SYN_130.00,01_SYN_135.00,01_SYN_140.00,01_SYN_145.00,01_SYN_150.00,01_SYN_155.00,01_SYN_160.00,01_SYN_165.00,01_SYN_170.00,01_SYN_175.00,01_SYN_180.00,01_SYN_185.00,01_SYN_190.00,01_SYN_195.00,01_SYN_200.00,01_SYN_205.00,01_SYN_210.00,01_SYN_215.00,01_SYN_220.00,01_SYN_225.00,01_SYN_230.00,01_SYN_235.00,01_SYN_240.00,01_SYN_245.00,01_SYN_250.00,01_SYN_255.00,01_SYN_260.00,01_SYN_265.00,01_SYN_270.00,01_SYN_275.00,01_SYN_280.00,01_SYN_285.00,01_SYN_290.00,01_SYN_295.00,01_SYN_300.00,01_SYN_305.00,01_SYN_310.00,01_SYN_315.00,01_SYN_320.00,01_SYN_325.00,01_SYN_330.00
+,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57
+250,1.85870516300201,2.80107355117798,3.22146272659302,3.60980105400085,4.71845960617065,5.5966010093689,6.45598602294922,7.89595937728882,10.0022115707397,12.8900260925293,16.6048526763916,21.7009887695313,26.7308120727539,33.5129280090332,39.6480255126953,46.94189453125,52.1451263427734,59.4381446838379,63.8430557250977,71.0080108642578,74.9123001098633,80.2605209350586,84.8504257202148,87.1108627319336,87.6054077148438,89.1303558349609,88.1718978881836,89.9914093017578,90.4588851928711,90.4412231445313,91.7687301635742,88.9126510620117,88.2239227294922,83.9044876098633,81.0552597045898,76.6695327758789,72.4987258911133,68.7890853881836,65.8365325927734,91.5800476074219,109.421615600586,93.5778274536133,53.0399932861328,44.5870552062988,40.4739570617676,37.5545845031738,33.1918907165527,30.9178428649902,30.7513618469238,28.8479671478271,26.2540702819824,22.5371971130371,19.1686763763428,16.6529712677002,14.7242202758789,13.7677135467529,12.4740467071533
+252.029998779297,2.1434018611908,3.11827969551086,3.62917947769165,4.18700551986694,5.13205671310425,6.11557626724243,7.16383838653564,8.7924222946167,10.8015441894531,13.4013109207153,17.4247570037842,22.7168807983398,28.294412612915,34.4576759338379,40.9357948303223,47.6901092529297,52.4071464538574,59.475528717041,64.4546813964844,70.2739791870117,75.7940139770508,79.9471435546875,83.4396667480469,85.106819152832,85.8016052246094,88.5793075561523,89.0074234008789,90.2360687255859,89.7650833129883,89.8542327880859,89.0672988891602,86.7302703857422,85.7473220825195,82.5640640258789,78.6254653930664,74.7004547119141,70.4368133544922,66.7534103393555,63.1299095153809,68.2004776000977,97.5321884155273,110.740531921387,60.1052017211914,44.5394287109375,39.8698654174805,36.2816505432129,33.5453300476074,30.2543392181396,28.1765575408936,25.9400939941406,25.5557174682617,22.9261245727539,18.3974666595459,15.442798614502,14.079273223877,13.2750692367554,11.3828964233398&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From this output, we see that:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;The emission wavelengths are contained in the first column (250, 252, …).&lt;/li&gt;
+&lt;li&gt;The excitation wavelengths are in the first row (50, 55, …). They are offsets to be applied to each excitation. For examples:
+&lt;ul&gt;
+&lt;li&gt;The emissions at excitation 250 nm are 250 + 50, 250 + 55, 250 + 60, …&lt;/li&gt;
+&lt;li&gt;The emissions at excitation 252 nm are 252 + 50, 252 + 55, 252 + 60, …&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;The fluorescence data start at row 3 and column 2.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The first thing we need to do is to create a function that will read this data in a format that can be used by &lt;code&gt;eemR&lt;/code&gt;. &lt;strong&gt;The function needs to meet these flowing criteria:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Have an argument &lt;code&gt;file&lt;/code&gt; that will contains the path of the file(s) to read.&lt;/li&gt;
+&lt;li&gt;Return a list containing the flowing elements:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;file&lt;/code&gt;: the path of the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;em&lt;/code&gt;: a numeric vector containing emission wavelengths.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ex&lt;/code&gt;: a numeric vector containing excitation wavelengths.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x&lt;/code&gt;: a matrix of &lt;code&gt;length(em)&lt;/code&gt; rows by &lt;code&gt;length(ex)&lt;/code&gt; columns.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Further more, the &lt;code&gt;x&lt;/code&gt; matrix of the list need to be arranged as follow:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-06-14-eemr-1-0-0.en_files/matrix.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Let’s now write a function that will read the eem file and format the data accordingly. In this particular example, fluorescence has been measured in asynchronous mode. Hence, extra manipulations are needed to get the data on a regular grid.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
+library(tidyr)
+library(eemR)
+
+import_cary &amp;lt;- function(file) {
+  dat &amp;lt;- read.csv(file, nrows = 102, skip = 1)
+
+  ex &amp;lt;- na.omit(dat[, 1])
+  em &amp;lt;- seq(50, 330, by = 5)
+
+  em &amp;lt;- outer(ex, em, &amp;quot;+&amp;quot;)
+  em &amp;lt;- as.vector(em)
+  ex &amp;lt;- rep(ex, 57)
+
+  x &amp;lt;- dat[, -1]
+  x &amp;lt;- x[-1, ]
+  x &amp;lt;- matrix(as.numeric(unlist(x, use.names = FALSE)), ncol = 101, byrow = FALSE)
+
+  res &amp;lt;- tibble(ex, em, x = as.vector(x)) %&amp;gt;%
+    arrange(ex, em) %&amp;gt;%
+    complete(ex, em, fill = list(x = NA))
+
+  ex &amp;lt;- sort(unique(ex))
+  em &amp;lt;- sort(unique(em))
+  x &amp;lt;- matrix(res$x, ncol = length(ex), byrow = TRUE)
+
+  # We need to interpolate because you do not have a regular grid (i.e. asynchronous)
+  r &amp;lt;- MBA::mba.surf(res %&amp;gt;% drop_na(), no.X = 200, no.Y = 200, extend = FALSE)
+
+  l &amp;lt;- list(
+    file = file,
+    x = t(r$xyz.est$z),
+    ex = r$xyz.est$x,
+    em = r$xyz.est$y
+  )
+
+  return(l)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now try our function and have a look to the structure of the returned list.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(import_cary(file))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 4
+##  $ file: chr &amp;quot;/home/pmassicotte/R/x86_64-pc-linux-gnu-library/3.6/eemR/extdata/custom_cary.csv&amp;quot;
+##  $ x   : num [1:200, 1:200] 1.91 2.29 2.73 3.04 3.27 ...
+##  $ ex  : num [1:200] 250 251 252 253 254 ...
+##  $ em  : num [1:200] 300 302 305 307 310 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will use the &lt;code&gt;import_function&lt;/code&gt; argument of the &lt;code&gt;eem_read()&lt;/code&gt; function to tell &lt;code&gt;eemR&lt;/code&gt; how to read our file.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eem &amp;lt;- eem_read(file, import_function = import_cary)
+
+eem&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        sample ex_min ex_max em_min em_max is_blank_corrected
+## 1 custom_cary    250    450    300    780              FALSE
+##   is_scatter_corrected is_ife_corrected is_raman_normalized
+## 1                FALSE            FALSE               FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can visualize the eem by using the &lt;code&gt;plot()&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-06-14-eemr-1-0-0.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;All other functions of the &lt;code&gt;eemR&lt;/code&gt; package can now be used on the created &lt;code&gt;eem&lt;/code&gt;. For example, we can remove the second order scattering.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Remove second order Rayleigh scattering
+plot(eem_remove_scattering(eem, &amp;quot;rayleigh&amp;quot;, order = 2, width = 15))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-06-14-eemr-1-0-0.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Extract Coble&amp;#39; peaks
+eem_coble_peaks(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: This metric uses either excitation or emission wavelengths
+## that were not present in the data. Data has been interpolated to fit the
+## requested wavelengths.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        sample  b        t        a       m        c
+## 1 custom_cary NA 10.86736 83.44561 61.2534 49.55256&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Extracting Weather Data From Canadian Archive</title>
+      <link>/post/2019-05-22-extracting-weather-data-from-canadian-archive/</link>
+      <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-05-22-extracting-weather-data-from-canadian-archive/</guid>
+      <description>
+
+
+&lt;p&gt;To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the &lt;a href=&#34;http://climat.meteo.gc.ca/climate_data/daily_data_f.html?hlyRange=2005-03-24%7C2019-05-21&amp;amp;dlyRange=1992-12-04%7C2019-05-21&amp;amp;mlyRange=1998-01-01%7C2016-03-01&amp;amp;StationID=26892&amp;amp;Prov=QC&amp;amp;urlExtension=_f.html&amp;amp;searchType=stnName&amp;amp;optLimit=yearRange&amp;amp;StartYear=2018&amp;amp;EndYear=2019&amp;amp;selRowPerPage=25&amp;amp;Line=2&amp;amp;searchMethod=contains&amp;amp;Month=5&amp;amp;Day=21&amp;amp;txtStationName=quebec&amp;amp;timeframe=2&amp;amp;Year=2019&#34;&gt;Government of Canada&lt;/a&gt; have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(extrafont)
+library(tidyverse)
+library(glue)
+
+## Set default ggplot2 font size and font familly
+
+loadfonts(quiet = TRUE)
+theme_set(theme_bw(base_size = 12, base_family = &amp;quot;Poppins&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first thing I did was to create a &lt;code&gt;tibble&lt;/code&gt; with all the dates for which I wanted to extract the weather information. This was also a good chance to use the &lt;code&gt;glue&lt;/code&gt; package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;url &amp;lt;- &amp;quot;http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?format=csv&amp;amp;stationID=26892&amp;amp;Year={year}&amp;amp;Month={month}&amp;amp;Day={day}&amp;amp;timeframe=2&amp;amp;submit=T%C3%A9l%C3%A9charger+des+donn%C3%A9es&amp;quot;
+
+df &amp;lt;- tibble(
+  date = seq(as.Date(&amp;quot;2018-01-01&amp;quot;), as.Date(&amp;quot;2019-05-15&amp;quot;), by = &amp;quot;1 month&amp;quot;),
+  url = glue(
+    url,
+    year = lubridate::year(date),
+    month = lubridate::month(date),
+    day = lubridate::day(date)
+  )
+)
+
+df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 17 x 2
+##    date       url                                                          
+##    &amp;lt;date&amp;gt;     &amp;lt;glue&amp;gt;                                                       
+##  1 2018-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  2 2018-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  3 2018-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  4 2018-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  5 2018-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  6 2018-06-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  7 2018-07-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  8 2018-08-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+##  9 2018-09-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 10 2018-10-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 11 2018-11-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 12 2018-12-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 13 2019-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 14 2019-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 15 2019-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 16 2019-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
+## 17 2019-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, I will create a function that will download, read and clean each data file.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;download_weather &amp;lt;- function(url) {
+  t &amp;lt;- tempfile()
+  curl::curl_download(url, t, quiet = TRUE)
+  df &amp;lt;- read_csv(t, skip = 25, locale = locale(decimal_mark = &amp;quot;,&amp;quot;)) %&amp;gt;%
+    janitor::clean_names() %&amp;gt;%
+    select(date_heure, temp_moy_c)
+
+  return(df)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the urls constructed, I can now download all the data. Here I am using the &lt;code&gt;rowwise()&lt;/code&gt; function from &lt;code&gt;dplyr&lt;/code&gt;. Then, I extract the day of the year and the year.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res &amp;lt;- df %&amp;gt;%
+  rowwise() %&amp;gt;%
+  mutate(data = list(download_weather(url))) %&amp;gt;%
+  unnest(data) %&amp;gt;%
+  mutate(doy = lubridate::yday(date_heure)) %&amp;gt;%
+  mutate(year = lubridate::year(date_heure)) %&amp;gt;%
+  filter(between(doy, 100, lubridate::yday(Sys.time())))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the downloaded data, it was easy to make a plot. Indeed, this year is cooler!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res %&amp;gt;%
+  drop_na() %&amp;gt;%
+  ggplot(aes(x = doy, y = temp_moy_c, color = factor(year))) +
+  geom_line() +
+  geom_point(show.legend = FALSE) +
+  scale_y_continuous(breaks = seq(-10, 20, by = 2)) +
+  xlab(&amp;quot;Day of year&amp;quot;) +
+  ylab(expression(&amp;quot;Average daily temperature &amp;quot; ~ (degree ~ C))) +
+  theme(legend.title = element_blank())&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-05-22-extracting-weather-data-from-canadian-archive.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introducing gitignore</title>
+      <link>/post/2019-05-08-introducing-gitignore/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2019-05-08-introducing-gitignore/</guid>
+      <description>
+
+
+&lt;p&gt;In this post I will introduce the &lt;code&gt;gitignore&lt;/code&gt; R package (&lt;a href=&#34;https://github.com/PMassicotte/gitignore&#34; class=&#34;uri&#34;&gt;https://github.com/PMassicotte/gitignore&lt;/a&gt;).&lt;/p&gt;
+&lt;div id=&#34;basic-idea&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Basic idea&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;gitignore&lt;/code&gt; is a simple R package that provide an interface to query &lt;a href=&#34;gitignore.io&#34;&gt;gitignore.io&lt;/a&gt; to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gi_available_templates()&lt;/code&gt;: to get a list of all templates available on &lt;a href=&#34;gitignore.io&#34;&gt;gitignore.io&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gi_fetch_templates()&lt;/code&gt;: to get one or more template(s). This function can copy the returned template(s) in the clipboard as well as happening the the &lt;code&gt;.gitignore&lt;/code&gt; file in your project directory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;examples&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Examples&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gitignore)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Get the list of all available templates from &lt;a href=&#34;gitignore.io&#34;&gt;gitignore.io&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(gi_available_templates(), 50)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;1c&amp;quot;                   &amp;quot;1c-bitrix&amp;quot;            &amp;quot;actionscript&amp;quot;        
+##  [4] &amp;quot;ada&amp;quot;                  &amp;quot;adobe&amp;quot;                &amp;quot;advancedinstaller&amp;quot;   
+##  [7] &amp;quot;adventuregamestudio&amp;quot;  &amp;quot;a-frame&amp;quot;              &amp;quot;agda&amp;quot;                
+## [10] &amp;quot;al&amp;quot;                   &amp;quot;alteraquartusii&amp;quot;      &amp;quot;altium&amp;quot;              
+## [13] &amp;quot;android&amp;quot;              &amp;quot;androidstudio&amp;quot;        &amp;quot;angular&amp;quot;             
+## [16] &amp;quot;anjuta&amp;quot;               &amp;quot;ansible&amp;quot;              &amp;quot;apachecordova&amp;quot;       
+## [19] &amp;quot;apachehadoop&amp;quot;         &amp;quot;appbuilder&amp;quot;           &amp;quot;appceleratortitanium&amp;quot;
+## [22] &amp;quot;appcode&amp;quot;              &amp;quot;appcode+all&amp;quot;          &amp;quot;appcode+iml&amp;quot;         
+## [25] &amp;quot;appengine&amp;quot;            &amp;quot;aptanastudio&amp;quot;         &amp;quot;arcanist&amp;quot;            
+## [28] &amp;quot;archive&amp;quot;              &amp;quot;archives&amp;quot;             &amp;quot;archlinuxpackages&amp;quot;   
+## [31] &amp;quot;aspnetcore&amp;quot;           &amp;quot;assembler&amp;quot;            &amp;quot;ate&amp;quot;                 
+## [34] &amp;quot;atmelstudio&amp;quot;          &amp;quot;ats&amp;quot;                  &amp;quot;audio&amp;quot;               
+## [37] &amp;quot;automationstudio&amp;quot;     &amp;quot;autotools&amp;quot;            &amp;quot;autotools+strict&amp;quot;    
+## [40] &amp;quot;awr&amp;quot;                  &amp;quot;backup&amp;quot;               &amp;quot;ballerina&amp;quot;           
+## [43] &amp;quot;basercms&amp;quot;             &amp;quot;basic&amp;quot;                &amp;quot;batch&amp;quot;               
+## [46] &amp;quot;bazaar&amp;quot;               &amp;quot;bazel&amp;quot;                &amp;quot;bitrise&amp;quot;             
+## [49] &amp;quot;bitrix&amp;quot;               &amp;quot;bittorrent&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The function &lt;code&gt;gi_fetch_templates()&lt;/code&gt; can be used to fetch particular template(s). For example, one could want to get the &lt;code&gt;java&lt;/code&gt; and &lt;code&gt;c++&lt;/code&gt; templates as follow:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gi_fetch_templates(c(&amp;quot;java&amp;quot;, &amp;quot;c++&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## # Created by https://www.gitignore.io/api/java,c++
+## # Edit at https://www.gitignore.io/?templates=java,c++
+## 
+## ### C++ ###
+## # Prerequisites
+## *.d
+## 
+## # Compiled Object files
+## *.slo
+## *.lo
+## *.o
+## *.obj
+## 
+## # Precompiled Headers
+## *.gch
+## *.pch
+## 
+## # Compiled Dynamic libraries
+## *.so
+## *.dylib
+## *.dll
+## 
+## # Fortran module files
+## *.mod
+## *.smod
+## 
+## # Compiled Static libraries
+## *.lai
+## *.la
+## *.a
+## *.lib
+## 
+## # Executables
+## *.exe
+## *.out
+## *.app
+## 
+## ### Java ###
+## # Compiled class file
+## *.class
+## 
+## # Log file
+## *.log
+## 
+## # BlueJ files
+## *.ctxt
+## 
+## # Mobile Tools for Java (J2ME)
+## .mtj.tmp/
+## 
+## # Package Files #
+## *.jar
+## *.war
+## *.nar
+## *.ear
+## *.zip
+## *.tar.gz
+## *.rar
+## 
+## # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+## hs_err_pid*
+## 
+## # End of https://www.gitignore.io/api/java,c++&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By default, the template(s) are copied into the clipboard, this can be changed by setting &lt;code&gt;copy_to_clipboard = FALSE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gi_fetch_templates(c(&amp;quot;java&amp;quot;, &amp;quot;c++&amp;quot;), copy_to_clipboard = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## # Created by https://www.gitignore.io/api/java,c++
+## # Edit at https://www.gitignore.io/?templates=java,c++
+## 
+## ### C++ ###
+## # Prerequisites
+## *.d
+## 
+## # Compiled Object files
+## *.slo
+## *.lo
+## *.o
+## *.obj
+## 
+## # Precompiled Headers
+## *.gch
+## *.pch
+## 
+## # Compiled Dynamic libraries
+## *.so
+## *.dylib
+## *.dll
+## 
+## # Fortran module files
+## *.mod
+## *.smod
+## 
+## # Compiled Static libraries
+## *.lai
+## *.la
+## *.a
+## *.lib
+## 
+## # Executables
+## *.exe
+## *.out
+## *.app
+## 
+## ### Java ###
+## # Compiled class file
+## *.class
+## 
+## # Log file
+## *.log
+## 
+## # BlueJ files
+## *.ctxt
+## 
+## # Mobile Tools for Java (J2ME)
+## .mtj.tmp/
+## 
+## # Package Files #
+## *.jar
+## *.war
+## *.nar
+## *.ear
+## *.zip
+## *.tar.gz
+## *.rar
+## 
+## # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+## hs_err_pid*
+## 
+## # End of https://www.gitignore.io/api/java,c++&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Additionally, you can tell &lt;code&gt;gi_fetch_templates()&lt;/code&gt; to append automatically the &lt;code&gt;.gitignore&lt;/code&gt; file in your project by setting &lt;code&gt;append_gitignore = TRUE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gi_fetch_templates(c(&amp;quot;java&amp;quot;, &amp;quot;c++&amp;quot;), append_gitignore = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;demo&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Demo&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-05-08-introducing-gitignore_files/gitignore.gif&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Analysis of speaker genders at the 2018 ArcticNet Annual Scientific Meeting</title>
+      <link>/post/gender-asm2018/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/gender-asm2018/</guid>
+      <description>
+
+
+&lt;p&gt;Last week I was participating to the &lt;a href=&#34;http://www.arcticnetmeetings.ca/asm2018/&#34;&gt;ArcticNet Annual Scientific Meeting 2018&lt;/a&gt; in Ottawa. I was pleasantly surprised to see that there was a large proportion of women present at the conference. After the panel discussion on &lt;em&gt;women in northern science&lt;/em&gt; which took place on Thursday night, I decided to see if I could use R to scan the scientific PDF program to determine how many men and women were giving scientific presentations.&lt;/p&gt;
+&lt;p&gt;For this exercise, I will use the &lt;code&gt;pdftools&lt;/code&gt; library to scan the program PDF.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pdftools)
+
+dat &amp;lt;- pdf_text(&amp;quot;http://www.arcticnetmeetings.ca/asm2018/docs/PROGRAM_ASM2018_FINAL.pdf&amp;quot;)
+dat &amp;lt;- iconv(dat, from = &amp;quot;UTF-8&amp;quot;, to = &amp;quot;ASCII//TRANSLIT&amp;quot;)
+
+res &amp;lt;- map(dat[18:51], function(x) { # Only scan pages 18-51
+
+  # Use a simple regular expression to extract two consequtive upperletter
+  # words. This could be better.
+  # str_match_all(dat[[21]], &amp;quot;\\W+([A-Z\\s\\-]{1,})\\r\\n&amp;quot;)
+  ## Remove the \r if building on Linux
+  str_match_all(x, &amp;quot;\\W+([[:upper:]]{3,}\\W+[[:upper:]]{3,})\\r\\n&amp;quot;)[[1]][, 2]
+  
+}) %&amp;gt;%
+  unlist() %&amp;gt;%
+  tibble(full_name = .) %&amp;gt;%
+  filter(!str_detect(full_name, &amp;quot;SESSION&amp;quot;)) %&amp;gt;%
+  separate(full_name, into = c(&amp;quot;first_name&amp;quot;, &amp;quot;last_name&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If I did things correctly, there were 386 speakers at the conference.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 386 x 2
+##    first_name last_name
+##    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;    
+##  1 LOUIS      TETU     
+##  2 MICHAEL    DELAUNAY 
+##  3 MICHAEL    ROSS     
+##  4 DESAI      SHAN     
+##  5 CATHERINE  BURKE    
+##  6 BRIAN      MOORMAN  
+##  7 ACHIM      ROTH     
+##  8 MATTHEW    ASPLIN   
+##  9 DUSTIN     WHALEN   
+## 10 ALESSIA    GUZZI    
+## # … with 376 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, using the &lt;code&gt;gender&lt;/code&gt; package, we can determine the genders.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gender)
+
+res &amp;lt;- res %&amp;gt;% 
+  nest(c(first_name, last_name)) %&amp;gt;%
+  mutate(gender = map(data, ~ gender(.$first_name))) %&amp;gt;%
+  unnest(gender) %&amp;gt;%
+  mutate(gender = str_to_title(gender))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: All elements of `...` must be named.
+## Did you want `data = c(first_name, last_name)`?&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 347 x 7
+##         data name  proportion_male proportion_fema… gender year_min
+##    &amp;lt;list&amp;lt;df&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;
+##  1 [386 × 2] ADRI…          0.927            0.0732 Male       1932
+##  2 [386 × 2] AGAT…          0                1      Female     1932
+##  3 [386 × 2] ALEJ…          0.992            0.0075 Male       1932
+##  4 [386 × 2] ALES…          0                1      Female     1932
+##  5 [386 × 2] ALEX…          0.992            0.0079 Male       1932
+##  6 [386 × 2] ALEX…          0.0037           0.996  Female     1932
+##  7 [386 × 2] ALEX…          0.0037           0.996  Female     1932
+##  8 [386 × 2] ALEX…          0.964            0.0355 Male       1932
+##  9 [386 × 2] ALEX…          0.145            0.855  Female     1932
+## 10 [386 × 2] ALIS…          0.0045           0.996  Female     1932
+## # … with 337 more rows, and 1 more variable: year_max &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, we can create a plot to visualize the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res %&amp;gt;%
+  count(gender) %&amp;gt;%
+  ggplot(aes(x = gender, y = n)) +
+  geom_col() +
+  coord_flip() +
+  theme(axis.title.y = element_blank()) +
+  ylab(&amp;quot;Number of speaker&amp;quot;) +
+  scale_y_continuous(breaks = seq(0, 200, by = 20)) +
+  labs(title = &amp;quot;Number of male and female presenters at the ArcticNet 2018 meeting&amp;quot;) +
+  labs(caption = &amp;quot;Data source: http://www.arcticnetmeetings.ca/asm2018/docs/PROGRAM_ASM2018_FINAL.pdf&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-15-asm2018_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This simple analysis confirms that there were as many men and women presenters at the conference. In the next graph we can see the most popular names of the speakers.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res %&amp;gt;% 
+  group_by(gender) %&amp;gt;% 
+  count(name) %&amp;gt;% 
+  arrange(desc(n)) %&amp;gt;% 
+  slice(1:5) %&amp;gt;% 
+  ggplot(aes(x = reorder(name, n, sort), y = n)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) + 
+  facet_wrap(~gender, scales = &amp;quot;free_y&amp;quot;) +
+  coord_flip() +
+  scale_y_continuous(breaks = seq(0, 10, by = 1)) +
+  ylab(&amp;quot;Number of speakers&amp;quot;) +
+  labs(title = &amp;quot;Most frequent speaker names at the ArcticNet 2018 meeting&amp;quot;) +
+  theme(axis.title.y = element_blank())&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-15-asm2018_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Numerical integration in R</title>
+      <link>/post/numerical-integration-in-r/</link>
+      <pubDate>Fri, 11 May 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/numerical-integration-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;Although R in not a symbolic language like &lt;a href=&#34;http://www.wolfram.com/mathematica/&#34;&gt;Mathematica&lt;/a&gt;, &lt;a href=&#34;http://www.maplesoft.com/products/maple/&#34;&gt;Maple&lt;/a&gt; or &lt;a href=&#34;http://www.mathworks.com/products/matlab/&#34;&gt;Matlab&lt;/a&gt;, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+f(x) = \cos(x) + 2
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We first define the equation in the form of a function since it is a requirement to use the R &lt;a href=&#34;http://stat.ethz.ch/R-manual/R-devel/library/stats/html/integrate.html&#34;&gt;integrate&lt;/a&gt; function. Then, plot the function curve between 0 and 4.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Define the function we want to integrate cox(x) + 10
+myfunc &amp;lt;- function(x) {
+  cos(x) + 2
+}
+
+## Calculate the values
+df &amp;lt;- tibble(x = seq(0, 4, 0.01), y = myfunc(x))
+
+df %&amp;gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-05-11-numerical-integration-in-r_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now, let’s say we want to integrate between 1 and 3 which correspond to the gray area in the figure below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df %&amp;gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_area(data = filter(df, between(x, 1, 3)))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-05-11-numerical-integration-in-r_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Analytically, the solution would look like this:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{eqnarray}
+ F(x)&amp;amp;=&amp;amp;\int\limits_1^3 \cos(x)+10 \,dx\\
+  &amp;amp;=&amp;amp;\lbrack\sin(x)+2x\rbrack_1^3\\
+  &amp;amp;=&amp;amp;[6 + \sin(3)] - [2 + \sin(1)]\\
+  &amp;amp;=&amp;amp;4 + \sin(3) - \sin(1)\\
+  &amp;amp;=&amp;amp;3.299649
+\end{eqnarray}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Now, let’s integrate with R&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Inegrate
+integrate(myfunc, 1, 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 3.299649 with absolute error &amp;lt; 3.7e-14&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The numerical and analytically solutions are consistent.&lt;/p&gt;
+&lt;p&gt;If you are aware of interesting package for numerical integration let me know!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/page/publication/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/page/</guid>
-      <description></description>
+      <guid>/page/publication/</guid>
+      <description>&lt;a name=bib-Asmala2018&gt;&lt;/a&gt;[\[1\]](#cite-Asmala2018) E. Asmala, L.
+Haraguchi, H. H. Jakobsen, P. Massicotte and J. Carstensen. “Nutrient
+availability as major driver of phytoplankton-derived dissolved organic
+matter transformation in coastal environment”. In: *Biogeochemistry*
+137.1-2 (Jan. 2018), pp. 93-104. ISSN: 0168-2563. DOI:
+[10.1007/s10533-017-0403-0](https://doi.org/10.1007/s10533-017-0403-0).
+
+&lt;a name=bib-Brandao2018&gt;&lt;/a&gt;[\[2\]](#cite-Brandao2018) L. P. M. Brandão,
+L. S. Brighenti, P. A. Staehr, E. Asmala, P. Massicotte, D. Tonetta, F.
+A. R. Barbosa, D. Pujoni and J. F. Bezerra-Neto. “Distinctive effects of
+allochthonous and autochthonous organic matter on CDOM spectra in a
+tropical lake”. In: *Biogeosciences* 15.9 (May. 2018), pp. 2931-2943.
+ISSN: 1726-4189. DOI:
+[10.5194/bg-15-2931-2018](https://doi.org/10.5194/bg-15-2931-2018).
+
+&lt;a name=bib-Kristensen2018&gt;&lt;/a&gt;[\[3\]](#cite-Kristensen2018) E.
+Kristensen, M. Madsen-Østerbye, P. Massicotte, O. Pedersen, S. Markager
+and T. Kragh. “Catchment tracers reveal discharge, recharge and sources
+of groundwater-borne pollutants in a novel lake modelling approach”. In:
+*Biogeosciences* 15.4 (Feb. 2018), pp. 1203-1216. ISSN: 1726-4189. DOI:
+[10.5194/bg-15-1203-2018](https://doi.org/10.5194/bg-15-1203-2018).
+
+&lt;a name=bib-Qi2018&gt;&lt;/a&gt;[\[4\]](#cite-Qi2018) L. Qi, H. Xie, J. Gagné, G.
+Chaillou, P. Massicotte and G. Yang. “Photoreactivities of two distinct
+dissolved organic matter pools in groundwater of a subarctic island”.
+In: *Marine Chemistry* 202.March (May. 2018), pp. 97-120. ISSN:
+03044203. DOI:
+[10.1016/j.marchem.2018.03.003](https://doi.org/10.1016/j.marchem.2018.03.003).
+
+&lt;a name=bib-Massicotte2017JSS&gt;&lt;/a&gt;[\[5\]](#cite-Massicotte2017JSS) P.
+Massicotte. “Excitation-emission fluorescence matrix manipulation made
+easy: An introduction to eemR”. In: *Journal of Statistical Software*
+(2017).
+
+&lt;a name=bib-Massicotte2017&gt;&lt;/a&gt;[\[6\]](#cite-Massicotte2017) P.
+Massicotte, E. Asmala, C. Stedmon and S. Markager. “Global distribution
+of dissolved organic matter along the aquatic continuum: Across rivers,
+lakes and oceans”. In: *Science of The Total Environment* 609.C
+(Dec. 2017), pp. 180-191. ISSN: 00489697. DOI:
+[10.1016/j.scitotenv.2017.07.076](https://doi.org/10.1016/j.scitotenv.2017.07.076).
+
+&lt;a name=bib-Massicotte2017a&gt;&lt;/a&gt;[\[7\]](#cite-Massicotte2017a) P.
+Massicotte, C. Stedmon and S. Markager. “Spectral signature of suspended
+fine particulate material on light absorption properties of CDOM”. In:
+*Marine Chemistry* 196 (Aug. 2017). ISSN: 03044203. DOI:
+[10.1016/j.marchem.2017.07.005](https://doi.org/10.1016/j.marchem.2017.07.005).
+
+&lt;a name=bib-Nielsen2017&gt;&lt;/a&gt;[\[8\]](#cite-Nielsen2017) S. L. Nielsen, P.
+Massicotte and S. Markager. “Carbon inputs and dynamics in the eutrophic
+estuary Roskilde Fjord”. In: *Estuarine Coastal and Shelf Science*
+(2017).
+
+&lt;a name=bib-Assani2016&gt;&lt;/a&gt;[\[9\]](#cite-Assani2016) A. A. Assani, R.
+Landry, O. Azouaoui, P. Massicotte and D. Gratton. “Comparison of the
+Characteristics (Frequency and Timing) of Drought and Wetness Indices of
+Annual Mean Water Levels in the Five North American Great Lakes”. In:
+*Water Resources Management* 30.1 ( Jan. 2016), pp. 359-373. ISSN:
+0920-4741. DOI:
+[10.1007/s11269-015-1166-9](https://doi.org/10.1007/s11269-015-1166-9).
+
+&lt;a name=bib-Lambert2016b&gt;&lt;/a&gt;[\[10\]](#cite-Lambert2016b) T. Lambert, S.
+Bouillon, F. Darchambeau, P. Massicotte and A. V. Borges. “Environmental
+drivers on dissolved organic matter degradation in the Congo River Basin
+across a gradient of streams and rivers”. In: *Biogeosciences* (2016).
+
+&lt;a name=bib-Lambert2016a&gt;&lt;/a&gt;[\[11\]](#cite-Lambert2016a) T. Lambert, S.
+Bouillon, F. Darchambeau, P. Massicotte and A. V. Borges. “Shift in the
+chemical composition of dissolved organic matter in the Congo River
+network”. In: *Biogeosciences Discussions* (Jun. 2016), pp. 1-49. ISSN:
+1810-6285. DOI:
+[10.5194/bg-2016-240](https://doi.org/10.5194/bg-2016-240).
+
+&lt;a name=bib-Lambert2016&gt;&lt;/a&gt;[\[12\]](#cite-Lambert2016) T. Lambert, C.
+R. C. Teodoru, F. F. C. Nyoni, S. Bouillon, F. Darchambeau, P.
+Massicotte and A. V. A. Borges. “Along-stream transport and
+transformation of dissolved organic matter in a large tropical river”.
+In: *Biogeosciences* 13.9 (May. 2016), pp. 2727-2741. ISSN: 1726-4189.
+DOI: [10.5194/bg-13-2727-2016](https://doi.org/10.5194/bg-13-2727-2016).
+
+&lt;a name=bib-Massicotte2016&gt;&lt;/a&gt;[\[13\]](#cite-Massicotte2016) P.
+Massicotte. *eemR: eemR 0.1.4*. Aug. 2016. DOI:
+[10.5281/zenodo.61080](https://doi.org/10.5281/zenodo.61080).
+
+&lt;a name=bib-MassicotteCDOM&gt;&lt;/a&gt;[\[14\]](#cite-MassicotteCDOM) P.
+Massicotte. *Package cdom: R Functions to Model CDOM Spectra*. 2016.
+
+&lt;a name=bib-Massicotte2016MC&gt;&lt;/a&gt;[\[15\]](#cite-Massicotte2016MC) P.
+Massicotte and S. Markager. “Using a Gaussian decomposition approach to
+model absorption spectra of chromophoric dissolved organic matter”. In:
+*Marine Chemistry* 180 (Mar. 2016), pp. 24-32. ISSN: 03044203. DOI:
+[10.1016/j.marchem.2016.01.008](https://doi.org/10.1016/j.marchem.2016.01.008).
+
+&lt;a name=bib-Beauchamp2015&gt;&lt;/a&gt;[\[16\]](#cite-Beauchamp2015) M.
+Beauchamp, A. A. Assani, R. Landry and P. Massicotte. “Temporal
+variability of the magnitude and timing of winter maximum daily flows in
+southern Quebec (Canada)”. In: *Journal of Hydrology* 529 (Oct. 2015),
+pp. 410-417. ISSN: 00221694. DOI:
+[10.1016/j.jhydrol.2015.07.053](https://doi.org/10.1016/j.jhydrol.2015.07.053).
+
+&lt;a name=bib-Bombenger2015&gt;&lt;/a&gt;[\[17\]](#cite-Bombenger2015) P. Bombenger
+and P. Massicotte. “Mathématiques &amp; Géographie – Déchiffrer ou des
+chiffres et la Terre : Apports des concepts mathématiques à la
+géographie”. In: *Pourquoi les mathématiques?* Ed. by Guillaume
+Tomasini. Ellipses markeing, 2015, p. 288. ISBN: 9782340005488.
+
+&lt;a name=bib-Lambert2015a&gt;&lt;/a&gt;[\[18\]](#cite-Lambert2015a) T. Lambert, F.
+Darchambeau, S. Bouillon, B. Alhou, J. J. Mbega, C. R. C. Teodoru, F. F.
+C. Nyoni, P. Massicotte and A. V. A. Borges. “Landscape Control on the
+Spatial and Temporal Variability of Chromophoric Dissolved Organic
+Matter and Dissolved Organic Carbon in Large African Rivers”. In:
+*Ecosystems* 18.7 (Nov. 2015), pp. 1224-1239. ISSN: 1432-9840. DOI:
+[10.1007/s10021-015-9894-5](https://doi.org/10.1007/s10021-015-9894-5).
+
+&lt;a name=bib-Massicotte2015a&gt;&lt;/a&gt;[\[19\]](#cite-Massicotte2015a) P.
+Massicotte, A. Bertolo, P. Brodeur, C. Hudon, M. Mingelbier and P.
+Magnan. “Influence of the aquatic vegetation landscape on larval fish
+abundance”. In: *Journal of Great Lakes Research* 41.3 ( Sep. 2015),
+pp. 873-880. ISSN: 03801330. DOI:
+[10.1016/j.jglr.2015.05.010](https://doi.org/10.1016/j.jglr.2015.05.010).
+
+&lt;a name=bib-Massicotte2015&gt;&lt;/a&gt;[\[20\]](#cite-Massicotte2015) P.
+Massicotte, R. Proulx, G. Cabana and M. A. Rodr&#39;iguez. “Testing the
+influence of environmental heterogeneity on fish species richness in two
+biogeographic provinces”. In: *PeerJ* 3 ( Feb. 2015), p. e760. ISSN:
+2167-8359. DOI: [10.7717/peerj.760](https://doi.org/10.7717/peerj.760).
+
+&lt;a name=bib-Biron2014&gt;&lt;/a&gt;[\[21\]](#cite-Biron2014) S. Biron, A. A.
+Assani, J. Frenette and P. Massicotte. “Comparison of Lake Ontario and
+St. Lawrence River hydrologic droughts and their relationship to climate
+indices”. In: *Water Resources Research* 50.2 ( Feb. 2014),
+pp. 1396-1409. ISSN: 00431397. DOI:
+[10.1002/2012WR013441](https://doi.org/10.1002/2012WR013441).
+
+&lt;a name=bib-Massicotte2014&gt;&lt;/a&gt;[\[22\]](#cite-Massicotte2014) P.
+Massicotte, J. Frenette, R. Proulx, B. Pinel-Alloul and A. Bertolo.
+“Riverscape heterogeneity explains spatial variation in zooplankton
+functional evenness and biomass in a large river ecosystem”. In:
+*Landscape Ecology* 29.1 (Jan. 2014), pp. 67-79. ISSN: 0921-2973. DOI:
+[10.1007/s10980-013-9946-1](https://doi.org/10.1007/s10980-013-9946-1).
+
+&lt;a name=bib-Proulx2014&gt;&lt;/a&gt;[\[23\]](#cite-Proulx2014) R. Proulx, P.
+Massicotte and M. Pépino. “Googling Trends in Conservation Biology”. In:
+*Conservation Biology* 28.1 (Feb. 2014), pp. 44-51. ISSN: 08888892. DOI:
+[10.1111/cobi.12131](https://doi.org/10.1111/cobi.12131).
+
+&lt;a name=bib-Massicotte2013b&gt;&lt;/a&gt;[\[24\]](#cite-Massicotte2013b) P.
+Massicotte, A. A. Assani, D. Gratton and J. J. Frenette. “Relationship
+between water color, water levels, and climate indices in large rivers:
+Case of the St. Lawrence River (Canada)”. In: *Water Resources Research*
+49.4 (Apr. 2013), pp. 2303-2307. ISSN: 00431397. DOI:
+[10.1002/wrcr.20203](https://doi.org/10.1002/wrcr.20203).
+
+&lt;a
+name=bib-Massicotte2013LOFE&gt;&lt;/a&gt;[\[25\]](#cite-Massicotte2013LOFE) P.
+Massicotte and J. Frenette. “A mechanistic-based framework to understand
+how dissolved organic carbon is processed in a large fluvial lake”. In:
+*Limnology &amp; Oceanography: Fluids &amp; Environments* 3.3 (Oct. 2013),
+pp. 139-155. ISSN: 2157-3689. DOI:
+[10.1215/21573689-2372976](https://doi.org/10.1215/21573689-2372976).
+
+&lt;a name=bib-Massicotte2013RSE&gt;&lt;/a&gt;[\[26\]](#cite-Massicotte2013RSE) P.
+Massicotte, D. Gratton, J. Frenette and A. A. Assani. “Spatial and
+temporal evolution of the St. Lawrence River spectral profile: A 25-year
+case study using Landsat 5 and 7 imagery”. In: *Remote Sensing of
+Environment* 136 (Sep. 2013), pp. 433-441. ISSN: 00344257. DOI:
+[10.1016/j.rse.2013.05.028](https://doi.org/10.1016/j.rse.2013.05.028).
+
+&lt;a name=bib-Frenette2012&gt;&lt;/a&gt;[\[27\]](#cite-Frenette2012) J. Frenette,
+P. Massicotte and J. Lapierre. “Colorful Niches of Phytoplankton Shaped
+by the Spatial Connectivity in a Large River Ecosystem: A Riverscape
+Perspective”. In: *PLoS ONE* 7.4 ( Apr. 2012), p. e35891. ISSN:
+1932-6203. DOI:
+[10.1371/journal.pone.0035891](https://doi.org/10.1371/journal.pone.0035891).
+
+&lt;a name=bib-Pommier2012&gt;&lt;/a&gt;[\[28\]](#cite-Pommier2012) J. Pommier, J.
+J. Frenette, P. Massicotte, J. J. Lapierre and H. Glémet. “Seston fatty
+acid composition and copepod RNA:DNA ratio with respect to the
+underwater light climate in fluvial Lac Saint-Pierre”. In: *Aquatic
+Sciences* 74.3 (Feb. 2012), pp. 539-553. ISSN: 1015-1621. DOI:
+[10.1007/s00027-011-0246-z](https://doi.org/10.1007/s00027-011-0246-z).
+
+&lt;a name=bib-Massicotte2011EA&gt;&lt;/a&gt;[\[29\]](#cite-Massicotte2011EA) P.
+Massicotte and J. J. Frenette. “Spatial connectivity in a large river
+system: resolving the sources and fate of dissolved organic matter”. In:
+*Ecological Applications* 21.7 (Oct. 2011), pp. 2600-2617. ISSN:
+1051-0761. DOI: [10.1890/10-1475.1](https://doi.org/10.1890/10-1475.1).
+
+&lt;a name=bib-Massicotte2007&gt;&lt;/a&gt;[\[30\]](#cite-Massicotte2007) P.
+Massicotte, L. Badri and M. Badri. “Towards a tool supporting
+integration testing of aspect-oriented programs”. In: *Journal of Object
+Technology* 6.1 (2007), pp. 67-89. ISSN: 16601769.
+
+&lt;a name=bib-Massicotte2006&gt;&lt;/a&gt;[\[31\]](#cite-Massicotte2006) P.
+Massicotte, L. Badri and M. Badri. *Rapid Integration of Software
+Engineering Techniques*. Ed. by N. Guelfi and A. Savidis. Vol. 3943.
+Lecture Notes in Computer Science. Berlin, Heidelberg: Springer Berlin
+Heidelberg, 2006, pp. 158-173. ISBN: 978-3-540-34063-8. DOI:
+[10.1007/11751113](https://doi.org/10.1007/11751113).
+</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/about/</guid>
+      <description>
+
+&lt;p&gt;Hi, my name is Philippe Massicotte. As a &lt;em&gt;numerical ecologist&lt;/em&gt;, the &lt;a href=&#34;https://www.r-project.org/&#34;&gt;R statistical computing language&lt;/a&gt; is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation. In this not-so-serious blog, I will present my recent R work as well as various data visualizations such as the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34;&gt;TidyTuesday&lt;/a&gt; challenges.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/pmassicotte.jpg&#34; alt=&#34;drawing&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;current-research&#34;&gt;Current research&lt;/h2&gt;
+
+&lt;p&gt;I am currently working as a research associate at the &lt;a href=&#34;http://www.takuvik.ulaval.ca/&#34;&gt;Takuvik Joint International Laboratory&lt;/a&gt; under the supervision of &lt;a href=&#34;http://www.takuvik.ulaval.ca/team/marcel_babin.php&#34;&gt;Dr. Marcel Babin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Some researches I am currently working on:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Understand how surrounding landscapes of aquatic ecosystems determine the biogeocycling of dissolved organic matter (DOM).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Understand how DOM, as the main agent driving the optical properties of aquatic ecosystems, influences their functioning.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Quantify how the complex mosaic composed of ice, snow, leads, melt ponds and open water influence underwater light regime in aquatic ecosystems.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Influence of available irradiance under heterogeneous sea-ice conditions on phytoplankton primary production estimates.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;I am always looking for collaborations.&lt;/strong&gt; Do not hesitate to contact me!&lt;/p&gt;
+
+&lt;h2 id=&#34;scientific-interests-no-specific-order&#34;&gt;Scientific interests (no specific order)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Aquatic ecosystems (limnology &amp;amp; oceanography)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dissolved organic matter (DOM) and carbon cycling&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Aquatic optic (fluorescence, absorbance, remote sensing)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Mathematics&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Numerical analyses/modelling (multivariate analyses, spatial analyses, system dynamic)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scientific programming&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Image analysis&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Geomatic&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calculating daylight in R</title>
+      <link>/post/2015-11-06-daylight/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2015-11-06-daylight/</guid>
+      <description>
+
+
+&lt;p&gt;A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY). The formula used can be found &lt;a href=&#34;http://stackoverflow.com/questions/6372802/calculate-daylight-hours-based-on-gegraphical-coordinates&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dl &amp;lt;- function(doy, latitude) {
+
+  p &amp;lt;- asin(0.39795 * cos(0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186)))))
+
+  d &amp;lt;- 24 - (24 / pi) * acos((sin(0.8333 * pi / 180) + sin(latitude * pi / 180) * sin(p)) / 
+    cos(latitude * pi / 180) * cos(p))
+
+  return(d)
+}
+
+doy &amp;lt;- 1:365
+
+mtl &amp;lt;- dl(doy = doy, latitude = 45.501689) ## Montreal latitude
+cph &amp;lt;- dl(doy = doy, latitude = 55.676097) ## Copenhagen latitude
+
+df &amp;lt;- data.frame(mtl = mtl, cph = cph, date = as.Date(doy, origin = &amp;quot;2015-01-01&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+
+ggplot(df, aes(x = date)) +
+  geom_line(aes(y = mtl, color = &amp;quot;Montreal&amp;quot;)) +
+  geom_line(aes(y = cph, color = &amp;quot;Copenhagen&amp;quot;)) +
+  labs(color = &amp;quot;City&amp;quot;) +
+  theme_bw() +
+  xlab(&amp;quot;Months&amp;quot;) +
+  ylab(&amp;quot;Daylight (hours)&amp;quot;) +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now lets calculate the daylight difference between the two cities.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(x = date, y = cph - mtl)) +
+  geom_line() +
+  xlab(&amp;quot;Months&amp;quot;) +
+  ylab(&amp;quot;Daylight difference&amp;quot;) +
+  theme_bw() +
+  geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Voilà!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installing latest version of RStudio from R</title>
+      <link>/post/2016-11-18-updating-rstudio/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-11-18-updating-rstudio/</guid>
+      <description>
+
+
+&lt;p&gt;If you are like me, chances are that you update &lt;a href=&#34;https://www.rstudio.org/download/daily/desktop/ubuntu64/&#34;&gt;RStudio&lt;/a&gt; on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rstudio_ubuntu_daily_url &amp;lt;- &amp;quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&amp;quot;
+
+r &amp;lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
+
+file &amp;lt;- regmatches(r, regexpr(&amp;quot;https\\S+?deb&amp;quot;, r))[1]
+file
+
+destfile &amp;lt;- paste(&amp;quot;/tmp/&amp;quot;, basename(file))
+
+download.file(file, destfile = destfile)
+
+cmd &amp;lt;- sprintf(&amp;quot;dpkg -i %s&amp;quot;, destfile)
+system(cmd)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introducing eemR</title>
+      <link>/post/2015-11-05-eemr/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2015-11-05-eemr/</guid>
+      <description>
+
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/PMassicotte/eemR&#34;&gt;&lt;code&gt;eemR&lt;/code&gt;&lt;/a&gt; package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the &lt;code&gt;eem_&lt;/code&gt; prefix. Please note this is a very alpha version of the package for testing purpose only.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+ls(&amp;quot;package:eemR&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;absorbance&amp;quot;              &amp;quot;eem_bind&amp;quot;               
+##  [3] &amp;quot;eem_biological_index&amp;quot;    &amp;quot;eem_coble_peaks&amp;quot;        
+##  [5] &amp;quot;eem_cut&amp;quot;                 &amp;quot;eem_export_matlab&amp;quot;      
+##  [7] &amp;quot;eem_extract&amp;quot;             &amp;quot;eem_fluorescence_index&amp;quot; 
+##  [9] &amp;quot;eem_humification_index&amp;quot;  &amp;quot;eem_inner_filter_effect&amp;quot;
+## [11] &amp;quot;eem_names&amp;quot;               &amp;quot;eem_names&amp;lt;-&amp;quot;            
+## [13] &amp;quot;eem_peaks&amp;quot;               &amp;quot;eem_raman_normalisation&amp;quot;
+## [15] &amp;quot;eem_read&amp;quot;                &amp;quot;eem_remove_blank&amp;quot;       
+## [17] &amp;quot;eem_remove_scattering&amp;quot;   &amp;quot;eem_set_wavelengths&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The package can be installed using the following command.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;quot;PMassicotte/eemR&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;reading-excitation-emission&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reading excitation-emission&lt;/h2&gt;
+&lt;p&gt;At the moment, to following EEM types are supported:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cary Eclipse &lt;code&gt;.csv&lt;/code&gt; files&lt;/li&gt;
+&lt;li&gt;Aqualog &lt;code&gt;.dat&lt;/code&gt; files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;EEM can be read using the &lt;code&gt;eem_read()&lt;/code&gt; function. &lt;em&gt;Please fill an &lt;a href=&#34;https://github.com/PMassicotte/eemR/issues&#34;&gt;issue&lt;/a&gt; if you have other file formats you would like to add to the package&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+
+## Reading a single eem
+file &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1&amp;quot;, &amp;quot;sample1.csv&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+eem &amp;lt;- eem_read(file, import_function = &amp;quot;cary&amp;quot;)
+
+plot(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;implemented-metrics&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Implemented metrics&lt;/h1&gt;
+&lt;p&gt;The current implemented metrics are:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;The fluorescence index (FI).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The fluorescence peaks.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The fluorescence humification index (HIX).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The biological fluorescence index (BIX).&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+
+folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+eem &amp;lt;- eem_read(folder, import_function = &amp;quot;cary&amp;quot;)
+
+eem_fluorescence_index(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    sample         fi
+## 1    nano -0.5932057
+## 2 sample1  1.2647823
+## 3 sample2  1.4553330
+## 4 sample3  1.3294132&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eem_coble_peaks(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    sample         b         t        a          m         c
+## 1    nano 0.8745673 0.1401188 0.140175 0.09653326 0.1255788
+## 2 sample1 1.5452981 1.0603312 3.731836 2.42409567 1.8149415
+## 3 sample2 1.2629968 0.6647042 1.583489 1.02359302 0.7709074
+## 4 sample3 1.4740862 1.3162812 8.416034 6.06335506 6.3179129&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eem_humification_index(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    sample        hix
+## 1    nano  0.5568136
+## 2 sample1  6.3795618
+## 3 sample2  4.2548483
+## 4 sample3 13.0246234&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eem_biological_index(eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    sample       bix
+## 1    nano 2.6812045
+## 2 sample1 0.7062640
+## 3 sample2 0.8535423
+## 4 sample3 0.4867927&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;parafac-pre-processing&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;PARAFAC pre-processing&lt;/h1&gt;
+&lt;p&gt;Three types of correction are currently supported:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; which subtract a water blank from the eem.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;eem_remove_scattering()&lt;/code&gt; which remove both &lt;em&gt;Raman&lt;/em&gt; and &lt;em&gt;Rayleigh&lt;/em&gt; scattering.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;eem_raman_normalisation()&lt;/code&gt; which normalize EEM fluoresence intensities.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;eem_inner_filter()&lt;/code&gt; which correct for both primary and secondary inner-filter effect.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div id=&#34;removing-raman-and-rayleigh-scattering-1st-and-2nd-order&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Removing Raman and Rayleigh scattering (1st and 2nd order)&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;eem_remove_scattering()&lt;/code&gt; function removes both Raman and Rayleigh scattering from EEMs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1&amp;quot;, &amp;quot;sample1.csv&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+eem &amp;lt;- eem_read(file, import_function = &amp;quot;cary&amp;quot;)
+
+res &amp;lt;- eem_remove_scattering(eem = eem, type = &amp;quot;raman&amp;quot;, order = 1, width = 10)
+res &amp;lt;- eem_remove_scattering(eem = res, type = &amp;quot;rayleigh&amp;quot;, order = 1, width = 10)
+
+plot(eem)
+plot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;300cm&#34; height=&#34;250cm&#34; /&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;300cm&#34; height=&#34;250cm&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blank-removal&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Blank removal&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;eem_remove_blank()&lt;/code&gt; function subtract blank (miliq) water from eem. Scatter bands can often be reduced by subtracting water blank.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1&amp;quot;, &amp;quot;nano.csv&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+blank &amp;lt;- eem_read(file, import_function = &amp;quot;cary&amp;quot;)
+
+res &amp;lt;- eem_remove_blank(res, blank)
+
+plot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;raman-normalization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Raman normalization&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; function implement a simple calibration method for fluorescence intensity using only the integrated area of a water Raman peak.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res &amp;lt;- eem_raman_normalisation(res, blank)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;inner-filter-effect-correction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Inner-filter effect correction&lt;/h2&gt;
+&lt;p&gt;To account for reabsorption of the light emitted by fluorophores in the water, absorbance spectra are used for correction of both primary and secondary inner filtering effects in the EEMs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(&amp;quot;absorbance&amp;quot;)
+
+res &amp;lt;- eem_inner_filter_effect(res, absorbance, 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## sample1 
+## Range of IFE correction factors: 1.0112 1.5546 
+## Range of total absorbance (Atotal) : 0.0096 0.3832&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(res)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2015-11-05-eemR_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;export-to-matlab&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Export to Matlab&lt;/h2&gt;
+&lt;p&gt;PARAFAC analysis was made easy with the fantastic Matlab &lt;a href=&#34;http://www.models.life.ku.dk/drEEM&#34;&gt;&lt;code&gt;drEEM&lt;/code&gt;&lt;/a&gt; toolbox. The function &lt;code&gt;eem_export_matlab()&lt;/code&gt; can be used to export the EEMs into a &lt;code&gt;m-file&lt;/code&gt; directly usable in Matlab by the &lt;code&gt;drEEM&lt;/code&gt; toolbox.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+eem &amp;lt;- eem_read(folder, import_function = &amp;quot;cary&amp;quot;)
+
+filename &amp;lt;- paste(tempfile(), &amp;quot;.mat&amp;quot;, sep = &amp;quot;&amp;quot;)
+
+eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Registered S3 method overwritten by &amp;#39;R.oo&amp;#39;:
+##   method        from       
+##   throw.default R.methodsS3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Successfully exported 4 EEMs to /tmp/RtmpTy0uLm/file61f31ea57faf.mat.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that the name of the structure generated by the function will be &lt;code&gt;OriginalData&lt;/code&gt; to &lt;em&gt;complement&lt;/em&gt; with PARAFAC standard. Then, the importation into Matlab is made easy using the &lt;code&gt;load()&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&#34;matlab&#34;&gt;&lt;code&gt;load(&amp;#39;FileName.mat&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Presentations</title>
+      <link>/page/presentations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/presentations/</guid>
+      <description>
+
+&lt;h1 id=&#34;2019&#34;&gt;2019&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;r-à-québec&#34;&gt;R à Québec&lt;/h2&gt;
+
+&lt;p&gt;Présentation sur la programmation fonctionnelle avec R lors du symposium R à Québec 2019.&lt;/p&gt;
+
+&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/rquebec2019&#34;&gt;https://pmassicotte.github.io/rquebec2019&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;green-edge-side-meeting&#34;&gt;Green Edge side meeting&lt;/h2&gt;
+
+&lt;p&gt;Green Edge side meeting in Italia after the Gorodn conference.&lt;/p&gt;
+
+&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/greenedge2019/&#34;&gt;https://pmassicotte.github.io/greenedge2019/&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;numerical-ecology&#34;&gt;Numerical ecology&lt;/h2&gt;
+
+&lt;p&gt;Numerical ecology in R teaching material used at Aarhus university in March 2019.&lt;/p&gt;
+
+&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/stats-denmark-2019/&#34;&gt;https://pmassicotte.github.io/stats-denmark-2019/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>/page/publication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/page/publication/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;a name=bib-Li2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Li2019&#34;&gt;[1]&lt;/a&gt; Y. Li, G. Song, P.
+Massicotte, F. Yang, R. Li, and H. Xie. “Distribution,
+seasonality, and fluxes of dissolved organic matter in the Pearl
+River (Zhujiang) estuary, China”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 16.13 (
+Jul. 2019), pp. 2751-2770. ISSN: 1726-4189. DOI:
+&lt;a href=&#34;https://doi.org/10.5194%2Fbg-16-2751-2019&#34;&gt;10.5194/bg-16-2751-2019&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2019&#34;&gt;[2]&lt;/a&gt; P.
+Massicotte, I. Peeken, C. Katlein, H. Flores, Y. Huot, G.
+Castellani, S. Arndt, B. A. Lange, J. Tremblay, and M. Babin.
+“Sensitivity of phytoplankton primary production estimates to
+available irradiance under heterogeneous sea-ice conditions”. In:
+&lt;em&gt;J. Geophys. Res. Ocean.&lt;/em&gt; (Jun. 2019). ISSN: 21699275. DOI:
+&lt;a href=&#34;https://doi.org/10.1029%2F2019JC015007&#34;&gt;10.1029/2019JC015007&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Randelhoff2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Randelhoff2019&#34;&gt;[3]&lt;/a&gt; A.
+Randelhoff, L. Oziel, P. Massicotte, G. Bécu, M. Gal&#39;i, L.
+Lacour, D. Dumont, A. Vladoiu, C. Marec, F. Bruyant, M. Houssais,
+J. Tremblay, G. Deslongchamps, and M. Babin. “The evolution of
+light and vertical mixing across a phytoplankton ice-edge bloom”.
+In: &lt;em&gt;Elem Sci Anth&lt;/em&gt; 7.1 (May. 2019), p. 20. ISSN: 2325-1026. DOI:
+&lt;a href=&#34;https://doi.org/10.1525%2Felementa.357&#34;&gt;10.1525/elementa.357&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Asmala2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018&#34;&gt;[4]&lt;/a&gt; E. Asmala, L.
+Haraguchi, H. H. Jakobsen, P. Massicotte, and J. Carstensen.
+“Nutrient availability as major driver of phytoplankton-derived
+dissolved organic matter transformation in coastal environment”.
+In: &lt;em&gt;Biogeochemistry&lt;/em&gt; 137.1-2 (Jan. 2018), pp. 93-104. ISSN:
+0168-2563. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2Fs10533-017-0403-0&#34;&gt;10.1007/s10533-017-0403-0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Asmala2018a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018a&#34;&gt;[5]&lt;/a&gt; E. Asmala, L.
+Haraguchi, S. Markager, P. Massicotte, B. Riemann, P. A. Staehr,
+and J. Carstensen. “Eutrophication Leads to Accumulation of
+Recalcitrant Autochthonous Organic Matter in Coastal Environment”.
+In: &lt;em&gt;Global Biogeochem. Cycles&lt;/em&gt; (Nov. 2018), pp. 1-15. ISSN:
+08866236. DOI:
+&lt;a href=&#34;https://doi.org/10.1029%2F2017GB005848&#34;&gt;10.1029/2017GB005848&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Brandao2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Brandao2018&#34;&gt;[6]&lt;/a&gt; L. P. M.
+Brandão, L. S. Brighenti, P. A. Staehr, E. Asmala, P. Massicotte,
+D. Tonetta, F. A. R. Barbosa, D. Pujoni, and J. F. Bezerra-Neto.
+“Distinctive effects of allochthonous and autochthonous organic
+matter on CDOM spectra in a tropical lake”. In: &lt;em&gt;Biogeosciences&lt;/em&gt;
+15.9 (May. 2018), pp. 2931-2943. ISSN: 1726-4189. DOI:
+&lt;a href=&#34;https://doi.org/10.5194%2Fbg-15-2931-2018&#34;&gt;10.5194/bg-15-2931-2018&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Kristensen2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Kristensen2018&#34;&gt;[7]&lt;/a&gt; E.
+Kristensen, M. Madsen-Østerbye, P. Massicotte, O. Pedersen, S.
+Markager, and T. Kragh. “Catchment tracers reveal discharge,
+recharge and sources of groundwater-borne pollutants in a novel
+lake modelling approach”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 15.4 (Feb. 2018),
+pp. 1203-1216. ISSN: 1726-4189. DOI:
+&lt;a href=&#34;https://doi.org/10.5194%2Fbg-15-1203-2018&#34;&gt;10.5194/bg-15-1203-2018&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2018&#34;&gt;[8]&lt;/a&gt; P.
+Massicotte, G. Bécu, S. Lambert-Girard, E. Leymarie, and M. Babin.
+“Estimating Underwater Light Regime under Spatially Heterogeneous
+Sea Ice in the Arctic”. In: &lt;em&gt;Appl. Sci.&lt;/em&gt; 8.12 (Dec. 2018),
+p. 2693. ISSN: 2076-3417. DOI:
+&lt;a href=&#34;https://doi.org/10.3390%2Fapp8122693&#34;&gt;10.3390/app8122693&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Qi2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Qi2018&#34;&gt;[9]&lt;/a&gt; L. Qi, H. Xie, J.
+Gagné, G. Chaillou, P. Massicotte, and G. Yang. “Photoreactivities
+of two distinct dissolved organic matter pools in groundwater of a
+subarctic island”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 202.March (May. 2018),
+pp. 97-120. ISSN: 03044203. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2018.03.003&#34;&gt;10.1016/j.marchem.2018.03.003&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2017JSS&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017JSS&#34;&gt;[10]&lt;/a&gt;
+P. Massicotte. “Excitation-emission fluorescence matrix
+manipulation made easy: An introduction to eemR”. In: &lt;em&gt;J. Stat.
+Softw.&lt;/em&gt; (2017).&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2017&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017&#34;&gt;[11]&lt;/a&gt; P.
+Massicotte, E. Asmala, C. Stedmon, and S. Markager. “Global
+distribution of dissolved organic matter along the aquatic
+continuum: Across rivers, lakes and oceans”. In: &lt;em&gt;Sci. Total
+Environ.&lt;/em&gt; 609.C (Dec. 2017), pp. 180-191. ISSN: 00489697. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.scitotenv.2017.07.076&#34;&gt;10.1016/j.scitotenv.2017.07.076&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2017a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017a&#34;&gt;[12]&lt;/a&gt; P.
+Massicotte, C. Stedmon, and S. Markager. “Spectral signature of
+suspended fine particulate material on light absorption properties
+of CDOM”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 196 (Aug. 2017). ISSN: 03044203. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2017.07.005&#34;&gt;10.1016/j.marchem.2017.07.005&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Assani2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Assani2016&#34;&gt;[13]&lt;/a&gt; A. A. Assani,
+R. Landry, O. Azouaoui, P. Massicotte, and D. Gratton. “Comparison
+of the Characteristics (Frequency and Timing) of Drought and
+Wetness Indices of Annual Mean Water Levels in the Five North
+American Great Lakes”. In: &lt;em&gt;Water Resour. Manag.&lt;/em&gt; 30.1 (
+Jan. 2016), pp. 359-373. ISSN: 0920-4741. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2Fs11269-015-1166-9&#34;&gt;10.1007/s11269-015-1166-9&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Lambert2016b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016b&#34;&gt;[14]&lt;/a&gt; T.
+Lambert, S. Bouillon, F. Darchambeau, P. Massicotte, and A. V.
+Borges. “Environmental drivers on dissolved organic matter
+degradation in the Congo River Basin across a gradient of streams
+and rivers”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; (2016).&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Lambert2016a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016a&#34;&gt;[15]&lt;/a&gt; T.
+Lambert, S. Bouillon, F. Darchambeau, P. Massicotte, and A. V.
+Borges. “Shift in the chemical composition of dissolved organic
+matter in the Congo River network”. In: &lt;em&gt;Biogeosciences Discuss.&lt;/em&gt;
+(Jun. 2016), pp. 1-49. ISSN: 1810-6285. DOI:
+&lt;a href=&#34;https://doi.org/10.5194%2Fbg-2016-240&#34;&gt;10.5194/bg-2016-240&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Lambert2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016&#34;&gt;[16]&lt;/a&gt; T. Lambert,
+C. R. C. Teodoru, F. F. C. Nyoni, S. Bouillon, F. Darchambeau, P.
+Massicotte, and A. V. A. Borges. “Along-stream transport and
+transformation of dissolved organic matter in a large tropical
+river”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 13.9 (May. 2016), pp. 2727-2741.
+ISSN: 1726-4189. DOI:
+&lt;a href=&#34;https://doi.org/10.5194%2Fbg-13-2727-2016&#34;&gt;10.5194/bg-13-2727-2016&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016&#34;&gt;[17]&lt;/a&gt; P.
+Massicotte. &lt;em&gt;eemR: eemR 0.1.4&lt;/em&gt;. Aug. 2016. DOI:
+&lt;a href=&#34;https://doi.org/10.5281%2Fzenodo.61080&#34;&gt;10.5281/zenodo.61080&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-MassicotteCDOM&gt;&lt;/a&gt;&lt;a href=&#34;#cite-MassicotteCDOM&#34;&gt;[18]&lt;/a&gt; P.
+Massicotte. &lt;em&gt;Package cdom: R Functions to Model CDOM Spectra&lt;/em&gt;.
+2016.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2016MC&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016MC&#34;&gt;[19]&lt;/a&gt; P.
+Massicotte and S. Markager. “Using a Gaussian decomposition
+approach to model absorption spectra of chromophoric dissolved
+organic matter”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 180 (Mar. 2016), pp. 24-32.
+ISSN: 03044203. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2016.01.008&#34;&gt;10.1016/j.marchem.2016.01.008&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Beauchamp2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Beauchamp2015&#34;&gt;[20]&lt;/a&gt; M.
+Beauchamp, A. A. Assani, R. Landry, and P. Massicotte. “Temporal
+variability of the magnitude and timing of winter maximum daily
+flows in southern Quebec (Canada)”. In: &lt;em&gt;J. Hydrol.&lt;/em&gt; 529 (
+Oct. 2015), pp. 410-417. ISSN: 00221694. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.jhydrol.2015.07.053&#34;&gt;10.1016/j.jhydrol.2015.07.053&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Bombenger2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Bombenger2015&#34;&gt;[21]&lt;/a&gt; P.
+Bombenger and P. Massicotte. “Mathématiques &amp;amp; Géographie –
+Déchiffrer ou des chiffres et la Terre : Apports des concepts
+mathématiques à la géographie”. In: &lt;em&gt;Pourquoi les mathématiques?&lt;/em&gt;
+Ed. by Guillaume Tomasini. Ellipses markeing, 2015, p. 288. ISBN:
+9782340005488.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Lambert2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2015a&#34;&gt;[22]&lt;/a&gt; T.
+Lambert, F. Darchambeau, S. Bouillon, B. Alhou, J. J. Mbega, C. R.
+C. Teodoru, F. F. C. Nyoni, P. Massicotte, and A. V. A. Borges.
+“Landscape Control on the Spatial and Temporal Variability of
+Chromophoric Dissolved Organic Matter and Dissolved Organic Carbon
+in Large African Rivers”. In: &lt;em&gt;Ecosystems&lt;/em&gt; 18.7 (Nov. 2015),
+pp. 1224-1239. ISSN: 1432-9840. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2Fs10021-015-9894-5&#34;&gt;10.1007/s10021-015-9894-5&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015a&#34;&gt;[23]&lt;/a&gt; P.
+Massicotte, A. Bertolo, P. Brodeur, C. Hudon, M. Mingelbier, and
+P. Magnan. “Influence of the aquatic vegetation landscape on
+larval fish abundance”. In: &lt;em&gt;J. Great Lakes Res.&lt;/em&gt; 41.3 (
+Sep. 2015), pp. 873-880. ISSN: 03801330. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.jglr.2015.05.010&#34;&gt;10.1016/j.jglr.2015.05.010&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015&#34;&gt;[24]&lt;/a&gt; P.
+Massicotte, R. Proulx, G. Cabana, and M. A. Rodr&#39;iguez. “Testing
+the influence of environmental heterogeneity on fish species
+richness in two biogeographic provinces”. In: &lt;em&gt;PeerJ&lt;/em&gt; 3 (
+Feb. 2015), p. e760. ISSN: 2167-8359. DOI:
+&lt;a href=&#34;https://doi.org/10.7717%2Fpeerj.760&#34;&gt;10.7717/peerj.760&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Biron2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Biron2014&#34;&gt;[25]&lt;/a&gt; S. Biron, A. A.
+Assani, J. Frenette, and P. Massicotte. “Comparison of Lake
+Ontario and St. Lawrence River hydrologic droughts and their
+relationship to climate indices”. In: &lt;em&gt;Water Resour. Res.&lt;/em&gt; 50.2
+(Feb. 2014), pp. 1396-1409. ISSN: 00431397. DOI:
+&lt;a href=&#34;https://doi.org/10.1002%2F2012WR013441&#34;&gt;10.1002/2012WR013441&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2014&#34;&gt;[26]&lt;/a&gt; P.
+Massicotte, J. Frenette, R. Proulx, B. Pinel-Alloul, and A.
+Bertolo. “Riverscape heterogeneity explains spatial variation in
+zooplankton functional evenness and biomass in a large river
+ecosystem”. In: &lt;em&gt;Landsc. Ecol.&lt;/em&gt; 29.1 (Jan. 2014), pp. 67-79. ISSN:
+0921-2973. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2Fs10980-013-9946-1&#34;&gt;10.1007/s10980-013-9946-1&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Proulx2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Proulx2014&#34;&gt;[27]&lt;/a&gt; R. Proulx, P.
+Massicotte, and M. Pépino. “Googling Trends in Conservation
+Biology”. In: &lt;em&gt;Conserv. Biol.&lt;/em&gt; 28.1 (Feb. 2014), pp. 44-51. ISSN:
+08888892. DOI:
+&lt;a href=&#34;https://doi.org/10.1111%2Fcobi.12131&#34;&gt;10.1111/cobi.12131&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2013b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013b&#34;&gt;[28]&lt;/a&gt; P.
+Massicotte, A. A. Assani, D. Gratton, and J. J. Frenette.
+“Relationship between water color, water levels, and climate
+indices in large rivers: Case of the St. Lawrence River (Canada)”.
+In: &lt;em&gt;Water Resour. Res.&lt;/em&gt; 49.4 (Apr. 2013), pp. 2303-2307. ISSN:
+00431397. DOI:
+&lt;a href=&#34;https://doi.org/10.1002%2Fwrcr.20203&#34;&gt;10.1002/wrcr.20203&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a
+name=bib-Massicotte2013LOFE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013LOFE&#34;&gt;[29]&lt;/a&gt;
+P. Massicotte and J. Frenette. “A mechanistic-based framework to
+understand how dissolved organic carbon is processed in a large
+fluvial lake”. In: &lt;em&gt;Limnol. Oceanogr. Fluids Environ.&lt;/em&gt; 3.3 (
+Oct. 2013), pp. 139-155. ISSN: 2157-3689. DOI:
+&lt;a href=&#34;https://doi.org/10.1215%2F21573689-2372976&#34;&gt;10.1215/21573689-2372976&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2013RSE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013RSE&#34;&gt;[30]&lt;/a&gt;
+P. Massicotte, D. Gratton, J. Frenette, and A. A. Assani. “Spatial
+and temporal evolution of the St. Lawrence River spectral profile:
+A 25-year case study using Landsat 5 and 7 imagery”. In: &lt;em&gt;Remote
+Sens. Environ.&lt;/em&gt; 136 (Sep. 2013), pp. 433-441. ISSN: 00344257. DOI:
+&lt;a href=&#34;https://doi.org/10.1016%2Fj.rse.2013.05.028&#34;&gt;10.1016/j.rse.2013.05.028&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Frenette2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Frenette2012&#34;&gt;[31]&lt;/a&gt; J.
+Frenette, P. Massicotte, and J. Lapierre. “Colorful Niches of
+Phytoplankton Shaped by the Spatial Connectivity in a Large River
+Ecosystem: A Riverscape Perspective”. In: &lt;em&gt;PLoS One&lt;/em&gt; 7.4 (
+Apr. 2012), p. e35891. ISSN: 1932-6203. DOI:
+&lt;a href=&#34;https://doi.org/10.1371%2Fjournal.pone.0035891&#34;&gt;10.1371/journal.pone.0035891&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Pommier2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Pommier2012&#34;&gt;[32]&lt;/a&gt; J. Pommier,
+J. J. Frenette, P. Massicotte, J. J. Lapierre, and H. Glémet.
+“Seston fatty acid composition and copepod RNA:DNA ratio with
+respect to the underwater light climate in fluvial Lac
+Saint-Pierre”. In: &lt;em&gt;Aquat. Sci.&lt;/em&gt; 74.3 (Feb. 2012), pp. 539-553.
+ISSN: 1015-1621. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2Fs00027-011-0246-z&#34;&gt;10.1007/s00027-011-0246-z&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2011EA&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2011EA&#34;&gt;[33]&lt;/a&gt; P.
+Massicotte and J. J. Frenette. “Spatial connectivity in a large
+river system: resolving the sources and fate of dissolved organic
+matter”. In: &lt;em&gt;Ecol. Appl.&lt;/em&gt; 21.7 (Oct. 2011), pp. 2600-2617. ISSN:
+1051-0761. DOI:
+&lt;a href=&#34;https://doi.org/10.1890%2F10-1475.1&#34;&gt;10.1890/10-1475.1&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2007&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2007&#34;&gt;[34]&lt;/a&gt; P.
+Massicotte, L. Badri, and M. Badri. “Towards a tool supporting
+integration testing of aspect-oriented programs”. In: &lt;em&gt;J. Object
+Technol.&lt;/em&gt; 6.1 (2007), pp. 67-89. ISSN: 16601769.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2006&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2006&#34;&gt;[35]&lt;/a&gt; P.
+Massicotte, L. Badri, and M. Badri. &lt;em&gt;Rapid Integration of Software
+Engineering Techniques&lt;/em&gt;. Ed. by N. Guelfi and A. Savidis. Vol.
+3943. Lecture Notes in Computer Science. Berlin, Heidelberg:
+Springer Berlin Heidelberg, 2006, pp. 158-173. ISBN:
+978-3-540-34063-8. DOI:
+&lt;a href=&#34;https://doi.org/10.1007%2F11751113&#34;&gt;10.1007/11751113&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2005&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2005&#34;&gt;[36]&lt;/a&gt; P.
+Massicotte, M. Badri, and L. Badri. “Generating aspects-classes
+integration testing sequences a collaboration diagram based
+strategy”. In: &lt;em&gt;Third ACIS Int’l Conf. Softw. Eng. Res. Manag.
+Appl.&lt;/em&gt; IEEE, 2005, pp. 30-37. ISBN: 0-7695-2297-1. DOI:
+&lt;a href=&#34;https://doi.org/10.1109%2FSERA.2005.43&#34;&gt;10.1109/SERA.2005.43&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Quick tip</title>
+      <link>/post/2016-03-07-not_in/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-03-07-not_in/</guid>
+      <description>
+
+
+&lt;p&gt;It is easy to verify if elements are within a list using the &lt;code&gt;%in%&lt;/code&gt; operator in R. For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %in% letters[1:5]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, I am often in a situation where I need to do the opposite. This can be easily achieved using the &lt;code&gt;Negate()&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;`%ni%` &amp;lt;- Negate(`%in%`)
+c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %ni% letters[1:5]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Voilà!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>R 101</title>
+      <link>/post/2015-11-13-r-101/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2015-11-13-r-101/</guid>
+      <description>
+
+
+&lt;p&gt;Sometimes when you open a data file (lets say a &lt;em&gt;.csv&lt;/em&gt;), variables will be recognized as &lt;em&gt;factor&lt;/em&gt; whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using &lt;em&gt;as.numeric()&lt;/em&gt;. Big mistake! If you use directly &lt;em&gt;as.numeric()&lt;/em&gt; on a variable of the type &lt;em&gt;factor&lt;/em&gt;, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with &lt;em&gt;as.character()&lt;/em&gt; and thereafter use &lt;em&gt;as.numeric()&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- as.factor(rnorm(5))
+x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -1.1489028242624   1.19190640341208   0.142664298514117 
+## [4] -0.927907635969134 -0.573355877292326
+## 5 Levels: -1.1489028242624 -0.927907635969134 ... 1.19190640341208&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Wrong way
+as.numeric(x)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1 5 4 2 3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Right way
+as.numeric(as.character(x))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -1.1489028  1.1919064  0.1426643 -0.9279076 -0.5733559&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Another way to prevent numeric to be converted into factor would be to use &lt;em&gt;as.is = T&lt;/em&gt; when opening the data file with &lt;em&gt;read.csv&lt;/em&gt;.&lt;/p&gt;
+&lt;div id=&#34;remove-all-objects-in-the-workspace&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Remove all objects in the workspace**&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(list = ls())&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;replacing-values-of-a-data-frame-with-na&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Replacing values of a data frame with NA&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(xtable)
+
+## Random matrix with with some (50) zeros
+df &amp;lt;- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] &amp;lt;- 0
+
+df &amp;lt;- data.frame(df)
+
+print(xtable(df), type = &amp;quot;html&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+&lt;/th&gt;
+&lt;th&gt;
+X1
+&lt;/th&gt;
+&lt;th&gt;
+X2
+&lt;/th&gt;
+&lt;th&gt;
+X3
+&lt;/th&gt;
+&lt;th&gt;
+X4
+&lt;/th&gt;
+&lt;th&gt;
+X5
+&lt;/th&gt;
+&lt;th&gt;
+X6
+&lt;/th&gt;
+&lt;th&gt;
+X7
+&lt;/th&gt;
+&lt;th&gt;
+X8
+&lt;/th&gt;
+&lt;th&gt;
+X9
+&lt;/th&gt;
+&lt;th&gt;
+X10
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.40
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.41
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.79
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.65
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.30
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.11
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.66
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.18
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.32
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.19
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.42
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.80
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.85
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.97
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.34
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.60
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.53
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.55
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.63
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.45
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.38
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.37
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.39
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.68
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Replace the 0 with NA
+df[df == 0] &amp;lt;- NA
+
+print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+&lt;/th&gt;
+&lt;th&gt;
+X1
+&lt;/th&gt;
+&lt;th&gt;
+X2
+&lt;/th&gt;
+&lt;th&gt;
+X3
+&lt;/th&gt;
+&lt;th&gt;
+X4
+&lt;/th&gt;
+&lt;th&gt;
+X5
+&lt;/th&gt;
+&lt;th&gt;
+X6
+&lt;/th&gt;
+&lt;th&gt;
+X7
+&lt;/th&gt;
+&lt;th&gt;
+X8
+&lt;/th&gt;
+&lt;th&gt;
+X9
+&lt;/th&gt;
+&lt;th&gt;
+X10
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.40
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.41
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.79
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.65
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.30
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.11
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.66
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.18
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.32
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.19
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.42
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.44
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.80
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.04
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.85
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.97
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.34
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.60
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.53
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.55
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.63
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.45
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.38
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.37
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.39
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.68
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.47
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;##Count % of missing values per column&lt;/p&gt;
+&lt;p&gt;The other day I was working with a large database. I was looking for a way to calculate % of missing values for each variable. Here is how I calculated it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generate some data
+df &amp;lt;- matrix(rnorm(100), ncol = 10)
+
+df[sample(100, 50)] &amp;lt;- NA
+
+df &amp;lt;- data.frame(df)
+
+print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+&lt;/th&gt;
+&lt;th&gt;
+X1
+&lt;/th&gt;
+&lt;th&gt;
+X2
+&lt;/th&gt;
+&lt;th&gt;
+X3
+&lt;/th&gt;
+&lt;th&gt;
+X4
+&lt;/th&gt;
+&lt;th&gt;
+X5
+&lt;/th&gt;
+&lt;th&gt;
+X6
+&lt;/th&gt;
+&lt;th&gt;
+X7
+&lt;/th&gt;
+&lt;th&gt;
+X8
+&lt;/th&gt;
+&lt;th&gt;
+X9
+&lt;/th&gt;
+&lt;th&gt;
+X10
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.56
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.35
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.41
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.79
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.26
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.27
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.65
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.69
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.63
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.23
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.26
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.65
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.17
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.67
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.49
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.19
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.15
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.88
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-3.80
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.36
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.48
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.24
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.18
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.88
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.12
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.74
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.80
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.33
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.18
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.50
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.97
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.42
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.12
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Find % of missing values in each column with apply
+missing &amp;lt;- apply(df, 2, function(x) sum(is.na(x)))/nrow(df)*100
+
+## Print the result
+df2 &amp;lt;- data.frame(variable = names(df), missing = missing)
+
+print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+variable
+&lt;/th&gt;
+&lt;th&gt;
+missing
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X1
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+60.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X2
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+30.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X3
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+40.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+70.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X5
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+50.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X6
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+60.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X7
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+50.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X8
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+40.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X9
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+60.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+X10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+40.00
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grouping-data-frame&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Grouping data frame&lt;/h2&gt;
+&lt;p&gt;Tsshere is various way to merge data frame in R. For me, the most easiest way is to use the join functions from the &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/assets/join_types.svg&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df1 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), x = rnorm(10))
+df2 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rnorm(10))
+
+print(xtable(df1), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+x
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.67
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+H
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.81
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.03
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+R
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.77
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.08
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.70
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.04
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+y
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+B
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.92
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.53
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+I
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+F
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.20
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;inner_join(df1, df2, by = &amp;quot;ID&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Column `ID` joining factors with different levels, coercing to
+## character vector&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ID x y
+1 E -1.66961665 -0.4446789
+2 L 0.54483088 0.9235765
+3 O -1.02728420 -0.3573701
+4 J -0.02511151 0.4500463
+5 G 0.08193800 0.2593269
+6 N -0.57639764 0.5266994
+7 Q -1.03628652 0.3314219&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_exact_match &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;) ## Exact match
+print(xtable(df_exact_match), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+x
+&lt;/th&gt;
+&lt;th&gt;
+y
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.67
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.92
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.53
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_x &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.x = T) ## Keep all x (discard y that are not matched)
+print(xtable(df_all_x), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+x
+&lt;/th&gt;
+&lt;th&gt;
+y
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.67
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+H
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.81
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.92
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.53
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+R
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.77
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.70
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_y &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.y = T) ## Keep all y (discard x that are not matched)
+print(xtable(df_all_y), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+x
+&lt;/th&gt;
+&lt;th&gt;
+y
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.67
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.92
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.53
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+B
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+F
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.20
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+I
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all = T) ## Keep everything
+print(xtable(df_all), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
+&lt;!-- Wed Jul 31 10:02:39 2019 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+ID
+&lt;/th&gt;
+&lt;th&gt;
+x
+&lt;/th&gt;
+&lt;th&gt;
+y
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.67
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.08
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+H
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.81
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.54
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.92
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+N
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.53
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+O
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+Q
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.33
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+R
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.77
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.70
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+B
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+F
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.20
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+I
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>eemR 0.1.3 is now on CRAN</title>
+      <link>/post/2016-05-02-eemr-0.1.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/index.html&#34;&gt;eemR&lt;/a&gt; has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Shiny support: You can interactively visualize EEMS by using &lt;code&gt;interactive = TRUE&lt;/code&gt;. Ex.: &lt;code&gt;plot(X, interactive = TRUE)&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html&#34;&gt;A vignette has been added&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; and &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; can now try to implicitly use a blank eem from a &lt;code&gt;eemlist&lt;/code&gt; object (#20). If blank is omitted (&lt;code&gt;blank = NA&lt;/code&gt;), the functions will try to extract the blank from the &lt;code&gt;eemlist&lt;/code&gt; object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+&lt;ul&gt;
+&lt;li&gt;“nano”&lt;/li&gt;
+&lt;li&gt;“miliq”&lt;/li&gt;
+&lt;li&gt;“milliq”&lt;/li&gt;
+&lt;li&gt;“mq”&lt;/li&gt;
+&lt;li&gt;“blank”&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+library(magrittr)
+
+folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1/&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+
+eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;cary&amp;quot;) %&amp;gt;%
+  eem_raman_normalisation() %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;raman&amp;quot;, order = 1) %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;rayleigh&amp;quot;, order = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## A total of 1 blank EEMs will be averaged.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904 
+## Raman area: 9.540904 
+## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

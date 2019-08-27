@@ -18,7 +18,7 @@
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
-      <description>It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C++ and Python. In this post I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.</description>
+      <description>It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C++ and Python. In this post, I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.</description>
     </item>
     
   </channel>

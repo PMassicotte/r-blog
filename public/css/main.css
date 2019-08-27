@@ -667,45 +667,29 @@ h4.panel-title > span.badge {
 
 /* --- Tables --- */
 
-table {
-  padding: 0;
+table,
+th,
+td
+ {
+    border: 0px;
+    padding: 3px;
+    font-family: 'Open Sans';
+ }
+th {
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Open Sans';
 }
-table tr {
-  border-top: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
-}
-table tr:nth-child(2n) {
-  background-color: #f8f8f8;
-}
-table tr th {
-  font-weight: bold;
-  border: 1px solid #cccccc;
-  text-align: left;
-  margin: 0;
-  padding: 6px 13px;
-}
-table tr td {
-  border: 1px solid #cccccc;
-  text-align: left;
-  margin: 0;
-  padding: 6px 13px;
-}
-table tr th :first-child,
-table tr td :first-child {
-  margin-top: 0;
-}
-table tr th :last-child,
-table tr td :last-child {
-  margin-bottom: 0;
-}
-
 /* --- Social media sharing section --- */
 
 #social-share-section {
   margin-bottom: 30px;
 }
+
+li {
+  font-family: 'Open Sans';
+}
+
 
 /* --- Google Custom Search Engine Popup --- */
 #modalSearch table tr, #modalSearch table tr td, #modalSearch table tr th {
