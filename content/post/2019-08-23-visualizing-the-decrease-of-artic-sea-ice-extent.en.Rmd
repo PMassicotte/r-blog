@@ -10,14 +10,13 @@ tags:
 type: ''
 subtitle: ''
 image: ''
-draft: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE,
+  cache = FALSE,
   dpi = 600,
   out.width = "100%",
   fig.align = "center",
@@ -43,6 +42,12 @@ options(kableExtra.auto_format = FALSE)
 library(kableExtra)
 
 theme_set(theme_exo())
+theme_update(
+  rect = element_rect(fill = "#173f50"),
+  text = element_text(colour = "white"),
+    axis.text  = element_text(colour = "white"),
+    axis.ticks = element_line(colour = "white")
+)
 ```
 
 ```{r, cache = TRUE}
@@ -73,14 +78,14 @@ It is well known that the Arctic sea ice extent is decreasing at an increasing p
 
 > According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.
 
-Thanks to the NSIDC, the data is [available for download](ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/). For this post, I was interested in visualizing these scientific measurements.
+Thanks to the NSIDC, their data is [available for download](ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/). For this post, I was interested in visualizing these scientific measurements.
 
 ## The data
 
-The data consist in four variables:
+The data consist of four variables:
 
 - `Year`, `Month`, `Day`: Period of the measurements.
-- `Extent`: Sea ice extent in millions km$^2$.
+- `Extent`: Sea ice extent in millions km^2^.
 
 ```{r}
 sea_ice_extent %>%
@@ -91,21 +96,16 @@ sea_ice_extent %>%
   kable_styling()
 ```
 
-Summary of the data
+## Temporal evolution of the Arctic sea ice extent
 
-```{r, results='asis'}
-sea_ice_extent %>%
-  select(-month2) %>%
-  skimr::skim()
-```
-
+For the following visualization, I calculated the average and the standard deviation of sea ice extent for each month and each year.
 
 ```{r, fig.height=8, fig.asp=NA}
 p <- sea_ice_extent %>%
   group_by(month2, year) %>%
   summarise(mean_extent = mean(extent), sd_extent = sd(extent)) %>%
   ggplot(aes(x = year, y = mean_extent)) +
-  geom_pointrange(aes(ymin = mean_extent - sd_extent, ymax = mean_extent + sd_extent), size = 0.25) +
+  geom_pointrange(aes(ymin = mean_extent - sd_extent, ymax = mean_extent + sd_extent), size = 0.25, colour = "#F2B701") +
   # geom_line() +
   facet_wrap(~month2, scales = "free_y", ncol = 3) +
   xlab(NULL) +
@@ -120,8 +120,12 @@ p <- sea_ice_extent %>%
     caption = paste("Source:", file)
   ) +
   theme(
-    plot.caption = element_text(size = 8, color = "gray50"),
-    plot.margin = unit(c(5.5, 10, 5.5, 5.5), "points")
+    plot.caption = element_text(size = 8, color = "white"),
+    plot.margin = unit(c(5.5, 10, 5.5, 5.5), "points"),
+    panel.background = element_rect(fill = "#173f50"),
+    strip.background = element_rect(fill = "#173f50"),
+    strip.text = element_text(colour = "white", size = 12, face = "bold"),
+    panel.grid = element_blank()
   )
 
 p
@@ -129,17 +133,17 @@ p
 
 ## Rate of change of the Arctic sea ice extent
 
-The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is it the same for all the months? The average decreasing rate of sea ice extent can be calculated with the slope of a linear regression between `year` and `sea ice extent`.
+The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is the decreasing rate the same for all the months? The average decreasing rate of sea ice extent can be calculated by using the slope of a linear regression between `year` and `sea ice extent`.
 
 ```{r, fig.height=8, fig.asp=NA}
 p +
   geom_smooth(method = "lm", se = FALSE) +
   labs(subtitle = str_wrap(
-    "The vertical bar at each point show the standard deviation around the mean. The blue lines show the linear regressions.", 90
+    "The vertical bar at each point shows the standard deviation around the mean. The blue lines show the linear regressions.", 90
   ))
 ```
 
-Lets visualize the yearly average sea ice extent decrease for each month.
+Now, we can visualize the yearly average sea ice extent decrease for each month.
 
 ```{r, fig.height=8, fig.asp=NA}
 ice_trend <- sea_ice_extent %>%
@@ -154,7 +158,7 @@ ice_trend %>%
   mutate(slope = slope * 1e6) %>%
   mutate(month2 = fct_reorder(month2, slope)) %>%
   ggplot(aes(x = month2, y = slope)) +
-  geom_col() +
+  geom_col(fill = "#F2B701") +
   coord_flip() +
   scale_y_continuous(expand = expand_scale(mult = c(0, 0.1)), labels = scales::comma) +
   xlab(NULL) +
@@ -179,20 +183,21 @@ ice_trend %>%
   theme(
     panel.border = element_blank(),
     axis.title.x = element_text(face = "bold"),
-    plot.caption = element_text(size = 8, color = "gray50")
+    plot.caption = element_text(size = 8, color = "white"),
+    panel.background = element_rect(fill = "#173f50")
   ) +
   geom_text(
     aes(
       label = paste(round(slope, 0), "~km^2~year^{-1}")
     ),
-    color = "white",
+    color = "black",
     hjust = 1.1,
     parse = TRUE,
     size = 4
   )
 ```
 
-Another way of visualizing the decrease of sea ice extent consists in using a heat map.
+Another way of visualizing the decrease in sea ice extent consists of using heat maps. In the following graphs, the minimum and maximum sea ice extent for each combination of month/year are presented. The graphs show that both the minimum and maximum sea ice extent are decreasing over time, which is more striking for the September month. 
 
 ```{r, fig.height = 8, fig.asp=NA}
 p1 <- sea_ice_extent %>%
@@ -229,11 +234,13 @@ p2 <- sea_ice_extent %>%
   xlab(NULL) +
   ylab(NULL) +
   theme(
-    panel.border = element_blank()
+    panel.border = element_blank(),
+    plot.caption = element_text(size = 8, color = "white")
   ) +
   labs(
     fill = bquote(atop("sea ice extent", ("in millions" ~ km^2))),
-    title = "Minimum sea ice extent by year and month"
+    title = "Minimum sea ice extent by year and month",
+    caption = paste("Source:", file)
   )
 
 

@@ -22,14 +22,14 @@ draft: true
 <blockquote>
 <p>According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.</p>
 </blockquote>
-<p>Thanks to the NSIDC, the data is <a href="ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/">available for download</a>. For this post, I was interested in visualizing these scientific measurements.</p>
+<p>Thanks to the NSIDC, their data is <a href="ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/">available for download</a>. For this post, I was interested in visualizing these scientific measurements.</p>
 </div>
 <div id="the-data" class="section level2">
 <h2>The data</h2>
-<p>The data consist in four variables:</p>
+<p>The data consist of four variables:</p>
 <ul>
 <li><code>Year</code>, <code>Month</code>, <code>Day</code>: Period of the measurements.</li>
-<li><code>Extent</code>: Sea ice extent in millions km<span class="math inline">\(^2\)</span>.</li>
+<li><code>Extent</code>: Sea ice extent in millions km<sup>2</sup>.</li>
 </ul>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -194,29 +194,18 @@ Extent
 </tr>
 </tbody>
 </table>
-<p>Summary of the data</p>
-<p>Skim summary statistics
-n obs: 13260
-n variables: 4</p>
-<p>– Variable type:numeric ———————————————————————————
-variable missing complete n mean sd p0 p25 p50
-day 0 13260 13260 15.73 8.8 1 8 16<br />
-extent 0 13260 13260 11.34 3.26 3.34 8.64 12.04
-month 0 13260 13260 6.51 3.44 1 4 7<br />
-year 0 13260 13260 2000.71 10.96 1978 1992 2001<br />
-p75 p100 hist
-23 31 &lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;
-14.23 16.64 &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2585&gt;
-10 12 &lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2587&gt;
-2010 2019 &lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;</p>
-<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="temporal-evolution-of-the-arctic-sea-ice-extent" class="section level2">
+<h2>Temporal evolution of the Arctic sea ice extent</h2>
+<p>For the following visualization, I calculated the average and the standard deviation of sea ice extent for each month and each year.</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="rate-of-change-of-the-arctic-sea-ice-extent" class="section level2">
 <h2>Rate of change of the Arctic sea ice extent</h2>
-<p>The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is it the same for all the months? The average decreasing rate of sea ice extent can be calculated with the slope of a linear regression between <code>year</code> and <code>sea ice extent</code>.</p>
+<p>The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is the decreasing rate the same for all the months? The average decreasing rate of sea ice extent can be calculated by using the slope of a linear regression between <code>year</code> and <code>sea ice extent</code>.</p>
+<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Now, we can visualize the yearly average sea ice extent decrease for each month.</p>
 <p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-6-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<p>Lets visualize the yearly average sea ice extent decrease for each month.</p>
+<p>Another way of visualizing the decrease in sea ice extent consists of using heat maps. In the following graphs, the minimum and maximum sea ice extent for each combination of month/year are presented. The graphs show that both the minimum and maximum sea ice extent are decreasing over time, which is more striking for the September month.</p>
 <p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-7-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<p>Another way of visualizing the decrease of sea ice extent consists in using a heat map.</p>
-<p><img src="/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-8-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>

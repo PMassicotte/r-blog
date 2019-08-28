@@ -27,14 +27,14 @@
 &lt;blockquote&gt;
 &lt;p&gt;According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Thanks to the NSIDC, the data is &lt;a href=&#34;ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/&#34;&gt;available for download&lt;/a&gt;. For this post, I was interested in visualizing these scientific measurements.&lt;/p&gt;
+&lt;p&gt;Thanks to the NSIDC, their data is &lt;a href=&#34;ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/&#34;&gt;available for download&lt;/a&gt;. For this post, I was interested in visualizing these scientific measurements.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The data&lt;/h2&gt;
-&lt;p&gt;The data consist in four variables:&lt;/p&gt;
+&lt;p&gt;The data consist of four variables:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Year&lt;/code&gt;, &lt;code&gt;Month&lt;/code&gt;, &lt;code&gt;Day&lt;/code&gt;: Period of the measurements.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Extent&lt;/code&gt;: Sea ice extent in millions km&lt;span class=&#34;math inline&#34;&gt;\(^2\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Extent&lt;/code&gt;: Sea ice extent in millions km&lt;sup&gt;2&lt;/sup&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;table class=&#34;table&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
 &lt;caption&gt;
@@ -199,31 +199,20 @@ Extent
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Summary of the data&lt;/p&gt;
-&lt;p&gt;Skim summary statistics
-n obs: 13260
-n variables: 4&lt;/p&gt;
-&lt;p&gt;– Variable type:numeric ———————————————————————————
-variable missing complete n mean sd p0 p25 p50
-day 0 13260 13260 15.73 8.8 1 8 16&lt;br /&gt;
-extent 0 13260 13260 11.34 3.26 3.34 8.64 12.04
-month 0 13260 13260 6.51 3.44 1 4 7&lt;br /&gt;
-year 0 13260 13260 2000.71 10.96 1978 1992 2001&lt;br /&gt;
-p75 p100 hist
-23 31 &amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2586&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;
-14.23 16.64 &amp;lt;U+2581&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2586&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;
-10 12 &amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;
-2010 2019 &amp;lt;U+2583&amp;gt;&amp;lt;U+2585&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&amp;lt;U+2587&amp;gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;temporal-evolution-of-the-arctic-sea-ice-extent&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Temporal evolution of the Arctic sea ice extent&lt;/h2&gt;
+&lt;p&gt;For the following visualization, I calculated the average and the standard deviation of sea ice extent for each month and each year.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;rate-of-change-of-the-arctic-sea-ice-extent&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Rate of change of the Arctic sea ice extent&lt;/h2&gt;
-&lt;p&gt;The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is it the same for all the months? The average decreasing rate of sea ice extent can be calculated with the slope of a linear regression between &lt;code&gt;year&lt;/code&gt; and &lt;code&gt;sea ice extent&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The previous graph has shown that Arctic sea ice is undoubtedly decreasing for the past few decades. But at which rate is it decreasing? Is the decreasing rate the same for all the months? The average decreasing rate of sea ice extent can be calculated by using the slope of a linear regression between &lt;code&gt;year&lt;/code&gt; and &lt;code&gt;sea ice extent&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now, we can visualize the yearly average sea ice extent decrease for each month.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-6-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Lets visualize the yearly average sea ice extent decrease for each month.&lt;/p&gt;
+&lt;p&gt;Another way of visualizing the decrease in sea ice extent consists of using heat maps. In the following graphs, the minimum and maximum sea ice extent for each combination of month/year are presented. The graphs show that both the minimum and maximum sea ice extent are decreasing over time, which is more striking for the September month.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-7-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Another way of visualizing the decrease of sea ice extent consists in using a heat map.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-08-23-visualizing-the-decrease-of-artic-sea-ice-extent.en_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -2113,6 +2102,48 @@ ggplot(df, aes(x = date)) +
   geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Voilà!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>eemR 0.1.3 is now on CRAN</title>
+      <link>/post/2016-05-02-eemr-0.1.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/index.html&#34;&gt;eemR&lt;/a&gt; has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Shiny support: You can interactively visualize EEMS by using &lt;code&gt;interactive = TRUE&lt;/code&gt;. Ex.: &lt;code&gt;plot(X, interactive = TRUE)&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html&#34;&gt;A vignette has been added&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; and &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; can now try to implicitly use a blank eem from a &lt;code&gt;eemlist&lt;/code&gt; object (#20). If blank is omitted (&lt;code&gt;blank = NA&lt;/code&gt;), the functions will try to extract the blank from the &lt;code&gt;eemlist&lt;/code&gt; object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+&lt;ul&gt;
+&lt;li&gt;“nano”&lt;/li&gt;
+&lt;li&gt;“miliq”&lt;/li&gt;
+&lt;li&gt;“milliq”&lt;/li&gt;
+&lt;li&gt;“mq”&lt;/li&gt;
+&lt;li&gt;“blank”&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+library(magrittr)
+
+folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1/&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+
+eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;cary&amp;quot;) %&amp;gt;%
+  eem_raman_normalisation() %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;raman&amp;quot;, order = 1) %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;rayleigh&amp;quot;, order = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## A total of 1 blank EEMs will be averaged.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904 
+## Raman area: 9.540904 
+## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -4618,48 +4649,6 @@ NA
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>eemR 0.1.3 is now on CRAN</title>
-      <link>/post/2016-05-02-eemr-0.1.3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
-      <description>
-
-
-&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/index.html&#34;&gt;eemR&lt;/a&gt; has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Shiny support: You can interactively visualize EEMS by using &lt;code&gt;interactive = TRUE&lt;/code&gt;. Ex.: &lt;code&gt;plot(X, interactive = TRUE)&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html&#34;&gt;A vignette has been added&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; and &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; can now try to implicitly use a blank eem from a &lt;code&gt;eemlist&lt;/code&gt; object (#20). If blank is omitted (&lt;code&gt;blank = NA&lt;/code&gt;), the functions will try to extract the blank from the &lt;code&gt;eemlist&lt;/code&gt; object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
-&lt;ul&gt;
-&lt;li&gt;“nano”&lt;/li&gt;
-&lt;li&gt;“miliq”&lt;/li&gt;
-&lt;li&gt;“milliq”&lt;/li&gt;
-&lt;li&gt;“mq”&lt;/li&gt;
-&lt;li&gt;“blank”&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
-library(magrittr)
-
-folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1/&amp;quot;, package = &amp;quot;eemR&amp;quot;)
-
-eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;cary&amp;quot;) %&amp;gt;%
-  eem_raman_normalisation() %&amp;gt;%
-  eem_remove_scattering(type = &amp;quot;raman&amp;quot;, order = 1) %&amp;gt;%
-  eem_remove_scattering(type = &amp;quot;rayleigh&amp;quot;, order = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## A total of 1 blank EEMs will be averaged.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904 
-## Raman area: 9.540904 
-## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

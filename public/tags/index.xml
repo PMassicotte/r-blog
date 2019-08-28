@@ -139,20 +139,20 @@
     </item>
     
     <item>
-      <title>ASM2018</title>
-      <link>/tags/asm2018/</link>
-      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/asm2018/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ArcticNet</title>
       <link>/tags/arcticnet/</link>
       <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/tags/arcticnet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ASM2018</title>
+      <link>/tags/asm2018/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/tags/asm2018/</guid>
       <description></description>
     </item>
     
