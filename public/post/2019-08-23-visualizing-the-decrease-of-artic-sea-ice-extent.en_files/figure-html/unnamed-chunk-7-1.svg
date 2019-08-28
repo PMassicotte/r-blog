@@ -1059,19 +1059,19 @@
 <clipPath id="clip239">
   <path d="M 471.601563 125.144531 L 488.882813 125.144531 L 488.882813 211.542969 L 471.601563 211.542969 Z M 471.601563 125.144531 "/>
 </clipPath>
-<image id="image54" width="1" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAIAAADDbMD2AAAABmJLR0QA/wD/AP+gvaeTAAAAUElEQVQImQXBzQpAQBSA0etjgcnO+688lBRb83NFMc2I4hx5v4HSLoibETvxupEcerJvSb7m0oYtduhl0GjQVKG5INyCu4Udz1GsnI8VkeoHWNQmbGWe1W8AAAAASUVORK5CYII="/>
+<image id="image44" width="1" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAIAAADDbMD2AAAABmJLR0QA/wD/AP+gvaeTAAAAUElEQVQImQXBzQpAQBSA0etjgcnO+688lBRb83NFMc2I4hx5v4HSLoibETvxupEcerJvSb7m0oYtduhl0GjQVKG5INyCu4Udz1GsnI8VkeoHWNQmbGWe1W8AAAAASUVORK5CYII="/>
 <pattern id="pattern0" patternUnits="userSpaceOnUse" width="1" height="20"  patternTransform="matrix(17.28,0,0,4.32,471.601398,125.144326)">
-  <use xlink:href="#image54"/>
+  <use xlink:href="#image44"/>
 </pattern>
 <clipPath id="clip240">
   <path d="M 471.601563 406.511719 L 488.882813 406.511719 L 488.882813 492.910156 L 471.601563 492.910156 Z M 471.601563 406.511719 "/>
 </clipPath>
-<image id="image57" width="1" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAIAAADDbMD2AAAABmJLR0QA/wD/AP+gvaeTAAAAUElEQVQImQXBzQpAQBSA0etjgcnO+688lBRb83NFMc2I4hx5v4HSLoibETvxupEcerJvSb7m0oYtduhl0GjQVKG5INyCu4Udz1GsnI8VkeoHWNQmbGWe1W8AAAAASUVORK5CYII="/>
+<image id="image47" width="1" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAIAAADDbMD2AAAABmJLR0QA/wD/AP+gvaeTAAAAUElEQVQImQXBzQpAQBSA0etjgcnO+688lBRb83NFMc2I4hx5v4HSLoibETvxupEcerJvSb7m0oYtduhl0GjQVKG5INyCu4Udz1GsnI8VkeoHWNQmbGWe1W8AAAAASUVORK5CYII="/>
 <pattern id="pattern1" patternUnits="userSpaceOnUse" width="1" height="20"  patternTransform="matrix(17.28,0,0,4.32,471.601398,406.512413)">
-  <use xlink:href="#image57"/>
+  <use xlink:href="#image47"/>
 </pattern>
 </defs>
-<g id="surface50">
+<g id="surface40">
 <rect x="0" y="0" width="576" height="576" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <rect x="0" y="0" width="576" height="576" style="fill:rgb(9.019608%,24.705882%,31.372549%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.163976;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,100%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 576 L 576 576 L 576 0 L 0 0 Z M 0 576 "/>

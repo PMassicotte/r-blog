@@ -16,7 +16,7 @@ image: ''
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
   dpi = 600,
   out.width = "100%",
   fig.align = "center",
@@ -87,7 +87,7 @@ The data consist of four variables:
 - `Year`, `Month`, `Day`: Period of the measurements.
 - `Extent`: Sea ice extent in millions km^2^.
 
-```{r}
+```{r, cache=FALSE}
 sea_ice_extent %>%
   head(10) %>%
   select(-month2) %>%
