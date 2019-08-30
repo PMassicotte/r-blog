@@ -55,7 +55,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.57.2" />
+  <meta name="generator" content="Hugo 0.55.2" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -243,10 +243,10 @@
   <i class="fas fa-calendar"></i>&nbsp;Posted on August 29, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;373&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;635&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -258,7 +258,8 @@
               </p>
               <div class="post-entry">
                 
-                  Download the datalibrary(&quot;httr&quot;)library(&quot;readxl&quot;)GET(&quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&quot;, write_disk(tf &lt;- tempfile(fileext = &quot;.xlsx&quot;)))video_game_revenus &lt;- read_excel(tf) %&gt;% janitor::clean_names()video_game_revenus#&gt; # A tibble: 30 x 4#&gt; year platform percent_of_revenue est_revenue#&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;#&gt; 1 2012 Mobile Games 0.18 12708000000 #&gt; 2 2013 Mobile Games 0.23 17595000000 #&gt; 3 2014 Mobile Games 0.290 24592000000 #&gt; 4 2015 Mobile Games 0.34 31654000000.#&gt; 5 2016 Mobile Games 0.4 42600000000 #&gt; 6 2017 Mobile Games 0.
+                  This week was my first participation to the Makeover Monday data visualization challenge. The theme was PCs to Become the Smallest Gaming Platform in 2018. The dataset consists in gaming revenues divided by platform: mobile, PC and console games.
+Setup library(tidyverse) library(ggpmthemes) library(ggchicklet) theme_set(theme_exo(base_size = 14)) theme_update( rect = element_rect(fill = &quot;#173f50&quot;), text = element_text(colour = &quot;white&quot;), axis.text = element_text(colour = &quot;white&quot;), axis.ticks = element_line(colour = &quot;white&quot;) )  Download the data The nice thing is that data.
                   <a href="/post/the-past-and-the-future-of-video-games/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -371,7 +372,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.57.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

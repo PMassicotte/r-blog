@@ -18,7 +18,8 @@
       <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/the-past-and-the-future-of-video-games/</guid>
-      <description>Download the datalibrary(&amp;quot;httr&amp;quot;)library(&amp;quot;readxl&amp;quot;)GET(&amp;quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&amp;quot;, write_disk(tf &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))video_game_revenus &amp;lt;- read_excel(tf) %&amp;gt;% janitor::clean_names()video_game_revenus#&amp;gt; # A tibble: 30 x 4#&amp;gt; year platform percent_of_revenue est_revenue#&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;#&amp;gt; 1 2012 Mobile Games 0.18 12708000000 #&amp;gt; 2 2013 Mobile Games 0.23 17595000000 #&amp;gt; 3 2014 Mobile Games 0.290 24592000000 #&amp;gt; 4 2015 Mobile Games 0.34 31654000000.#&amp;gt; 5 2016 Mobile Games 0.4 42600000000 #&amp;gt; 6 2017 Mobile Games 0.</description>
+      <description>This week was my first participation to the Makeover Monday data visualization challenge. The theme was PCs to Become the Smallest Gaming Platform in 2018. The dataset consists in gaming revenues divided by platform: mobile, PC and console games.
+Setup library(tidyverse) library(ggpmthemes) library(ggchicklet) theme_set(theme_exo(base_size = 14)) theme_update( rect = element_rect(fill = &amp;quot;#173f50&amp;quot;), text = element_text(colour = &amp;quot;white&amp;quot;), axis.text = element_text(colour = &amp;quot;white&amp;quot;), axis.ticks = element_line(colour = &amp;quot;white&amp;quot;) )  Download the data The nice thing is that data.</description>
     </item>
     
   </channel>
