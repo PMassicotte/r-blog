@@ -1,0 +1,119 @@
+---
+title: The past and the future of video games
+author: Philippe Massicotte
+date: '2019-08-29'
+slug: the-past-and-the-future-of-video-games
+categories: []
+tags:
+  - Tidyverse
+  - Makeover Monday
+  - Video games
+  - ggplot2
+  - Visualization
+type: ''
+subtitle: ''
+image: ''
+draft: true
+---
+
+
+
+<div id="download-the-data" class="section level2">
+<h2>Download the data</h2>
+<pre class="r"><code>library(&quot;httr&quot;)
+library(&quot;readxl&quot;)
+GET(&quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&quot;, write_disk(tf &lt;- tempfile(fileext = &quot;.xlsx&quot;)))
+video_game_revenus &lt;- read_excel(tf) %&gt;% 
+  janitor::clean_names()</code></pre>
+<pre class="r"><code>video_game_revenus
+#&gt; # A tibble: 30 x 4
+#&gt;     year platform     percent_of_revenue   est_revenue
+#&gt;    &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt;         &lt;dbl&gt;
+#&gt;  1  2012 Mobile Games              0.18   12708000000 
+#&gt;  2  2013 Mobile Games              0.23   17595000000 
+#&gt;  3  2014 Mobile Games              0.290  24592000000 
+#&gt;  4  2015 Mobile Games              0.34   31654000000.
+#&gt;  5  2016 Mobile Games              0.4    42600000000 
+#&gt;  6  2017 Mobile Games              0.46   55982000000 
+#&gt;  7  2018 Mobile Games              0.51   70329000000 
+#&gt;  8  2019 Mobile Games              0.54   82026000000 
+#&gt;  9  2020 Mobile Games              0.570  94563000000.
+#&gt; 10  2021 Mobile Games              0.59  106259000000 
+#&gt; # ... with 20 more rows</code></pre>
+</div>
+<div id="data-processing" class="section level2">
+<h2>Data processing</h2>
+<pre class="r"><code>video_game_revenus &lt;- video_game_revenus %&gt;%
+  mutate(platform = fct_relevel(platform, &quot;Console Games&quot;, &quot;Mobile Games&quot;, &quot;PC Games&quot;)) %&gt;%
+  arrange(year, platform) %&gt;%
+  group_by(year) %&gt;%
+  mutate(cum_percent = cumsum(percent_of_revenue)) %&gt;%
+  mutate(abs_percent = cum_percent - percent_of_revenue)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<div id="revenues-over-the-time" class="section level3">
+<h3>Revenues over the time</h3>
+<pre class="r"><code>video_game_revenus %&gt;% 
+  group_by(year) %&gt;% 
+  summarise(total_est_revenue = sum(est_revenue)) %&gt;% 
+  ggplot(aes(x = year, y = total_est_revenue / 1e9)) +
+  geom_col(fill = &quot;#F2B701&quot;) +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::dollar) +
+  xlab(NULL) +
+  theme(
+    panel.background = element_rect(fill = &quot;#173f50&quot;),
+    legend.key = element_rect(fill = &quot;#173f50&quot;),
+    panel.grid = element_blank()
+  )</code></pre>
+<p><img src="/post/2019-08-29-the-past-and-the-future-of-video-games.en_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="market-share" class="section level3">
+<h3>Market share</h3>
+<pre class="r"><code>video_game_revenus %&gt;%
+  ggplot(aes(x = year, y = percent_of_revenue, fill = platform)) +
+  geom_chicklet(
+    width = 0.75,
+    radius = unit(0.1, &quot;cm&quot;),
+    size = 0.25
+  ) +
+  geom_text(
+    aes(
+      y = abs_percent,
+      label = scales::percent(percent_of_revenue, accuracy = 1)
+    ),
+    vjust = -1,
+    color = &quot;white&quot;,
+    family = &quot;Exo&quot;,
+    size = 2.5
+  ) +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::percent) +
+  xlab(NULL) +
+  paletteer::scale_fill_paletteer_d(ghibli, MononokeLight) +
+  # paletteer::scale_fill_paletteer_d(nord, aurora) +
+  theme(
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = &quot;bottom&quot;,
+    legend.title = element_blank(),
+    axis.ticks = element_blank(),
+    panel.background = element_rect(fill = &quot;#173f50&quot;),
+    legend.key = element_rect(fill = &quot;#173f50&quot;),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    plot.subtitle = element_text(size = 10),
+    plot.caption = element_text(size = 8, color = &quot;gray75&quot;)
+  ) +
+  labs(
+    title = &quot;The past and the future of gaming&quot;,
+    subtitle = str_wrap(
+      &quot;In 2018, mobile games represented more than 50% of the total gaming revenues. It is expected to reach 59% by 2021. The console and PC games both decreased.&quot;,
+      110
+    ),
+    caption = &quot;Makeover Monday (2019/W35) | Data Source: Statista | Visualization: @philmassicotte&quot;
+  )</code></pre>
+<p><img src="/post/2019-08-29-the-past-and-the-future-of-video-games.en_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>

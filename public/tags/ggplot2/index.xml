@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ggplot2 on Another R blog</title>
+    <link>/tags/ggplot2/</link>
+    <description>Recent content in ggplot2 on Another R blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
+    <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
+    <lastBuildDate>Thu, 29 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The past and the future of video games</title>
+      <link>/post/the-past-and-the-future-of-video-games/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/the-past-and-the-future-of-video-games/</guid>
+      <description>Download the datalibrary(&amp;quot;httr&amp;quot;)library(&amp;quot;readxl&amp;quot;)GET(&amp;quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&amp;quot;, write_disk(tf &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))video_game_revenus &amp;lt;- read_excel(tf) %&amp;gt;% janitor::clean_names()video_game_revenus#&amp;gt; # A tibble: 30 x 4#&amp;gt; year platform percent_of_revenue est_revenue#&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;#&amp;gt; 1 2012 Mobile Games 0.18 12708000000 #&amp;gt; 2 2013 Mobile Games 0.23 17595000000 #&amp;gt; 3 2014 Mobile Games 0.290 24592000000 #&amp;gt; 4 2015 Mobile Games 0.34 31654000000.#&amp;gt; 5 2016 Mobile Games 0.4 42600000000 #&amp;gt; 6 2017 Mobile Games 0.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,143 @@
+---
+title: The past and the future of video games
+author: Philippe Massicotte
+date: '2019-08-29'
+slug: the-past-and-the-future-of-video-games
+categories: []
+tags:
+  - Tidyverse
+  - Makeover Monday
+  - Video games
+  - ggplot2
+  - Visualization
+type: ''
+subtitle: ''
+image: ''
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "svg",
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+library(ggforce)
+library(ggchicklet)
+
+theme_set(theme_exo())
+theme_update(
+  rect = element_rect(fill = "#173f50"),
+  text = element_text(colour = "white"),
+  axis.text = element_text(colour = "white"),
+  axis.ticks = element_line(colour = "white")
+)
+```
+
+## Download the data
+
+```{r, results='hide'}
+library("httr")
+library("readxl")
+GET("https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv", write_disk(tf <- tempfile(fileext = ".xlsx")))
+video_game_revenus <- read_excel(tf) %>% 
+  janitor::clean_names()
+```
+
+```{r}
+video_game_revenus
+```
+
+
+## Data processing
+
+
+```{r}
+video_game_revenus <- video_game_revenus %>%
+  mutate(platform = fct_relevel(platform, "Console Games", "Mobile Games", "PC Games")) %>%
+  arrange(year, platform) %>%
+  group_by(year) %>%
+  mutate(cum_percent = cumsum(percent_of_revenue)) %>%
+  mutate(abs_percent = cum_percent - percent_of_revenue)
+```
+
+## Visualization
+
+### Revenues over the time
+
+```{r}
+video_game_revenus %>% 
+  group_by(year) %>% 
+  summarise(total_est_revenue = sum(est_revenue)) %>% 
+  ggplot(aes(x = year, y = total_est_revenue / 1e9)) +
+  geom_col(fill = "#F2B701") +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::dollar) +
+  xlab(NULL) +
+  theme(
+    panel.background = element_rect(fill = "#173f50"),
+    legend.key = element_rect(fill = "#173f50"),
+    panel.grid = element_blank()
+  )
+```
+
+
+### Market share
+
+```{r}
+video_game_revenus %>%
+  ggplot(aes(x = year, y = percent_of_revenue, fill = platform)) +
+  geom_chicklet(
+    width = 0.75,
+    radius = unit(0.1, "cm"),
+    size = 0.25
+  ) +
+  geom_text(
+    aes(
+      y = abs_percent,
+      label = scales::percent(percent_of_revenue, accuracy = 1)
+    ),
+    vjust = -1,
+    color = "white",
+    family = "Exo",
+    size = 2.5
+  ) +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::percent) +
+  xlab(NULL) +
+  paletteer::scale_fill_paletteer_d(ghibli, MononokeLight) +
+  # paletteer::scale_fill_paletteer_d(nord, aurora) +
+  theme(
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.ticks = element_blank(),
+    panel.background = element_rect(fill = "#173f50"),
+    legend.key = element_rect(fill = "#173f50"),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    plot.subtitle = element_text(size = 10),
+    plot.caption = element_text(size = 8, color = "gray75")
+  ) +
+  labs(
+    title = "The past and the future of gaming",
+    subtitle = str_wrap(
+      "In 2018, mobile games represented more than 50% of the total gaming revenues. It is expected to reach 59% by 2021. The console and PC games both decreased.",
+      110
+    ),
+    caption = "Makeover Monday (2019/W35) | Data Source: Statista | Visualization: @philmassicotte"
+  )
+```
+

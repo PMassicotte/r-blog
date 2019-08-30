@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Wed, 14 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The past and the future of video games</title>
+      <link>/post/the-past-and-the-future-of-video-games/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/the-past-and-the-future-of-video-games/</guid>
+      <description>Download the datalibrary(&amp;quot;httr&amp;quot;)library(&amp;quot;readxl&amp;quot;)GET(&amp;quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&amp;quot;, write_disk(tf &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))video_game_revenus &amp;lt;- read_excel(tf) %&amp;gt;% janitor::clean_names()video_game_revenus#&amp;gt; # A tibble: 30 x 4#&amp;gt; year platform percent_of_revenue est_revenue#&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;#&amp;gt; 1 2012 Mobile Games 0.18 12708000000 #&amp;gt; 2 2013 Mobile Games 0.23 17595000000 #&amp;gt; 3 2014 Mobile Games 0.290 24592000000 #&amp;gt; 4 2015 Mobile Games 0.34 31654000000.#&amp;gt; 5 2016 Mobile Games 0.4 42600000000 #&amp;gt; 6 2017 Mobile Games 0.</description>
+    </item>
     
     <item>
       <title>Tidytuesday (2019-08-13)</title>
@@ -19,7 +28,7 @@
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/tidytuesday-2019-08-13/</guid>
       <description>This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.
-The data emperors &amp;lt;- readr::read_csv( &amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot; ) emperors #&amp;gt; # A tibble: 68 x 16 #&amp;gt; index name name_full birth death birth_cty birth_prv rise #&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;date&amp;gt; &amp;lt;date&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; #&amp;gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~ #&amp;gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~ #&amp;gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~ #&amp;gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~ #&amp;gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~ #&amp;gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~ #&amp;gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~ #&amp;gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~ #&amp;gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~ #&amp;gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~ #&amp;gt; # .</description>
+The dataemperors &amp;lt;-readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;)emperors#&amp;gt; # A tibble: 68 x 16#&amp;gt; index name name_full birth death birth_cty birth_prv rise #&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;date&amp;gt; &amp;lt;date&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;#&amp;gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~#&amp;gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~#&amp;gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~#&amp;gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~#&amp;gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~#&amp;gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~#&amp;gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~#&amp;gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~#&amp;gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~#&amp;gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~#&amp;gt; # .</description>
     </item>
     
     <item>
@@ -29,7 +38,7 @@ The data emperors &amp;lt;- readr::read_csv( &amp;quot;https://raw.githubusercon
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/tidytuesday-2019-08-06/</guid>
       <description>This week TidyTuesday is entitled Bob Ross - painting by the numbers. To cite fivethirtyeight:
- Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…</description>
+Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…</description>
     </item>
     
   </channel>

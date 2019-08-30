@@ -6,10 +6,121 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The past and the future of video games</title>
+      <link>/post/the-past-and-the-future-of-video-games/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/the-past-and-the-future-of-video-games/</guid>
+      <description>
+
+
+&lt;div id=&#34;download-the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Download the data&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;httr&amp;quot;)
+library(&amp;quot;readxl&amp;quot;)
+GET(&amp;quot;https://query.data.world/s/zoavyienlugc2te4clord3zalpkmcv&amp;quot;, write_disk(tf &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))
+video_game_revenus &amp;lt;- read_excel(tf) %&amp;gt;% 
+  janitor::clean_names()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_game_revenus
+#&amp;gt; # A tibble: 30 x 4
+#&amp;gt;     year platform     percent_of_revenue   est_revenue
+#&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;                     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;
+#&amp;gt;  1  2012 Mobile Games              0.18   12708000000 
+#&amp;gt;  2  2013 Mobile Games              0.23   17595000000 
+#&amp;gt;  3  2014 Mobile Games              0.290  24592000000 
+#&amp;gt;  4  2015 Mobile Games              0.34   31654000000.
+#&amp;gt;  5  2016 Mobile Games              0.4    42600000000 
+#&amp;gt;  6  2017 Mobile Games              0.46   55982000000 
+#&amp;gt;  7  2018 Mobile Games              0.51   70329000000 
+#&amp;gt;  8  2019 Mobile Games              0.54   82026000000 
+#&amp;gt;  9  2020 Mobile Games              0.570  94563000000.
+#&amp;gt; 10  2021 Mobile Games              0.59  106259000000 
+#&amp;gt; # ... with 20 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-processing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data processing&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_game_revenus &amp;lt;- video_game_revenus %&amp;gt;%
+  mutate(platform = fct_relevel(platform, &amp;quot;Console Games&amp;quot;, &amp;quot;Mobile Games&amp;quot;, &amp;quot;PC Games&amp;quot;)) %&amp;gt;%
+  arrange(year, platform) %&amp;gt;%
+  group_by(year) %&amp;gt;%
+  mutate(cum_percent = cumsum(percent_of_revenue)) %&amp;gt;%
+  mutate(abs_percent = cum_percent - percent_of_revenue)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Visualization&lt;/h2&gt;
+&lt;div id=&#34;revenues-over-the-time&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Revenues over the time&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_game_revenus %&amp;gt;% 
+  group_by(year) %&amp;gt;% 
+  summarise(total_est_revenue = sum(est_revenue)) %&amp;gt;% 
+  ggplot(aes(x = year, y = total_est_revenue / 1e9)) +
+  geom_col(fill = &amp;quot;#F2B701&amp;quot;) +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::dollar) +
+  xlab(NULL) +
+  theme(
+    panel.background = element_rect(fill = &amp;quot;#173f50&amp;quot;),
+    legend.key = element_rect(fill = &amp;quot;#173f50&amp;quot;),
+    panel.grid = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-29-the-past-and-the-future-of-video-games.en_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;market-share&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Market share&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_game_revenus %&amp;gt;%
+  ggplot(aes(x = year, y = percent_of_revenue, fill = platform)) +
+  geom_chicklet(
+    width = 0.75,
+    radius = unit(0.1, &amp;quot;cm&amp;quot;),
+    size = 0.25
+  ) +
+  geom_text(
+    aes(
+      y = abs_percent,
+      label = scales::percent(percent_of_revenue, accuracy = 1)
+    ),
+    vjust = -1,
+    color = &amp;quot;white&amp;quot;,
+    family = &amp;quot;Exo&amp;quot;,
+    size = 2.5
+  ) +
+  scale_x_continuous(breaks = seq(1990, 2030, by = 1)) +
+  scale_y_continuous(labels = scales::percent) +
+  xlab(NULL) +
+  paletteer::scale_fill_paletteer_d(ghibli, MononokeLight) +
+  # paletteer::scale_fill_paletteer_d(nord, aurora) +
+  theme(
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = &amp;quot;bottom&amp;quot;,
+    legend.title = element_blank(),
+    axis.ticks = element_blank(),
+    panel.background = element_rect(fill = &amp;quot;#173f50&amp;quot;),
+    legend.key = element_rect(fill = &amp;quot;#173f50&amp;quot;),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    plot.subtitle = element_text(size = 10),
+    plot.caption = element_text(size = 8, color = &amp;quot;gray75&amp;quot;)
+  ) +
+  labs(
+    title = &amp;quot;The past and the future of gaming&amp;quot;,
+    subtitle = str_wrap(
+      &amp;quot;In 2018, mobile games represented more than 50% of the total gaming revenues. It is expected to reach 59% by 2021. The console and PC games both decreased.&amp;quot;,
+      110
+    ),
+    caption = &amp;quot;Makeover Monday (2019/W35) | Data Source: Statista | Visualization: @philmassicotte&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-29-the-past-and-the-future-of-video-games.en_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Visualizing the decrease of Artic sea ice extent</title>
@@ -2102,6 +2213,48 @@ ggplot(df, aes(x = date)) +
   geom_vline(xintercept = as.numeric(Sys.Date()), lty = 2, lwd = 0.25)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2015-11-06-daylight_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Voilà!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>eemR 0.1.3 is now on CRAN</title>
+      <link>/post/2016-05-02-eemr-0.1.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/index.html&#34;&gt;eemR&lt;/a&gt; has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Shiny support: You can interactively visualize EEMS by using &lt;code&gt;interactive = TRUE&lt;/code&gt;. Ex.: &lt;code&gt;plot(X, interactive = TRUE)&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html&#34;&gt;A vignette has been added&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; and &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; can now try to implicitly use a blank eem from a &lt;code&gt;eemlist&lt;/code&gt; object (#20). If blank is omitted (&lt;code&gt;blank = NA&lt;/code&gt;), the functions will try to extract the blank from the &lt;code&gt;eemlist&lt;/code&gt; object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
+&lt;ul&gt;
+&lt;li&gt;“nano”&lt;/li&gt;
+&lt;li&gt;“miliq”&lt;/li&gt;
+&lt;li&gt;“milliq”&lt;/li&gt;
+&lt;li&gt;“mq”&lt;/li&gt;
+&lt;li&gt;“blank”&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
+library(magrittr)
+
+folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1/&amp;quot;, package = &amp;quot;eemR&amp;quot;)
+
+eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;cary&amp;quot;) %&amp;gt;%
+  eem_raman_normalisation() %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;raman&amp;quot;, order = 1) %&amp;gt;%
+  eem_remove_scattering(type = &amp;quot;rayleigh&amp;quot;, order = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## A total of 1 blank EEMs will be averaged.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904 
+## Raman area: 9.540904 
+## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -4616,48 +4769,6 @@ NA
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>eemR 0.1.3 is now on CRAN</title>
-      <link>/post/2016-05-02-eemr-0.1.3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
-      <description>
-
-
-&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/index.html&#34;&gt;eemR&lt;/a&gt; has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Shiny support: You can interactively visualize EEMS by using &lt;code&gt;interactive = TRUE&lt;/code&gt;. Ex.: &lt;code&gt;plot(X, interactive = TRUE)&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/eemR/vignettes/introduction.html&#34;&gt;A vignette has been added&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;eem_remove_blank()&lt;/code&gt; and &lt;code&gt;eem_raman_normalisation()&lt;/code&gt; can now try to implicitly use a blank eem from a &lt;code&gt;eemlist&lt;/code&gt; object (#20). If blank is omitted (&lt;code&gt;blank = NA&lt;/code&gt;), the functions will try to extract the blank from the &lt;code&gt;eemlist&lt;/code&gt; object. This is done by looking for sample names containing one of these complete or partial strings (ignoring case):
-&lt;ul&gt;
-&lt;li&gt;“nano”&lt;/li&gt;
-&lt;li&gt;“miliq”&lt;/li&gt;
-&lt;li&gt;“milliq”&lt;/li&gt;
-&lt;li&gt;“mq”&lt;/li&gt;
-&lt;li&gt;“blank”&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(eemR)
-library(magrittr)
-
-folder &amp;lt;- system.file(&amp;quot;extdata/cary/scans_day_1/&amp;quot;, package = &amp;quot;eemR&amp;quot;)
-
-eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;cary&amp;quot;) %&amp;gt;%
-  eem_raman_normalisation() %&amp;gt;%
-  eem_remove_scattering(type = &amp;quot;raman&amp;quot;, order = 1) %&amp;gt;%
-  eem_remove_scattering(type = &amp;quot;rayleigh&amp;quot;, order = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## A total of 1 blank EEMs will be averaged.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Raman area: 9.540904 
-## Raman area: 9.540904 
-## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
