@@ -10,13 +10,15 @@ subtitle: List of my most recent presentations
 
 ## Green Edge legacy meeting (Nice, France)
 
-### Underice Kd
+Presentations given at the Green Edge legacy meeting.
 
-Presentation of the Kd paper at the Green Edge legacy meeting.
+### Underice Kd
 
 https://pmassicotte.github.io/greenedge_2019_nice_kd/
 
 ### Ice camp paper
+
+https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_camp/
 
 ---
 
