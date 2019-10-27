@@ -8,6 +8,18 @@ subtitle: List of my most recent presentations
 
 ---
 
+## Green Edge legacy meeting (Nice, France)
+
+### Underice Kd
+
+Presentation of the Kd paper at the Green Edge legacy meeting.
+
+https://pmassicotte.github.io/greenedge_2019_nice_kd/
+
+### Ice camp paper
+
+---
+
 ## R Québec-Océan 2019 Training Workshop: Data Management and Archiving
 
 Atelier portant sur les bonnes pratiques pour la gestion et l'archivage des données. L'atelier a été présenté le 25 octobre 2019 à Rimouski et le 29 octobre 2019 à Québec.
