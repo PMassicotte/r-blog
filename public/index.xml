@@ -1289,6 +1289,110 @@ video_games %&amp;gt;%
     </item>
     
     <item>
+      <title>chernobyl-cesium-137</title>
+      <link>/post/chernobyl-cesium-137/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/chernobyl-cesium-137/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;-
+  readxl::read_excel(
+    &amp;quot;c:/Users/pmass/Downloads/CHERNAIR.xls&amp;quot;,
+    na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)
+  ) %&amp;gt;%
+  janitor::clean_names() %&amp;gt;%
+  mutate(date = lubridate::ymd(date)) %&amp;gt;%
+  mutate(date_time = make_datetime(
+    year(date),
+    month(date),
+    day(date),
+    hour(end_of_sampling),
+    minute(end_of_sampling),
+    second(end_of_sampling)
+  ))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Map&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;world &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;)
+
+df2 &amp;lt;- df %&amp;gt;%
+  count(pays, ville, x, y) %&amp;gt;%
+  st_as_sf(
+    coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;),
+    crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot;
+  ) %&amp;gt;% 
+  st_transform(st_crs(world))
+
+world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))
+#&amp;gt; Warning in st_centroid.sfc(world$geometry): st_centroid does not give
+#&amp;gt; correct centroids for longitude/latitude data
+
+
+world %&amp;gt;%
+  ggplot() +
+  geom_sf(size = 0.3) +
+  geom_text(data= world_points,aes(x=X, y=Y, label=name), check_overlap = TRUE, size = 2) +
+  geom_sf(
+    data = df2,
+    aes(size = n),
+    show.legend = &amp;quot;point&amp;quot;,
+    stroke = 0.1,
+    fill = &amp;quot;red&amp;quot;,
+    color = &amp;quot;black&amp;quot;,
+    shape = 21
+  ) +
+  coord_sf(xlim = st_bbox(df2)[c(1, 3)], ylim = st_bbox(df2)[c(2, 4)]) +
+  scale_size_continuous(range = c(0.5, 5)) +
+  labs(subtitle = str_wrap(&amp;quot;Geolocalisations of the measurements&amp;quot;, 100)) +
+  labs(title = &amp;quot;Map of the data&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-28-chernobyl-cesium-137.en_files/figure-html/unnamed-chunk-2-1.svg&#34; width=&#34;2400&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df %&amp;gt;%
+  drop_na(cs_137_bq_m3) %&amp;gt;%
+  group_by(ville) %&amp;gt;%
+  filter(cs_137_bq_m3 == max(cs_137_bq_m3)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  top_n(16, cs_137_bq_m3) %&amp;gt;%
+  mutate(ville = glue(&amp;quot;{str_to_title(ville)} ({pays})&amp;quot;)) %&amp;gt;%
+  mutate(ville = fct_reorder(ville, cs_137_bq_m3)) %&amp;gt;%
+  ggplot(aes(x = ville, y = cs_137_bq_m3)) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
+  scale_x_discrete(expand = c(0, 0)) +
+  geom_text(aes(label = format(round(cs_137_bq_m3, digits = 2), nsmall = 2)),
+    vjust = 0.5,
+    color = &amp;quot;white&amp;quot;,
+    hjust = 1.2
+  ) +
+  geom_text(
+    aes(label = date),
+    vjust = 0.5,
+    color = &amp;quot;white&amp;quot;,
+    hjust = 0,
+    size = 4,
+    y = 0.3
+  ) +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(panel.grid.minor.y = element_blank()) +
+  xlab(NULL) +
+  labs(
+    title = str_wrap(&amp;quot;Caesium-137 in different cities after the Chernobyl incident&amp;quot;, width = 40),
+    subtitle = str_wrap(&amp;quot;Top 16 cities and the date at which maximum caesium-137 was measured.&amp;quot;, 60)
+  ) +
+  theme(axis.ticks.y = element_blank()) +
+  ylab(bquote(&amp;quot;Caesium-137 concentration in&amp;quot; ~ Bq ~ m^{
+    -3
+  } ~ ~&amp;quot;(aerosol particles)&amp;quot;)) +
+  labs(caption = &amp;quot;Data extracted from REM data bank at CEC Joint Research Centre Ispra&amp;quot;) +
+  theme(plot.caption = element_text(colour = &amp;quot;grey50&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-07-28-chernobyl-cesium-137.en_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;2400&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Trying the new R vroom Package</title>
       <link>/post/2019-07-17-trying-the-vroom-package/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
@@ -2515,11 +2619,33 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;hr /&gt;
 
+&lt;h2 id=&#34;green-edge-legacy-meeting-nice-france&#34;&gt;Green Edge legacy meeting (Nice, France)&lt;/h2&gt;
+
+&lt;p&gt;Presentations given at the Green Edge legacy meeting.&lt;/p&gt;
+
+&lt;h3 id=&#34;underice-kd&#34;&gt;Underice Kd&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/greenedge_2019_nice_kd/&#34;&gt;https://pmassicotte.github.io/greenedge_2019_nice_kd/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ice-camp-paper&#34;&gt;Ice camp paper&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_camp/&#34;&gt;https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_camp/&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;r-québec-océan-2019-training-workshop-data-management-and-archiving&#34;&gt;R Québec-Océan 2019 Training Workshop: Data Management and Archiving&lt;/h2&gt;
+
+&lt;p&gt;Atelier portant sur les bonnes pratiques pour la gestion et l&amp;rsquo;archivage des données. L&amp;rsquo;atelier a été présenté le 25 octobre 2019 à Rimouski et le 29 octobre 2019 à Québec.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/quebec_ocean_data_archive_2019/&#34;&gt;https://pmassicotte.github.io/quebec_ocean_data_archive_2019/&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
 &lt;h2 id=&#34;r-à-québec&#34;&gt;R à Québec&lt;/h2&gt;
 
 &lt;p&gt;Présentation sur la programmation fonctionnelle avec R lors du symposium R à Québec 2019.&lt;/p&gt;
 
-&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/rquebec2019&#34;&gt;https://pmassicotte.github.io/rquebec2019&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/rquebec2019&#34;&gt;https://pmassicotte.github.io/rquebec2019&lt;/a&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -2527,7 +2653,7 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Green Edge side meeting in Italia after the Gorodn conference.&lt;/p&gt;
 
-&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/greenedge2019/&#34;&gt;https://pmassicotte.github.io/greenedge2019/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/greenedge2019/&#34;&gt;https://pmassicotte.github.io/greenedge2019/&lt;/a&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -2535,7 +2661,7 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Numerical ecology in R teaching material used at Aarhus university in March 2019.&lt;/p&gt;
 
-&lt;p&gt;Link: &lt;a href=&#34;https://pmassicotte.github.io/stats-denmark-2019/&#34;&gt;https://pmassicotte.github.io/stats-denmark-2019/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://pmassicotte.github.io/stats-denmark-2019/&#34;&gt;https://pmassicotte.github.io/stats-denmark-2019/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

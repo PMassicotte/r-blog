@@ -139,6 +139,17 @@
   </url>
   
   <url>
+    <loc>/tags/chernobyl/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/chernobyl-cesium-137/</loc>
+    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/r/</loc>
     <lastmod>2019-07-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
