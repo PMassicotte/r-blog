@@ -65,7 +65,7 @@ library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font 
   "headline": "Extracting Weather Data From Canadian Archive",
   "description" : "To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.\nlibrary(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font size and font familly loadfonts(quiet = TRUE) theme_set(theme_bw(base_size = 12, base_family = \x26quot;Poppins\x26quot;)) The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.",
   "inLanguage" : "en",
-  "wordCount":  371 ,
+  "wordCount":  368 ,
   "datePublished" : "2019-05-22T00:00:00",
   "dateModified" : "2019-05-22T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -270,7 +270,7 @@ library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font 
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;371&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;368&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -347,7 +347,7 @@ df</code></pre>
 <pre class="r"><code>download_weather &lt;- function(url) {
   t &lt;- tempfile()
   curl::curl_download(url, t, quiet = TRUE)
-  df &lt;- read_csv(t, skip = 25, locale = locale(decimal_mark = &quot;,&quot;)) %&gt;%
+  df &lt;- read_csv(t, locale = locale(decimal_mark = &quot;,&quot;)) %&gt;%
     janitor::clean_names() %&gt;%
     select(date_heure, temp_moy_c)
 

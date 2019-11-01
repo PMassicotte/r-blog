@@ -55,7 +55,7 @@ df</code></pre>
 <pre class="r"><code>download_weather &lt;- function(url) {
   t &lt;- tempfile()
   curl::curl_download(url, t, quiet = TRUE)
-  df &lt;- read_csv(t, skip = 25, locale = locale(decimal_mark = &quot;,&quot;)) %&gt;%
+  df &lt;- read_csv(t, locale = locale(decimal_mark = &quot;,&quot;)) %&gt;%
     janitor::clean_names() %&gt;%
     select(date_heure, temp_moy_c)
 

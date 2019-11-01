@@ -43,7 +43,7 @@ Now, I will create a function that will download, read and clean each data file.
 download_weather <- function(url) {
   t <- tempfile()
   curl::curl_download(url, t, quiet = TRUE)
-  df <- read_csv(t, skip = 25, locale = locale(decimal_mark = ",")) %>%
+  df <- read_csv(t, locale = locale(decimal_mark = ",")) %>%
     janitor::clean_names() %>%
     select(date_heure, temp_moy_c)
 

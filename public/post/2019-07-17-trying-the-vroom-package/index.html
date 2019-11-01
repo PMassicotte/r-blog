@@ -350,16 +350,16 @@ read_csv(file)</code></pre>
 <p>Because the <code>vroom()</code> function can use a vector of files, I will duplicate <code>file</code> 10 times.</p>
 <pre class="r"><code>files &lt;- rep(file, 10)
 files</code></pre>
-<pre><code>##  [1] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [2] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [3] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [4] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [5] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [6] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [7] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [8] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-##  [9] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;
-## [10] &quot;/tmp/RtmpIO7zqI/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
+<pre><code>##  [1] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [2] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [3] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [4] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [5] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [6] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [7] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [8] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+##  [9] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;
+## [10] &quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
 <p>I can now simply use this character vector with <code>vroom()</code>. Note that I can also use the <code>.name_repair</code> argument to clean column names.</p>
 <pre class="r"><code>df &lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))</code></pre>
 <pre><code>## Observations: 1,685,900
@@ -525,7 +525,7 @@ autoplot(res)</code></pre>
           
           
             <li class="next">
-              <a href="/post/chernobyl-cesium-137/" data-toggle="tooltip" data-placement="top" title="chernobyl-cesium-137">Next Post &rarr;</a>
+              <a href="/post/tidytuesday-video-games/" data-toggle="tooltip" data-placement="top" title="Tidytuesday: video games">Next Post &rarr;</a>
             </li>
           
         </ul>
