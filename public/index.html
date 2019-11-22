@@ -550,47 +550,6 @@ Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Sp
             </article>
           
             <article class="post-preview">
-              <a href="/post/chernobyl-cesium-137/">
-                <h2 class="post-title">chernobyl-cesium-137</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 28, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;322&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  url &lt;- &quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&quot;tf &lt;- tempfile()curl::curl_download(url, tf)df &lt;-readxl::read_excel(tf,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.
-                  <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/chernobyl/">Chernobyl</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
               <a href="/post/2019-07-17-trying-the-vroom-package/">
                 <h2 class="post-title">Trying the new R vroom Package</h2>
                 
@@ -682,6 +641,48 @@ An exampleIn this example, we will learn how to create a import function for a 
                     <a href="//tags/eems/">EEMs</a>&nbsp;
                   
                     <a href="//tags/parafac/">PARAFAC</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/">
+                <h2 class="post-title">Extracting Weather Data From Canadian Archive</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 22, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;374&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font size and font famillyloadfonts(quiet = TRUE)theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;))The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
+                  <a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/r/">R</a>&nbsp;
                   
                 </div>
               

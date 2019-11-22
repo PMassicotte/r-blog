@@ -82,15 +82,6 @@ Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Sp
     </item>
     
     <item>
-      <title>chernobyl-cesium-137</title>
-      <link>/post/chernobyl-cesium-137/</link>
-      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/chernobyl-cesium-137/</guid>
-      <description>url &amp;lt;- &amp;quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&amp;quot;tf &amp;lt;- tempfile()curl::curl_download(url, tf)df &amp;lt;-readxl::read_excel(tf,na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)) %&amp;gt;%janitor::clean_names() %&amp;gt;%mutate(date = lubridate::ymd(date)) %&amp;gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;)df2 &amp;lt;- df %&amp;gt;%count(pays, ville, x, y) %&amp;gt;%st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;),crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot;) %&amp;gt;% st_transform(st_crs(world))world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&amp;gt; Warning in st_centroid.</description>
-    </item>
-    
-    <item>
       <title>Trying the new R vroom Package</title>
       <link>/post/2019-07-17-trying-the-vroom-package/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
