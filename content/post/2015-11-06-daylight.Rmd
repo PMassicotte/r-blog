@@ -5,6 +5,10 @@ tags:
   - R
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
 A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY). The formula used can be found [here](http://stackoverflow.com/questions/6372802/calculate-daylight-hours-based-on-gegraphical-coordinates).
 
 ```{r}

@@ -599,7 +599,7 @@ languages
 #&amp;gt;  8 CSS                459
 #&amp;gt;  9 TeX                401
 #&amp;gt; 10 JavaScript         370
-#&amp;gt; # … with 98 more rows
+#&amp;gt; # ... with 98 more rows
 
 languages %&amp;gt;% 
   top_n(16, n_package) %&amp;gt;% 
@@ -1297,9 +1297,14 @@ video_games %&amp;gt;%
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;-
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+url &amp;lt;- &amp;quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&amp;quot;
+tf &amp;lt;- tempfile()
+curl::curl_download(url, tf)
+
+df &amp;lt;-
   readxl::read_excel(
-    &amp;quot;c:/Users/pmass/Downloads/CHERNAIR.xls&amp;quot;,
+    tf,
     na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)
   ) %&amp;gt;%
   janitor::clean_names() %&amp;gt;%
@@ -1430,7 +1435,7 @@ read_csv(file)&lt;/code&gt;&lt;/pre&gt;
 ##   `Member type` = col_character()
 ## )&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 168,590 x 9
-##    Duration `Start date`        `End date`          `Start station …
+##    Duration `Start date`        `End date`          `Start station ~
 ##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
 ##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
 ##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
@@ -1442,22 +1447,22 @@ read_csv(file)&lt;/code&gt;&lt;/pre&gt;
 ##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
 ##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
 ## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
-## # … with 168,580 more rows, and 5 more variables: `Start station` &amp;lt;chr&amp;gt;,
+## # ... with 168,580 more rows, and 5 more variables: `Start station` &amp;lt;chr&amp;gt;,
 ## #   `End station number` &amp;lt;dbl&amp;gt;, `End station` &amp;lt;chr&amp;gt;, `Bike number` &amp;lt;chr&amp;gt;,
 ## #   `Member type` &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Because the &lt;code&gt;vroom()&lt;/code&gt; function can use a vector of files, I will duplicate &lt;code&gt;file&lt;/code&gt; 10 times.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- rep(file, 10)
 files&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [2] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [3] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [4] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [5] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [6] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [7] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [8] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-##  [9] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;
-## [10] &amp;quot;/tmp/Rtmpvr5LZk/201801_capitalbikeshare_tripdata.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [2] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [3] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [4] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [5] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [6] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [7] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [8] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+##  [9] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;
+## [10] &amp;quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I can now simply use this character vector with &lt;code&gt;vroom()&lt;/code&gt;. Note that I can also use the &lt;code&gt;.name_repair&lt;/code&gt; argument to clean column names.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Observations: 1,685,900
@@ -1470,7 +1475,7 @@ files&lt;/code&gt;&lt;/pre&gt;
 ## Specify the column types with `col_types` to quiet this message&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1,685,900 x 9
-##    duration start_date          end_date            start_station_n…
+##    duration start_date          end_date            start_station_n~
 ##       &amp;lt;dbl&amp;gt; &amp;lt;dttm&amp;gt;              &amp;lt;dttm&amp;gt;                         &amp;lt;dbl&amp;gt;
 ##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
 ##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
@@ -1482,7 +1487,7 @@ files&lt;/code&gt;&lt;/pre&gt;
 ##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
 ##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
 ## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
-## # … with 1,685,890 more rows, and 5 more variables: start_station &amp;lt;chr&amp;gt;,
+## # ... with 1,685,890 more rows, and 5 more variables: start_station &amp;lt;chr&amp;gt;,
 ## #   end_station_number &amp;lt;dbl&amp;gt;, end_station &amp;lt;chr&amp;gt;, bike_number &amp;lt;chr&amp;gt;,
 ## #   member_type &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;benchmark&#34; class=&#34;section level2&#34;&gt;
@@ -1609,7 +1614,7 @@ import_cary &amp;lt;- function(file) {
 &lt;p&gt;We can now try our function and have a look to the structure of the returned list.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(import_cary(file))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## List of 4
-##  $ file: chr &amp;quot;/home/pmassicotte/R/x86_64-pc-linux-gnu-library/3.6/eemR/extdata/custom_cary.csv&amp;quot;
+##  $ file: chr &amp;quot;C:/Users/pmass.000/Documents/R/win-library/3.6/eemR/extdata/custom_cary.csv&amp;quot;
 ##  $ x   : num [1:200, 1:200] 1.91 2.29 2.73 3.04 3.27 ...
 ##  $ ex  : num [1:200] 250 251 252 253 254 ...
 ##  $ em  : num [1:200] 300 302 305 307 310 ...&lt;/code&gt;&lt;/pre&gt;
@@ -1649,7 +1654,9 @@ eem_coble_peaks(eem)&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the &lt;a href=&#34;http://climat.meteo.gc.ca/climate_data/daily_data_f.html?hlyRange=2005-03-24%7C2019-05-21&amp;amp;dlyRange=1992-12-04%7C2019-05-21&amp;amp;mlyRange=1998-01-01%7C2016-03-01&amp;amp;StationID=26892&amp;amp;Prov=QC&amp;amp;urlExtension=_f.html&amp;amp;searchType=stnName&amp;amp;optLimit=yearRange&amp;amp;StartYear=2018&amp;amp;EndYear=2019&amp;amp;selRowPerPage=25&amp;amp;Line=2&amp;amp;searchMethod=contains&amp;amp;Month=5&amp;amp;Day=21&amp;amp;txtStationName=quebec&amp;amp;timeframe=2&amp;amp;Year=2019&#34;&gt;Government of Canada&lt;/a&gt; have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(extrafont)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+
+library(extrafont)
 library(tidyverse)
 library(glue)
 
@@ -1674,23 +1681,23 @@ df&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 17 x 2
 ##    date       url                                                          
 ##    &amp;lt;date&amp;gt;     &amp;lt;glue&amp;gt;                                                       
-##  1 2018-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  2 2018-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  3 2018-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  4 2018-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  5 2018-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  6 2018-06-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  7 2018-07-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  8 2018-08-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-##  9 2018-09-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 10 2018-10-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 11 2018-11-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 12 2018-12-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 13 2019-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 14 2019-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 15 2019-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 16 2019-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…
-## 17 2019-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form…&lt;/code&gt;&lt;/pre&gt;
+##  1 2018-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  2 2018-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  3 2018-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  4 2018-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  5 2018-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  6 2018-06-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  7 2018-07-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  8 2018-08-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+##  9 2018-09-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 10 2018-10-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 11 2018-11-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 12 2018-12-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 13 2019-01-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 14 2019-02-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 15 2019-03-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 16 2019-04-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~
+## 17 2019-05-01 http://climat.meteo.gc.ca/climate_data/bulk_data_f.html?form~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, I will create a function that will download, read and clean each data file.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;download_weather &amp;lt;- function(url) {
   t &amp;lt;- tempfile()
@@ -1743,12 +1750,11 @@ df&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;examples&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Examples&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gitignore)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Get the list of all available templates from &lt;a href=&#34;gitignore.io&#34;&gt;gitignore.io&lt;/a&gt;:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(gi_available_templates(), 50)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;1c&amp;quot;                   &amp;quot;1c-bitrix&amp;quot;            &amp;quot;actionscript&amp;quot;        
-##  [4] &amp;quot;ada&amp;quot;                  &amp;quot;adobe&amp;quot;                &amp;quot;advancedinstaller&amp;quot;   
-##  [7] &amp;quot;adventuregamestudio&amp;quot;  &amp;quot;a-frame&amp;quot;              &amp;quot;agda&amp;quot;                
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;1c&amp;quot;                   &amp;quot;1c-bitrix&amp;quot;            &amp;quot;a-frame&amp;quot;             
+##  [4] &amp;quot;actionscript&amp;quot;         &amp;quot;ada&amp;quot;                  &amp;quot;adobe&amp;quot;               
+##  [7] &amp;quot;advancedinstaller&amp;quot;    &amp;quot;adventuregamestudio&amp;quot;  &amp;quot;agda&amp;quot;                
 ## [10] &amp;quot;al&amp;quot;                   &amp;quot;alteraquartusii&amp;quot;      &amp;quot;altium&amp;quot;              
 ## [13] &amp;quot;android&amp;quot;              &amp;quot;androidstudio&amp;quot;        &amp;quot;angular&amp;quot;             
 ## [16] &amp;quot;anjuta&amp;quot;               &amp;quot;ansible&amp;quot;              &amp;quot;apachecordova&amp;quot;       
@@ -1902,105 +1908,6 @@ df&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Demo&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-05-08-introducing-gitignore_files/gitignore.gif&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Analysis of speaker genders at the 2018 ArcticNet Annual Scientific Meeting</title>
-      <link>/post/gender-asm2018/</link>
-      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/gender-asm2018/</guid>
-      <description>
-
-
-&lt;p&gt;Last week I was participating to the &lt;a href=&#34;http://www.arcticnetmeetings.ca/asm2018/&#34;&gt;ArcticNet Annual Scientific Meeting 2018&lt;/a&gt; in Ottawa. I was pleasantly surprised to see that there was a large proportion of women present at the conference. After the panel discussion on &lt;em&gt;women in northern science&lt;/em&gt; which took place on Thursday night, I decided to see if I could use R to scan the scientific PDF program to determine how many men and women were giving scientific presentations.&lt;/p&gt;
-&lt;p&gt;For this exercise, I will use the &lt;code&gt;pdftools&lt;/code&gt; library to scan the program PDF.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pdftools)
-
-dat &amp;lt;- pdf_text(&amp;quot;http://www.arcticnetmeetings.ca/asm2018/docs/PROGRAM_ASM2018_FINAL.pdf&amp;quot;)
-dat &amp;lt;- iconv(dat, from = &amp;quot;UTF-8&amp;quot;, to = &amp;quot;ASCII//TRANSLIT&amp;quot;)
-
-res &amp;lt;- map(dat[18:51], function(x) { # Only scan pages 18-51
-
-  # Use a simple regular expression to extract two consequtive upperletter
-  # words. This could be better.
-  # str_match_all(dat[[21]], &amp;quot;\\W+([A-Z\\s\\-]{1,})\\r\\n&amp;quot;)
-  ## Remove the \r if building on Linux
-  str_match_all(x, &amp;quot;\\W+([[:upper:]]{3,}\\W+[[:upper:]]{3,})\\r\\n&amp;quot;)[[1]][, 2]
-  
-}) %&amp;gt;%
-  unlist() %&amp;gt;%
-  tibble(full_name = .) %&amp;gt;%
-  filter(!str_detect(full_name, &amp;quot;SESSION&amp;quot;)) %&amp;gt;%
-  separate(full_name, into = c(&amp;quot;first_name&amp;quot;, &amp;quot;last_name&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If I did things correctly, there were 386 speakers at the conference.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 386 x 2
-##    first_name last_name
-##    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;    
-##  1 LOUIS      TETU     
-##  2 MICHAEL    DELAUNAY 
-##  3 MICHAEL    ROSS     
-##  4 DESAI      SHAN     
-##  5 CATHERINE  BURKE    
-##  6 BRIAN      MOORMAN  
-##  7 ACHIM      ROTH     
-##  8 MATTHEW    ASPLIN   
-##  9 DUSTIN     WHALEN   
-## 10 ALESSIA    GUZZI    
-## # … with 376 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then, using the &lt;code&gt;gender&lt;/code&gt; package, we can determine the genders.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gender)
-
-res &amp;lt;- res %&amp;gt;% 
-  nest(c(first_name, last_name)) %&amp;gt;%
-  mutate(gender = map(data, ~ gender(.$first_name))) %&amp;gt;%
-  unnest(gender) %&amp;gt;%
-  mutate(gender = str_to_title(gender))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: All elements of `...` must be named.
-## Did you want `data = c(first_name, last_name)`?&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 347 x 7
-##         data name  proportion_male proportion_fema… gender year_min
-##    &amp;lt;list&amp;lt;df&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;
-##  1 [386 × 2] ADRI…          0.927            0.0732 Male       1932
-##  2 [386 × 2] AGAT…          0                1      Female     1932
-##  3 [386 × 2] ALEJ…          0.992            0.0075 Male       1932
-##  4 [386 × 2] ALES…          0                1      Female     1932
-##  5 [386 × 2] ALEX…          0.992            0.0079 Male       1932
-##  6 [386 × 2] ALEX…          0.0037           0.996  Female     1932
-##  7 [386 × 2] ALEX…          0.0037           0.996  Female     1932
-##  8 [386 × 2] ALEX…          0.964            0.0355 Male       1932
-##  9 [386 × 2] ALEX…          0.145            0.855  Female     1932
-## 10 [386 × 2] ALIS…          0.0045           0.996  Female     1932
-## # … with 337 more rows, and 1 more variable: year_max &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally, we can create a plot to visualize the data.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res %&amp;gt;%
-  count(gender) %&amp;gt;%
-  ggplot(aes(x = gender, y = n)) +
-  geom_col() +
-  coord_flip() +
-  theme(axis.title.y = element_blank()) +
-  ylab(&amp;quot;Number of speaker&amp;quot;) +
-  scale_y_continuous(breaks = seq(0, 200, by = 20)) +
-  labs(title = &amp;quot;Number of male and female presenters at the ArcticNet 2018 meeting&amp;quot;) +
-  labs(caption = &amp;quot;Data source: http://www.arcticnetmeetings.ca/asm2018/docs/PROGRAM_ASM2018_FINAL.pdf&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-12-15-asm2018_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;This simple analysis confirms that there were as many men and women presenters at the conference. In the next graph we can see the most popular names of the speakers.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res %&amp;gt;% 
-  group_by(gender) %&amp;gt;% 
-  count(name) %&amp;gt;% 
-  arrange(desc(n)) %&amp;gt;% 
-  slice(1:5) %&amp;gt;% 
-  ggplot(aes(x = reorder(name, n, sort), y = n)) +
-  geom_bar(stat = &amp;quot;identity&amp;quot;) + 
-  facet_wrap(~gender, scales = &amp;quot;free_y&amp;quot;) +
-  coord_flip() +
-  scale_y_continuous(breaks = seq(0, 10, by = 1)) +
-  ylab(&amp;quot;Number of speakers&amp;quot;) +
-  labs(title = &amp;quot;Most frequent speaker names at the ArcticNet 2018 meeting&amp;quot;) +
-  theme(axis.title.y = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-12-15-asm2018_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -2623,7 +2530,7 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Registered S3 method overwritten by &amp;#39;R.oo&amp;#39;:
 ##   method        from       
 ##   throw.default R.methodsS3&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Successfully exported 4 EEMs to /tmp/RtmpXmYpfo/file2ce516942e49.mat.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Successfully exported 4 EEMs to C:\Users\pmass.000\AppData\Local\Temp\RtmpAVRenG\file441857f4416c.mat.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that the name of the structure generated by the function will be &lt;code&gt;OriginalData&lt;/code&gt; to &lt;em&gt;complement&lt;/em&gt; with PARAFAC standard. Then, the importation into Matlab is made easy using the &lt;code&gt;load()&lt;/code&gt; function.&lt;/p&gt;
 &lt;pre class=&#34;matlab&#34;&gt;&lt;code&gt;load(&amp;#39;FileName.mat&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -2702,25 +2609,26 @@ eem_export_matlab(filename, eem)&lt;/code&gt;&lt;/pre&gt;
 Massicotte, and A. Matsuoka. “Developing a New Machine-Learning
 Algorithm for Estimating Chlorophyll-a Concentration in Optically
 Complex Waters: A Case Study for High Northern Latitude Waters by
-Using Sentinel 3 OLCI”. In: &lt;em&gt;Remote Sens. 2019, Vol. 11, Page
+Using Sentinel 3 OLCI”. In: &lt;em&gt;Remote Sensing 2019, Vol. 11, Page
 2076&lt;/em&gt; 11.18 (Sep. 2019), p. 2076. DOI:
 &lt;a href=&#34;https://doi.org/10.3390%2FRS11182076&#34;&gt;10.3390/RS11182076&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=bib-Grondin2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Grondin2019&#34;&gt;[2]&lt;/a&gt; P. Grondin,
 J. Ferland, P. Massicotte, V. Galindo, J. Ras, H. Claustre, N.
 Garcia, P. Raimbault, P. Coupel, J. Tremblay, M. Forget, L.
-Karp-Boss, and M. Babin. “Protists‌ ‌succession‌ ‌from‌ ‌ice‌ ‌algae‌ ‌to‌
-‌under-ice‌ ‌phytoplankton‌ spring‌ ‌blooms‌ ‌in‌ ‌Baffin‌ ‌Bay‌”. in prep
+Karp-Boss, and M. Babin. “Protistsâ€Œ â€Œsuccessionâ€Œ â€Œfromâ€Œ
+â€Œiceâ€Œ â€Œalgaeâ€Œ â€Œtoâ€Œ â€Œunder-iceâ€Œ â€Œphytoplanktonâ€Œ
+springâ€Œ â€Œbloomsâ€Œ â€Œinâ€Œ â€ŒBaffinâ€Œ â€ŒBayâ€Œ”. in prep
 (2019).&lt;/p&gt;
 &lt;p&gt;&lt;a name=bib-Li2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Li2019&#34;&gt;[3]&lt;/a&gt; Y. Li, G. Song, P.
 Massicotte, F. Yang, R. Li, and H. Xie. “Distribution,
 seasonality, and fluxes of dissolved organic matter in the Pearl
-River (Zhujiang) estuary, China”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 16.13 (
-Jul. 2019), pp. 2751-2770. ISSN: 1726-4189. DOI:
+River (Zhujiang) estuary, China”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 16.13 (Jul.
+2019), pp. 2751-2770. ISSN: 1726-4189. DOI:
 &lt;a href=&#34;https://doi.org/10.5194%2Fbg-16-2751-2019&#34;&gt;10.5194/bg-16-2751-2019&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte201b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte201b&#34;&gt;[4]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2019b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2019b&#34;&gt;[4]&lt;/a&gt; P.
 Massicotte, R. Amiraux, M. Amyot, P. Archambault, M. Ardyna, L.
 Arnaud, L. Artigue, C. Aubry, P. Ayotte, G. Bécu, S. Bélanger, R.
-Benner, H. C. Bittig, A. Bricaud, É. Brossier, F. Bruyant, L.
+Benner, H. C. Bittig, A. Bricaud, Ã. Brossier, F. Bruyant, L.
 Chauvaud, D. Christiansen-Stowe, H. Claustre, V. Cornet-Barthaux,
 P. Coupel, C. Cox, A. Delaforge, T. Dezutter, C. Dimier, F.
 Dominé, F. Dufour, C. Dufresne, D. Dumont, J. Ehn, B. Else, J.
@@ -2747,10 +2655,18 @@ Massicotte, I. Peeken, C. Katlein, H. Flores, Y. Huot, G.
 Castellani, S. Arndt, B. A. Lange, J. Tremblay, and M. Babin.
 “Sensitivity of Phytoplankton Primary Production Estimates to
 Available Irradiance Under Heterogeneous Sea Ice Conditions”. In:
-&lt;em&gt;J. Geophys. Res. Ocean.&lt;/em&gt; (Aug. 2019), p. 2019JC015007. ISSN:
-2169-9275. DOI:
+&lt;em&gt;Journal of Geophysical Research: Oceans&lt;/em&gt; (Aug. 2019), p.
+2019JC015007. ISSN: 2169-9275. DOI:
 &lt;a href=&#34;https://doi.org/10.1029%2F2019JC015007&#34;&gt;10.1029/2019JC015007&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Oziel2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Oziel2019&#34;&gt;[6]&lt;/a&gt; L. Oziel, P.
+&lt;p&gt;&lt;a name=bib-Morin2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Morin2019&#34;&gt;[6]&lt;/a&gt; P. Morin, T.
+Lacour, P. Grondin, F. Bruyant, J. Ferland, M. Forget, P.
+Massicotte, N. Donaher, D. A. Campbell, J. Lavaud, and M. Babin.
+“Response of the seaâ€ice diatom Fragilariopsis cylindrus to
+simulated polar night darkness and return to light”. In:
+&lt;em&gt;Limnology and Oceanography&lt;/em&gt; (Nov. 2019), p. lno.11368. ISSN:
+0024-3590. DOI:
+&lt;a href=&#34;https://doi.org/10.1002%2Flno.11368&#34;&gt;10.1002/lno.11368&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Oziel2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Oziel2019&#34;&gt;[7]&lt;/a&gt; L. Oziel, P.
 Massicotte, A. Randelhoff, J. Ferland, A. Vladoiu, L. Lacour, V.
 Galindo, S. Lambert-Girard, D. Dumont, Y. Cuypers, P.
 Bouruet-Aubertot, C. Mundy, J. Ehn, G. Bécu, C. Marec, M. Forget,
@@ -2759,210 +2675,214 @@ N. Garcia, P. Coupel, P. Raimbault, M. Houssais, and M. Babin.
 algal blooms in and beneath sea ice in western Baffin Bay”. In:
 &lt;em&gt;Elem Sci Anth&lt;/em&gt; 7.1 (Aug. 2019), p. 34. ISSN: 2325-1026. DOI:
 &lt;a href=&#34;https://doi.org/10.1525%2Felementa.372&#34;&gt;10.1525/elementa.372&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Randelhoff2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Randelhoff2019&#34;&gt;[7]&lt;/a&gt; A.
+&lt;p&gt;&lt;a name=bib-Randelhoff2019&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Randelhoff2019&#34;&gt;[8]&lt;/a&gt; A.
 Randelhoff, L. Oziel, P. Massicotte, G. Bécu, M. Gal&#39;i, L.
 Lacour, D. Dumont, A. Vladoiu, C. Marec, F. Bruyant, M. Houssais,
 J. Tremblay, G. Deslongchamps, and M. Babin. “The evolution of
 light and vertical mixing across a phytoplankton ice-edge bloom”.
 In: &lt;em&gt;Elem Sci Anth&lt;/em&gt; 7.1 (May. 2019), p. 20. ISSN: 2325-1026. DOI:
 &lt;a href=&#34;https://doi.org/10.1525%2Felementa.357&#34;&gt;10.1525/elementa.357&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Asmala2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018&#34;&gt;[8]&lt;/a&gt; E. Asmala, L.
+&lt;p&gt;&lt;a name=bib-Asmala2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018&#34;&gt;[9]&lt;/a&gt; E. Asmala, L.
 Haraguchi, H. H. Jakobsen, P. Massicotte, and J. Carstensen.
 “Nutrient availability as major driver of phytoplankton-derived
 dissolved organic matter transformation in coastal environment”.
 In: &lt;em&gt;Biogeochemistry&lt;/em&gt; 137.1-2 (Jan. 2018), pp. 93-104. ISSN:
 0168-2563. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2Fs10533-017-0403-0&#34;&gt;10.1007/s10533-017-0403-0&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Asmala2018a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018a&#34;&gt;[9]&lt;/a&gt; E. Asmala, L.
-Haraguchi, S. Markager, P. Massicotte, B. Riemann, P. A. Staehr,
-and J. Carstensen. “Eutrophication Leads to Accumulation of
-Recalcitrant Autochthonous Organic Matter in Coastal Environment”.
-In: &lt;em&gt;Global Biogeochem. Cycles&lt;/em&gt; (Nov. 2018), pp. 1-15. ISSN:
-08866236. DOI:
+&lt;p&gt;&lt;a name=bib-Asmala2018a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Asmala2018a&#34;&gt;[10]&lt;/a&gt; E. Asmala,
+L. Haraguchi, S. Markager, P. Massicotte, B. Riemann, P. A.
+Staehr, and J. Carstensen. “Eutrophication Leads to Accumulation
+of Recalcitrant Autochthonous Organic Matter in Coastal
+Environment”. In: &lt;em&gt;Global Biogeochemical Cycles&lt;/em&gt; (Nov. 2018), pp.
+1-15. ISSN: 08866236. DOI:
 &lt;a href=&#34;https://doi.org/10.1029%2F2017GB005848&#34;&gt;10.1029/2017GB005848&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Brandao2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Brandao2018&#34;&gt;[10]&lt;/a&gt; L. P. M.
+&lt;p&gt;&lt;a name=bib-Brandao2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Brandao2018&#34;&gt;[11]&lt;/a&gt; L. P. M.
 Brandão, L. S. Brighenti, P. A. Staehr, E. Asmala, P. Massicotte,
 D. Tonetta, F. A. R. Barbosa, D. Pujoni, and J. F. Bezerra-Neto.
 “Distinctive effects of allochthonous and autochthonous organic
 matter on CDOM spectra in a tropical lake”. In: &lt;em&gt;Biogeosciences&lt;/em&gt;
 15.9 (May. 2018), pp. 2931-2943. ISSN: 1726-4189. DOI:
 &lt;a href=&#34;https://doi.org/10.5194%2Fbg-15-2931-2018&#34;&gt;10.5194/bg-15-2931-2018&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Kristensen2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Kristensen2018&#34;&gt;[11]&lt;/a&gt; E.
+&lt;p&gt;&lt;a name=bib-Kristensen2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Kristensen2018&#34;&gt;[12]&lt;/a&gt; E.
 Kristensen, M. Madsen-Østerbye, P. Massicotte, O. Pedersen, S.
 Markager, and T. Kragh. “Catchment tracers reveal discharge,
 recharge and sources of groundwater-borne pollutants in a novel
 lake modelling approach”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 15.4 (Feb. 2018),
 pp. 1203-1216. ISSN: 1726-4189. DOI:
 &lt;a href=&#34;https://doi.org/10.5194%2Fbg-15-1203-2018&#34;&gt;10.5194/bg-15-1203-2018&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2018&#34;&gt;[12]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2018&#34;&gt;[13]&lt;/a&gt; P.
 Massicotte, G. Bécu, S. Lambert-Girard, E. Leymarie, and M. Babin.
 “Estimating Underwater Light Regime under Spatially Heterogeneous
-Sea Ice in the Arctic”. In: &lt;em&gt;Appl. Sci.&lt;/em&gt; 8.12 (Dec. 2018),
+Sea Ice in the Arctic”. In: &lt;em&gt;Applied Sciences&lt;/em&gt; 8.12 (Dec. 2018),
 p. 2693. ISSN: 2076-3417. DOI:
 &lt;a href=&#34;https://doi.org/10.3390%2Fapp8122693&#34;&gt;10.3390/app8122693&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Qi2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Qi2018&#34;&gt;[13]&lt;/a&gt; L. Qi, H. Xie, J.
+&lt;p&gt;&lt;a name=bib-Qi2018&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Qi2018&#34;&gt;[14]&lt;/a&gt; L. Qi, H. Xie, J.
 Gagné, G. Chaillou, P. Massicotte, and G. Yang. “Photoreactivities
 of two distinct dissolved organic matter pools in groundwater of a
-subarctic island”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 202.March (May. 2018),
+subarctic island”. In: &lt;em&gt;Marine Chemistry&lt;/em&gt; 202.March (May. 2018),
 pp. 97-120. ISSN: 03044203. DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2018.03.003&#34;&gt;10.1016/j.marchem.2018.03.003&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2017JSS&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017JSS&#34;&gt;[14]&lt;/a&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2017JSS&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017JSS&#34;&gt;[15]&lt;/a&gt;
 P. Massicotte. “Excitation-emission fluorescence matrix
-manipulation made easy: An introduction to eemR”. In: &lt;em&gt;J. Stat.
-Softw.&lt;/em&gt; (2017).&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2017&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017&#34;&gt;[15]&lt;/a&gt; P.
+manipulation made easy: An introduction to eemR”. In: &lt;em&gt;Journal of
+Statistical Software&lt;/em&gt; (2017).&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2017&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017&#34;&gt;[16]&lt;/a&gt; P.
 Massicotte, E. Asmala, C. Stedmon, and S. Markager. “Global
 distribution of dissolved organic matter along the aquatic
-continuum: Across rivers, lakes and oceans”. In: &lt;em&gt;Sci. Total
-Environ.&lt;/em&gt; 609.C (Dec. 2017), pp. 180-191. ISSN: 00489697. DOI:
+continuum: Across rivers, lakes and oceans”. In: &lt;em&gt;Science of The
+Total Environment&lt;/em&gt; 609.C (Dec. 2017), pp. 180-191. ISSN: 00489697.
+DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.scitotenv.2017.07.076&#34;&gt;10.1016/j.scitotenv.2017.07.076&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2017a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017a&#34;&gt;[16]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2017a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2017a&#34;&gt;[17]&lt;/a&gt; P.
 Massicotte, C. Stedmon, and S. Markager. “Spectral signature of
 suspended fine particulate material on light absorption properties
-of CDOM”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 196 (Aug. 2017). ISSN: 03044203. DOI:
+of CDOM”. In: &lt;em&gt;Marine Chemistry&lt;/em&gt; 196 (Aug. 2017). ISSN: 03044203.
+DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2017.07.005&#34;&gt;10.1016/j.marchem.2017.07.005&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Assani2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Assani2016&#34;&gt;[17]&lt;/a&gt; A. A. Assani,
+&lt;p&gt;&lt;a name=bib-Assani2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Assani2016&#34;&gt;[18]&lt;/a&gt; A. A. Assani,
 R. Landry, O. Azouaoui, P. Massicotte, and D. Gratton. “Comparison
 of the Characteristics (Frequency and Timing) of Drought and
 Wetness Indices of Annual Mean Water Levels in the Five North
-American Great Lakes”. In: &lt;em&gt;Water Resour. Manag.&lt;/em&gt; 30.1 (
-Jan. 2016), pp. 359-373. ISSN: 0920-4741. DOI:
+American Great Lakes”. In: &lt;em&gt;Water Resources Management&lt;/em&gt; 30.1 (Jan.
+2016), pp. 359-373. ISSN: 0920-4741. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2Fs11269-015-1166-9&#34;&gt;10.1007/s11269-015-1166-9&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Lambert2016b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016b&#34;&gt;[18]&lt;/a&gt; T.
+&lt;p&gt;&lt;a name=bib-Lambert2016b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016b&#34;&gt;[19]&lt;/a&gt; T.
 Lambert, S. Bouillon, F. Darchambeau, P. Massicotte, and A. V.
 Borges. “Environmental drivers on dissolved organic matter
 degradation in the Congo River Basin across a gradient of streams
 and rivers”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; (2016).&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Lambert2016a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016a&#34;&gt;[19]&lt;/a&gt; T.
+&lt;p&gt;&lt;a name=bib-Lambert2016a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016a&#34;&gt;[20]&lt;/a&gt; T.
 Lambert, S. Bouillon, F. Darchambeau, P. Massicotte, and A. V.
 Borges. “Shift in the chemical composition of dissolved organic
-matter in the Congo River network”. In: &lt;em&gt;Biogeosciences Discuss.&lt;/em&gt;
-(Jun. 2016), pp. 1-49. ISSN: 1810-6285. DOI:
+matter in the Congo River network”. In: &lt;em&gt;Biogeosciences
+Discussions&lt;/em&gt; (Jun. 2016), pp. 1-49. ISSN: 1810-6285. DOI:
 &lt;a href=&#34;https://doi.org/10.5194%2Fbg-2016-240&#34;&gt;10.5194/bg-2016-240&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Lambert2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016&#34;&gt;[20]&lt;/a&gt; T. Lambert,
+&lt;p&gt;&lt;a name=bib-Lambert2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2016&#34;&gt;[21]&lt;/a&gt; T. Lambert,
 C. R. C. Teodoru, F. F. C. Nyoni, S. Bouillon, F. Darchambeau, P.
 Massicotte, and A. V. A. Borges. “Along-stream transport and
 transformation of dissolved organic matter in a large tropical
 river”. In: &lt;em&gt;Biogeosciences&lt;/em&gt; 13.9 (May. 2016), pp. 2727-2741.
 ISSN: 1726-4189. DOI:
 &lt;a href=&#34;https://doi.org/10.5194%2Fbg-13-2727-2016&#34;&gt;10.5194/bg-13-2727-2016&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016&#34;&gt;[21]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2016&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016&#34;&gt;[22]&lt;/a&gt; P.
 Massicotte. &lt;em&gt;eemR: eemR 0.1.4&lt;/em&gt;. Aug. 2016. DOI:
 &lt;a href=&#34;https://doi.org/10.5281%2Fzenodo.61080&#34;&gt;10.5281/zenodo.61080&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-MassicotteCDOM&gt;&lt;/a&gt;&lt;a href=&#34;#cite-MassicotteCDOM&#34;&gt;[22]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-MassicotteCDOM&gt;&lt;/a&gt;&lt;a href=&#34;#cite-MassicotteCDOM&#34;&gt;[23]&lt;/a&gt; P.
 Massicotte. &lt;em&gt;Package cdom: R Functions to Model CDOM Spectra&lt;/em&gt;.
 2016.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2016MC&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016MC&#34;&gt;[23]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2016MC&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2016MC&#34;&gt;[24]&lt;/a&gt; P.
 Massicotte and S. Markager. “Using a Gaussian decomposition
 approach to model absorption spectra of chromophoric dissolved
-organic matter”. In: &lt;em&gt;Mar. Chem.&lt;/em&gt; 180 (Mar. 2016), pp. 24-32.
-ISSN: 03044203. DOI:
+organic matter”. In: &lt;em&gt;Marine Chemistry&lt;/em&gt; 180 (Mar. 2016), pp.
+24-32. ISSN: 03044203. DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.marchem.2016.01.008&#34;&gt;10.1016/j.marchem.2016.01.008&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Beauchamp2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Beauchamp2015&#34;&gt;[24]&lt;/a&gt; M.
+&lt;p&gt;&lt;a name=bib-Beauchamp2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Beauchamp2015&#34;&gt;[25]&lt;/a&gt; M.
 Beauchamp, A. A. Assani, R. Landry, and P. Massicotte. “Temporal
 variability of the magnitude and timing of winter maximum daily
-flows in southern Quebec (Canada)”. In: &lt;em&gt;J. Hydrol.&lt;/em&gt; 529 (
-Oct. 2015), pp. 410-417. ISSN: 00221694. DOI:
+flows in southern Quebec (Canada)”. In: &lt;em&gt;Journal of Hydrology&lt;/em&gt; 529
+(Oct. 2015), pp. 410-417. ISSN: 00221694. DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.jhydrol.2015.07.053&#34;&gt;10.1016/j.jhydrol.2015.07.053&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Bombenger2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Bombenger2015&#34;&gt;[25]&lt;/a&gt; P.
-Bombenger and P. Massicotte. “Mathématiques &amp;amp; Géographie –
+&lt;p&gt;&lt;a name=bib-Bombenger2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Bombenger2015&#34;&gt;[26]&lt;/a&gt; P.
+Bombenger and P. Massicotte. “Mathématiques &amp;amp; Géographie â€“
 Déchiffrer ou des chiffres et la Terre : Apports des concepts
 mathématiques à la géographie”. In: &lt;em&gt;Pourquoi les mathématiques?&lt;/em&gt;
 Ed. by Guillaume Tomasini. Ellipses markeing, 2015, p. 288. ISBN:
 9782340005488.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Lambert2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2015a&#34;&gt;[26]&lt;/a&gt; T.
+&lt;p&gt;&lt;a name=bib-Lambert2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Lambert2015a&#34;&gt;[27]&lt;/a&gt; T.
 Lambert, F. Darchambeau, S. Bouillon, B. Alhou, J. J. Mbega, C. R.
 C. Teodoru, F. F. C. Nyoni, P. Massicotte, and A. V. A. Borges.
 “Landscape Control on the Spatial and Temporal Variability of
 Chromophoric Dissolved Organic Matter and Dissolved Organic Carbon
-in Large African Rivers”. In: &lt;em&gt;Ecosystems&lt;/em&gt; 18.7 (Nov. 2015),
-pp. 1224-1239. ISSN: 1432-9840. DOI:
+in Large African Rivers”. In: &lt;em&gt;Ecosystems&lt;/em&gt; 18.7 (Nov. 2015), pp.
+1224-1239. ISSN: 1432-9840. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2Fs10021-015-9894-5&#34;&gt;10.1007/s10021-015-9894-5&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015a&#34;&gt;[27]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2015a&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015a&#34;&gt;[28]&lt;/a&gt; P.
 Massicotte, A. Bertolo, P. Brodeur, C. Hudon, M. Mingelbier, and
 P. Magnan. “Influence of the aquatic vegetation landscape on
-larval fish abundance”. In: &lt;em&gt;J. Great Lakes Res.&lt;/em&gt; 41.3 (
-Sep. 2015), pp. 873-880. ISSN: 03801330. DOI:
+larval fish abundance”. In: &lt;em&gt;Journal of Great Lakes Research&lt;/em&gt; 41.3
+(Sep. 2015), pp. 873-880. ISSN: 03801330. DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.jglr.2015.05.010&#34;&gt;10.1016/j.jglr.2015.05.010&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015&#34;&gt;[28]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2015&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2015&#34;&gt;[29]&lt;/a&gt; P.
 Massicotte, R. Proulx, G. Cabana, and M. A. Rodr&#39;iguez. “Testing
 the influence of environmental heterogeneity on fish species
-richness in two biogeographic provinces”. In: &lt;em&gt;PeerJ&lt;/em&gt; 3 (
-Feb. 2015), p. e760. ISSN: 2167-8359. DOI:
+richness in two biogeographic provinces”. In: &lt;em&gt;PeerJ&lt;/em&gt; 3 (Feb.
+2015), p. e760. ISSN: 2167-8359. DOI:
 &lt;a href=&#34;https://doi.org/10.7717%2Fpeerj.760&#34;&gt;10.7717/peerj.760&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Biron2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Biron2014&#34;&gt;[29]&lt;/a&gt; S. Biron, A. A.
+&lt;p&gt;&lt;a name=bib-Biron2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Biron2014&#34;&gt;[30]&lt;/a&gt; S. Biron, A. A.
 Assani, J. Frenette, and P. Massicotte. “Comparison of Lake
 Ontario and St. Lawrence River hydrologic droughts and their
-relationship to climate indices”. In: &lt;em&gt;Water Resour. Res.&lt;/em&gt; 50.2
-(Feb. 2014), pp. 1396-1409. ISSN: 00431397. DOI:
+relationship to climate indices”. In: &lt;em&gt;Water Resources Research&lt;/em&gt;
+50.2 (Feb. 2014), pp. 1396-1409. ISSN: 00431397. DOI:
 &lt;a href=&#34;https://doi.org/10.1002%2F2012WR013441&#34;&gt;10.1002/2012WR013441&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2014&#34;&gt;[30]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2014&#34;&gt;[31]&lt;/a&gt; P.
 Massicotte, J. Frenette, R. Proulx, B. Pinel-Alloul, and A.
 Bertolo. “Riverscape heterogeneity explains spatial variation in
 zooplankton functional evenness and biomass in a large river
-ecosystem”. In: &lt;em&gt;Landsc. Ecol.&lt;/em&gt; 29.1 (Jan. 2014), pp. 67-79. ISSN:
-0921-2973. DOI:
+ecosystem”. In: &lt;em&gt;Landscape Ecology&lt;/em&gt; 29.1 (Jan. 2014), pp. 67-79.
+ISSN: 0921-2973. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2Fs10980-013-9946-1&#34;&gt;10.1007/s10980-013-9946-1&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Proulx2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Proulx2014&#34;&gt;[31]&lt;/a&gt; R. Proulx, P.
+&lt;p&gt;&lt;a name=bib-Proulx2014&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Proulx2014&#34;&gt;[32]&lt;/a&gt; R. Proulx, P.
 Massicotte, and M. Pépino. “Googling Trends in Conservation
-Biology”. In: &lt;em&gt;Conserv. Biol.&lt;/em&gt; 28.1 (Feb. 2014), pp. 44-51. ISSN:
-08888892. DOI:
+Biology”. In: &lt;em&gt;Conservation Biology&lt;/em&gt; 28.1 (Feb. 2014), pp. 44-51.
+ISSN: 08888892. DOI:
 &lt;a href=&#34;https://doi.org/10.1111%2Fcobi.12131&#34;&gt;10.1111/cobi.12131&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2013b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013b&#34;&gt;[32]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2013b&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013b&#34;&gt;[33]&lt;/a&gt; P.
 Massicotte, A. A. Assani, D. Gratton, and J. J. Frenette.
 “Relationship between water color, water levels, and climate
 indices in large rivers: Case of the St. Lawrence River (Canada)”.
-In: &lt;em&gt;Water Resour. Res.&lt;/em&gt; 49.4 (Apr. 2013), pp. 2303-2307. ISSN:
-00431397. DOI:
+In: &lt;em&gt;Water Resources Research&lt;/em&gt; 49.4 (Apr. 2013), pp. 2303-2307.
+ISSN: 00431397. DOI:
 &lt;a href=&#34;https://doi.org/10.1002%2Fwrcr.20203&#34;&gt;10.1002/wrcr.20203&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a
-name=bib-Massicotte2013LOFE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013LOFE&#34;&gt;[33]&lt;/a&gt;
+name=bib-Massicotte2013LOFE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013LOFE&#34;&gt;[34]&lt;/a&gt;
 P. Massicotte and J. Frenette. “A mechanistic-based framework to
 understand how dissolved organic carbon is processed in a large
-fluvial lake”. In: &lt;em&gt;Limnol. Oceanogr. Fluids Environ.&lt;/em&gt; 3.3 (
-Oct. 2013), pp. 139-155. ISSN: 2157-3689. DOI:
+fluvial lake”. In: &lt;em&gt;Limnology &amp;amp; Oceanography: Fluids &amp;amp;
+Environments&lt;/em&gt; 3.3 (Oct. 2013), pp. 139-155. ISSN: 2157-3689. DOI:
 &lt;a href=&#34;https://doi.org/10.1215%2F21573689-2372976&#34;&gt;10.1215/21573689-2372976&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2013RSE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013RSE&#34;&gt;[34]&lt;/a&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2013RSE&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2013RSE&#34;&gt;[35]&lt;/a&gt;
 P. Massicotte, D. Gratton, J. Frenette, and A. A. Assani. “Spatial
 and temporal evolution of the St. Lawrence River spectral profile:
 A 25-year case study using Landsat 5 and 7 imagery”. In: &lt;em&gt;Remote
-Sens. Environ.&lt;/em&gt; 136 (Sep. 2013), pp. 433-441. ISSN: 00344257. DOI:
+Sensing of Environment&lt;/em&gt; 136 (Sep. 2013), pp. 433-441. ISSN:
+00344257. DOI:
 &lt;a href=&#34;https://doi.org/10.1016%2Fj.rse.2013.05.028&#34;&gt;10.1016/j.rse.2013.05.028&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Frenette2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Frenette2012&#34;&gt;[35]&lt;/a&gt; J.
+&lt;p&gt;&lt;a name=bib-Frenette2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Frenette2012&#34;&gt;[36]&lt;/a&gt; J.
 Frenette, P. Massicotte, and J. Lapierre. “Colorful Niches of
 Phytoplankton Shaped by the Spatial Connectivity in a Large River
-Ecosystem: A Riverscape Perspective”. In: &lt;em&gt;PLoS One&lt;/em&gt; 7.4 (
-Apr. 2012), p. e35891. ISSN: 1932-6203. DOI:
+Ecosystem: A Riverscape Perspective”. In: &lt;em&gt;PLoS ONE&lt;/em&gt; 7.4 (Apr.
+2012), p. e35891. ISSN: 1932-6203. DOI:
 &lt;a href=&#34;https://doi.org/10.1371%2Fjournal.pone.0035891&#34;&gt;10.1371/journal.pone.0035891&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Pommier2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Pommier2012&#34;&gt;[36]&lt;/a&gt; J. Pommier,
+&lt;p&gt;&lt;a name=bib-Pommier2012&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Pommier2012&#34;&gt;[37]&lt;/a&gt; J. Pommier,
 J. J. Frenette, P. Massicotte, J. J. Lapierre, and H. Glémet.
 “Seston fatty acid composition and copepod RNA:DNA ratio with
 respect to the underwater light climate in fluvial Lac
-Saint-Pierre”. In: &lt;em&gt;Aquat. Sci.&lt;/em&gt; 74.3 (Feb. 2012), pp. 539-553.
-ISSN: 1015-1621. DOI:
+Saint-Pierre”. In: &lt;em&gt;Aquatic Sciences&lt;/em&gt; 74.3 (Feb. 2012), pp.
+539-553. ISSN: 1015-1621. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2Fs00027-011-0246-z&#34;&gt;10.1007/s00027-011-0246-z&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2011EA&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2011EA&#34;&gt;[37]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2011EA&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2011EA&#34;&gt;[38]&lt;/a&gt; P.
 Massicotte and J. J. Frenette. “Spatial connectivity in a large
 river system: resolving the sources and fate of dissolved organic
-matter”. In: &lt;em&gt;Ecol. Appl.&lt;/em&gt; 21.7 (Oct. 2011), pp. 2600-2617. ISSN:
-1051-0761. DOI:
+matter”. In: &lt;em&gt;Ecological Applications&lt;/em&gt; 21.7 (Oct. 2011), pp.
+2600-2617. ISSN: 1051-0761. DOI:
 &lt;a href=&#34;https://doi.org/10.1890%2F10-1475.1&#34;&gt;10.1890/10-1475.1&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2007&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2007&#34;&gt;[38]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2007&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2007&#34;&gt;[39]&lt;/a&gt; P.
 Massicotte, L. Badri, and M. Badri. “Towards a tool supporting
-integration testing of aspect-oriented programs”. In: &lt;em&gt;J. Object
-Technol.&lt;/em&gt; 6.1 (2007), pp. 67-89. ISSN: 16601769.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2006&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2006&#34;&gt;[39]&lt;/a&gt; P.
+integration testing of aspect-oriented programs”. In: &lt;em&gt;Journal of
+Object Technology&lt;/em&gt; 6.1 (2007), pp. 67-89. ISSN: 16601769.&lt;/p&gt;
+&lt;p&gt;&lt;a name=bib-Massicotte2006&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2006&#34;&gt;[40]&lt;/a&gt; P.
 Massicotte, L. Badri, and M. Badri. &lt;em&gt;Rapid Integration of Software
 Engineering Techniques&lt;/em&gt;. Ed. by N. Guelfi and A. Savidis. Vol.
 3943. Lecture Notes in Computer Science. Berlin, Heidelberg:
 Springer Berlin Heidelberg, 2006, pp. 158-173. ISBN:
 978-3-540-34063-8. DOI:
 &lt;a href=&#34;https://doi.org/10.1007%2F11751113&#34;&gt;10.1007/11751113&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a name=bib-Massicotte2005&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2005&#34;&gt;[40]&lt;/a&gt; P.
+&lt;p&gt;&lt;a name=bib-Massicotte2005&gt;&lt;/a&gt;&lt;a href=&#34;#cite-Massicotte2005&#34;&gt;[41]&lt;/a&gt; P.
 Massicotte, M. Badri, and L. Badri. “Generating aspects-classes
 integration testing sequences a collaboration diagram based
-strategy”. In: &lt;em&gt;Third ACIS Int’l Conf. Softw. Eng. Res. Manag.
-Appl.&lt;/em&gt; IEEE, 2005, pp. 30-37. ISBN: 0-7695-2297-1. DOI:
+strategy”. In: &lt;em&gt;Third ACIS Int’l Conference on Software
+Engineering Research, Management and Applications (SERA’05)&lt;/em&gt;.
+IEEE, 2005, pp. 30-37. ISBN: 0-7695-2297-1. DOI:
 &lt;a href=&#34;https://doi.org/10.1109%2FSERA.2005.43&#34;&gt;10.1109/SERA.2005.43&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
@@ -2999,15 +2919,15 @@ c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %ni% letters[1:5]&lt;/code&gt;&l
 &lt;p&gt;Sometimes when you open a data file (lets say a &lt;em&gt;.csv&lt;/em&gt;), variables will be recognized as &lt;em&gt;factor&lt;/em&gt; whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using &lt;em&gt;as.numeric()&lt;/em&gt;. Big mistake! If you use directly &lt;em&gt;as.numeric()&lt;/em&gt; on a variable of the type &lt;em&gt;factor&lt;/em&gt;, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with &lt;em&gt;as.character()&lt;/em&gt; and thereafter use &lt;em&gt;as.numeric()&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- as.factor(rnorm(5))
 x&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] -0.0186373994296747 -0.0394288364782536 -1.85275012832154  
-## [4] -0.0308565145700825 0.487671099167415  
-## 5 Levels: -1.85275012832154 -0.0394288364782536 ... 0.487671099167415&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.931673916264227  0.396695833985957  -0.190283632230598
+## [4] 0.383913253377772  -1.66098470693377 
+## 5 Levels: -1.66098470693377 -0.190283632230598 ... 0.931673916264227&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Wrong way
 as.numeric(x)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 4 2 1 3 5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 4 2 3 1&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Right way
 as.numeric(as.character(x))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] -0.01863740 -0.03942884 -1.85275013 -0.03085651  0.48767110&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  0.9316739  0.3966958 -0.1902836  0.3839133 -1.6609847&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another way to prevent numeric to be converted into factor would be to use &lt;em&gt;as.is = T&lt;/em&gt; when opening the data file with &lt;em&gt;read.csv&lt;/em&gt;.&lt;/p&gt;
 &lt;div id=&#34;remove-all-objects-in-the-workspace&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Remove all objects in the workspace**&lt;/h2&gt;
@@ -3025,8 +2945,8 @@ df[sample(100, 50)] &amp;lt;- 0
 df &amp;lt;- data.frame(df)
 
 print(xtable(df), type = &amp;quot;html&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:19 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:44 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -3067,22 +2987,13 @@ X10
 1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.52
+0.36
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-2.23
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.13
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.46
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.57
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.50
+1.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3091,10 +3002,19 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.45
+-1.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
+-1.96
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3102,51 +3022,13 @@ X10
 2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-0.46
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.94
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.22
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.90
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.96
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.34
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-3
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.24
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.46
+-0.52
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3155,30 +3037,13 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+0.83
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.72
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-4
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.53
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.70
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.05
+0.99
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.71
@@ -3186,14 +3051,34 @@ X10
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.16
+3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.40
+0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.97
+1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.70
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3204,31 +3089,66 @@ X10
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.72
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.61
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.72
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.59
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
 5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.34
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.32
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.91
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.77
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.33
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.42
+-1.60
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.13
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3242,34 +3162,34 @@ X10
 6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.17
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.22
+-0.18
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.30
+-0.59
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.56
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.37
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3277,7 +3197,19 @@ X10
 7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.32
+0.84
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.23
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.49
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3286,25 +3218,13 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.10
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.92
+-0.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.93
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.27
+0.92
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3315,28 +3235,28 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.26
+-0.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.84
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.90
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.38
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 -0.56
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.98
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.68
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.48
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.66
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3347,7 +3267,7 @@ X10
 9
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-0.27
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3359,13 +3279,13 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-1.63
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+-0.24
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3382,10 +3302,16 @@ X10
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.51
+0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.10
+-1.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.00
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.36
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
@@ -3394,22 +3320,16 @@ X10
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
+1.45
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.25
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
+0.97
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.00
+0.48
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -3417,8 +3337,8 @@ X10
 df[df == 0] &amp;lt;- NA
 
 print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:19 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:44 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -3459,22 +3379,13 @@ X10
 1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.52
+0.36
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-2.23
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.13
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.46
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.57
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.50
+1.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3483,10 +3394,19 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.45
+-1.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
+-1.96
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3494,51 +3414,13 @@ NA
 2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.46
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.94
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.22
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.90
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.96
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.34
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-3
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.24
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.46
+-0.52
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3547,30 +3429,13 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+0.83
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.37
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.72
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-4
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.53
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.70
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.05
+0.99
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.71
@@ -3578,14 +3443,34 @@ NA
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.16
+3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.40
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.97
+1.09
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.70
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.09
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3596,31 +3481,66 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.72
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.61
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.72
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.59
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
 5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.34
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.32
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.28
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.91
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.77
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.33
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.42
+-1.60
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.13
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3634,34 +3554,34 @@ NA
 6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.17
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.22
+-0.18
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.30
+-0.59
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.56
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.61
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.37
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3669,7 +3589,19 @@ NA
 7
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.32
+0.84
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.23
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.49
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.00
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3678,25 +3610,13 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.10
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.92
+-0.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-2.93
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.27
+0.92
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3707,28 +3627,28 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.26
+-0.78
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.84
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.90
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.38
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 -0.56
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.98
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.68
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.48
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.66
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3739,7 +3659,7 @@ NA
 9
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.27
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3751,13 +3671,13 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.63
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.24
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3774,10 +3694,16 @@ NA
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.51
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.10
+-1.58
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.36
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3786,22 +3712,16 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+1.45
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.25
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
+0.97
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+0.48
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -3815,8 +3735,8 @@ df[sample(100, 50)] &amp;lt;- NA
 df &amp;lt;- data.frame(df)
 
 print(xtable(df), type = &amp;quot;html&amp;quot;, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:19 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -3857,31 +3777,31 @@ X10
 1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
+1.75
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.43
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.51
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.95
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.22
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.10
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.21
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.60
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.70
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.42
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.07
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -3892,34 +3812,34 @@ NA
 2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.90
+1.19
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.03
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.56
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.35
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.48
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.11
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.01
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.20
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.27
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.40
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.55
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+-0.72
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -3927,89 +3847,16 @@ NA
 3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.63
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.14
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.82
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.43
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.93
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.60
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-4
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.25
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.76
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.69
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-2.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.98
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.20
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.09
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;
-5
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.66
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.02
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+0.80
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4026,40 +3873,113 @@ NA
 &lt;td align=&#34;right&#34;&gt;
 0.16
 &lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.55
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.88
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.16
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.10
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.95
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.78
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.11
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.55
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.14
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;
 6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.51
+0.47
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.23
+-0.93
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.43
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.60
+1.26
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.50
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.39
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.93
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.81
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4070,28 +3990,28 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+1.86
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.93
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.72
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.48
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+0.53
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.00
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.64
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4105,13 +4025,13 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.75
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.25
+-0.85
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.28
+0.33
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4120,16 +4040,16 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.12
+0.17
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.64
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.64
+-0.39
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+0.64
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4140,31 +4060,31 @@ NA
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-2.82
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.77
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.07
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.71
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.27
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.57
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.64
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.10
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.62
+1.32
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--2.56
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
+-0.35
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4172,10 +4092,25 @@ NA
 10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.24
+NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.34
+-0.04
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.49
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.04
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4185,21 +4120,6 @@ NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.67
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.96
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -4210,8 +4130,8 @@ missing &amp;lt;- apply(df, 2, function(x) sum(is.na(x)))/nrow(df)*100
 df2 &amp;lt;- data.frame(variable = names(df), missing = missing)
 
 print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:19 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4226,7 +4146,7 @@ missing
 X1
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+70.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4234,7 +4154,7 @@ X1
 X2
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+40.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4242,7 +4162,7 @@ X2
 X3
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-60.00
+30.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4250,7 +4170,7 @@ X3
 X4
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-30.00
+0.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4258,7 +4178,7 @@ X4
 X5
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-60.00
+50.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4266,7 +4186,7 @@ X5
 X6
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+70.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4282,7 +4202,7 @@ X7
 X8
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-40.00
+50.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4290,7 +4210,7 @@ X8
 X9
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+60.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4298,7 +4218,7 @@ X9
 X10
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-50.00
+60.00
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -4307,21 +4227,14 @@ X10
 &lt;h2&gt;Grouping data frame&lt;/h2&gt;
 &lt;p&gt;Tsshere is various way to merge data frame in R. For me, the most easiest way is to use the join functions from the &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/assets/join_types.svg&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
-## 
-##     filter, lag&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
-## 
-##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df1 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), x = rnorm(10))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
+
+df1 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), x = rnorm(10))
 df2 &amp;lt;- data.frame(ID = sample(LETTERS[1:20],10, replace = FALSE), y = rnorm(10))
 
 print(xtable(df1), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4333,18 +4246,26 @@ x
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-F
+D
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.50
+-0.54
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-I
+K
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.72
+0.42
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+F
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.86
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4352,23 +4273,7 @@ I
 N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.65
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-E
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.14
+0.26
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4376,7 +4281,15 @@ E
 C
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.58
+0.02
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.25
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4384,15 +4297,15 @@ C
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.76
+0.49
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+G
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.95
+-1.06
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4400,21 +4313,21 @@ P
 O
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.06
+0.43
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-D
+S
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
+1.27
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(xtable(df2), type = &amp;quot;html&amp;quot;, include.rownames = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4426,74 +4339,10 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-E
+G
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.49
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-D
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.07
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-K
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.66
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-J
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.42
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-L
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.86
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-I
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.90
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-H
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.80
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.91
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-A
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.89
+0.22
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4501,7 +4350,71 @@ A
 Q
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.50
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+C
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.84
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.10
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+M
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.29
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+J
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-2.50
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+L
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.64
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -4509,14 +4422,15 @@ Q
 &lt;pre&gt;&lt;code&gt;## Warning: Column `ID` joining factors with different levels, coercing to
 ## character vector&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;ID x y
-1 I -1.7223827 1.8982394
-2 R 0.7226435 0.9104416
-3 E 1.1379960 0.4883560
-4 D -0.1872680 -0.0731411&lt;/p&gt;
+1 C 0.01526138 -1.84401207
+2 A 2.24666063 -0.74791456
+3 T 0.48910092 -0.09806111
+4 G -1.06114163 0.21886861
+5 S 1.26731573 -0.72076907&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_exact_match &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;) ## Exact match
 print(xtable(df_exact_match), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4531,53 +4445,64 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-D
+A
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
+2.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.07
+-0.75
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-E
+C
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.14
+0.02
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.84
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 0.49
 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-I
-&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.90
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.91
+-0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_x &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.x = T) ## Keep all x (discard y that are not matched)
 print(xtable(df_all_x), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4592,13 +4517,24 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
 C
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.58
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.84
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4606,29 +4542,7 @@ NA
 D
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.07
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-E
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.14
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.49
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-F
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.50
+-0.54
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4636,13 +4550,35 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-I
+F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.72
+-0.86
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.90
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+K
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.42
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4650,7 +4586,7 @@ I
 N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.65
+0.26
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4661,7 +4597,7 @@ NA
 O
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.06
+0.43
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4669,24 +4605,13 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+S
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.95
+1.27
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.91
+-0.72
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4694,17 +4619,17 @@ R
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.76
+0.49
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all_y &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all.y = T) ## Keep all y (discard x that are not matched)
 print(xtable(df_all_y), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4719,13 +4644,57 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-D
+A
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
+2.25
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.07
+-0.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+C
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.02
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.84
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+S
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+1.27
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+T
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.49
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4733,54 +4702,10 @@ D
 E
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.14
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.49
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-I
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--1.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.90
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.91
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-A
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.89
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-H
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.80
+-0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4791,18 +4716,7 @@ J
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.42
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-K
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.66
+-2.50
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4813,7 +4727,18 @@ L
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.86
+0.64
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+M
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.29
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4824,14 +4749,14 @@ Q
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.50
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_all &amp;lt;- merge(df1,df2, by = &amp;quot;ID&amp;quot;, all = T) ## Keep everything
 print(xtable(df_all), type = &amp;quot;html&amp;quot;, include.rownames = FALSE, NA.string = &amp;quot;NA&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- html table generated in R 3.6.1 by xtable 1.8-2 package --&gt;
-&lt;!-- Fri Nov  1 09:09:20 2019 --&gt;
+&lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+&lt;!-- Thu Nov 21 19:08:45 2019 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -4846,13 +4771,24 @@ y
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+2.25
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
 C
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.58
+0.02
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-1.84
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4860,29 +4796,7 @@ NA
 D
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.19
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.07
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-E
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-1.14
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.49
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-F
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.50
+-0.54
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4890,13 +4804,35 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-I
+F
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.72
+-0.86
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.90
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-1.06
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+K
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+0.42
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4904,7 +4840,7 @@ I
 N
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.65
+0.26
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4915,7 +4851,7 @@ NA
 O
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.06
+0.43
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
@@ -4923,24 +4859,13 @@ NA
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-P
+S
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.95
+1.27
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-R
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.72
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.91
+-0.72
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4948,32 +4873,21 @@ R
 T
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--1.76
+0.49
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-NA
+-0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;
-A
+E
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.89
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-H
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-0.80
+-0.57
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -4984,18 +4898,7 @@ J
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
--0.42
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-K
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
-NA
-&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;
--0.66
+-2.50
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -5006,7 +4909,18 @@ L
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-1.86
+0.64
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+M
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;
+-0.29
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -5017,7 +4931,7 @@ Q
 NA
 &lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;
-0.98
+0.50
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -5063,7 +4977,7 @@ eems &amp;lt;- eem_read(folder, recursive = TRUE, import_function = &amp;quot;ca
 ## Raman area: 9.540904 
 ## Raman area: 9.540904&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(eems, which = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2016-05-02-eemR-0.1.3_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

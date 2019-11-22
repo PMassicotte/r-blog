@@ -6,7 +6,8 @@ output: md_document
 
 ```{r results = "asis", echo = FALSE, warning=FALSE, message=FALSE, results='hide'}
 library(RefManageR)
-file <- "~/Documents/library.bib"
+# file <- "~/Documents/library.bib"
+file <- "c:/Users/pmass.000/Documents/library.bib"
 # BibOptions(check.entries = FALSE)
 bib <- ReadBib(file, check = FALSE)
 BibOptions(

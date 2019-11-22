@@ -15,9 +15,14 @@ draft: true
 
 
 
-<pre class="r"><code>df &lt;-
+<pre class="r"><code>
+url &lt;- &quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&quot;
+tf &lt;- tempfile()
+curl::curl_download(url, tf)
+
+df &lt;-
   readxl::read_excel(
-    &quot;c:/Users/pmass/Downloads/CHERNAIR.xls&quot;,
+    tf,
     na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)
   ) %&gt;%
   janitor::clean_names() %&gt;%

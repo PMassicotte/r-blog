@@ -42,9 +42,14 @@ theme_set(ggpmthemes::theme_poppins())
 ```
 
 ```{r, cache=TRUE}
+
+url <- "https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls"
+tf <- tempfile()
+curl::curl_download(url, tf)
+
 df <-
   readxl::read_excel(
-    "c:/Users/pmass/Downloads/CHERNAIR.xls",
+    tf,
     na = c("<", "", "N", "L")
   ) %>%
   janitor::clean_names() %>%

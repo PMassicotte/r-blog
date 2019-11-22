@@ -5,8 +5,8 @@ layout: post
 output: github_document
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 [eemR](https://cran.r-project.org/web/packages/eemR/index.html) has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:

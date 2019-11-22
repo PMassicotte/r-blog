@@ -5,8 +5,8 @@ layout: post
 output: github_document
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 It is easy to verify if elements are within a list using the `%in%` operator in R. For example:

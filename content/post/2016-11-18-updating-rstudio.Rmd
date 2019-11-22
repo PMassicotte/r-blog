@@ -3,6 +3,10 @@ title: "Installing latest version of RStudio from R"
 layout: post
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
 If you are like me, chances are that you update  [RStudio](https://www.rstudio.org/download/daily/desktop/ubuntu64/) on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
 
 ```{r, eval = FALSE}

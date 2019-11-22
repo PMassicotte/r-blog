@@ -12,10 +12,12 @@ subtitle: 'Math 101'
 ---
 
 ```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+
 library(extrafont)
 library(tidyverse)
 
-## Set default ggplot2 font size and font familly
+## Set default ggplot2 font size and font family
 loadfonts(quiet = TRUE)
 theme_set(theme_bw(base_size = 10, base_family = "IBM Plex Sans"))
 ```

@@ -9,6 +9,8 @@ tags:
 To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the [Government of Canada](http://climat.meteo.gc.ca/climate_data/daily_data_f.html?hlyRange=2005-03-24%7C2019-05-21&dlyRange=1992-12-04%7C2019-05-21&mlyRange=1998-01-01%7C2016-03-01&StationID=26892&Prov=QC&urlExtension=_f.html&searchType=stnName&optLimit=yearRange&StartYear=2018&EndYear=2019&selRowPerPage=25&Line=2&searchMethod=contains&Month=5&Day=21&txtStationName=quebec&timeframe=2&Year=2019) have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
 
 ```{r setup, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+
 library(extrafont)
 library(tidyverse)
 library(glue)

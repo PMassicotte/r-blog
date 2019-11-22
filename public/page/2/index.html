@@ -52,7 +52,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Another R blog" />
 
-  <meta name="generator" content="Hugo 0.55.2" />
+  <meta name="generator" content="Hugo 0.55.6" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -248,7 +248,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;368&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;374&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -260,7 +260,7 @@
               <div class="post-entry">
                 
                   To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
-library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font size and font familly loadfonts(quiet = TRUE) theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;)) The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font size and font famillyloadfonts(quiet = TRUE)theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;))The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
                   <a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -290,7 +290,7 @@ library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font 
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;590&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;589&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -302,8 +302,8 @@ library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font 
               <div class="post-entry">
                 
                   In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
-Basic idea gitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
- gi_available_templates(): to get a list of all templates available on gitignore.io. gi_fetch_templates(): to get one or more template(s).
+Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
+gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).
                   <a href="/post/2019-05-08-introducing-gitignore/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -312,53 +312,6 @@ Basic idea gitignore is a simple R package that provide an interface to query gi
                 <div class="blog-tags">
                   
                     <a href="//tags/r/">R</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/gender-asm2018/">
-                <h2 class="post-title">Analysis of speaker genders at the 2018 ArcticNet Annual Scientific Meeting</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on December 15, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;557&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  Last week I was participating to the ArcticNet Annual Scientific Meeting 2018 in Ottawa. I was pleasantly surprised to see that there was a large proportion of women present at the conference. After the panel discussion on women in northern science which took place on Thursday night, I decided to see if I could use R to scan the scientific PDF program to determine how many men and women were giving scientific presentations.
-                  <a href="/post/gender-asm2018/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/women-in-stem/">Women in STEM</a>&nbsp;
-                  
-                    <a href="//tags/stemwomen/">STEMWomen</a>&nbsp;
-                  
-                    <a href="//tags/asm2018/">ASM2018</a>&nbsp;
-                  
-                    <a href="//tags/arcticnet/">ArcticNet</a>&nbsp;
                   
                 </div>
               
@@ -396,7 +349,7 @@ Basic idea gitignore is a simple R package that provide an interface to query gi
               <div class="post-entry">
                 
                   Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[ f(x) = \cos(x) + 2 \]
+\[f(x) = \cos(x) + 2\]
 We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
                   <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
                 
@@ -531,7 +484,7 @@ system(cmd)</code></pre>
               <div class="post-entry">
                 
                   The eemR package implements various functions used calculate metrics from excitation-emission matrix (EEM) as well as to preform pre-processing corrections before PARAFAC analysis. All functions from this package start with the eem_ prefix. Please note this is a very alpha version of the package for testing purpose only.
-library(eemR) ls(&quot;package:eemR&quot;) ## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot; ## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot; ## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot; The package can be installed using the following command.
+library(eemR)ls(&quot;package:eemR&quot;)## [1] &quot;absorbance&quot; &quot;eem_bind&quot; ## [3] &quot;eem_biological_index&quot; &quot;eem_coble_peaks&quot; ## [5] &quot;eem_cut&quot; &quot;eem_export_matlab&quot; ## [7] &quot;eem_extract&quot; &quot;eem_fluorescence_index&quot; ## [9] &quot;eem_humification_index&quot; &quot;eem_inner_filter_effect&quot;## [11] &quot;eem_names&quot; &quot;eem_names&lt;-&quot; ## [13] &quot;eem_peaks&quot; &quot;eem_raman_normalisation&quot;## [15] &quot;eem_read&quot; &quot;eem_remove_blank&quot; ## [17] &quot;eem_remove_scattering&quot; &quot;eem_set_wavelengths&quot;The package can be installed using the following command.
                   <a href="/post/2015-11-05-eemr/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -604,7 +557,7 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1097&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1070&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -663,9 +616,9 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
               <div class="post-entry">
                 
                   eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
- Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
- A vignette has been added.
-  eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
+Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
+A vignette has been added.
+eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.
                   <a href="/post/2016-05-02-eemr-0.1.3/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -773,7 +726,7 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

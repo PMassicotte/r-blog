@@ -17,7 +17,8 @@ In this post I will introduce the `gitignore` R package (https://github.com/PMas
 
 ## Examples
 
-```{r setup}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 library(gitignore)
 ```
 

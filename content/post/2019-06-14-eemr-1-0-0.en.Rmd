@@ -12,7 +12,7 @@ tags:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, dev = "png")
+knitr::opts_chunk$set(echo = TRUE, dev = "png", cache = TRUE)
 ```
 
 When `eemR` was originally created, I wrote few functions to import eems derived from the spectrofluorometers I knew. Given the high diversity in file formats, `eemR` now offers the possibility for the user to write his/her own import function.

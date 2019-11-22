@@ -17,7 +17,7 @@ image: ''
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
   dpi = 300,
   out.width = "100%",
   fig.align = "center",
