@@ -233,188 +233,6 @@
           
           
             <article class="post-preview">
-              <a href="/post/2019-05-08-introducing-gitignore/">
-                <h2 class="post-title">Introducing gitignore</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 8, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;589&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
-Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
-gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).
-                  <a href="/post/2019-05-08-introducing-gitignore/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/r/">R</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/numerical-integration-in-r/">
-                <h2 class="post-title">Numerical integration in R</h2>
-                
-                  <h3 class="post-subtitle">
-                  Math 101
-                  </h3>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 11, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;222&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[f(x) = \cos(x) + 2\]
-We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
-                  <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/r/">R</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/2015-11-06-daylight/">
-                <h2 class="post-title">Calculating daylight in R</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;263&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY).
-                  <a href="/post/2015-11-06-daylight/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/r/">R</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/2016-11-18-updating-rstudio/">
-                <h2 class="post-title">Installing latest version of RStudio from R</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;79&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  
-
-
-<p>If you are like me, chances are that you update <a href="https://www.rstudio.org/download/daily/desktop/ubuntu64/">RStudio</a> on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.</p>
-<pre class="r"><code>rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;
-
-r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
-
-file &lt;- regmatches(r, regexpr(&quot;https\\S+?deb&quot;, r))[1]
-file
-
-destfile &lt;- paste(&quot;/tmp/&quot;, basename(file))
-
-download.file(file, destfile = destfile)
-
-cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)
-system(cmd)</code></pre>
-
-                
-              </div>
-
-              
-            </article>
-          
-            <article class="post-preview">
               <a href="/post/2015-11-05-eemr/">
                 <h2 class="post-title">Introducing eemR</h2>
                 
@@ -427,10 +245,10 @@ system(cmd)</code></pre>
   <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;640&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;627&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -512,10 +330,10 @@ c(&quot;a&quot;, &quot;b&quot;) %ni% letters[1:5]</code></pre>
   <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1070&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1062&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte

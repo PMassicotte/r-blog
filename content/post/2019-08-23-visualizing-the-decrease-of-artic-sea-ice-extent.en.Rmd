@@ -10,13 +10,15 @@ tags:
 type: ''
 subtitle: ''
 image: ''
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE,
+  cache = FALSE,
   dpi = 600,
   out.width = "100%",
   fig.align = "center",
@@ -50,7 +52,7 @@ theme_update(
 )
 ```
 
-```{r, cache = TRUE}
+```{r download_seaice_extent}
 file <- "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/north/daily/data/N_seaice_extent_daily_v3.0.csv"
 
 # file <- "ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/south/daily/data/S_seaice_extent_daily_v3.0.csv"
@@ -87,7 +89,7 @@ The data consist of four variables:
 - `Year`, `Month`, `Day`: Period of the measurements.
 - `Extent`: Sea ice extent in millions km^2^.
 
-```{r, cache=FALSE}
+```{r}
 sea_ice_extent %>%
   head(10) %>%
   select(-month2) %>%
@@ -151,7 +153,8 @@ ice_trend <- sea_ice_extent %>%
   nest() %>%
   mutate(mod = map(data, ~ lm(extent ~ year, data = .))) %>%
   mutate(slope = map_dbl(mod, c(1, 2))) %>%
-  mutate(r2 = map2_dbl(mod, data, modelr::rsquare))
+  mutate(r2 = map2_dbl(mod, data, modelr::rsquare)) %>% 
+  ungroup()
 
 ice_trend %>%
   mutate(slope = -slope) %>%

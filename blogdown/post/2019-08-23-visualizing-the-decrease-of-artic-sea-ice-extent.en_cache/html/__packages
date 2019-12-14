@@ -12,6 +12,6 @@ ggpmthemes
 glue
 ggforce
 curl
+patchwork
 knitr
 kableExtra
-patchwork

@@ -233,101 +233,6 @@
           
           
             <article class="post-preview">
-              <a href="/post/makeover-monday-evictions-in-san-francisco/">
-                <h2 class="post-title">Makeover Monday (Evictions in San Francisco)</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 22, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;417&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;%mutate(year = lubridate::year(file_date)) %&gt;%extract(location, into = c(&quot;longitude&quot;, &quot;latitude&quot;), regex = &quot;POINT \\((-?\\d+\\.\\d+) (\\d+\\.\\d+)\\)&quot;, convert = TRUE) %&gt;%pivot_longer(c(non_payment:good_samaritan_ends), names_to = &quot;reason&quot;, values_to = &quot;value&quot;) %&gt;%filter(value) %&gt;%drop_na(longitude, latitude, year)# df %&gt;%# group_by(eviction_id) %&gt;%# # filter(value) %&gt;%# ungroup() %&gt;%# count(eviction_id, sort = T)#df %&gt;%count(neighborhoods_analysis_boundaries, sort = TRUE)#&gt; # A tibble: 42 x 2#&gt; neighborhoods_analysis_boundaries n#&gt; &lt;chr&gt; &lt;int&gt;#&gt; 1 Mission 4620#&gt; 2 Tenderloin 2725#&gt; 3 Sunset/Parkside 2664#&gt; 4 Outer Richmond 2144#&gt; 5 Castro/Upper Market 1866#&gt; 6 Lakeshore 1785#&gt; 7 Hayes Valley 1550#&gt; 8 South of Market 1486#&gt; 9 Nob Hill 1458#&gt; 10 Haight Ashbury 1340#&gt; # .
-                  <a href="/post/makeover-monday-evictions-in-san-francisco/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/makeover-monday/">Makeover Monday</a>&nbsp;
-                  
-                    <a href="//tags/visualization/">Visualization</a>&nbsp;
-                  
-                    <a href="//tags/tidyverse/">Tidyverse</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/the-past-and-the-future-of-video-games/">
-                <h2 class="post-title">The past and the future of video games</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 29, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;635&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  This week was my first participation to the Makeover Monday data visualization challenge. The theme was PCs to Become the Smallest Gaming Platform in 2018. The dataset consists in gaming revenues divided by platform: mobile, PC and console games.
-Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme_exo(base_size = 14))theme_update(rect = element_rect(fill = &quot;#173f50&quot;),text = element_text(colour = &quot;white&quot;),axis.text = element_text(colour = &quot;white&quot;),axis.ticks = element_line(colour = &quot;white&quot;))Download the dataThe nice thing is that data.
-                  <a href="/post/the-past-and-the-future-of-video-games/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/tidyverse/">Tidyverse</a>&nbsp;
-                  
-                    <a href="//tags/makeover-monday/">Makeover Monday</a>&nbsp;
-                  
-                    <a href="//tags/video-games/">Video games</a>&nbsp;
-                  
-                    <a href="//tags/ggplot2/">ggplot2</a>&nbsp;
-                  
-                    <a href="//tags/visualization/">Visualization</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
               <a href="/post/visualizing-the-decrease-of-artic-sea-ice-extent/">
                 <h2 class="post-title">Visualizing the decrease of Artic sea ice extent</h2>
                 
@@ -416,12 +321,8 @@ Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme
             </article>
           
             <article class="post-preview">
-              <a href="/post/tidytuesday-2019-08-13/">
-                <h2 class="post-title">Tidytuesday (2019-08-13)</h2>
-                
-                  <h3 class="post-subtitle">
-                  Roman Emperors
-                  </h3>
+              <a href="/post/chernobyl-cesium-137/">
+                <h2 class="post-title">chernobyl-cesium-137</h2>
                 
                 
               </a>
@@ -429,13 +330,13 @@ Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 14, 2019
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 28, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;614&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;322&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -446,106 +347,17 @@ Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme
 
               <div class="post-entry">
                 
-                  This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.
-The dataemperors &lt;-readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&quot;)emperors#&gt; # A tibble: 68 x 16#&gt; index name name_full birth death birth_cty birth_prv rise #&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;date&gt; &lt;date&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;#&gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~#&gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~#&gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~#&gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~#&gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~#&gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~#&gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~#&gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~#&gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~#&gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~#&gt; # .
-                  <a href="/post/tidytuesday-2019-08-13/" class="post-read-more">[Read More]</a>
+                  url &lt;- &quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&quot;tf &lt;- tempfile()curl::curl_download(url, tf)df &lt;-readxl::read_excel(tf,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.
+                  <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
                 
               </div>
 
               
                 <div class="blog-tags">
                   
-                    <a href="//tags/tidytuesday/">Tidytuesday</a>&nbsp;
-                  
-                    <a href="//tags/tidyverse/">Tidyverse</a>&nbsp;
+                    <a href="//tags/chernobyl/">Chernobyl</a>&nbsp;
                   
                 </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/tidytuesday-2019-08-06/">
-                <h2 class="post-title">Tidytuesday (2019-08-06)</h2>
-                
-                  <h3 class="post-subtitle">
-                  Bob Ross - painting by the numbers
-                  </h3>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 6, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;949&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  This week TidyTuesday is entitled Bob Ross - painting by the numbers. To cite fivethirtyeight:
-Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…
-                  <a href="/post/tidytuesday-2019-08-06/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="//tags/tidytuesday/">Tidytuesday</a>&nbsp;
-                  
-                    <a href="//tags/tidyverse/">Tidyverse</a>&nbsp;
-                  
-                    <a href="//tags/bob-ross/">Bob Ross</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="/post/tidytuesday-video-games/">
-                <h2 class="post-title">Tidytuesday: video games</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 30, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;699&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
-Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.
-                  <a href="/post/tidytuesday-video-games/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
               
             </article>
           
@@ -685,6 +497,188 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)library(extrafont)library(tidy
                     <a href="//tags/r/">R</a>&nbsp;
                   
                 </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="/post/2019-05-08-introducing-gitignore/">
+                <h2 class="post-title">Introducing gitignore</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 8, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;589&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
+Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
+gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).
+                  <a href="/post/2019-05-08-introducing-gitignore/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/r/">R</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="/post/numerical-integration-in-r/">
+                <h2 class="post-title">Numerical integration in R</h2>
+                
+                  <h3 class="post-subtitle">
+                  Math 101
+                  </h3>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 11, 2018
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;222&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
+\[f(x) = \cos(x) + 2\]
+We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
+                  <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/r/">R</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="/post/2015-11-06-daylight/">
+                <h2 class="post-title">Calculating daylight in R</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;263&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  A little bit more than a year ago I moved in Denmark. So far, the last year has been quite fun and I have been working on interesting projects. The most difficult part has been the winter since the daylight is very short between November and February. I was curious to see what was the difference in daylight between my home country (Canada) and Denmark. This is a short post showing how to calculate daylight based on the latitude position and the day of the year (DOY).
+                  <a href="/post/2015-11-06-daylight/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="//tags/r/">R</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="/post/2016-11-18-updating-rstudio/">
+                <h2 class="post-title">Installing latest version of RStudio from R</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;79&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  
+
+
+<p>If you are like me, chances are that you update <a href="https://www.rstudio.org/download/daily/desktop/ubuntu64/">RStudio</a> on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.</p>
+<pre class="r"><code>rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;
+
+r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
+
+file &lt;- regmatches(r, regexpr(&quot;https\\S+?deb&quot;, r))[1]
+file
+
+destfile &lt;- paste(&quot;/tmp/&quot;, basename(file))
+
+download.file(file, destfile = destfile)
+
+cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)
+system(cmd)</code></pre>
+
+                
+              </div>
+
               
             </article>
           

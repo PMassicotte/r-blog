@@ -61,7 +61,7 @@
     "name" : "Philippe Massicotte"
   },
   "headline": "Tidytuesday (2019-08-13)",
-  "description" : "This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.\nThe data\remperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~\r#\x26gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~\r#\x26gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~\r#\x26gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~\r#\x26gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~\r#\x26gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~\r#\x26gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~\r#\x26gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~\r#\x26gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~\r#\x26gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~\r#\x26gt; # .",
+  "description" : "This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.\nThe data\remperors \x26lt;-\rreadr::read_csv(\r\x26quot;https:\/\/raw.githubusercontent.com\/rfordatascience\/tidytuesday\/master\/data\/2019\/2019-08-13\/emperors.csv\x26quot;\r)\remperors\r#\x26gt; # A tibble: 68 x 16\r#\x26gt; index name name_full birth death birth_cty birth_prv rise #\x26gt; \x26lt;dbl\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;date\x26gt; \x26lt;date\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt; \x26lt;chr\x26gt;\r#\x26gt; 1 1 Augu… IMPERATO… 62-09-23 14-08-19 Rome Italia Birt…\r#\x26gt; 2 2 Tibe… TIBERIVS… 41-11-16 37-03-16 Rome Italia Birt…\r#\x26gt; 3 3 Cali… GAIVS IV… 12-08-31 41-01-24 Antitum Italia Birt…\r#\x26gt; 4 4 Clau… TIBERIVS… 9-08-01 54-10-13 Lugdunum Gallia L… Birt…\r#\x26gt; 5 5 Nero NERO CLA… 37-12-15 68-06-09 Antitum Italia Birt…\r#\x26gt; 6 6 Galba SERVIVS … 2-12-24 69-01-15 Terracina Italia Seiz…\r#\x26gt; 7 7 Otho MARCVS S… 32-04-28 69-04-16 Terentin… Italia Appo…\r#\x26gt; 8 8 Vite… AVLVS VI… 15-09-24 69-12-20 Rome Italia Seiz…\r#\x26gt; 9 9 Vesp… TITVS FL… 9-11-17 79-06-24 Falacrine Italia Seiz…\r#\x26gt; 10 10 Titus TITVS FL… 39-12-30 81-09-13 Rome Italia Birt…\r#\x26gt; # … with 58 more rows, and 8 more variables: reign_start \x26lt;date\x26gt;,\r#\x26gt; # reign_end \x26lt;date\x26gt;, cause \x26lt;chr\x26gt;, killer \x26lt;chr\x26gt;, dynasty \x26lt;chr\x26gt;, era \x26lt;chr\x26gt;,\r#\x26gt; # notes \x26lt;chr\x26gt;, verif_who \x26lt;chr\x26gt;\r\rExploratory graph\rIn the following graph, I wanted to visualize the relationship between the age and the reign duration of each emperor.",
   "inLanguage" : "en",
   "wordCount":  614 ,
   "datePublished" : "2019-08-14T00:00:00",
@@ -313,17 +313,17 @@ emperors
 #&gt; # A tibble: 68 x 16
 #&gt;    index name  name_full birth      death      birth_cty birth_prv rise 
 #&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;
-#&gt;  1     1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome      Italia    Birt~
-#&gt;  2     2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome      Italia    Birt~
-#&gt;  3     3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum   Italia    Birt~
-#&gt;  4     4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum  Gallia L~ Birt~
-#&gt;  5     5 Nero  NERO CLA~ 0037-12-15 0068-06-09 Antitum   Italia    Birt~
-#&gt;  6     6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia    Seiz~
-#&gt;  7     7 Otho  MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia    Appo~
-#&gt;  8     8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome      Italia    Seiz~
-#&gt;  9     9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia    Seiz~
-#&gt; 10    10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome      Italia    Birt~
-#&gt; # ... with 58 more rows, and 8 more variables: reign_start &lt;date&gt;,
+#&gt;  1     1 Augu… IMPERATO… 62-09-23   14-08-19   Rome      Italia    Birt…
+#&gt;  2     2 Tibe… TIBERIVS… 41-11-16   37-03-16   Rome      Italia    Birt…
+#&gt;  3     3 Cali… GAIVS IV… 12-08-31   41-01-24   Antitum   Italia    Birt…
+#&gt;  4     4 Clau… TIBERIVS… 9-08-01    54-10-13   Lugdunum  Gallia L… Birt…
+#&gt;  5     5 Nero  NERO CLA… 37-12-15   68-06-09   Antitum   Italia    Birt…
+#&gt;  6     6 Galba SERVIVS … 2-12-24    69-01-15   Terracina Italia    Seiz…
+#&gt;  7     7 Otho  MARCVS S… 32-04-28   69-04-16   Terentin… Italia    Appo…
+#&gt;  8     8 Vite… AVLVS VI… 15-09-24   69-12-20   Rome      Italia    Seiz…
+#&gt;  9     9 Vesp… TITVS FL… 9-11-17    79-06-24   Falacrine Italia    Seiz…
+#&gt; 10    10 Titus TITVS FL… 39-12-30   81-09-13   Rome      Italia    Birt…
+#&gt; # … with 58 more rows, and 8 more variables: reign_start &lt;date&gt;,
 #&gt; #   reign_end &lt;date&gt;, cause &lt;chr&gt;, killer &lt;chr&gt;, dynasty &lt;chr&gt;, era &lt;chr&gt;,
 #&gt; #   notes &lt;chr&gt;, verif_who &lt;chr&gt;</code></pre>
 </div>

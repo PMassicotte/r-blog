@@ -89,7 +89,7 @@ import_cary &lt;- function(file) {
 <p>We can now try our function and have a look to the structure of the returned list.</p>
 <pre class="r"><code>str(import_cary(file))</code></pre>
 <pre><code>## List of 4
-##  $ file: chr &quot;C:/Users/pmass.000/Documents/R/win-library/3.6/eemR/extdata/custom_cary.csv&quot;
+##  $ file: chr &quot;/home/pmassicotte/R/x86_64-pc-linux-gnu-library/3.6/eemR/extdata/custom_cary.csv&quot;
 ##  $ x   : num [1:200, 1:200] 1.91 2.29 2.73 3.04 3.27 ...
 ##  $ ex  : num [1:200] 250 251 252 253 254 ...
 ##  $ em  : num [1:200] 300 302 305 307 310 ...</code></pre>
@@ -110,9 +110,9 @@ plot(eem_remove_scattering(eem, &quot;rayleigh&quot;, order = 2, width = 15))</c
 <p><img src="/post/2019-06-14-eemr-1-0-0.en_files/figure-html/unnamed-chunk-6-1.png" width="768" /></p>
 <pre class="r"><code># Extract Coble&#39; peaks
 eem_coble_peaks(eem)</code></pre>
-<pre><code>## Warning: This metric uses either excitation or emission wavelengths
-## that were not present in the data. Data has been interpolated to fit the
-## requested wavelengths.</code></pre>
+<pre><code>## Warning: This metric uses either excitation or emission wavelengths that
+## were not present in the data. Data has been interpolated to fit the requested
+## wavelengths.</code></pre>
 <pre><code>##        sample  b        t        a       m        c
 ## 1 custom_cary NA 10.86736 83.44561 61.2534 49.55256</code></pre>
 </div>

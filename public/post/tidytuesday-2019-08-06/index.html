@@ -63,7 +63,7 @@
   "headline": "Tidytuesday (2019-08-06)",
   "description" : "test",
   "inLanguage" : "en",
-  "wordCount":  949 ,
+  "wordCount":  933 ,
   "datePublished" : "2019-08-06T00:00:00",
   "dateModified" : "2019-08-06T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -271,7 +271,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;949&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;933&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -346,7 +346,7 @@ bob_ross
 #&gt;  8      1       1 &quot;\&quot;A Walk In The Woods\&quot;&quot; Cabin                    0
 #&gt;  9      1       1 &quot;\&quot;A Walk In The Woods\&quot;&quot; Cactus                   0
 #&gt; 10      1       1 &quot;\&quot;A Walk In The Woods\&quot;&quot; Cirrus                   0
-#&gt; # ... with 20,543 more rows</code></pre>
+#&gt; # … with 20,543 more rows</code></pre>
 <p>There are a total of 51 keywords used to describe his paintings. Upon my first exploration, I found some keywords were duplicated between words in singular and plural:</p>
 <ul>
 <li>lake/lakes</li>
@@ -356,22 +356,18 @@ bob_ross
 <pre class="r"><code>bob_ross %&gt;%
   distinct(keyword) %&gt;%
   pull(keyword)
-#&gt;  [1] &quot;Aurora Borealis&quot; &quot;Barn&quot;            &quot;Beach&quot;          
-#&gt;  [4] &quot;Boat&quot;            &quot;Bridge&quot;          &quot;Building&quot;       
-#&gt;  [7] &quot;Bushes&quot;          &quot;Cabin&quot;           &quot;Cactus&quot;         
-#&gt; [10] &quot;Cirrus&quot;          &quot;Cliff&quot;           &quot;Clouds&quot;         
-#&gt; [13] &quot;Conifer&quot;         &quot;Cumulus&quot;         &quot;Deciduous&quot;      
-#&gt; [16] &quot;Diane Andre&quot;     &quot;Dock&quot;            &quot;Farm&quot;           
-#&gt; [19] &quot;Fence&quot;           &quot;Fire&quot;            &quot;Flowers&quot;        
-#&gt; [22] &quot;Fog&quot;             &quot;Grass&quot;           &quot;Guest&quot;          
-#&gt; [25] &quot;Hills&quot;           &quot;Lake&quot;            &quot;Lakes&quot;          
-#&gt; [28] &quot;Lighthouse&quot;      &quot;Mill&quot;            &quot;Moon&quot;           
-#&gt; [31] &quot;Mountain&quot;        &quot;Mountains&quot;       &quot;Night&quot;          
-#&gt; [34] &quot;Ocean&quot;           &quot;Palm Trees&quot;      &quot;Path&quot;           
-#&gt; [37] &quot;Person&quot;          &quot;Portrait&quot;        &quot;River&quot;          
-#&gt; [40] &quot;Rocks&quot;           &quot;Snow&quot;            &quot;Snowy Mountain&quot; 
-#&gt; [43] &quot;Steve Ross&quot;      &quot;Structure&quot;       &quot;Sun&quot;            
-#&gt; [46] &quot;Tree&quot;            &quot;Trees&quot;           &quot;Waterfall&quot;      
+#&gt;  [1] &quot;Aurora Borealis&quot; &quot;Barn&quot;            &quot;Beach&quot;           &quot;Boat&quot;           
+#&gt;  [5] &quot;Bridge&quot;          &quot;Building&quot;        &quot;Bushes&quot;          &quot;Cabin&quot;          
+#&gt;  [9] &quot;Cactus&quot;          &quot;Cirrus&quot;          &quot;Cliff&quot;           &quot;Clouds&quot;         
+#&gt; [13] &quot;Conifer&quot;         &quot;Cumulus&quot;         &quot;Deciduous&quot;       &quot;Diane Andre&quot;    
+#&gt; [17] &quot;Dock&quot;            &quot;Farm&quot;            &quot;Fence&quot;           &quot;Fire&quot;           
+#&gt; [21] &quot;Flowers&quot;         &quot;Fog&quot;             &quot;Grass&quot;           &quot;Guest&quot;          
+#&gt; [25] &quot;Hills&quot;           &quot;Lake&quot;            &quot;Lakes&quot;           &quot;Lighthouse&quot;     
+#&gt; [29] &quot;Mill&quot;            &quot;Moon&quot;            &quot;Mountain&quot;        &quot;Mountains&quot;      
+#&gt; [33] &quot;Night&quot;           &quot;Ocean&quot;           &quot;Palm Trees&quot;      &quot;Path&quot;           
+#&gt; [37] &quot;Person&quot;          &quot;Portrait&quot;        &quot;River&quot;           &quot;Rocks&quot;          
+#&gt; [41] &quot;Snow&quot;            &quot;Snowy Mountain&quot;  &quot;Steve Ross&quot;      &quot;Structure&quot;      
+#&gt; [45] &quot;Sun&quot;             &quot;Tree&quot;            &quot;Trees&quot;           &quot;Waterfall&quot;      
 #&gt; [49] &quot;Waves&quot;           &quot;Windmill&quot;        &quot;Winter&quot;</code></pre>
 <p>Let’s do some more cleaning to the data.</p>
 <pre class="r"><code>bob_ross &lt;- bob_ross %&gt;%
@@ -391,22 +387,18 @@ bob_ross &lt;- bob_ross %&gt;%
 bob_ross %&gt;%
   distinct(keyword) %&gt;%
   pull()
-#&gt;  [1] &quot;Aurora Borealis&quot; &quot;Barn&quot;            &quot;Beach&quot;          
-#&gt;  [4] &quot;Boat&quot;            &quot;Bridge&quot;          &quot;Building&quot;       
-#&gt;  [7] &quot;Bushes&quot;          &quot;Cabin&quot;           &quot;Cactus&quot;         
-#&gt; [10] &quot;Cirrus&quot;          &quot;Cliff&quot;           &quot;Clouds&quot;         
-#&gt; [13] &quot;Conifer&quot;         &quot;Cumulus&quot;         &quot;Deciduous&quot;      
-#&gt; [16] &quot;Diane Andre&quot;     &quot;Dock&quot;            &quot;Farm&quot;           
-#&gt; [19] &quot;Fence&quot;           &quot;Fire&quot;            &quot;Flowers&quot;        
-#&gt; [22] &quot;Fog&quot;             &quot;Grass&quot;           &quot;Guest&quot;          
-#&gt; [25] &quot;Hills&quot;           &quot;Lakes&quot;           &quot;Lighthouse&quot;     
-#&gt; [28] &quot;Mill&quot;            &quot;Moon&quot;            &quot;Mountains&quot;      
-#&gt; [31] &quot;Night&quot;           &quot;Ocean&quot;           &quot;Palm Trees&quot;     
-#&gt; [34] &quot;Path&quot;            &quot;Person&quot;          &quot;Portrait&quot;       
-#&gt; [37] &quot;River&quot;           &quot;Rocks&quot;           &quot;Snow&quot;           
-#&gt; [40] &quot;Snowy Mountain&quot;  &quot;Steve Ross&quot;      &quot;Structure&quot;      
-#&gt; [43] &quot;Sun&quot;             &quot;Trees&quot;           &quot;Waterfall&quot;      
-#&gt; [46] &quot;Waves&quot;           &quot;Windmill&quot;        &quot;Winter&quot;</code></pre>
+#&gt;  [1] &quot;Aurora Borealis&quot; &quot;Barn&quot;            &quot;Beach&quot;           &quot;Boat&quot;           
+#&gt;  [5] &quot;Bridge&quot;          &quot;Building&quot;        &quot;Bushes&quot;          &quot;Cabin&quot;          
+#&gt;  [9] &quot;Cactus&quot;          &quot;Cirrus&quot;          &quot;Cliff&quot;           &quot;Clouds&quot;         
+#&gt; [13] &quot;Conifer&quot;         &quot;Cumulus&quot;         &quot;Deciduous&quot;       &quot;Diane Andre&quot;    
+#&gt; [17] &quot;Dock&quot;            &quot;Farm&quot;            &quot;Fence&quot;           &quot;Fire&quot;           
+#&gt; [21] &quot;Flowers&quot;         &quot;Fog&quot;             &quot;Grass&quot;           &quot;Guest&quot;          
+#&gt; [25] &quot;Hills&quot;           &quot;Lakes&quot;           &quot;Lighthouse&quot;      &quot;Mill&quot;           
+#&gt; [29] &quot;Moon&quot;            &quot;Mountains&quot;       &quot;Night&quot;           &quot;Ocean&quot;          
+#&gt; [33] &quot;Palm Trees&quot;      &quot;Path&quot;            &quot;Person&quot;          &quot;Portrait&quot;       
+#&gt; [37] &quot;River&quot;           &quot;Rocks&quot;           &quot;Snow&quot;            &quot;Snowy Mountain&quot; 
+#&gt; [41] &quot;Steve Ross&quot;      &quot;Structure&quot;       &quot;Sun&quot;             &quot;Trees&quot;          
+#&gt; [45] &quot;Waterfall&quot;       &quot;Waves&quot;           &quot;Windmill&quot;        &quot;Winter&quot;</code></pre>
 </div>
 <div id="the-painting-of-bob-ross" class="section level2">
 <h2>The painting of Bob Ross</h2>

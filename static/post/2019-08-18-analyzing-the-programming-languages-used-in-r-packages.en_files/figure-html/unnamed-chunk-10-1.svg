@@ -49,10 +49,10 @@
 <polyline points='187.54,315.38 187.54,312.40 ' style='stroke-width: 0.58; stroke: #B3B3B3; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)' />
 <polyline points='332.37,315.38 332.37,312.40 ' style='stroke-width: 0.58; stroke: #B3B3B3; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)' />
 <polyline points='477.20,315.38 477.20,312.40 ' style='stroke-width: 0.58; stroke: #B3B3B3; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)' />
-<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='30.85' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='23.70px' lengthAdjust='spacingAndGlyphs'>0.0%</text></g>
-<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='172.84' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='29.40px' lengthAdjust='spacingAndGlyphs'>20.0%</text></g>
-<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='317.66' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='29.41px' lengthAdjust='spacingAndGlyphs'>40.0%</text></g>
-<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='462.36' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='29.68px' lengthAdjust='spacingAndGlyphs'>60.0%</text></g>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='34.95' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='15.49px' lengthAdjust='spacingAndGlyphs'>0%</text></g>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='176.94' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='21.19px' lengthAdjust='spacingAndGlyphs'>20%</text></g>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='321.77' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='21.21px' lengthAdjust='spacingAndGlyphs'>40%</text></g>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='466.47' y='324.84' style='font-size: 9.60px; fill: #4D4D4D; font-family: Exo;' textLength='21.48px' lengthAdjust='spacingAndGlyphs'>60%</text></g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='234.29' y='336.66' style='font-size: 12.00px; font-family: Exo;' textLength='144.14px' lengthAdjust='spacingAndGlyphs'>Percentage of line of code</text></g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='42.70' y='61.29' style='font-size: 12.00px; font-family: Exo;' textLength='142.15px' lengthAdjust='spacingAndGlyphs'>Based on 14699 packages</text></g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MzU1Ljk3fDAuMDA=)'><text x='42.70' y='21.96' style='font-size: 21.60px; font-weight: bold; font-family: Exo;' textLength='407.14px' lengthAdjust='spacingAndGlyphs'>Percentage of R, C++ and Python used in</text></g>

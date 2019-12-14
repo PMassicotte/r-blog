@@ -332,7 +332,7 @@ read_csv(file)</code></pre>
 ##   `Member type` = col_character()
 ## )</code></pre>
 <pre><code>## # A tibble: 168,590 x 9
-##    Duration `Start date`        `End date`          `Start station ~
+##    Duration `Start date`        `End date`          `Start station …
 ##       &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;                         &lt;dbl&gt;
 ##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
 ##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
@@ -344,22 +344,22 @@ read_csv(file)</code></pre>
 ##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
 ##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
 ## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
-## # ... with 168,580 more rows, and 5 more variables: `Start station` &lt;chr&gt;,
-## #   `End station number` &lt;dbl&gt;, `End station` &lt;chr&gt;, `Bike number` &lt;chr&gt;,
-## #   `Member type` &lt;chr&gt;</code></pre>
+## # … with 168,580 more rows, and 5 more variables: `Start station` &lt;chr&gt;, `End
+## #   station number` &lt;dbl&gt;, `End station` &lt;chr&gt;, `Bike number` &lt;chr&gt;, `Member
+## #   type` &lt;chr&gt;</code></pre>
 <p>Because the <code>vroom()</code> function can use a vector of files, I will duplicate <code>file</code> 10 times.</p>
 <pre class="r"><code>files &lt;- rep(file, 10)
 files</code></pre>
-<pre><code>##  [1] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [2] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [3] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [4] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [5] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [6] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [7] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [8] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-##  [9] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;
-## [10] &quot;C:/Users/pmass.000/AppData/Local/Temp/Rtmp8q8DUi/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
+<pre><code>##  [1] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [2] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [3] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [4] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [5] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [6] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [7] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [8] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+##  [9] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
+## [10] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
 <p>I can now simply use this character vector with <code>vroom()</code>. Note that I can also use the <code>.name_repair</code> argument to clean column names.</p>
 <pre class="r"><code>df &lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))</code></pre>
 <pre><code>## Observations: 1,685,900
@@ -372,7 +372,7 @@ files</code></pre>
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre class="r"><code>df</code></pre>
 <pre><code>## # A tibble: 1,685,900 x 9
-##    duration start_date          end_date            start_station_n~
+##    duration start_date          end_date            start_station_n…
 ##       &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;                         &lt;dbl&gt;
 ##  1      552 2018-01-01 00:05:06 2018-01-01 00:14:18            31104
 ##  2     1282 2018-01-01 00:14:30 2018-01-01 00:35:53            31321
@@ -384,7 +384,7 @@ files</code></pre>
 ##  8     1615 2018-01-01 00:21:55 2018-01-01 00:48:50            31042
 ##  9     1598 2018-01-01 00:22:02 2018-01-01 00:48:41            31042
 ## 10      483 2018-01-01 00:22:10 2018-01-01 00:30:14            31115
-## # ... with 1,685,890 more rows, and 5 more variables: start_station &lt;chr&gt;,
+## # … with 1,685,890 more rows, and 5 more variables: start_station &lt;chr&gt;,
 ## #   end_station_number &lt;dbl&gt;, end_station &lt;chr&gt;, bike_number &lt;chr&gt;,
 ## #   member_type &lt;chr&gt;</code></pre>
 <div id="benchmark" class="section level2">
@@ -525,7 +525,7 @@ autoplot(res)</code></pre>
           
           
             <li class="next">
-              <a href="/post/tidytuesday-video-games/" data-toggle="tooltip" data-placement="top" title="Tidytuesday: video games">Next Post &rarr;</a>
+              <a href="/post/chernobyl-cesium-137/" data-toggle="tooltip" data-placement="top" title="chernobyl-cesium-137">Next Post &rarr;</a>
             </li>
           
         </ul>

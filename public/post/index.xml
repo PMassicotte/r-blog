@@ -7,29 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 22 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Makeover Monday (Evictions in San Francisco)</title>
-      <link>/post/makeover-monday-evictions-in-san-francisco/</link>
-      <pubDate>Sun, 22 Sep 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/makeover-monday-evictions-in-san-francisco/</guid>
-      <description>df &amp;lt;- read_csv(&amp;quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&amp;quot;) %&amp;gt;%janitor::clean_names()df &amp;lt;- df %&amp;gt;%mutate(file_date = lubridate::mdy(file_date)) %&amp;gt;%mutate(year = lubridate::year(file_date)) %&amp;gt;%extract(location, into = c(&amp;quot;longitude&amp;quot;, &amp;quot;latitude&amp;quot;), regex = &amp;quot;POINT \\((-?\\d+\\.\\d+) (\\d+\\.\\d+)\\)&amp;quot;, convert = TRUE) %&amp;gt;%pivot_longer(c(non_payment:good_samaritan_ends), names_to = &amp;quot;reason&amp;quot;, values_to = &amp;quot;value&amp;quot;) %&amp;gt;%filter(value) %&amp;gt;%drop_na(longitude, latitude, year)# df %&amp;gt;%# group_by(eviction_id) %&amp;gt;%# # filter(value) %&amp;gt;%# ungroup() %&amp;gt;%# count(eviction_id, sort = T)#df %&amp;gt;%count(neighborhoods_analysis_boundaries, sort = TRUE)#&amp;gt; # A tibble: 42 x 2#&amp;gt; neighborhoods_analysis_boundaries n#&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;#&amp;gt; 1 Mission 4620#&amp;gt; 2 Tenderloin 2725#&amp;gt; 3 Sunset/Parkside 2664#&amp;gt; 4 Outer Richmond 2144#&amp;gt; 5 Castro/Upper Market 1866#&amp;gt; 6 Lakeshore 1785#&amp;gt; 7 Hayes Valley 1550#&amp;gt; 8 South of Market 1486#&amp;gt; 9 Nob Hill 1458#&amp;gt; 10 Haight Ashbury 1340#&amp;gt; # .</description>
-    </item>
-    
-    <item>
-      <title>The past and the future of video games</title>
-      <link>/post/the-past-and-the-future-of-video-games/</link>
-      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/the-past-and-the-future-of-video-games/</guid>
-      <description>This week was my first participation to the Makeover Monday data visualization challenge. The theme was PCs to Become the Smallest Gaming Platform in 2018. The dataset consists in gaming revenues divided by platform: mobile, PC and console games.
-Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme_exo(base_size = 14))theme_update(rect = element_rect(fill = &amp;quot;#173f50&amp;quot;),text = element_text(colour = &amp;quot;white&amp;quot;),axis.text = element_text(colour = &amp;quot;white&amp;quot;),axis.ticks = element_line(colour = &amp;quot;white&amp;quot;))Download the dataThe nice thing is that data.</description>
-    </item>
     
     <item>
       <title>Visualizing the decrease of Artic sea ice extent</title>
@@ -52,33 +33,12 @@ Setuplibrary(tidyverse)library(ggpmthemes)library(ggchicklet)theme_set(theme
     </item>
     
     <item>
-      <title>Tidytuesday (2019-08-13)</title>
-      <link>/post/tidytuesday-2019-08-13/</link>
-      <pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate>
+      <title>chernobyl-cesium-137</title>
+      <link>/post/chernobyl-cesium-137/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/tidytuesday-2019-08-13/</guid>
-      <description>This week, the TidyTuesday challenge is about Roman emperors. The dataset provides the name, birth, death and reign information for 68 Roman emperors.
-The dataemperors &amp;lt;-readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-13/emperors.csv&amp;quot;)emperors#&amp;gt; # A tibble: 68 x 16#&amp;gt; index name name_full birth death birth_cty birth_prv rise #&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;date&amp;gt; &amp;lt;date&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;#&amp;gt; 1 1 Augu~ IMPERATO~ 0062-09-23 0014-08-19 Rome Italia Birt~#&amp;gt; 2 2 Tibe~ TIBERIVS~ 0041-11-16 0037-03-16 Rome Italia Birt~#&amp;gt; 3 3 Cali~ GAIVS IV~ 0012-08-31 0041-01-24 Antitum Italia Birt~#&amp;gt; 4 4 Clau~ TIBERIVS~ 0009-08-01 0054-10-13 Lugdunum Gallia L~ Birt~#&amp;gt; 5 5 Nero NERO CLA~ 0037-12-15 0068-06-09 Antitum Italia Birt~#&amp;gt; 6 6 Galba SERVIVS ~ 0002-12-24 0069-01-15 Terracina Italia Seiz~#&amp;gt; 7 7 Otho MARCVS S~ 0032-04-28 0069-04-16 Terentin~ Italia Appo~#&amp;gt; 8 8 Vite~ AVLVS VI~ 0015-09-24 0069-12-20 Rome Italia Seiz~#&amp;gt; 9 9 Vesp~ TITVS FL~ 0009-11-17 0079-06-24 Falacrine Italia Seiz~#&amp;gt; 10 10 Titus TITVS FL~ 0039-12-30 0081-09-13 Rome Italia Birt~#&amp;gt; # .</description>
-    </item>
-    
-    <item>
-      <title>Tidytuesday (2019-08-06)</title>
-      <link>/post/tidytuesday-2019-08-06/</link>
-      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/tidytuesday-2019-08-06/</guid>
-      <description>This week TidyTuesday is entitled Bob Ross - painting by the numbers. To cite fivethirtyeight:
-Bob Ross was a consummate teacher. He guided fans along as he painted “happy trees,” “almighty mountains” and “fluffy clouds” over the course of his 11-year television career on his PBS show, “The Joy of Painting.” In total, Ross painted 381 works on the show, relying on a distinct set of elements, scenes and themes…</description>
-    </item>
-    
-    <item>
-      <title>Tidytuesday: video games</title>
-      <link>/post/tidytuesday-video-games/</link>
-      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/tidytuesday-video-games/</guid>
-      <description>I must admit, I played a lot of PC video games when I was younger, Battlefield, Half-life, Dark Age of Camelot, World of Warcraft, Diablo just to name a few. This is why this week tidytuesday was a good occasion to participate in this weekly R visualization challenge.
-Video Games DatasetThis week’s data comes courtesy of Liza Wood via Steam Spy. She recently published a blog post on her data analysis of this video game data.</description>
+      <guid>/post/chernobyl-cesium-137/</guid>
+      <description>url &amp;lt;- &amp;quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&amp;quot;tf &amp;lt;- tempfile()curl::curl_download(url, tf)df &amp;lt;-readxl::read_excel(tf,na = c(&amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;L&amp;quot;)) %&amp;gt;%janitor::clean_names() %&amp;gt;%mutate(date = lubridate::ymd(date)) %&amp;gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &amp;lt;- ne_countries(scale = &amp;quot;medium&amp;quot;, returnclass = &amp;quot;sf&amp;quot;)df2 &amp;lt;- df %&amp;gt;%count(pays, ville, x, y) %&amp;gt;%st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;),crs = &amp;quot;+proj=longlat +datum=WGS84&amp;quot;) %&amp;gt;% st_transform(st_crs(world))world_points &amp;lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&amp;gt; Warning in st_centroid.</description>
     </item>
     
     <item>
