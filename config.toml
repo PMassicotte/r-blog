@@ -2,7 +2,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 baseurl = "/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
-title = "Another R blog"
+title = "Philippe Massicotte"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsStyle = "ocean"
@@ -17,7 +17,7 @@ disqusShortname = "pmassicotte"
 [Params]
   customCSS = ["css/overrides.css"]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
-  subtitle = "Because we need more R blogs"
+  subtitle = "Numerical ecologist | Data visualization | R enthousiast | ... and some other stuffs I like"
   logo = "img/pmassicotte.jpg" # Expecting square dimensions
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
