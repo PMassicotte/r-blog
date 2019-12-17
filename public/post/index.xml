@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Another R blog</title>
+    <title>Posts on Philippe Massicotte</title>
     <link>/post/</link>
-    <description>Recent content in Posts on Another R blog</description>
+    <description>Recent content in Posts on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
@@ -104,6 +104,18 @@ We first define the equation in the form of a function since it is a requirement
     </item>
     
     <item>
+      <title>eemR 0.1.3 is now on CRAN</title>
+      <link>/post/2016-05-02-eemr-0.1.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
+      <description>eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
+Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
+A vignette has been added.
+eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.</description>
+    </item>
+    
+    <item>
       <title>Installing latest version of RStudio from R</title>
       <link>/post/2016-11-18-updating-rstudio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -141,18 +153,6 @@ c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;) %in% letters[1:5]## [1] TRUE TR
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2015-11-13-r-101/</guid>
       <description>Sometimes when you open a data file (lets say a .csv), variables will be recognized as factor whereas it should be numeric. It is therefore tempting to simply convert the variable to numeric using as.numeric(). Big mistake! If you use directly as.numeric() on a variable of the type factor, R will returns the levels of the factor rather the actual values. To overcome this hassle, you should first convert the variable into a string with as.</description>
-    </item>
-    
-    <item>
-      <title>eemR 0.1.3 is now on CRAN</title>
-      <link>/post/2016-05-02-eemr-0.1.3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/2016-05-02-eemr-0.1.3/</guid>
-      <description>eemR has been updated to v0.1.3 and brings a lot of new features. Among the most interesting ones:
-Shiny support: You can interactively visualize EEMS by using interactive = TRUE. Ex.: plot(X, interactive = TRUE).
-A vignette has been added.
-eem_remove_blank() and eem_raman_normalisation() can now try to implicitly use a blank eem from a eemlist object (#20). If blank is omitted (blank = NA), the functions will try to extract the blank from the eemlist object.</description>
     </item>
     
   </channel>
