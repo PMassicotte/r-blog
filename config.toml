@@ -13,6 +13,7 @@ pygmentsCodefencesGuessSyntax = true
 #pygmentOptions = "linenos=inline"
 disqusShortname = "pmassicotte"
 #googleAnalytics = "XXX"
+enableEmoji = true
 
 [Params]
   customCSS = ["css/overrides.css"]

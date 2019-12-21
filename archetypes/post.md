@@ -6,6 +6,8 @@ date: {{ .Date }}
 subtitle: ""
 image: ""
 tags: []
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +35,7 @@ theme_set(theme_exo())
 
 
 
- <details>
+<details>
   
 <summary>Session info</summary>
 

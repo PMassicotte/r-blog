@@ -1,0 +1,191 @@
+---
+title: Removing borders around ggplot2 graphs
+author: Philippe Massicotte
+date: '2019-12-20'
+slug: removing-borders-around-ggplot2-graphs
+categories:
+  - R
+tags: []
+type: ''
+subtitle: ''
+image: ''
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<p>Recently I was participating in the <em>30DayMapChallenge</em> where people were invited to make a map based on a different daily theme for one whole month.</p>
+{{% tweet "1187713840550744066" %}}
+<p>When making a geographical map, or any other visualization where I wanted to use a <em>forced</em> coordinate system), choosing the right aspect ratio to save my graphics has always been challenging. Lately, when participating in the map challenge, <a href="https://cedricscherer.netlify.com/">Cédric Scherer</a> made me realize that I was really struggling with white borders around my plots when it came the time to export them. <strong>He was right!</strong> :smile:</p>
+{{% tweet "1204062911016112128" %}}
+<div id="the-problem-with-choosing-the-right-aspect-ratio" class="section level2">
+<h2>The problem with choosing the right aspect ratio</h2>
+<p>Let’s make a simple map of the USA to illustrate the problem. In a markdown document, the generated graph looks good (i.e. no extra border) because <code>knitr</code> is taking care of this for me (more on that later).</p>
+<pre class="r"><code># Load the US shapefile
+states &lt;- st_as_sf(maps::map(&quot;state&quot;, plot = FALSE, fill = TRUE))
+
+p &lt;- states %&gt;%
+  ggplot() +
+  geom_sf(size = 0.25) + #&lt;&lt;
+  coord_sf(crs = 102008) +
+  theme(
+    panel.border = element_blank(),
+    axis.text = element_blank(),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    plot.background = element_rect(fill = &quot;#3c3c3c&quot;),
+    panel.background = element_rect(fill = &quot;#3c3c3c&quot;)
+  )
+
+p</code></pre>
+<p><img src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/figure-html/map_ggplot2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>When it comes time to save my plots, I usually use the PDF format file unless they contain too much point. In that case, I will use the PNG format. When saving a graph in a file, however, it is difficult to find the right aspect ratio when using coordinate system that forces a specified ratio between the physical representation of data units on the axes (ex.: <code>coord_fixed()</code>, <code>geom_sf()</code> or <code>coord_equal()</code>). To visualize the problem, I will save the previous plot using two different aspect ratios and then import them in my document to show you the difficulty of finding the right aspect ratio.</p>
+<div id="aspect-ratio-of-74" class="section level3">
+<h3>Aspect ratio of 7/4</h3>
+<p>Choosing an aspect ratio of 7/4 creates white borders on the sides of the plot.</p>
+<p><img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_7_4.png"/></p>
+</div>
+<div id="aspect-ratio-of-67" class="section level3">
+<h3>Aspect ratio of 6/7</h3>
+<p>Choosing an aspect ratio of 6/7 creates white borders at the bottom and the top of the plot.</p>
+<p><img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_6_7.png"/></p>
+<p>As it can be seen in the two figures above, there are two large white borders located either on the sides or above/below of the graph. It is because I have used <code>geom_sf()</code> which set automatically the aspect ratio of the plot to respect the chosen geographical coordinate system. Of course, I could play around with trials and errors to find the <em>best</em> <strong>width</strong> and <strong>hight</strong> to use to save my plot.</p>
+<p>But wait! <strong>There is a much better way to do it!</strong> :smirk: Actually, I found out there was a hidden gem in <code>knitr</code> that allows cropping (using either <em>pdfcrop</em> or <em>convert</em> functions) to remove borders around an image. In fact, this is the function that is used to automatically remove borders around images when knitting an R Markdown document in R (see the initial plot of this post without borders). The function <code>knitr::plot_crop(x)</code> (where <em>x</em> is the filename of the plot to be cropped) will trim any existing images on your hard drive.</p>
+<p>First, let’s create our plot in PDF format and use <code>knitr::plot_crop()</code> to remove the borders.</p>
+<pre class="r"><code>pdf_file &lt;- &quot;../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border.pdf&quot;
+
+ggsave(
+  pdf_file,
+  device = cairo_pdf,
+  width = 5.51,
+  height = 4.68
+)
+
+knitr::plot_crop(pdf_file)
+#&gt; [1] &quot;\&quot;../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border.pdf\&quot;&quot;</code></pre>
+<p>At this point, the borders have been removed from the original PDF. But what if you want to export this PDF into a bitmap image? This can be achieved using a combination of <code>pdftools::pdf_render_page()</code> and <code>png::writePNG()</code>. <code>pdftools::pdf_render_page()</code> will take the filename of a PDF file and render into a raw bitmap array whereas <code>png::writePNG()</code> will actually save the bitmap into a file.</p>
+<pre class="r"><code>png_file &lt;- &quot;../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_cropped.png&quot;
+
+bitmap &lt;- pdftools::pdf_render_page(pdf_file, dpi = 600)
+png::writePNG(bitmap, png_file)</code></pre>
+<p><img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_cropped.png"/></p>
+<p>Bang! No more borders around our plot :ok_hand:</p>
+<details>
+<p><summary>Session info</summary></p>
+<pre><code>#&gt; - Session info -------------------------------------------------------------------------------------------------------
+#&gt;  setting  value                       
+#&gt;  version  R version 3.6.2 (2019-12-12)
+#&gt;  os       Windows 10 x64              
+#&gt;  system   x86_64, mingw32             
+#&gt;  ui       RTerm                       
+#&gt;  language (EN)                        
+#&gt;  collate  English_Canada.1252         
+#&gt;  ctype    English_Canada.1252         
+#&gt;  tz       America/New_York            
+#&gt;  date     2019-12-21                  
+#&gt; 
+#&gt; - Packages -----------------------------------------------------------------------------------------------------------
+#&gt;  package     * version date       lib source        
+#&gt;  askpass       1.1     2019-01-13 [1] CRAN (R 3.6.1)
+#&gt;  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.1)
+#&gt;  backports     1.1.5   2019-10-02 [1] CRAN (R 3.6.1)
+#&gt;  blogdown      0.17    2019-11-13 [1] CRAN (R 3.6.1)
+#&gt;  bookdown      0.16    2019-11-22 [1] CRAN (R 3.6.1)
+#&gt;  broom         0.5.3   2019-12-14 [1] CRAN (R 3.6.2)
+#&gt;  callr         3.4.0   2019-12-09 [1] CRAN (R 3.6.1)
+#&gt;  cellranger    1.1.0   2016-07-27 [1] CRAN (R 3.6.1)
+#&gt;  class         7.3-15  2019-01-01 [2] CRAN (R 3.6.2)
+#&gt;  classInt      0.4-2   2019-10-17 [1] CRAN (R 3.6.1)
+#&gt;  cli           2.0.0   2019-12-09 [1] CRAN (R 3.6.1)
+#&gt;  colorspace    1.4-1   2019-03-18 [1] CRAN (R 3.6.1)
+#&gt;  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.1)
+#&gt;  DBI           1.1.0   2019-12-15 [1] CRAN (R 3.6.2)
+#&gt;  dbplyr        1.4.2   2019-06-17 [1] CRAN (R 3.6.1)
+#&gt;  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.1)
+#&gt;  devtools      2.2.1   2019-09-24 [1] CRAN (R 3.6.1)
+#&gt;  digest        0.6.23  2019-11-23 [1] CRAN (R 3.6.1)
+#&gt;  dplyr       * 0.8.3   2019-07-04 [1] CRAN (R 3.6.1)
+#&gt;  e1071         1.7-3   2019-11-26 [1] CRAN (R 3.6.1)
+#&gt;  ellipsis      0.3.0   2019-09-20 [1] CRAN (R 3.6.1)
+#&gt;  evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.1)
+#&gt;  extrafont     0.17    2014-12-08 [1] CRAN (R 3.6.0)
+#&gt;  extrafontdb   1.0     2012-06-11 [1] CRAN (R 3.6.0)
+#&gt;  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.6.1)
+#&gt;  farver        2.0.1   2019-11-13 [1] CRAN (R 3.6.1)
+#&gt;  forcats     * 0.4.0   2019-02-17 [1] CRAN (R 3.6.1)
+#&gt;  foreign       0.8-72  2019-08-02 [2] CRAN (R 3.6.2)
+#&gt;  fs            1.3.1   2019-05-06 [1] CRAN (R 3.6.1)
+#&gt;  generics      0.0.2   2018-11-29 [1] CRAN (R 3.6.1)
+#&gt;  ggplot2     * 3.2.1   2019-08-10 [1] CRAN (R 3.6.1)
+#&gt;  ggpmthemes  * 0.0.1   2019-11-08 [1] local         
+#&gt;  glue          1.3.1   2019-03-12 [1] CRAN (R 3.6.1)
+#&gt;  gtable        0.3.0   2019-03-25 [1] CRAN (R 3.6.1)
+#&gt;  haven         2.2.0   2019-11-08 [1] CRAN (R 3.6.1)
+#&gt;  hms           0.5.2   2019-10-30 [1] CRAN (R 3.6.1)
+#&gt;  htmltools     0.4.0   2019-10-04 [1] CRAN (R 3.6.1)
+#&gt;  httr          1.4.1   2019-08-05 [1] CRAN (R 3.6.1)
+#&gt;  jsonlite      1.6     2018-12-07 [1] CRAN (R 3.6.1)
+#&gt;  KernSmooth    2.23-16 2019-10-15 [2] CRAN (R 3.6.2)
+#&gt;  knitr         1.26    2019-11-12 [1] CRAN (R 3.6.1)
+#&gt;  lattice       0.20-38 2018-11-04 [2] CRAN (R 3.6.2)
+#&gt;  lazyeval      0.2.2   2019-03-15 [1] CRAN (R 3.6.1)
+#&gt;  lifecycle     0.1.0   2019-08-01 [1] CRAN (R 3.6.1)
+#&gt;  lubridate     1.7.4   2018-04-11 [1] CRAN (R 3.6.1)
+#&gt;  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.1)
+#&gt;  maps          3.3.0   2018-04-03 [1] CRAN (R 3.6.1)
+#&gt;  maptools      0.9-9   2019-12-01 [1] CRAN (R 3.6.1)
+#&gt;  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.1)
+#&gt;  modelr        0.1.5   2019-08-08 [1] CRAN (R 3.6.1)
+#&gt;  munsell       0.5.0   2018-06-12 [1] CRAN (R 3.6.1)
+#&gt;  nlme          3.1-142 2019-11-07 [2] CRAN (R 3.6.2)
+#&gt;  pdftools      2.3     2019-11-10 [1] CRAN (R 3.6.1)
+#&gt;  pillar        1.4.3   2019-12-20 [1] CRAN (R 3.6.2)
+#&gt;  pkgbuild      1.0.6   2019-10-09 [1] CRAN (R 3.6.1)
+#&gt;  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 3.6.1)
+#&gt;  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.6.1)
+#&gt;  png           0.1-7   2013-12-03 [1] CRAN (R 3.6.0)
+#&gt;  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.1)
+#&gt;  processx      3.4.1   2019-07-18 [1] CRAN (R 3.6.1)
+#&gt;  ps            1.3.0   2018-12-21 [1] CRAN (R 3.6.1)
+#&gt;  purrr       * 0.3.3   2019-10-18 [1] CRAN (R 3.6.1)
+#&gt;  qpdf          1.1     2019-03-07 [1] CRAN (R 3.6.1)
+#&gt;  R6            2.4.1   2019-11-12 [1] CRAN (R 3.6.1)
+#&gt;  Rcpp          1.0.3   2019-11-08 [1] CRAN (R 3.6.1)
+#&gt;  readr       * 1.3.1   2018-12-21 [1] CRAN (R 3.6.1)
+#&gt;  readxl        1.3.1   2019-03-13 [1] CRAN (R 3.6.1)
+#&gt;  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.6.1)
+#&gt;  reprex        0.3.0   2019-05-16 [1] CRAN (R 3.6.1)
+#&gt;  rgdal         1.4-8   2019-11-27 [1] CRAN (R 3.6.1)
+#&gt;  rgeos         0.5-2   2019-10-03 [1] CRAN (R 3.6.1)
+#&gt;  rlang         0.4.2   2019-11-23 [1] CRAN (R 3.6.1)
+#&gt;  rmarkdown     2.0     2019-12-12 [1] CRAN (R 3.6.2)
+#&gt;  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.1)
+#&gt;  rstudioapi    0.10    2019-03-19 [1] CRAN (R 3.6.1)
+#&gt;  Rttf2pt1      1.3.7   2018-06-29 [1] CRAN (R 3.6.0)
+#&gt;  rvest         0.3.5   2019-11-08 [1] CRAN (R 3.6.1)
+#&gt;  scales        1.1.0   2019-11-18 [1] CRAN (R 3.6.1)
+#&gt;  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.1)
+#&gt;  sf          * 0.8-0   2019-09-17 [1] CRAN (R 3.6.1)
+#&gt;  sp            1.3-2   2019-11-07 [1] CRAN (R 3.6.1)
+#&gt;  stringi       1.4.3   2019-03-12 [1] CRAN (R 3.6.0)
+#&gt;  stringr     * 1.4.0   2019-02-10 [1] CRAN (R 3.6.1)
+#&gt;  testthat      2.3.1   2019-12-01 [1] CRAN (R 3.6.1)
+#&gt;  tibble      * 2.1.3   2019-06-06 [1] CRAN (R 3.6.1)
+#&gt;  tidyr       * 1.0.0   2019-09-11 [1] CRAN (R 3.6.1)
+#&gt;  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.6.1)
+#&gt;  tidyverse   * 1.3.0   2019-11-21 [1] CRAN (R 3.6.1)
+#&gt;  units         0.6-5   2019-10-08 [1] CRAN (R 3.6.1)
+#&gt;  usethis       1.5.1   2019-07-04 [1] CRAN (R 3.6.1)
+#&gt;  vctrs         0.2.1   2019-12-17 [1] CRAN (R 3.6.2)
+#&gt;  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.1)
+#&gt;  xfun          0.11    2019-11-12 [1] CRAN (R 3.6.1)
+#&gt;  xml2          1.2.2   2019-08-09 [1] CRAN (R 3.6.1)
+#&gt;  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)
+#&gt;  zeallot       0.1.0   2018-01-28 [1] CRAN (R 3.6.1)
+#&gt; 
+#&gt; [1] C:/Users/pmass/Documents/R/win-library/3.6
+#&gt; [2] C:/Program Files/R/R-3.6.2/library</code></pre>
+</details>
+</div>
+</div>

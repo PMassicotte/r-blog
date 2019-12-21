@@ -1,0 +1,162 @@
+---
+title: Removing borders around ggplot2 graphs
+author: Philippe Massicotte
+date: '2019-12-20'
+slug: removing-borders-around-ggplot2-graphs
+categories:
+  - R
+tags: []
+type: ''
+subtitle: ''
+image: ''
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = FALSE,
+  dpi = 600,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "png",
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+library(sf)
+
+theme_set(theme_exo())
+```
+
+Recently I was participating in the *30DayMapChallenge* where people were invited to make a map based on a different daily theme for one whole month.
+
+```{r}
+blogdown::shortcode("tweet", "1187713840550744066")
+```
+
+When making a geographical map, or any other visualization where I wanted to use a *forced* coordinate system), choosing the right aspect ratio to save my graphics has always been challenging. Lately, when participating in the map challenge, [Cédric Scherer](https://cedricscherer.netlify.com/) made me realize that I was really struggling with white borders around my plots when it came the time to export them. **He was right!** :smile:
+
+```{r}
+blogdown::shortcode("tweet", "1204062911016112128")
+```
+
+## The problem with choosing the right aspect ratio
+
+Let's make a simple map of the USA to illustrate the problem. In a markdown document, the generated graph looks good (i.e. no extra border) because `knitr` is taking care of this for me (more on that later).
+
+```{r map_ggplot2, echo = TRUE}
+# Load the US shapefile
+states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
+
+p <- states %>%
+  ggplot() +
+  geom_sf(size = 0.25) + #<<
+  coord_sf(crs = 102008) +
+  theme(
+    panel.border = element_blank(),
+    axis.text = element_blank(),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    plot.background = element_rect(fill = "#3c3c3c"),
+    panel.background = element_rect(fill = "#3c3c3c")
+  )
+
+p
+```
+
+When it comes time to save my plots, I usually use the PDF format file unless they contain too much point. In that case, I will use the PNG format. When saving a graph in a file, however, it is difficult to find the right aspect ratio when using coordinate system that forces a specified ratio between the physical representation of data units on the axes (ex.: `coord_fixed()`, `geom_sf()` or `coord_equal()`). To visualize the problem, I will save the previous plot using two different aspect ratios and then import them in my document to show you the difficulty of finding the right aspect ratio.
+
+### Aspect ratio of 7/4
+
+Choosing an aspect ratio of 7/4 creates white borders on the sides of the plot.
+
+```{r map_ggplot2_with_border_7_4, eval=TRUE}
+file <- "../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_7_4.png"
+
+ggsave(
+  file,
+  plot = p,
+  type = "cairo",
+  device = "png",
+  dpi = 600,
+  width = 7,
+  height = 4
+)
+```
+
+<img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_7_4.png"/>
+
+### Aspect ratio of 6/7
+
+Choosing an aspect ratio of 6/7 creates white borders at the bottom and the top of the plot.
+
+```{r map_ggplot2_with_border_6_7, eval=TRUE}
+file <- "../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_6_7.png"
+
+ggsave(
+  file,
+  plot = p,
+  type = "cairo",
+  device = "png",
+  dpi = 600,
+  width = 6,
+  height = 7
+)
+```
+
+<img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_6_7.png"/>
+
+As it can be seen in the two figures above, there are two large white borders located either on the sides or above/below of the graph. It is because I have used `geom_sf()` which set automatically the aspect ratio of the plot to respect the chosen geographical coordinate system. Of course, I could play around with trials and errors to find the *best* **width** and **hight** to use to save my plot.
+
+But wait! **There is a much better way to do it!** :smirk: Actually, I found out there was a hidden gem in `knitr` that allows cropping (using either *pdfcrop* or *convert* functions) to remove borders around an image. In fact, this is the function that is used to automatically remove borders around images when knitting an R Markdown document in R (see the initial plot of this post without borders). The function `knitr::plot_crop(x)` (where *x* is the filename of the plot to be cropped) will trim any existing images on your hard drive.
+
+First, let's create our plot in PDF format and use `knitr::plot_crop()` to remove the borders.
+
+```{r crop_pdf, echo = TRUE}
+pdf_file <- "../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border.pdf"
+
+ggsave(
+  pdf_file,
+  device = cairo_pdf,
+  width = 5.51,
+  height = 4.68
+)
+
+knitr::plot_crop(pdf_file)
+
+```
+
+At this point, the borders have been removed from the original PDF. But what if you want to export this PDF into a bitmap image? This can be achieved using a combination of `pdftools::pdf_render_page()` and `png::writePNG()`. `pdftools::pdf_render_page()` will take the filename of a PDF file and render into a raw bitmap array whereas `png::writePNG()` will actually save the bitmap into a file.  
+
+```{r, echo = TRUE}
+png_file <- "../post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_cropped.png"
+
+bitmap <- pdftools::pdf_render_page(pdf_file, dpi = 600)
+png::writePNG(bitmap, png_file)
+```
+
+<img style="border:2px solid red;" src="/post/2019-12-20-removing-borders-around-ggplot2-graphs.en_files/fig_border_cropped.png"/>
+
+Bang! No more borders around our plot :ok_hand:
+
+<details>
+  
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
+

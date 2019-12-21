@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R package on Philippe Massicotte</title>
@@ -28,7 +28,7 @@
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
       <guid>/post/2019-07-17-trying-the-vroom-package/</guid>
       <description>Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
- But that’s impossible! How can it be so fast?
+But that’s impossible! How can it be so fast?
 vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.</description>
     </item>
     
