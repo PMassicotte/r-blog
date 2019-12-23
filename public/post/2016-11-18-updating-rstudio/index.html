@@ -10,11 +10,11 @@
   <title>Installing latest version of RStudio from R - Philippe Massicotte</title>
   <meta property="og:title" content="Installing latest version of RStudio from R" />
   <meta name="twitter:title" content="Installing latest version of RStudio from R" />
-  <meta name="description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
-  <meta property="og:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
-  <meta name="twitter:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
+  <meta name="description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
+  <meta property="og:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
+  <meta name="twitter:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
   <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -63,7 +63,7 @@ rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desk
     "name" : "Philippe Massicotte"
   },
   "headline": "Installing latest version of RStudio from R",
-  "description" : " If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.\nrstudio_ubuntu_daily_url \x26lt;- \x26quot;https:\/\/www.rstudio.org\/download\/daily\/desktop\/ubuntu64\/\x26quot; r \x26lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file \x26lt;- regmatches(r, regexpr(\x26quot;https\\\\S\x2b?deb\x26quot;, r))[1] file destfile \x26lt;- paste(\x26quot;\/tmp\/\x26quot;, basename(file)) download.file(file, destfile = destfile) cmd \x26lt;- sprintf(\x26quot;dpkg -i %s\x26quot;, destfile) system(cmd) ",
+  "description" : "\rIf you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.\nrstudio_ubuntu_daily_url \x26lt;- \x26quot;https:\/\/www.rstudio.org\/download\/daily\/desktop\/ubuntu64\/\x26quot;\rr \x26lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))\rfile \x26lt;- regmatches(r, regexpr(\x26quot;https\\\\S\x2b?deb\x26quot;, r))[1]\rfile\rdestfile \x26lt;- paste(\x26quot;\/tmp\/\x26quot;, basename(file))\rdownload.file(file, destfile = destfile)\rcmd \x26lt;- sprintf(\x26quot;dpkg -i %s\x26quot;, destfile)\rsystem(cmd)\r",
   "inLanguage" : "en",
   "wordCount":  79 ,
   "datePublished" : "0001-01-01T00:00:00",
@@ -85,15 +85,15 @@ rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desk
 </script>
 
 <meta property="og:title" content="Installing latest version of RStudio from R" />
-<meta property="og:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
-rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot; r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url)) file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1] file destfile &lt;- paste(&quot;/tmp/&quot;, basename(file)) download.file(file, destfile = destfile) cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile) system(cmd) ">
+<meta property="og:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.
+rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))file &lt;- regmatches(r, regexpr(&quot;https\\S&#43;?deb&quot;, r))[1]filedestfile &lt;- paste(&quot;/tmp/&quot;, basename(file))download.file(file, destfile = destfile)cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)system(cmd)">
 <meta property="og:image" content="/img/pmassicotte.jpg" />
 <meta property="og:url" content="/post/2016-11-18-updating-rstudio/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Philippe Massicotte" />
 
   <meta name="twitter:title" content="Installing latest version of RStudio from R" />
-  <meta name="twitter:description" content=" If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
+  <meta name="twitter:description" content="If you are like me, chances are that you update RStudio on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is …">
   <meta name="twitter:image" content="/img/pmassicotte.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@philmassicotte" />
