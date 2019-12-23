@@ -52,7 +52,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Philippe Massicotte" />
 
-  <meta name="generator" content="Hugo 0.61.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Philippe Massicotte"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -313,9 +313,9 @@ No restriction on tools. All maps should be created by you. Doing less than 30 m
               </p>
               <div class="post-entry">
                 
-                  Arctic sea ice extentIt is well known that the Arctic sea ice extent is decreasing at an increasing pace. As stated by the National Snow &amp; Ice Data Center:
-According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.
-Thanks to the NSIDC, their data is available for download.
+                  Arctic sea ice extent It is well known that the Arctic sea ice extent is decreasing at an increasing pace. As stated by the National Snow &amp; Ice Data Center:
+ According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.
+ Thanks to the NSIDC, their data is available for download.
                   <a href="/post/visualizing-the-decrease-of-artic-sea-ice-extent/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -407,7 +407,7 @@ No restriction on tools. All maps should be created by you. Doing less than 30 m
               </p>
               <div class="post-entry">
                 
-                  url &lt;- &quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&quot;tf &lt;- tempfile()curl::curl_download(url, tf)df &lt;-readxl::read_excel(tf,na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;)) %&gt;%janitor::clean_names() %&gt;%mutate(date = lubridate::ymd(date)) %&gt;%mutate(date_time = make_datetime(year(date),month(date),day(date),hour(end_of_sampling),minute(end_of_sampling),second(end_of_sampling)))Mapworld &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)df2 &lt;- df %&gt;%count(pays, ville, x, y) %&gt;%st_as_sf(coords = c(&quot;x&quot;, &quot;y&quot;),crs = &quot;+proj=longlat +datum=WGS84&quot;) %&gt;% st_transform(st_crs(world))world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry)))#&gt; Warning in st_centroid.
+                  url &lt;- &quot;https://rem.jrc.ec.europa.eu/RemWeb/opendoc.aspx?path=/Chernobyl%20Data/Air%20concentration/CHERNAIR.xls&quot; tf &lt;- tempfile() curl::curl_download(url, tf) df &lt;- readxl::read_excel( tf, na = c(&quot;&lt;&quot;, &quot;&quot;, &quot;N&quot;, &quot;L&quot;) ) %&gt;% janitor::clean_names() %&gt;% mutate(date = lubridate::ymd(date)) %&gt;% mutate(date_time = make_datetime( year(date), month(date), day(date), hour(end_of_sampling), minute(end_of_sampling), second(end_of_sampling) )) Map world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) df2 &lt;- df %&gt;% count(pays, ville, x, y) %&gt;% st_as_sf( coords = c(&quot;x&quot;, &quot;y&quot;), crs = &quot;+proj=longlat +datum=WGS84&quot; ) %&gt;% st_transform(st_crs(world)) world_points &lt;- cbind(world, st_coordinates(st_centroid(world$geometry))) #&gt; Warning in st_centroid.
                   <a href="/post/chernobyl-cesium-137/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -452,7 +452,7 @@ No restriction on tools. All maps should be created by you. Doing less than 30 m
               <div class="post-entry">
                 
                   Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
-But that’s impossible! How can it be so fast?
+ But that’s impossible! How can it be so fast?
 vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.
                   <a href="/post/2019-07-17-trying-the-vroom-package/" class="post-read-more">[Read More]</a>
                 
@@ -502,7 +502,7 @@ vroom doesn’t stop to actually read all of your data, it simply indexes where 
               <div class="post-entry">
                 
                   When eemR was originally created, I wrote few functions to import eems derived from the spectrofluorometers I knew. Given the high diversity in file formats, eemR now offers the possibility for the user to write his/her own import function.
-An exampleIn this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.
+An example In this example, we will learn how to create a import function for a specific eem file generated by the software of a Cary Eclipse spectrofluorometer. First, lets have a look to the content of custom_cary.
                   <a href="/post/2019-06-14-eemr-1-0-0/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -555,7 +555,7 @@ An exampleIn this example, we will learn how to create a import function for a 
               <div class="post-entry">
                 
                   To me, spring 2019 seems cooler than the last year spring. I wanted to plot daily temperature data for my city. I know that the Government of Canada have such data. The following code was used to extract daily mean temperature for springs 2018 and 2019.
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)library(extrafont)library(tidyverse)library(glue)## Set default ggplot2 font size and font famillyloadfonts(quiet = TRUE)theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;))The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE) library(extrafont) library(tidyverse) library(glue) ## Set default ggplot2 font size and font familly loadfonts(quiet = TRUE) theme_set(theme_bw(base_size = 12, base_family = &quot;Poppins&quot;)) The first thing I did was to create a tibble with all the dates for which I wanted to extract the weather information.
                   <a href="/post/2019-05-22-extracting-weather-data-from-canadian-archive/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -600,8 +600,8 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)library(extrafont)library(tidy
               <div class="post-entry">
                 
                   In this post I will introduce the gitignore R package (https://github.com/PMassicotte/gitignore).
-Basic ideagitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
-gi_available_templates(): to get a list of all templates available on gitignore.io.gi_fetch_templates(): to get one or more template(s).
+Basic idea gitignore is a simple R package that provide an interface to query gitignore.io to fetch gitignore templates that can be included in the .gitignore file. More than 450 templates are currently available. There are actually two functions in the package:
+ gi_available_templates(): to get a list of all templates available on gitignore.io. gi_fetch_templates(): to get one or more template(s).
                   <a href="/post/2019-05-08-introducing-gitignore/" class="post-read-more">[Read More]</a>
                 
               </div>
@@ -650,7 +650,7 @@ Basic ideagitignore is a simple R package that provide an interface to query gi
               <div class="post-entry">
                 
                   Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
-\[f(x) = \cos(x) + 2\]
+\[ f(x) = \cos(x) + 2 \]
 We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.
                   <a href="/post/numerical-integration-in-r/" class="post-read-more">[Read More]</a>
                 
@@ -809,7 +809,7 @@ We first define the equation in the form of a function since it is a requirement
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.61.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          <a href="http://gohugo.io">Hugo v0.62.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
           
         </p>
       </div>

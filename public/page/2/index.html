@@ -233,6 +233,57 @@
           
           
             <article class="post-preview">
+              <a href="/post/2016-11-18-updating-rstudio/">
+                <h2 class="post-title">Installing latest version of RStudio from R</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 1, 0001
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;79&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  
+
+
+<p>If you are like me, chances are that you update <a href="https://www.rstudio.org/download/daily/desktop/ubuntu64/">RStudio</a> on a daily basis. Here is a small R script that automatically download and install the latest version of RStudio on your computer. Note this is for ubuntu64 based systems, but this can be easily modified for Windows or Mac platforms.</p>
+<pre class="r"><code>rstudio_ubuntu_daily_url &lt;- &quot;https://www.rstudio.org/download/daily/desktop/ubuntu64/&quot;
+
+r &lt;- readLines(curl::curl(rstudio_ubuntu_daily_url))
+
+file &lt;- regmatches(r, regexpr(&quot;https\\S+?deb&quot;, r))[1]
+file
+
+destfile &lt;- paste(&quot;/tmp/&quot;, basename(file))
+
+download.file(file, destfile = destfile)
+
+cmd &lt;- sprintf(&quot;dpkg -i %s&quot;, destfile)
+system(cmd)</code></pre>
+
+                
+              </div>
+
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="/post/2015-11-05-eemr/">
                 <h2 class="post-title">Introducing eemR</h2>
                 
