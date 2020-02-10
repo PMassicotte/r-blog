@@ -4,6 +4,16 @@ title: Presentations
 subtitle: List of my most recent presentations
 ---
 
+# 2020
+
+---
+
+## NetColor steering commity meeting (Ottawa, Canada)
+
+Presentation of the Takuvik primary production model for the Arctic.
+
+https://pmassicotte.github.io/netcolor_2020_ottawa/#1
+
 # 2019
 
 ---
