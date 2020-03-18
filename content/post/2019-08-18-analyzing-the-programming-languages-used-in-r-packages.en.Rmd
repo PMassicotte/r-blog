@@ -99,7 +99,7 @@ links %>%
 
 Then, we can read all the generated CSV files. 
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval=FALSE}
 csv_files <- dir_ls("g:/r-packages/", regexp = "\\.csv$")
 
 pkg <-
@@ -125,12 +125,15 @@ pkg <-
 pkg
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 write_csv(pkg, here::here("static", "data", "loc_cran_packages.csv"))
 ```
 
 ## Languages used in R packages
 
+```{r read_data, echo=FALSE}
+pkg <- read_csv(here::here("static", "data", "loc_cran_packages.csv"))
+```
 There are a total of `r n_distinct(pkg$language)` programming languages used in CRAN R packages. The following graph shows the top 16 most used (determined by the number of lines).
 
 ```{r}

@@ -63,7 +63,7 @@
   "headline": "Analyzing the programming languages used in R packages",
   "description" : "It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C\x2b\x2b and Python. In this post, I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.",
   "inLanguage" : "en",
-  "wordCount":  1232 ,
+  "wordCount":  1112 ,
   "datePublished" : "2019-08-18T00:00:00",
   "dateModified" : "2019-08-18T00:00:00",
   "image" : "\/img\/pmassicotte.jpg",
@@ -267,7 +267,7 @@
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1232&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1112&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -375,21 +375,7 @@ pkg &lt;-
     regex = &quot;G:/r-packages/(.*)_(.*).tar.csv&quot;
   )
 
-pkg
-#&gt; # A tibble: 34,477 x 7
-#&gt;     file language blank comment  code pkg_name    version
-#&gt;    &lt;int&gt; &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;  
-#&gt;  1     2 R           96     353   365 A3          1.0.0  
-#&gt;  2     1 HTML       347       5  2661 aaSEA       1.0.0  
-#&gt;  3    23 R           63     325   676 aaSEA       1.0.0  
-#&gt;  4     3 HTML       307       9  1275 abbyyR      0.5.5  
-#&gt;  5    30 R          224     636   587 abbyyR      0.5.5  
-#&gt;  6     5 Markdown   246       0   418 abbyyR      0.5.5  
-#&gt;  7     1 HTML        26       1   190 ABC.RAP     0.9.0  
-#&gt;  8    11 R           32     202   141 ABC.RAP     0.9.0  
-#&gt;  9    10 R          104     333   406 ABCanalysis 1.2.1  
-#&gt; 10    16 R          153      62   882 abcdeFBA    0.4    
-#&gt; # ... with 34,467 more rows</code></pre>
+pkg</code></pre>
 </div>
 <div id="languages-used-in-r-packages" class="section level2">
 <h2>Languages used in R packages</h2>
@@ -429,7 +415,7 @@ languages %&gt;%
 </div>
 <div id="count-the-number-of-loc-per-language" class="section level2">
 <h2>Count the number of LOC per language</h2>
-<p>What are the most used programming languages used in R packages? Obviously, R is the #1 language and there is a total of 22,822,548 lines of R code in published R packages. That is pretty impressive! The next graph shows the total number of lines of code found in all CRAN packages.</p>
+<p>What are the most used programming languages used in R packages? Obviously, R is the #1 language and there is a total of 22,822,548.0 lines of R code in published R packages. That is pretty impressive! The next graph shows the total number of lines of code found in all CRAN packages.</p>
 <pre class="r"><code>most_popular &lt;- pkg %&gt;% 
   group_by(language) %&gt;% 
   summarise(total_loc = sum(code)) %&gt;% 
