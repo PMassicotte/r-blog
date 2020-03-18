@@ -57,26 +57,27 @@ read_csv(file)</code></pre>
 <p>Because the <code>vroom()</code> function can use a vector of files, I will duplicate <code>file</code> 10 times.</p>
 <pre class="r"><code>files &lt;- rep(file, 10)
 files</code></pre>
-<pre><code>##  [1] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [2] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [3] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [4] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [5] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [6] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [7] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [8] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-##  [9] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;
-## [10] &quot;/tmp/Rtmp8ngR3l/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
+<pre><code>##  [1] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [2] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [3] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [4] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [5] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [6] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [7] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [8] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+##  [9] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;
+## [10] &quot;/tmp/RtmpVPNHL2/201801_capitalbikeshare_tripdata.csv&quot;</code></pre>
 <p>I can now simply use this character vector with <code>vroom()</code>. Note that I can also use the <code>.name_repair</code> argument to clean column names.</p>
 <pre class="r"><code>df &lt;- vroom(files, .name_repair = ~janitor::make_clean_names(.))</code></pre>
-<pre><code>## Observations: 1,685,900
-## Variables: 9
+<pre><code>## Rows: 1,685,900
+## Columns: 9
+## Delimiter: &quot;,&quot;
 ## chr  [4]: Start station, End station, Bike number, Member type
 ## dbl  [3]: Duration, Start station number, End station number
 ## dttm [2]: Start date, End date
 ## 
-## Call `spec()` for a copy-pastable column specification
-## Specify the column types with `col_types` to quiet this message</code></pre>
+## Use `spec()` to retrieve the guessed column specification
+## Pass a specification to the `col_types` argument to quiet this message</code></pre>
 <pre class="r"><code>df</code></pre>
 <pre><code>## # A tibble: 1,685,900 x 9
 ##    duration start_date          end_date            start_station_n…
@@ -123,9 +124,12 @@ autoplot(res)</code></pre>
   vroom(files),
   vroom(files, altrep_opts = TRUE),
   times = 10
-)
-
-autoplot(res)</code></pre>
+)</code></pre>
+<pre><code>## Warning: The `altrep_opts` argument of `vroom()` is deprecated as of vroom 1.1.0.
+## Please use the `altrep` argument instead.
+## This warning is displayed once per session.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre class="r"><code>autoplot(res)</code></pre>
 <p><img src="/post/2019-07-17-trying-the-vroom-package.en_files/figure-html/benchmark2-1.svg" width="672" /></p>
 <p>Based on these results, I think that <code>vroom</code> will become part of my daily workflow from now on.</p>
 </div>
