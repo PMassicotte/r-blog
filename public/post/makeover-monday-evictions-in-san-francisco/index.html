@@ -1,641 +1,0 @@
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Makeover Monday (Evictions in San Francisco) - Another R blog</title>
-  <meta property="og:title" content="Makeover Monday (Evictions in San Francisco)" />
-  <meta name="twitter:title" content="Makeover Monday (Evictions in San Francisco)" />
-  <meta name="description" content="df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;%mutate(year = lubridate::year(file_date)) %&gt;%extract(location, into = c(&quot;longitude&quot;, &quot;latitude&quot;), regex = &quot;POINT \\((-?\\d&#43;\\.\\d&#43;) (\\d&#43;\\.\\d&#43;)\\)&quot;, convert = TRUE) %&gt;%pivot_longer(c(non_payment:good_samaritan_ends), names_to = &quot;reason&quot;, values_to = &quot;value&quot;) %&gt;%filter(value) %&gt;%drop_na(longitude, latitude, year)# df %&gt;%# group_by(eviction_id) %&gt;%# # filter(value) %&gt;%# ungroup() %&gt;%# count(eviction_id, sort = T)#df %&gt;%count(neighborhoods_analysis_boundaries, sort = TRUE)#&gt; # A tibble: 42 x 2#&gt; neighborhoods_analysis_boundaries n#&gt; &lt;chr&gt; &lt;int&gt;#&gt; 1 Mission 4620#&gt; 2 Tenderloin 2725#&gt; 3 Sunset/Parkside 2664#&gt; 4 Outer Richmond 2144#&gt; 5 Castro/Upper Market 1866#&gt; 6 Lakeshore 1785#&gt; 7 Hayes Valley 1550#&gt; 8 South of Market 1486#&gt; 9 Nob Hill 1458#&gt; 10 Haight Ashbury 1340#&gt; # .">
-  <meta property="og:description" content="df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;%mutate(year = lubridate::year(file_date)) %&gt;%extract(location, into = c(&quot;longitude&quot;, &quot;latitude&quot;), regex = &quot;POINT \\((-?\\d&#43;\\.\\d&#43;) (\\d&#43;\\.\\d&#43;)\\)&quot;, convert = TRUE) %&gt;%pivot_longer(c(non_payment:good_samaritan_ends), names_to = &quot;reason&quot;, values_to = &quot;value&quot;) %&gt;%filter(value) %&gt;%drop_na(longitude, latitude, year)# df %&gt;%# group_by(eviction_id) %&gt;%# # filter(value) %&gt;%# ungroup() %&gt;%# count(eviction_id, sort = T)#df %&gt;%count(neighborhoods_analysis_boundaries, sort = TRUE)#&gt; # A tibble: 42 x 2#&gt; neighborhoods_analysis_boundaries n#&gt; &lt;chr&gt; &lt;int&gt;#&gt; 1 Mission 4620#&gt; 2 Tenderloin 2725#&gt; 3 Sunset/Parkside 2664#&gt; 4 Outer Richmond 2144#&gt; 5 Castro/Upper Market 1866#&gt; 6 Lakeshore 1785#&gt; 7 Hayes Valley 1550#&gt; 8 South of Market 1486#&gt; 9 Nob Hill 1458#&gt; 10 Haight Ashbury 1340#&gt; # .">
-  <meta name="twitter:description" content="df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;% …">
-  <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Another R blog",
-    
-    "url": "\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "\/"
-  
-  
-  
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "\/",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "\/post\/makeover-monday-evictions-in-san-francisco\/",
-          "name": "Makeover monday ( evictions in san francisco)"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Philippe Massicotte"
-  },
-  "headline": "Makeover Monday (Evictions in San Francisco)",
-  "description" : "df \x26lt;- read_csv(\x26quot;https:\/\/query.data.world\/s\/wcntg2ynqmimnjd7tl4d4ybjwf2nv6\x26quot;) %\x26gt;%\rjanitor::clean_names()\rdf \x26lt;- df %\x26gt;%\rmutate(file_date = lubridate::mdy(file_date)) %\x26gt;%\rmutate(year = lubridate::year(file_date)) %\x26gt;%\rextract(location, into = c(\x26quot;longitude\x26quot;, \x26quot;latitude\x26quot;), regex = \x26quot;POINT \\\\((-?\\\\d\x2b\\\\.\\\\d\x2b) (\\\\d\x2b\\\\.\\\\d\x2b)\\\\)\x26quot;, convert = TRUE) %\x26gt;%\rpivot_longer(c(non_payment:good_samaritan_ends), names_to = \x26quot;reason\x26quot;, values_to = \x26quot;value\x26quot;) %\x26gt;%\rfilter(value) %\x26gt;%\rdrop_na(longitude, latitude, year)\r# df %\x26gt;%\r# group_by(eviction_id) %\x26gt;%\r# # filter(value) %\x26gt;%\r# ungroup() %\x26gt;%\r# count(eviction_id, sort = T)\r#\rdf %\x26gt;%\rcount(neighborhoods_analysis_boundaries, sort = TRUE)\r#\x26gt; # A tibble: 42 x 2\r#\x26gt; neighborhoods_analysis_boundaries n\r#\x26gt; \x26lt;chr\x26gt; \x26lt;int\x26gt;\r#\x26gt; 1 Mission 4620\r#\x26gt; 2 Tenderloin 2725\r#\x26gt; 3 Sunset\/Parkside 2664\r#\x26gt; 4 Outer Richmond 2144\r#\x26gt; 5 Castro\/Upper Market 1866\r#\x26gt; 6 Lakeshore 1785\r#\x26gt; 7 Hayes Valley 1550\r#\x26gt; 8 South of Market 1486\r#\x26gt; 9 Nob Hill 1458\r#\x26gt; 10 Haight Ashbury 1340\r#\x26gt; # .",
-  "inLanguage" : "en",
-  "wordCount":  417 ,
-  "datePublished" : "2019-09-22T00:00:00",
-  "dateModified" : "2019-09-22T00:00:00",
-  "image" : "\/img\/pmassicotte.jpg",
-  "keywords" : [ "Makeover Monday, Visualization, Tidyverse" ],
-  "mainEntityOfPage" : "\/post\/makeover-monday-evictions-in-san-francisco\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "\/img\/pmassicotte.jpg",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Makeover Monday (Evictions in San Francisco)" />
-<meta property="og:description" content="df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;%mutate(year = lubridate::year(file_date)) %&gt;%extract(location, into = c(&quot;longitude&quot;, &quot;latitude&quot;), regex = &quot;POINT \\((-?\\d&#43;\\.\\d&#43;) (\\d&#43;\\.\\d&#43;)\\)&quot;, convert = TRUE) %&gt;%pivot_longer(c(non_payment:good_samaritan_ends), names_to = &quot;reason&quot;, values_to = &quot;value&quot;) %&gt;%filter(value) %&gt;%drop_na(longitude, latitude, year)# df %&gt;%# group_by(eviction_id) %&gt;%# # filter(value) %&gt;%# ungroup() %&gt;%# count(eviction_id, sort = T)#df %&gt;%count(neighborhoods_analysis_boundaries, sort = TRUE)#&gt; # A tibble: 42 x 2#&gt; neighborhoods_analysis_boundaries n#&gt; &lt;chr&gt; &lt;int&gt;#&gt; 1 Mission 4620#&gt; 2 Tenderloin 2725#&gt; 3 Sunset/Parkside 2664#&gt; 4 Outer Richmond 2144#&gt; 5 Castro/Upper Market 1866#&gt; 6 Lakeshore 1785#&gt; 7 Hayes Valley 1550#&gt; 8 South of Market 1486#&gt; 9 Nob Hill 1458#&gt; 10 Haight Ashbury 1340#&gt; # .">
-<meta property="og:image" content="/img/pmassicotte.jpg" />
-<meta property="og:url" content="/post/makeover-monday-evictions-in-san-francisco/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Another R blog" />
-
-  <meta name="twitter:title" content="Makeover Monday (Evictions in San Francisco)" />
-  <meta name="twitter:description" content="df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%janitor::clean_names()df &lt;- df %&gt;%mutate(file_date = lubridate::mdy(file_date)) %&gt;% …">
-  <meta name="twitter:image" content="/img/pmassicotte.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@philmassicotte" />
-  <meta name="twitter:creator" content="@philmassicotte" />
-  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="/img/pmassicotte.jpg" />
-  <meta name="twitter:image" content="/img/pmassicotte.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@philmassicotte" />
-  <meta name="twitter:creator" content="@philmassicotte" />
-  <meta property="og:url" content="/post/makeover-monday-evictions-in-san-francisco/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Another R blog" />
-
-  <meta name="generator" content="Hugo 0.55.6" />
-  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Another R blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
-
-
-
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Another R blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="Blog" href="/">Blog</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="About" href="/page/about/">About</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="Presentations" href="/page/presentations/">Presentations</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="Publications" href="/page/publication/">Publications</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
-
-    
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Another R blog" href="/">
-            <img class="avatar-img" src="/img/pmassicotte.jpg" alt="Another R blog" />
-          </a>
-        </div>
-      </div>
-    
-
-  </div>
-</nav>
-
-
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Makeover Monday (Evictions in San Francisco)</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 22, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;417&nbsp;words
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-<link rel="stylesheet" href="/css/tomorrow.css" rel="stylesheet" id="theme-stylesheet">
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        
-
-
-<pre class="r"><code>df &lt;- read_csv(&quot;https://query.data.world/s/wcntg2ynqmimnjd7tl4d4ybjwf2nv6&quot;) %&gt;%
-  janitor::clean_names()
-
-df &lt;- df %&gt;%
-  mutate(file_date = lubridate::mdy(file_date)) %&gt;%
-  mutate(year = lubridate::year(file_date)) %&gt;%
-  extract(location, into = c(&quot;longitude&quot;, &quot;latitude&quot;), regex = &quot;POINT \\((-?\\d+\\.\\d+) (\\d+\\.\\d+)\\)&quot;, convert = TRUE) %&gt;%
-  pivot_longer(c(non_payment:good_samaritan_ends), names_to = &quot;reason&quot;, values_to = &quot;value&quot;) %&gt;%
-  filter(value) %&gt;%
-  drop_na(longitude, latitude, year)
-
-# df %&gt;%
-#   group_by(eviction_id) %&gt;%
-#   # filter(value) %&gt;%
-#   ungroup() %&gt;%
-#   count(eviction_id, sort = T)
-#
-df %&gt;%
-  count(neighborhoods_analysis_boundaries, sort = TRUE)
-#&gt; # A tibble: 42 x 2
-#&gt;    neighborhoods_analysis_boundaries     n
-#&gt;    &lt;chr&gt;                             &lt;int&gt;
-#&gt;  1 Mission                            4620
-#&gt;  2 Tenderloin                         2725
-#&gt;  3 Sunset/Parkside                    2664
-#&gt;  4 Outer Richmond                     2144
-#&gt;  5 Castro/Upper Market                1866
-#&gt;  6 Lakeshore                          1785
-#&gt;  7 Hayes Valley                       1550
-#&gt;  8 South of Market                    1486
-#&gt;  9 Nob Hill                           1458
-#&gt; 10 Haight Ashbury                     1340
-#&gt; # ... with 32 more rows
-
-caption &lt;- df %&gt;% 
-   count(reason, sort = TRUE) %&gt;% 
-   top_n(10) %&gt;% 
-   mutate(reason = str_replace_all(reason, &quot;_&quot;, &quot; &quot;)) %&gt;% 
-   mutate(reason = str_to_title(reason)) %&gt;% 
-   mutate(txt = glue(&quot;{reason} (n = {n})&quot;)) %&gt;% 
-   pull(txt)
-
-caption &lt;- str_c(&quot;Number of eviction between 1997 and 2019: &quot;, str_c(caption, collapse = &quot;, &quot;))
-
-sf &lt;- st_read(&quot;c:/Users/pmass.000/Downloads/SF Find Neighborhoods/geo_export_8a1285c6-4a44-4018-b2b8-8fb53561f318.shp&quot;) %&gt;%
-  mutate(name = as.character(name))
-#&gt; Reading layer `geo_export_8a1285c6-4a44-4018-b2b8-8fb53561f318&#39; from data source `c:\Users\pmass.000\Downloads\SF Find Neighborhoods\geo_export_8a1285c6-4a44-4018-b2b8-8fb53561f318.shp&#39; using driver `ESRI Shapefile&#39;
-#&gt; Simple feature collection with 117 features and 2 fields
-#&gt; geometry type:  POLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -122.5149 ymin: 37.70809 xmax: -122.357 ymax: 37.8324
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +ellps=WGS84 +no_defs
-
-
-df2 &lt;- df %&gt;%
-  st_as_sf(coords = c(&quot;longitude&quot;, &quot;latitude&quot;), crs = 4326) %&gt;%
-  st_transform(st_crs(sf)) %&gt;%
-  st_join(sf, .)
-
-df2 %&gt;%
-  filter(year %in% c(1997, 2004, 2011, 2018)) %&gt;%
-  group_by(name, year) %&gt;%
-  summarise(sum_eviction = sum(value, na.rm = TRUE)) %&gt;%
-  ungroup() %&gt;%
-  ggplot() +
-  geom_sf(data = sf, fill = &quot;white&quot;, size = 0.1, color = &quot;white&quot;) +
-  geom_sf(aes(fill = sum_eviction), size = 0.1, color = &quot;white&quot;) +
-  facet_wrap(~year, drop = TRUE, ncol = 4, strip.position = &quot;bottom&quot;) +
-  coord_sf() +
-  scale_fill_viridis_c(trans = &quot;log10&quot;, option = &quot;plasma&quot;) +
-  labs(
-    fill = &quot;Number of\nevictions&quot;,
-    title = str_wrap(&quot;Total number of San Francisco eviction notices in 1997, 2004, 2011 and 2018&quot;, 60),
-    subtitle = str_wrap(caption, width = 110),
-    caption = &quot;Makeover Monday (2019/W39) | Data Source: DataSF | Visualization: @philmassicotte&quot;
-  ) +
-  theme(
-    panel.grid = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title = element_blank(),
-    axis.text = element_blank(),
-    panel.border = element_blank(),
-    strip.background = element_rect(fill = &quot;#2b2d2f&quot;),
-    strip.text = element_text(face = 2, size = 24, color = &quot;white&quot;),
-    panel.background = element_rect(fill = &quot;#2b2d2f&quot;),
-    plot.caption = element_text(size = 8, color = &quot;white&quot;, hjust = 0),
-    plot.subtitle = element_text(size = 10)
-  )</code></pre>
-<p><img src="/post/2019-09-22-makeover-monday-evictions-in-san-francisco.en_files/figure-html/unnamed-chunk-1-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="//tags/makeover-monday/">Makeover Monday</a>&nbsp;
-            
-              <a href="//tags/visualization/">Visualization</a>&nbsp;
-            
-              <a href="//tags/tidyverse/">Tidyverse</a>&nbsp;
-            
-          </div>
-        
-
-        
-            <hr/>
-            <section id="social-share">
-              <div class="list-inline footer-links">
-                
-
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
-      
-      <li>
-        <a href="//twitter.com/share?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f&amp;text=Makeover%20Monday%20%28Evictions%20in%20San%20Francisco%29&amp;via=philmassicotte" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//plus.google.com/share?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f" target="_blank" title="Share on Google Plus">
-          <i class="fab fa-google-plus"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//reddit.com/submit?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f&amp;title=Makeover%20Monday%20%28Evictions%20in%20San%20Francisco%29" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f&amp;title=Makeover%20Monday%20%28Evictions%20in%20San%20Francisco%29" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f&amp;title=Makeover%20Monday%20%28Evictions%20in%20San%20Francisco%29" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2fmakeover-monday-evictions-in-san-francisco%2f&amp;description=Makeover%20Monday%20%28Evictions%20in%20San%20Francisco%29" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-  
-              </div>
-            </section>
-        
-
-        
-          
-          
-          <h4 class="see-also">See also</h4>
-          <ul>
-          
-            <li><a href="/post/the-past-and-the-future-of-video-games/">The past and the future of video games</a></li>
-          
-            <li><a href="/post/tidytuesday-2019-08-13/">Tidytuesday (2019-08-13)</a></li>
-          
-            <li><a href="/post/tidytuesday-2019-08-06/">Tidytuesday (2019-08-06)</a></li>
-          
-          </ul>
-          
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="/post/the-past-and-the-future-of-video-games/" data-toggle="tooltip" data-placement="top" title="The past and the future of video games">&larr; Previous Post</a>
-            </li>
-          
-          
-        </ul>
-      
-
-
-      
-        
-          
-          <div class="disqus-comments">
-            <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "pmassicotte" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-          </div>
-          
-        
-        
-      
-
-    </div>
-  </div>
-</div>
-
-    <footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="mailto:pmassicotte@hotmail.com" title="Email me">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/pmassicotte" title="GitHub">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://gitlab.com/PMassicotte" title="GitLab">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/philmassicotte" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://stackoverflow.com/users/5558188/philippe-massicotte" title="StackOverflow">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://500px.com/persican" title="500px">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-500px fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="PMassicotte.github.io">Philippe Massicotte</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2019
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="/">Another R blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.6</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="/js/main.js"></script>
-<script src="/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
-
-  </body>
-</html>
-
