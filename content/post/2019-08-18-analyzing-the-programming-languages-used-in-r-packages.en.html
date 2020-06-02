@@ -13,6 +13,7 @@ subtitle: ''
 image: ''
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>It is easy to integrate other programming languages withing R. For instance, <a href="http://www.rcpp.org/">Rcpp</a> and <a href="https://rstudio.github.io/reticulate/">reticulate</a> can be used to interface R with C++ and Python. In this post, I am analyzing the programming languages used in the R packages published on <a href="https://cran.r-project.org/src/contrib/">CRAN</a>. I have downloaded all published packages and used <a href="https://github.com/AlDanial/cloc">cloc</a> (v1.82) to count the number of lines of code in each package. <em>Disclaimer</em>: cloc does not only count line of code for programming language. It also counts the number of lines in a markup language such as markdown. In this post, I make no difference between language types. At the time of writing this post, approximately 14 700 packages were analyzed.</p>

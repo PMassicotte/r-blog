@@ -123,11 +123,6 @@
   </url>
   
   <url>
-    <loc>/page/publication/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/page/about/</loc>
   </url>
   
