@@ -4,16 +4,46 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-12-20T00:00:00+00:00</lastmod>
+    <loc>/tags/academic/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/open-access-journals/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/open-access-journals-around-the-world/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/open-science/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/publications/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
     <lastmod>2019-12-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -34,11 +64,6 @@
   
   <url>
     <loc>/tags/sea-ice/</loc>
-    <lastmod>2019-08-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-08-23T00:00:00+00:00</lastmod>
   </url>
   
