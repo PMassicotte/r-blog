@@ -42,9 +42,6 @@ theme_set(theme_light_modified(base_family = "Oxanium"))
 ```
 It is easy to say that there is an [increasing interest in publishing in open access journals](https://www.timeshighereducation.com/news/would-be-heavyweights-the-rise-of-open-access-mega-journals). There are now more and more peer-reviewed open access journals where scientific research can be disseminated. That is why, as an academic, I recently decided to only review articles that are going to be published in open access journals. I will also strongly encourage the publication of my future articles in open access journals when I am the first author.  
 
-![](https://www.timeshighereducation.com/sites/default/files/the-rise-of-open-access-mega-journals-081216-large.jpg)
-*<small>Image from https://www.timeshighereducation.com/news/would-be-heavyweights-the-rise-of-open-access-mega-journals</small>*
-
 ## The Directory of Open Access Journal (DOAJ)
 
 ```{r download_data}
@@ -242,3 +239,104 @@ p <- wm %>%
 
 p
 ```
+
+## The big five publishers
+
+According to a [paper published in 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502), *Elsevier*, *Springer*, *Wiley*, *Taylor & Francis Group* and *SAGE Publishing* are the main publishers that control more than half of the market of scientific. In the past few years, many universities and institutions have started to [boycott these big publishers](https://en.wikipedia.org/wiki/The_Cost_of_Knowledge). Using the DOAJ's data, I was interested to see if how these publishers embraced the open access movement. Not too surprisingly, we can see a peak in the creation of open access journals between 2013 and 2015.
+
+```{r big_five_1}
+
+# https://www.vocativ.com/culture/science/five-corporations-control-academic-publishing/index.html
+
+# https://www.sciencedaily.com/releases/2015/06/150610143624.htm
+
+# https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502
+
+# https://figshare.com/articles/Data_for_The_Oligopoly_of_Academic_Publishers_in_the_Digital_Era/1447274
+
+df <- df %>%
+  mutate(top_5_paid_publisher = case_when(
+    str_detect(
+      publisher,
+      regex("elsevier|springer|wiley|taylor|\\bsage\\b", ignore_case = TRUE)
+    ) ~ TRUE,
+    TRUE ~ FALSE
+  ))
+
+df_viz <- df %>%
+  filter(top_5_paid_publisher == TRUE) %>%
+  count(
+    publisher,
+    year = first_calendar_year_journal_provided_online_open_access_content
+  ) %>%
+  group_by(publisher) %>%
+  mutate(nn = n()) %>%
+  filter(nn >= 10)
+  
+df_viz %>%   
+  ggplot(aes(x = year, y = n, color = publisher)) +
+  geom_line() +
+  geom_point(show.legend = FALSE) +
+  scale_x_continuous(
+    breaks = scales::breaks_pretty(n = 10)
+  ) +
+  labs(
+    x = NULL,
+    y = "Number of new open access journals"
+  ) +
+  paletteer::scale_color_paletteer_d(
+    "ggthemes::wsj_colors6",
+    guide = guide_legend(
+      label.position = "top",
+      keyheight = unit(0.1, "cm"),
+      keywidth = unit(3.5, "cm"),
+      direction = "horizontal", override.aes = list(size = 2)
+    )
+  ) +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank(),
+    panel.border = element_blank()
+  )
+```
+
+```{r big_five_publishing_cost, eval=FALSE}
+submission_fee <- df %>%
+  drop_na(submission_fee_currency, submission_fee_amount) %>%
+  select(
+    top_5_paid_publisher,
+    submission_fee_currency,
+    submission_fee_amount,
+    publisher,
+    journal_title
+  ) %>% 
+  mutate(symbol = str_extract(submission_fee_currency, "^[A-Z]{3}")) %>% 
+  rowwise() %>%
+  mutate(rate = quantmod::getQuote(paste0(symbol, "USD", "=X"))$Last) %>% 
+  mutate(submission_fee_amount_usd = submission_fee_amount * rate)
+```
+
+
+
+```{r plot_submission_fee, eval=FALSE}
+
+submission_fee %>% 
+  # filter(submission_fee_amount_usd <= 10000) %>% 
+  ggplot(aes(x = top_5_paid_publisher, y = submission_fee_amount_usd)) +
+  ggforce::geom_sina() +
+  scale_y_log10(
+    labels = scales::label_dollar(suffix = " USD")
+  ) +
+  labs(
+    y = NULL,
+    x = NULL
+  ) +
+  annotation_logticks(sides = "l") +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank(),
+    panel.border = element_blank()
+  )
+
+```
+
