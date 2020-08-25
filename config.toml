@@ -14,6 +14,7 @@ pygmentsCodefencesGuessSyntax = true
 disqusShortname = "pmassicotte"
 #googleAnalytics = "XXX"
 enableEmoji = true
+rssLimits = 10
 
 [Params]
   customCSS = ["css/overrides.css"]
@@ -24,7 +25,6 @@ enableEmoji = true
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
-  rssLimits = 10
   comments = true
   readingTime = true
   wordCount = true
