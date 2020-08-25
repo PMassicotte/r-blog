@@ -1,5 +1,5 @@
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-baseurl = "/"
+baseurl = "https://www.pmassicotte.com/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "Philippe Massicotte"
@@ -24,6 +24,7 @@ enableEmoji = true
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
+  rssLimits = 10
   comments = true
   readingTime = true
   wordCount = true
