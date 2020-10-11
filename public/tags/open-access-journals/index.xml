@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Open access journals on Philippe Massicotte</title>
-    <link>/tags/open-access-journals/</link>
+    <link>https://www.pmassicotte.com/tags/open-access-journals/</link>
     <description>Recent content in Open access journals on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/open-access-journals/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/tags/open-access-journals/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Open access journals around the World</title>
-      <link>/post/open-access-journals-around-the-world/</link>
+      <link>https://www.pmassicotte.com/post/open-access-journals-around-the-world/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/open-access-journals-around-the-world/</guid>
+      <guid>https://www.pmassicotte.com/post/open-access-journals-around-the-world/</guid>
       <description>It is easy to say that there is an increasing interest in publishing in open access journals. There are now more and more peer-reviewed open access journals where scientific research can be disseminated. That is why, as an academic, I recently decided to only review articles that are going to be published in open access journals. I will also strongly encourage the publication of my future articles in open access journals when I am the first author.</description>
     </item>
     

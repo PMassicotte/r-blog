@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Arctic on Philippe Massicotte</title>
-    <link>/tags/arctic/</link>
+    <link>https://www.pmassicotte.com/tags/arctic/</link>
     <description>Recent content in Arctic on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/arctic/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/tags/arctic/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Visualizing the decrease of Artic sea ice extent</title>
-      <link>/post/visualizing-the-decrease-of-artic-sea-ice-extent/</link>
+      <link>https://www.pmassicotte.com/post/visualizing-the-decrease-of-artic-sea-ice-extent/</link>
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/visualizing-the-decrease-of-artic-sea-ice-extent/</guid>
+      <guid>https://www.pmassicotte.com/post/visualizing-the-decrease-of-artic-sea-ice-extent/</guid>
       <description>Arctic sea ice extent It is well known that the Arctic sea ice extent is decreasing at an increasing pace. As stated by the National Snow &amp;amp; Ice Data Center:
  According to scientific measurements, both the thickness and extent of summer sea ice in the Arctic have shown a dramatic decline over the past thirty years. This is consistent with observations of a warming Arctic.
  Thanks to the NSIDC, their data is available for download.</description>

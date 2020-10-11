@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Philippe Massicotte</title>
-    <link>/page/</link>
+    <link>https://www.pmassicotte.com/page/</link>
     <description>Recent content in Pages on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     
-	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/page/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About me</title>
-      <link>/page/about/</link>
+      <link>https://www.pmassicotte.com/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/page/about/</guid>
+      <guid>https://www.pmassicotte.com/page/about/</guid>
       <description>Hi, my name is Philippe Massicotte. As a numerical ecologist, the R statistical computing language is an important part of my daily workflow. I mainly use R for environmental modelling and data manipulation. In this not-so-serious blog, I will present my recent R work as well as various data visualizations such as the TidyTuesday challenges.
 Current research I am currently working as a research associate at the Takuvik Joint International Laboratory under the supervision of Dr.</description>
     </item>
     
     <item>
       <title>Presentations</title>
-      <link>/page/presentations/</link>
+      <link>https://www.pmassicotte.com/page/presentations/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/page/presentations/</guid>
+      <guid>https://www.pmassicotte.com/page/presentations/</guid>
       <description>2020  NetColor steering commity meeting (Ottawa, Canada) Presentation of the Takuvik primary production model for the Arctic.
 https://pmassicotte.github.io/netcolor_2020_ottawa/#1
 2019  Green Edge legacy meeting (Nice, France) Presentations given at the Green Edge legacy meeting.
@@ -37,10 +37,10 @@ Ice camp paper https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_
     
     <item>
       <title>Publications</title>
-      <link>/page/publication/</link>
+      <link>https://www.pmassicotte.com/page/publication/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/page/publication/</guid>
+      <guid>https://www.pmassicotte.com/page/publication/</guid>
       <description>[1] M. Giacomazzo, A. Bertolo, P. Brodeur, P. Massicotte, J. Goyette, and P. Magnan. “Linking fisheries to land use: How anthropogenic inputs from the watershed shape fish habitat quality”. In: Science of The Total Environment 717 (May. 2020), p. 135377. ISSN: 00489697. DOI: 10.1016/j.scitotenv.2019.135377.
 [2] P. Massicotte, R. Amiraux, M. Amyot, P. Archambault, M. Ardyna, L. Arnaud, L. Artigue, C. Aubry, P. Ayotte, G. Bécu, S. Bélanger, R. Benner, H.</description>
     </item>

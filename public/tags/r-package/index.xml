@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R package on Philippe Massicotte</title>
-    <link>/tags/r-package/</link>
+    <link>https://www.pmassicotte.com/tags/r-package/</link>
     <description>Recent content in R package on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/r-package/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/tags/r-package/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Analyzing the programming languages used in R packages</title>
-      <link>/post/analyzing-the-programming-languages-used-in-r-packages/</link>
+      <link>https://www.pmassicotte.com/post/analyzing-the-programming-languages-used-in-r-packages/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
+      <guid>https://www.pmassicotte.com/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
       <description>It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C++ and Python. In this post, I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.</description>
     </item>
     
     <item>
       <title>Trying the new R vroom Package</title>
-      <link>/post/2019-07-17-trying-the-vroom-package/</link>
+      <link>https://www.pmassicotte.com/post/2019-07-17-trying-the-vroom-package/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/2019-07-17-trying-the-vroom-package/</guid>
+      <guid>https://www.pmassicotte.com/post/2019-07-17-trying-the-vroom-package/</guid>
       <description>Many R packages can be used to read plain rectangular data files. Among them, readr and data.table are quite popular options. Recently, the vroom package have been published on CRAN by Jim Hester. While I do not know much about the technology behind the scene, Jim says:
  But that’s impossible! How can it be so fast?
 vroom doesn’t stop to actually read all of your data, it simply indexes where each record is located so it can be read later.</description>

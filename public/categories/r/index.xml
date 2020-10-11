@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Philippe Massicotte</title>
-    <link>/categories/r/</link>
+    <link>https://www.pmassicotte.com/categories/r/</link>
     <description>Recent content in R on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     <lastBuildDate>Fri, 20 Dec 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Removing borders around ggplot2 graphs</title>
-      <link>/post/removing-borders-around-ggplot2-graphs/</link>
+      <link>https://www.pmassicotte.com/post/removing-borders-around-ggplot2-graphs/</link>
       <pubDate>Fri, 20 Dec 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/removing-borders-around-ggplot2-graphs/</guid>
+      <guid>https://www.pmassicotte.com/post/removing-borders-around-ggplot2-graphs/</guid>
       <description>Recently I was participating in the 30DayMapChallenge where people were invited to make a map based on a different daily theme for one whole month.
 Announcing #30DayMapChallenge in November 2019! Create a map each day of the month with the following themes 🌍🌎🌏
 No restriction on tools. All maps should be created by you. Doing less than 30 maps is fine. #gischat #geography #cartography #dataviz pic.twitter.com/6Go4VFWcJB
@@ -26,19 +26,19 @@ No restriction on tools. All maps should be created by you. Doing less than 30 m
     
     <item>
       <title>Analyzing the programming languages used in R packages</title>
-      <link>/post/analyzing-the-programming-languages-used-in-r-packages/</link>
+      <link>https://www.pmassicotte.com/post/analyzing-the-programming-languages-used-in-r-packages/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
+      <guid>https://www.pmassicotte.com/post/analyzing-the-programming-languages-used-in-r-packages/</guid>
       <description>It is easy to integrate other programming languages withing R. For instance, Rcpp and reticulate can be used to interface R with C++ and Python. In this post, I am analyzing the programming languages used in the R packages published on CRAN. I have downloaded all published packages and used cloc (v1.82) to count the number of lines of code in each package. Disclaimer: cloc does not only count line of code for programming language.</description>
     </item>
     
     <item>
       <title>Numerical integration in R</title>
-      <link>/post/numerical-integration-in-r/</link>
+      <link>https://www.pmassicotte.com/post/numerical-integration-in-r/</link>
       <pubDate>Fri, 11 May 2018 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/post/numerical-integration-in-r/</guid>
+      <guid>https://www.pmassicotte.com/post/numerical-integration-in-r/</guid>
       <description>Although R in not a symbolic language like Mathematica, Maple or Matlab, it can be used for calculus operations. Let’s get started. For the shake of simplicity, we will integrate the following equation:
 \[ f(x) = \cos(x) + 2 \]
 We first define the equation in the form of a function since it is a requirement to use the R integrate function. Then, plot the function curve between 0 and 4.</description>

@@ -2,148 +2,148 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Philippe Massicotte</title>
-    <link>/tags/</link>
+    <link>https://www.pmassicotte.com/tags/</link>
     <description>Recent content in Tags on Philippe Massicotte</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
     <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.pmassicotte.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Academic</title>
-      <link>/tags/academic/</link>
+      <link>https://www.pmassicotte.com/tags/academic/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/academic/</guid>
+      <guid>https://www.pmassicotte.com/tags/academic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Open access journals</title>
-      <link>/tags/open-access-journals/</link>
+      <link>https://www.pmassicotte.com/tags/open-access-journals/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/open-access-journals/</guid>
+      <guid>https://www.pmassicotte.com/tags/open-access-journals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Open Science</title>
-      <link>/tags/open-science/</link>
+      <link>https://www.pmassicotte.com/tags/open-science/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/open-science/</guid>
+      <guid>https://www.pmassicotte.com/tags/open-science/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Publications</title>
-      <link>/tags/publications/</link>
+      <link>https://www.pmassicotte.com/tags/publications/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/publications/</guid>
+      <guid>https://www.pmassicotte.com/tags/publications/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Arctic</title>
-      <link>/tags/arctic/</link>
+      <link>https://www.pmassicotte.com/tags/arctic/</link>
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/arctic/</guid>
+      <guid>https://www.pmassicotte.com/tags/arctic/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sea ice</title>
-      <link>/tags/sea-ice/</link>
+      <link>https://www.pmassicotte.com/tags/sea-ice/</link>
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/sea-ice/</guid>
+      <guid>https://www.pmassicotte.com/tags/sea-ice/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Programming languages</title>
-      <link>/tags/programming-languages/</link>
+      <link>https://www.pmassicotte.com/tags/programming-languages/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/programming-languages/</guid>
+      <guid>https://www.pmassicotte.com/tags/programming-languages/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R package</title>
-      <link>/tags/r-package/</link>
+      <link>https://www.pmassicotte.com/tags/r-package/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/r-package/</guid>
+      <guid>https://www.pmassicotte.com/tags/r-package/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://www.pmassicotte.com/tags/r/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/r/</guid>
+      <guid>https://www.pmassicotte.com/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vroom</title>
-      <link>/tags/vroom/</link>
+      <link>https://www.pmassicotte.com/tags/vroom/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/vroom/</guid>
+      <guid>https://www.pmassicotte.com/tags/vroom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>EEMs</title>
-      <link>/tags/eems/</link>
+      <link>https://www.pmassicotte.com/tags/eems/</link>
       <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/eems/</guid>
+      <guid>https://www.pmassicotte.com/tags/eems/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Fluorescence</title>
-      <link>/tags/fluorescence/</link>
+      <link>https://www.pmassicotte.com/tags/fluorescence/</link>
       <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/fluorescence/</guid>
+      <guid>https://www.pmassicotte.com/tags/fluorescence/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PARAFAC</title>
-      <link>/tags/parafac/</link>
+      <link>https://www.pmassicotte.com/tags/parafac/</link>
       <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/parafac/</guid>
+      <guid>https://www.pmassicotte.com/tags/parafac/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spectrofluorometer</title>
-      <link>/tags/spectrofluorometer/</link>
+      <link>https://www.pmassicotte.com/tags/spectrofluorometer/</link>
       <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/spectrofluorometer/</guid>
+      <guid>https://www.pmassicotte.com/tags/spectrofluorometer/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R 101</title>
-      <link>/tags/r-101/</link>
+      <link>https://www.pmassicotte.com/tags/r-101/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>/tags/r-101/</guid>
+      <guid>https://www.pmassicotte.com/tags/r-101/</guid>
       <description></description>
     </item>
     
