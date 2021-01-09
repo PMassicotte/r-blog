@@ -1,0 +1,146 @@
+---
+title: How to change the language of date in R
+author: Philippe Massicotte
+date: '2020-10-11'
+draft: true
+slug: []
+categories:
+  - R
+tags:
+  - dates
+  - locale
+  - french
+type: ''
+subtitle: ''
+image: ''
+editor_options:
+  chunk_output_type: console
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Recently, I had to make a <code>ggplot2</code> graphic where the x-axis was representing dates.</p>
+<pre><code>#&gt; # A tibble: 10 x 2
+#&gt;    x               y
+#&gt;    &lt;date&gt;      &lt;dbl&gt;
+#&gt;  1 2020-01-01  0.891
+#&gt;  2 2020-02-01 -1.88 
+#&gt;  3 2020-03-03 -0.102
+#&gt;  4 2020-04-04 -0.951
+#&gt;  5 2020-05-05 -0.362
+#&gt;  6 2020-06-06 -0.754
+#&gt;  7 2020-07-07  0.591
+#&gt;  8 2020-08-08  0.148
+#&gt;  9 2020-09-08 -0.824
+#&gt; 10 2020-10-10  0.768</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="bash"><code>sudo nano /etc/locale.gen</code></pre>
+<div class="figure">
+<img src="/2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png" alt="" />
+<p class="caption">My locale.gen configuration file</p>
+</div>
+<pre class="bash"><code>sudo locale-gen fr_FR.UTF-8</code></pre>
+<pre><code>#&gt; [1] &quot;fr_CA.UTF-8&quot;</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<details>
+<summary>
+Session info
+</summary>
+<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt;  setting  value                       
+#&gt;  version  R version 4.0.3 (2020-10-10)
+#&gt;  os       Linux Mint 20               
+#&gt;  system   x86_64, linux-gnu           
+#&gt;  ui       X11                         
+#&gt;  language en_CA:en                    
+#&gt;  collate  en_CA.UTF-8                 
+#&gt;  ctype    en_CA.UTF-8                 
+#&gt;  tz       America/Montreal            
+#&gt;  date     2021-01-09                  
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt;  package     * version    date       lib source                                 
+#&gt;  assertthat    0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                         
+#&gt;  backports     1.2.1      2020-12-09 [1] CRAN (R 4.0.3)                         
+#&gt;  blogdown      1.0        2021-01-09 [1] CRAN (R 4.0.3)                         
+#&gt;  bookdown      0.21       2020-10-13 [1] CRAN (R 4.0.3)                         
+#&gt;  broom         0.7.3      2020-12-16 [1] CRAN (R 4.0.3)                         
+#&gt;  callr         3.5.1      2020-10-13 [1] CRAN (R 4.0.3)                         
+#&gt;  cellranger    1.1.0      2016-07-27 [1] CRAN (R 4.0.0)                         
+#&gt;  cli           2.2.0      2020-11-20 [1] CRAN (R 4.0.3)                         
+#&gt;  colorspace    2.0-0      2020-11-11 [1] CRAN (R 4.0.3)                         
+#&gt;  crayon        1.3.4.9000 2020-12-29 [1] Github (r-lib/crayon@7679d0f)          
+#&gt;  DBI           1.1.0      2019-12-15 [1] CRAN (R 4.0.0)                         
+#&gt;  dbplyr        2.0.0      2020-11-03 [1] CRAN (R 4.0.3)                         
+#&gt;  desc          1.2.0      2018-05-01 [1] CRAN (R 4.0.0)                         
+#&gt;  devtools      2.3.2      2020-09-18 [1] CRAN (R 4.0.2)                         
+#&gt;  digest        0.6.27     2020-10-24 [1] CRAN (R 4.0.3)                         
+#&gt;  dplyr       * 1.0.2      2020-08-18 [1] CRAN (R 4.0.2)                         
+#&gt;  ellipsis      0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                         
+#&gt;  evaluate      0.14       2019-05-28 [1] CRAN (R 4.0.0)                         
+#&gt;  extrafont     0.17       2014-12-08 [1] CRAN (R 4.0.0)                         
+#&gt;  extrafontdb   1.0        2012-06-11 [1] CRAN (R 4.0.0)                         
+#&gt;  fansi         0.4.1      2020-01-08 [1] CRAN (R 4.0.0)                         
+#&gt;  farver        2.0.3      2020-01-16 [1] CRAN (R 4.0.0)                         
+#&gt;  forcats     * 0.5.0      2020-03-01 [1] CRAN (R 4.0.0)                         
+#&gt;  fs            1.5.0      2020-07-31 [1] CRAN (R 4.0.2)                         
+#&gt;  generics      0.1.0      2020-10-31 [1] CRAN (R 4.0.3)                         
+#&gt;  ggplot2     * 3.3.3      2020-12-30 [1] CRAN (R 4.0.3)                         
+#&gt;  ggpmthemes  * 0.0.1      2020-11-23 [1] Github (PMassicotte/ggpmthemes@98bf529)
+#&gt;  glue          1.4.2      2020-08-27 [1] CRAN (R 4.0.2)                         
+#&gt;  gtable        0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                         
+#&gt;  haven         2.3.1      2020-06-01 [1] CRAN (R 4.0.0)                         
+#&gt;  hms           0.5.3      2020-01-08 [1] CRAN (R 4.0.0)                         
+#&gt;  htmltools     0.5.0.9003 2020-12-03 [1] Github (rstudio/htmltools@d18bd8e)     
+#&gt;  httr          1.4.2      2020-07-20 [1] CRAN (R 4.0.2)                         
+#&gt;  jsonlite      1.7.2      2020-12-09 [1] CRAN (R 4.0.3)                         
+#&gt;  knitr         1.30       2020-09-22 [1] CRAN (R 4.0.2)                         
+#&gt;  labeling      0.4.2      2020-10-20 [1] CRAN (R 4.0.3)                         
+#&gt;  lifecycle     0.2.0      2020-03-06 [1] CRAN (R 4.0.0)                         
+#&gt;  lubridate     1.7.9.2    2020-11-13 [1] CRAN (R 4.0.3)                         
+#&gt;  magrittr      2.0.1.9000 2020-12-14 [1] Github (tidyverse/magrittr@bb1c86a)    
+#&gt;  memoise       1.1.0      2017-04-21 [1] CRAN (R 4.0.0)                         
+#&gt;  modelr        0.1.8      2020-05-19 [1] CRAN (R 4.0.0)                         
+#&gt;  munsell       0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                         
+#&gt;  pillar        1.4.7      2020-11-20 [1] CRAN (R 4.0.3)                         
+#&gt;  pkgbuild      1.2.0      2020-12-15 [1] CRAN (R 4.0.3)                         
+#&gt;  pkgconfig     2.0.3      2019-09-22 [1] CRAN (R 4.0.0)                         
+#&gt;  pkgload       1.1.0      2020-05-29 [1] CRAN (R 4.0.0)                         
+#&gt;  prettyunits   1.1.1      2020-01-24 [1] CRAN (R 4.0.0)                         
+#&gt;  processx      3.4.5      2020-11-30 [1] CRAN (R 4.0.3)                         
+#&gt;  ps            1.5.0      2020-12-05 [1] CRAN (R 4.0.3)                         
+#&gt;  purrr       * 0.3.4      2020-04-17 [1] CRAN (R 4.0.0)                         
+#&gt;  R6            2.5.0      2020-10-28 [1] CRAN (R 4.0.3)                         
+#&gt;  Rcpp          1.0.5      2020-07-06 [1] CRAN (R 4.0.0)                         
+#&gt;  readr       * 1.4.0      2020-10-05 [1] CRAN (R 4.0.2)                         
+#&gt;  readxl        1.3.1      2019-03-13 [1] CRAN (R 4.0.0)                         
+#&gt;  remotes       2.2.0      2020-07-21 [1] CRAN (R 4.0.2)                         
+#&gt;  reprex        0.3.0.9001 2021-01-08 [1] Github (tidyverse/reprex@9b27d65)      
+#&gt;  rlang         0.4.10     2020-12-30 [1] CRAN (R 4.0.3)                         
+#&gt;  rmarkdown     2.6.4      2021-01-02 [1] Github (rstudio/rmarkdown@2e8572e)     
+#&gt;  rprojroot     2.0.2      2020-11-15 [1] CRAN (R 4.0.3)                         
+#&gt;  rstudioapi    0.13       2020-11-12 [1] CRAN (R 4.0.3)                         
+#&gt;  Rttf2pt1      1.3.8      2020-01-10 [1] CRAN (R 4.0.0)                         
+#&gt;  rvest         0.3.6      2020-07-25 [1] CRAN (R 4.0.2)                         
+#&gt;  scales        1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                         
+#&gt;  sessioninfo   1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                         
+#&gt;  stringi       1.5.3      2020-09-09 [1] CRAN (R 4.0.2)                         
+#&gt;  stringr     * 1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                         
+#&gt;  testthat      3.0.1      2020-12-17 [1] CRAN (R 4.0.3)                         
+#&gt;  tibble      * 3.0.4      2020-10-12 [1] CRAN (R 4.0.3)                         
+#&gt;  tidyr       * 1.1.2      2020-08-27 [1] CRAN (R 4.0.2)                         
+#&gt;  tidyselect    1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                         
+#&gt;  tidyverse   * 1.3.0.9000 2020-06-02 [1] Github (tidyverse/tidyverse@8a0bb99)   
+#&gt;  usethis       2.0.0      2020-12-10 [1] CRAN (R 4.0.3)                         
+#&gt;  utf8          1.1.4      2018-05-24 [1] CRAN (R 4.0.0)                         
+#&gt;  vctrs         0.3.6      2020-12-17 [1] CRAN (R 4.0.3)                         
+#&gt;  withr         2.3.0      2020-09-22 [1] CRAN (R 4.0.2)                         
+#&gt;  xfun          0.20       2021-01-06 [1] CRAN (R 4.0.3)                         
+#&gt;  xml2          1.3.2      2020-04-23 [1] CRAN (R 4.0.0)                         
+#&gt;  yaml          2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                         
+#&gt; 
+#&gt; [1] /home/filoche/R/x86_64-pc-linux-gnu-library/4.0
+#&gt; [2] /usr/local/lib/R/site-library
+#&gt; [3] /usr/local/lib/R/library</code></pre>
+</details>

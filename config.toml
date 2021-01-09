@@ -1,4 +1,4 @@
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 baseurl = "https://www.pmassicotte.com/"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
@@ -99,3 +99,8 @@ rssLimits = 10
     name = "Tags"
     url = "tags"
     weight = 3
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

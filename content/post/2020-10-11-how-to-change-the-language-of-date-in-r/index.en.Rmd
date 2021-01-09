@@ -1,0 +1,88 @@
+---
+title: How to change the language of date in R
+author: Philippe Massicotte
+date: '2020-10-11'
+draft: true
+slug: []
+categories:
+  - R
+tags:
+  - dates
+  - locale
+  - french
+type: ''
+subtitle: ''
+image: ''
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = FALSE,
+  dpi = 600,
+  out.width = "100%",
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618, # 1 / phi
+  fig.show = "hold",
+  dev = "png",
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+library(tidyverse)
+library(ggpmthemes)
+
+theme_set(theme_exo())
+```
+
+Recently, I had to make a `ggplot2` graphic where the x-axis was representing dates.
+
+```{r}
+n <- 10
+
+df <- tibble(
+  x = seq(as.Date("2020-01-01"), as.Date("2020-10-10"), length.out = n),
+  y = rnorm(n)
+)
+
+df
+
+p <- df %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  scale_x_date(date_breaks = "6 weeks", date_labels = "%B-%d")
+
+p
+```
+
+``` {.bash}
+sudo nano /etc/locale.gen
+```
+
+![My locale.gen configuration file](/2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png)
+
+``` {.bash}
+sudo locale-gen fr_FR.UTF-8
+```
+
+```{r}
+Sys.setlocale("LC_TIME", "fr_CA.UTF-8")
+p
+```
+
+<details>
+
+<summary>Session info</summary>
+
+```{r sessioninfo, echo = FALSE}
+## Reproducibility info
+options(width = 120)
+devtools::session_info()
+```
+
+</details>
