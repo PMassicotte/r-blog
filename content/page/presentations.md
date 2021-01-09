@@ -4,6 +4,16 @@ title: Presentations
 subtitle: List of my most recent presentations
 ---
 
+# 2021
+
+---
+
+## IVADO Datatrek 2021
+
+Data visualization with `ggplot2`
+
+https://pmassicotte.github.io/ivado_ggplot2_workshop/#1
+
 # 2020
 
 ---
