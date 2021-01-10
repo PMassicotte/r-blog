@@ -1,8 +1,7 @@
 ---
-title: How to change the language of date in R
+title: How to change the language of dates in R
 author: Philippe Massicotte
-date: '2020-10-11'
-draft: true
+date: '2021-01-10'
 slug: []
 categories:
   - R
@@ -31,7 +30,7 @@ knitr::opts_chunk$set(
   dev = "png",
   message = FALSE,
   warning = FALSE,
-  echo = FALSE
+  echo = TRUE
 )
 
 library(tidyverse)
@@ -40,7 +39,7 @@ library(ggpmthemes)
 theme_set(theme_exo())
 ```
 
-Recently, I had to make a `ggplot2` graphic where the x-axis was representing dates.
+Recently, I had to make a `ggplot2` graphic with data that contained dates. Let's create some sample data with dates.
 
 ```{r}
 n <- 10
@@ -60,15 +59,21 @@ p <- df %>%
 p
 ```
 
+My Linux system is configured in English, the dates are also displayed in English in the above graphic. If we want to use another language, we first have to edit the `/etc/locale.gen` file and un-comment the line(s) for the language(s) we want to use. For this particular example, I wanted to display the dates in French.
+
 ``` {.bash}
 sudo nano /etc/locale.gen
 ```
 
-![My locale.gen configuration file](/2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png)
+![My locale.gen configuration file](2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png)
+
+In this file, I un-commented the `fr_CA.UTF-8 UTF-8` line. Once done, save the file. Then, we have to regenerate the localization files using the `locale-gen` function.
 
 ``` {.bash}
 sudo locale-gen fr_FR.UTF-8
 ```
+
+Finally, within R, we can set the locale language with `Sys.setlocale()`. If we call the plot again, the dates are now displayed in French as expected.
 
 ```{r}
 Sys.setlocale("LC_TIME", "fr_CA.UTF-8")
@@ -77,7 +82,11 @@ p
 
 <details>
 
-<summary>Session info</summary>
+<summary>
+
+Session info
+
+</summary>
 
 ```{r sessioninfo, echo = FALSE}
 ## Reproducibility info
