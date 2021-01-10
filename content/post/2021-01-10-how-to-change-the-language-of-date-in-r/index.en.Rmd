@@ -65,7 +65,7 @@ My Linux system is configured in English, the dates are also displayed in Englis
 sudo nano /etc/locale.gen
 ```
 
-![My locale.gen configuration file](2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png)
+![My locale.gen configuration file.](index.en_files/locale_gen.png)
 
 In this file, I un-commented the `fr_CA.UTF-8 UTF-8` line. Once done, save the file. Then, we have to regenerate the localization files using the `locale-gen` function.
 

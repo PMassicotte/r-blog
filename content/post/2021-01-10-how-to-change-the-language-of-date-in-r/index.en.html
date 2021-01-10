@@ -31,16 +31,16 @@ df
 #&gt; # A tibble: 10 x 2
 #&gt;    x                y
 #&gt;    &lt;date&gt;       &lt;dbl&gt;
-#&gt;  1 2020-01-01  0.816 
-#&gt;  2 2020-02-01  0.315 
-#&gt;  3 2020-03-03  1.41  
-#&gt;  4 2020-04-04 -1.15  
-#&gt;  5 2020-05-05  0.939 
-#&gt;  6 2020-06-06 -0.0455
-#&gt;  7 2020-07-07 -0.518 
-#&gt;  8 2020-08-08 -0.651 
-#&gt;  9 2020-09-08 -1.36  
-#&gt; 10 2020-10-10  0.108
+#&gt;  1 2020-01-01  0.738 
+#&gt;  2 2020-02-01 -0.394 
+#&gt;  3 2020-03-03 -0.146 
+#&gt;  4 2020-04-04 -2.20  
+#&gt;  5 2020-05-05 -0.465 
+#&gt;  6 2020-06-06  1.41  
+#&gt;  7 2020-07-07  0.0453
+#&gt;  8 2020-08-08 -1.07  
+#&gt;  9 2020-09-08  0.840 
+#&gt; 10 2020-10-10  0.717
 
 p &lt;- df %&gt;% 
   ggplot(aes(x = x, y = y)) +
@@ -52,8 +52,8 @@ p</code></pre>
 <p>My Linux system is configured in English, the dates are also displayed in English in the above graphic. If we want to use another language, we first have to edit the <code>/etc/locale.gen</code> file and un-comment the line(s) for the language(s) we want to use. For this particular example, I wanted to display the dates in French.</p>
 <pre class="bash"><code>sudo nano /etc/locale.gen</code></pre>
 <div class="figure">
-<img src="2020-10-11-how-to-change-the-language-of-date-in-r/index.en_files/locale_gen.png" alt="" />
-<p class="caption">My locale.gen configuration file</p>
+<img src="{{< blogdown/postref >}}index.en_files/locale_gen.png" alt="" />
+<p class="caption">My locale.gen configuration file.</p>
 </div>
 <p>In this file, I un-commented the <code>fr_CA.UTF-8 UTF-8</code> line. Once done, save the file. Then, we have to regenerate the localization files using the <code>locale-gen</code> function.</p>
 <pre class="bash"><code>sudo locale-gen fr_FR.UTF-8</code></pre>
