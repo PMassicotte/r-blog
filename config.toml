@@ -11,7 +11,7 @@ pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
-disqusShortname = "pmassicotte"
+#disqusShortname = "pmassicotte"
 #googleAnalytics = "XXX"
 enableEmoji = true
 rssLimits = 10
