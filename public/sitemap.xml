@@ -4,7 +4,52 @@
   
   <url>
     <loc>https://www.pmassicotte.com/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/post/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/post/2021-03-06-test/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/categories/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/dates/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/french/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/locale/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/categories/r/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/</loc>
+    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,28 +73,8 @@
   </url>
   
   <url>
-    <loc>https://www.pmassicotte.com/post/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.pmassicotte.com/tags/publications/</loc>
     <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/tags/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/categories/</loc>
-    <lastmod>2019-12-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/categories/r/</loc>
-    <lastmod>2019-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>

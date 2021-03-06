@@ -10,9 +10,9 @@
   <title>Overview of all pages with the tag #locale - Philippe Massicotte</title>
   <meta property="og:title" content="Overview of all pages with the tag #locale" />
   <meta name="twitter:title" content="Overview of all pages with the tag #locale" />
-  <meta name="description" content="Overview of all pages with the tag #locale, such as: How to change the language of date in R">
-  <meta property="og:description" content="Overview of all pages with the tag #locale, such as: How to change the language of date in R">
-  <meta name="twitter:description" content="Overview of all pages with the tag #locale, such as: How to change the language of date in R">
+  <meta name="description" content="Overview of all pages with the tag #locale, such as: How to change the language of dates in R">
+  <meta property="og:description" content="Overview of all pages with the tag #locale, such as: How to change the language of dates in R">
+  <meta name="twitter:description" content="Overview of all pages with the tag #locale, such as: How to change the language of dates in R">
   <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -230,8 +230,8 @@
         <div class="posts-list">
           
             <article class="post-preview">
-              <a href="https://www.pmassicotte.com/post/2020-10-11-how-to-change-the-language-of-date-in-r/">
-                <h2 class="post-title">How to change the language of date in R</h2>
+              <a href="https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/">
+                <h2 class="post-title">How to change the language of dates in R</h2>
 
                 
               </a>
@@ -240,13 +240,13 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 11, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 10, 2021
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;782&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;928&nbsp;words
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
@@ -258,9 +258,9 @@
               </p>
               <div class="post-entry">
                 
-                  Recently, I had to make a ggplot2 graphic where the x-axis was representing dates.
-#&gt; # A tibble: 10 x 2 #&gt; x y #&gt; &lt;date&gt; &lt;dbl&gt; #&gt; 1 2020-01-01 -0.267 #&gt; 2 2020-02-01 0.0856 #&gt; 3 2020-03-03 0.539 #&gt; 4 2020-04-04 -1.04 #&gt; 5 2020-05-05 -0.372 #&gt; 6 2020-06-06 2.50 #&gt; 7 2020-07-07 -0.431 #&gt; 8 2020-08-08 -0.169 #&gt; 9 2020-09-08 0.971 #&gt; 10 2020-10-10 -0.740 sudo nano /etc/locale.
-                  <a href="https://www.pmassicotte.com/post/2020-10-11-how-to-change-the-language-of-date-in-r/" class="post-read-more">[Read More]</a>
+                  Recently, I had to make a ggplot2 graphic with data that contained dates. Let’s create some sample data with dates.
+n &lt;- 10 df &lt;- tibble( x = seq(as.Date(&quot;2020-01-01&quot;), as.Date(&quot;2020-10-10&quot;), length.out = n), y = rnorm(n) ) df #&gt; # A tibble: 10 x 2 #&gt; x y #&gt; &lt;date&gt; &lt;dbl&gt; #&gt; 1 2020-01-01 0.738 #&gt; 2 2020-02-01 -0.394 #&gt; 3 2020-03-03 -0.146 #&gt; 4 2020-04-04 -2.20 #&gt; 5 2020-05-05 -0.
+                  <a href="https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/" class="post-read-more">[Read More]</a>
                 
               </div>
 
@@ -358,7 +358,7 @@
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2020
+            2021
           
 
           
@@ -391,6 +391,15 @@
 
 
 
+
+<script src="https://utteranc.es/client.js"
+        repo="pmassicotte/r-blog"
+        issue-term="title"
+        label="comments 💬"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
 
 
   </body>

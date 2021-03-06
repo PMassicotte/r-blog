@@ -7,19 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.pmassicotte.com/tags/locale/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>How to change the language of date in R</title>
-      <link>https://www.pmassicotte.com/post/2020-10-11-how-to-change-the-language-of-date-in-r/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
+      <title>How to change the language of dates in R</title>
+      <link>https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
       <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
-      <guid>https://www.pmassicotte.com/post/2020-10-11-how-to-change-the-language-of-date-in-r/</guid>
-      <description>Recently, I had to make a ggplot2 graphic where the x-axis was representing dates.
-#&amp;gt; # A tibble: 10 x 2 #&amp;gt; x y #&amp;gt; &amp;lt;date&amp;gt; &amp;lt;dbl&amp;gt; #&amp;gt; 1 2020-01-01 -0.267 #&amp;gt; 2 2020-02-01 0.0856 #&amp;gt; 3 2020-03-03 0.539 #&amp;gt; 4 2020-04-04 -1.04 #&amp;gt; 5 2020-05-05 -0.372 #&amp;gt; 6 2020-06-06 2.50 #&amp;gt; 7 2020-07-07 -0.431 #&amp;gt; 8 2020-08-08 -0.169 #&amp;gt; 9 2020-09-08 0.971 #&amp;gt; 10 2020-10-10 -0.740 sudo nano /etc/locale.</description>
+      <guid>https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/</guid>
+      <description>Recently, I had to make a ggplot2 graphic with data that contained dates. Let’s create some sample data with dates.
+n &amp;lt;- 10 df &amp;lt;- tibble( x = seq(as.Date(&amp;quot;2020-01-01&amp;quot;), as.Date(&amp;quot;2020-10-10&amp;quot;), length.out = n), y = rnorm(n) ) df #&amp;gt; # A tibble: 10 x 2 #&amp;gt; x y #&amp;gt; &amp;lt;date&amp;gt; &amp;lt;dbl&amp;gt; #&amp;gt; 1 2020-01-01 0.738 #&amp;gt; 2 2020-02-01 -0.394 #&amp;gt; 3 2020-03-03 -0.146 #&amp;gt; 4 2020-04-04 -2.20 #&amp;gt; 5 2020-05-05 -0.</description>
     </item>
     
   </channel>
