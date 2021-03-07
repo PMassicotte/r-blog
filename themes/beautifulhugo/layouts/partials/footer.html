@@ -55,6 +55,13 @@
       </div>
     </div>
   </div>
+  <script src="https://utteranc.es/client.js"
+        repo="pmassicotte/r-bolg"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
 </footer>
 
 {{- if .Site.Params.selfHosted -}}
@@ -150,5 +157,6 @@ $(function(){
 <script id="dsq-count-scr" src="//{{ .Site.DisqusShortname }}.disqus.com/count.js" async></script>
 <!-- End Delayed Disqus -->
 {{ end }}
+
 
 {{- partial "footer_custom.html" . }}
