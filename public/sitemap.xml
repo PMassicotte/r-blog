@@ -4,12 +4,52 @@
   
   <url>
     <loc>https://www.pmassicotte.com/</loc>
-    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.pmassicotte.com/categories/</loc>
-    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/gis/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/polygon/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/post/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/categories/r/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/raster/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/sf/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.pmassicotte.com/tags/</loc>
+    <lastmod>2021-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,21 +69,6 @@
   
   <url>
     <loc>https://www.pmassicotte.com/tags/locale/</loc>
-    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/post/</loc>
-    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/categories/r/</loc>
-    <lastmod>2021-01-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.pmassicotte.com/tags/</loc>
     <lastmod>2021-01-10T00:00:00+00:00</lastmod>
   </url>
   

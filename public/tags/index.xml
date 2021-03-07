@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pmassicotte@hotmail.com (Philippe Massicotte)</managingEditor>
     <webMaster>pmassicotte@hotmail.com (Philippe Massicotte)</webMaster>
-    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.pmassicotte.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gis</title>
+      <link>https://www.pmassicotte.com/tags/gis/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>https://www.pmassicotte.com/tags/gis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>polygon</title>
+      <link>https://www.pmassicotte.com/tags/polygon/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>https://www.pmassicotte.com/tags/polygon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raster</title>
+      <link>https://www.pmassicotte.com/tags/raster/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>https://www.pmassicotte.com/tags/raster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sf</title>
+      <link>https://www.pmassicotte.com/tags/sf/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      <author>pmassicotte@hotmail.com (Philippe Massicotte)</author>
+      <guid>https://www.pmassicotte.com/tags/sf/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>dates</title>

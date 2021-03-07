@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Extracting raster values using the stars R package - Philippe Massicotte</title>
+  <meta property="og:title" content="Extracting raster values using the stars R package" />
+  <meta name="twitter:title" content="Extracting raster values using the stars R package" />
+  <meta name="description" content="Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how to extract raster values at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the stars package. Each pixel has a resolution of 30 meters.">
+  <meta property="og:description" content="Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how to extract raster values at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the stars package. Each pixel has a resolution of 30 meters.">
+  <meta name="twitter:description" content="Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how …">
+  <meta name="author" content="Philippe Massicotte"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Philippe Massicotte",
+    
+    "url": "https:\/\/www.pmassicotte.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/www.pmassicotte.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/www.pmassicotte.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/www.pmassicotte.com\/post\/2021-03-06-extracting-raster-values-using-polygons\/",
+          "name": "Extracting raster values using the stars r package"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Philippe Massicotte"
+  },
+  "headline": "Extracting raster values using the stars R package",
+  "description" : "Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how to extract raster values at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the stars package. Each pixel has a resolution of 30 meters.",
+  "inLanguage" : "en",
+  "wordCount":  1184 ,
+  "datePublished" : "2021-03-06T00:00:00",
+  "dateModified" : "2021-03-06T00:00:00",
+  "image" : "https:\/\/www.pmassicotte.com\/img\/pmassicotte.jpg",
+  "keywords" : [ "raster, sf, polygon, gis" ],
+  "mainEntityOfPage" : "https:\/\/www.pmassicotte.com\/post\/2021-03-06-extracting-raster-values-using-polygons\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/www.pmassicotte.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.pmassicotte.com\/img\/pmassicotte.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Extracting raster values using the stars R package" />
+<meta property="og:description" content="Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how to extract raster values at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the stars package. Each pixel has a resolution of 30 meters.">
+<meta property="og:image" content="https://www.pmassicotte.com/img/pmassicotte.jpg" />
+<meta property="og:url" content="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Philippe Massicotte" />
+
+  <meta name="twitter:title" content="Extracting raster values using the stars R package" />
+  <meta name="twitter:description" content="Introduction For long time I have been using the raster package to manipulate raster data in R. Slowly, I am trying to work my way out with the new stars package. In this post I am trying to learn how …">
+  <meta name="twitter:image" content="https://www.pmassicotte.com/img/pmassicotte.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <link href='https://www.pmassicotte.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://www.pmassicotte.com/img/pmassicotte.jpg" />
+  <meta name="twitter:image" content="https://www.pmassicotte.com/img/pmassicotte.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@philmassicotte" />
+  <meta name="twitter:creator" content="@philmassicotte" />
+  <meta property="og:url" content="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Philippe Massicotte" />
+
+  <meta name="generator" content="Hugo 0.72.0" />
+  <link rel="alternate" href="https://www.pmassicotte.com/index.xml" type="application/rss+xml" title="Philippe Massicotte"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.pmassicotte.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://www.pmassicotte.com/css/highlight.min.css" /><link rel="stylesheet" href="https://www.pmassicotte.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.pmassicotte.com/">Philippe Massicotte</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Presentations" href="/page/presentations/">Presentations</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Publications" href="/page/publication/">Publications</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Philippe Massicotte" href="https://www.pmassicotte.com/">
+            <img class="avatar-img" src="https://www.pmassicotte.com/img/pmassicotte.jpg" alt="Philippe Massicotte" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Extracting raster values using the stars R package</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on March 6, 2021
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1184&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Philippe Massicotte
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<link rel="stylesheet" href="https://www.pmassicotte.com/css/tomorrow.css" rel="stylesheet" id="theme-stylesheet">
+    <script src="https://www.pmassicotte.com/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+<script src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>For long time I have been using the <code>raster</code> package to manipulate raster data in R. Slowly, I am trying to work my way out with the <em>new</em> <code>stars</code> package. In this post I am trying to learn how to extract raster values at different geographic locations. For this exercise, I am using a Landsat 7 image that is provided within the <code>stars</code> package. Each pixel has a resolution of 30 meters.</p>
+<pre class="r"><code>library(tidyverse)
+library(sf)
+library(stars)
+
+# Create a palette for later
+pal &lt;- as.character(paletteer::paletteer_d(&quot;RColorBrewer::Pastel2&quot;))
+
+# Open the tif and extract the 1 band
+tif &lt;- system.file(&quot;tif/L7_ETMs.tif&quot;, package = &quot;stars&quot;)
+r &lt;- read_stars(tif)[, , , 1]
+
+# What are the dimensions?
+st_dimensions(r)</code></pre>
+<pre><code>##      from  to  offset delta                       refsys point values x/y
+## x       1 349  288776  28.5 UTM Zone 25, Southern Hem... FALSE   NULL [x]
+## y       1 352 9120761 -28.5 UTM Zone 25, Southern Hem... FALSE   NULL [y]
+## band    1   1      NA    NA                           NA    NA   NULL</code></pre>
+<p>This is what the image looks like.</p>
+<pre class="r"><code>plot(r, key.pos = NULL)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>To better visualize the process of subsetting raster values, let’s make the image smaller so we can actually see the pixels.</p>
+<pre class="r"><code>st_bbox(r)</code></pre>
+<pre><code>##      xmin      ymin      xmax      ymax 
+##  288776.3 9110728.8  298722.8 9120760.8</code></pre>
+<pre class="r"><code>r &lt;- r %&gt;%
+  st_crop(st_bbox(c(
+    xmin = 294000,
+    xmax = 294500,
+    ymin = 9110800,
+    ymax = 9111200
+  ), crs = st_crs(r)))
+
+plot(r, reset = FALSE, key.pos = NULL)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We can also display the value of each pixel by using <code>text_values = TRUE</code>.</p>
+<pre class="r"><code>plot(r, text_values = TRUE, col = pal, key.pos = NULL)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="sampling-random-locations" class="section level2">
+<h2>Sampling random locations</h2>
+<p>Using this new raster, let’s randomly sample four points.</p>
+<pre class="r"><code>set.seed(123456)
+
+# Random sampling of 4 points
+pts &lt;- st_sample(st_as_sfc(st_bbox(r)), 4)
+
+# Visualize them
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+plot(
+  pts,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha(&quot;red&quot;, 0.5),
+  col = alpha(&quot;red&quot;, 0.5)
+)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="extracting-raster-values-using-the-sampled-points" class="section level2">
+<h2>Extracting raster values using the sampled points</h2>
+<p>Extracting raster values at point locations can be done using the <code>st_extract()</code> function. As expected, four values have been extracted.</p>
+<pre class="r"><code>pts_values &lt;- st_extract(r, pts)
+pts_values</code></pre>
+<pre><code>## Simple feature collection with 4 features and 1 field
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 294167 ymin: 9110827 xmax: 294401 ymax: 9111014
+## projected CRS:  UTM Zone 25, Southern Hemisphere
+##   L7_ETMs.tif                 geometry
+## 1          71   POINT (294401 9110940)
+## 2          70 POINT (294378.3 9110871)
+## 3          72 POINT (294192.5 9111014)
+## 4          68   POINT (294167 9110827)</code></pre>
+</div>
+<div id="extracting-raster-values-using-buffers-around-the-sampled-points" class="section level2">
+<h2>Extracting raster values using buffers around the sampled points</h2>
+<p>I found that extracting raster values using polygons was a bit more tedious (at least at this stage of my understanding of the <code>stars</code> package).</p>
+<div id="generate-buffers" class="section level3">
+<h3>Generate buffers</h3>
+<p>Let’s generate buffers of 30 meters around each of the four previous sampled pixels.</p>
+<pre class="r"><code>poly &lt;- st_buffer(pts, dist = 30)
+
+class(poly)</code></pre>
+<pre><code>## [1] &quot;sfc_POLYGON&quot; &quot;sfc&quot;</code></pre>
+<pre class="r"><code>plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+plot(st_sfc(poly), add = TRUE, border = &quot;red&quot;, lwd = 2, col = NA)
+plot(
+  pts,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha(&quot;red&quot;, 0.5),
+  col = alpha(&quot;red&quot;, 0.5)
+)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>We can visualize which pixels fall within each buffer. Looking at the next figure, one can ask why there are not always the same number of pixels in each buffer. The reason is it because the arc of the circle must passes through the center of each pixel to be included in the buffer.</p>
+<pre class="r"><code>r[poly] %&gt;% 
+  st_as_sf() %&gt;% 
+  ggplot() +
+  geom_sf(aes(fill = factor(V1)), color = &quot;#3c3c3c&quot;) +
+  geom_sf(data = st_sfc(poly), fill = NA, color = &quot;blue&quot;) +
+  geom_sf(data = pts, color = &quot;red&quot;, size = 2) +
+  geom_sf_text(aes(label = V1)) +
+  paletteer::scale_fill_paletteer_d(&quot;RColorBrewer::Pastel2&quot;) +
+  theme_bw() +
+  theme(
+    legend.position = &quot;none&quot;
+  )</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="extracting-pixel-values-covered-by-the-polygons" class="section level3">
+<h3>Extracting pixel values covered by the polygons</h3>
+<p>Now that we have defined four buffers with a 30 meters radius, we could be tempted to re-use <code>st_extract()</code>.</p>
+<pre class="r"><code>st_extract(r, poly)</code></pre>
+<pre><code>## Error in st_extract.stars(r, poly): all(st_dimension(pts) == 0) is not TRUE</code></pre>
+<p>Surprisingly, we can not use <code>st_extract()</code> with polygons. One option is to use <code>aggregate()</code>. In out example, there are between three and four pixels falling under each buffer. This is why we have to tell the <code>aggregate()</code> how to summarize the values within each buffer with the <code>FUN</code> parameter.</p>
+<pre class="r"><code># Extract the average value per polygon
+x &lt;- aggregate(r, poly, FUN = mean)
+st_as_sf(x)</code></pre>
+<pre><code>## Simple feature collection with 4 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+## projected CRS:  UTM Zone 25, Southern Hemisphere
+##         V1                       geometry
+## 1 68.33333 POLYGON ((294431 9110940, 2...
+## 2 70.33333 POLYGON ((294408.3 9110871,...
+## 3 73.50000 POLYGON ((294222.5 9111014,...
+## 4 71.66667 POLYGON ((294197 9110827, 2...</code></pre>
+<pre class="r"><code># Extract the minimum value per polygon
+x &lt;- aggregate(r, poly, FUN = min)
+st_as_sf(x)</code></pre>
+<pre><code>## Simple feature collection with 4 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+## projected CRS:  UTM Zone 25, Southern Hemisphere
+##   V1                       geometry
+## 1 67 POLYGON ((294431 9110940, 2...
+## 2 67 POLYGON ((294408.3 9110871,...
+## 3 72 POLYGON ((294222.5 9111014,...
+## 4 68 POLYGON ((294197 9110827, 2...</code></pre>
+<pre class="r"><code># Extract the maximum value per polygon
+x &lt;- aggregate(r, poly, FUN = max)
+st_as_sf(x)</code></pre>
+<pre><code>## Simple feature collection with 4 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+## projected CRS:  UTM Zone 25, Southern Hemisphere
+##   V1                       geometry
+## 1 71 POLYGON ((294431 9110940, 2...
+## 2 74 POLYGON ((294408.3 9110871,...
+## 3 76 POLYGON ((294222.5 9111014,...
+## 4 75 POLYGON ((294197 9110827, 2...</code></pre>
+</div>
+<div id="overlapping-polygons" class="section level3">
+<h3>Overlapping polygons</h3>
+<p>There is one catch…</p>
+<blockquote>
+<p>Keep in mind that if there is overlap between polygons (unlike in this example) then each raster value is only “counted” once, in the first polygon it falls in (to comply with the ordinary behavior of aggregate).</p>
+</blockquote>
+<p>To demonstrate it, we will increase the buffer distance to 90 meters.</p>
+<pre class="r"><code>poly &lt;- st_buffer(pts, dist = 90)
+
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+# plot(r[poly], add = TRUE)
+plot(st_sfc(poly), add = TRUE, border = &quot;red&quot;, lwd = 2, col = NA)
+plot(
+  pts_values,
+  add = TRUE,
+  pch = 21,
+  cex = 2,
+  bg = alpha(&quot;red&quot;, 0.5),
+  col = alpha(&quot;red&quot;, 0.5)
+)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code># Extract average value per polygon
+x &lt;- aggregate(r, poly, mean)
+st_as_sf(x)</code></pre>
+<pre><code>## Simple feature collection with 4 features and 1 field
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 294077 ymin: 9110737 xmax: 294491 ymax: 9111104
+## projected CRS:  UTM Zone 25, Southern Hemisphere
+##         V1                       geometry
+## 1 71.48485 POLYGON ((294491 9110940, 2...
+## 2 71.40000 POLYGON ((294468.3 9110871,...
+## 3 71.90625 POLYGON ((294282.5 9111014,...
+## 4 70.92000 POLYGON ((294257 9110827, 2...</code></pre>
+<p>Maybe use</p>
+<pre class="r"><code>plot(r[poly], key.pos = NULL, reset = FALSE)
+plot(st_sfc(poly), add = TRUE, border = &quot;red&quot;, lwd = 2, col = NA)</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>r[poly] %&gt;% 
+  st_as_sf() %&gt;% 
+  ggplot() +
+  geom_sf(aes(fill = factor(V1)), color = &quot;#3c3c3c&quot;) +
+  geom_sf(data = st_sfc(poly), fill = NA, color = &quot;blue&quot;) +
+  geom_sf_text(aes(label = V1)) +
+  paletteer::scale_fill_paletteer_d(&quot;RColorBrewer::Pastel2&quot;) +
+  theme_bw() +
+  theme(
+    legend.position = &quot;none&quot;
+  )</code></pre>
+<p><img src="https://www.pmassicotte.com/post/2021-03-06-extracting-raster-values-using-polygons/index.en_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.pmassicotte.com//tags/raster/">raster</a>&nbsp;
+            
+              <a href="https://www.pmassicotte.com//tags/sf/">sf</a>&nbsp;
+            
+              <a href="https://www.pmassicotte.com//tags/polygon/">polygon</a>&nbsp;
+            
+              <a href="https://www.pmassicotte.com//tags/gis/">gis</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f&amp;text=Extracting%20raster%20values%20using%20the%20stars%20R%20package&amp;via=philmassicotte" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f&amp;title=Extracting%20raster%20values%20using%20the%20stars%20R%20package" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f&amp;title=Extracting%20raster%20values%20using%20the%20stars%20R%20package" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f&amp;title=Extracting%20raster%20values%20using%20the%20stars%20R%20package" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fwww.pmassicotte.com%2fpost%2f2021-03-06-extracting-raster-values-using-polygons%2f&amp;description=Extracting%20raster%20values%20using%20the%20stars%20R%20package" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.pmassicotte.com/post/2021-01-10-how-to-change-the-language-of-date-in-r/" data-toggle="tooltip" data-placement="top" title="How to change the language of dates in R">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:pmassicotte@hotmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/pmassicotte" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/PMassicotte" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/philmassicotte" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://stackoverflow.com/users/5558188/philippe-massicotte" title="StackOverflow">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://500px.com/persican" title="500px">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-500px fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="PMassicotte.github.io">Philippe Massicotte</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.pmassicotte.com/">Philippe Massicotte</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.72.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://www.pmassicotte.com/js/main.js"></script>
+<script src="https://www.pmassicotte.com/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.pmassicotte.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script
+  src="https://utteranc.es/client.js"
+  repo="pmassicotte/r-blog"
+  issue-term="title"
+  label="comments :speech_balloon:"
+  theme="github-light"
+  crossorigin="anonymous"
+  async
+></script>
+
+
+  </body>
+</html>
+
