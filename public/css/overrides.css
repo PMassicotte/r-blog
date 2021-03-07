@@ -1,11 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
 
 code {
-  padding: 2px 4px;
   font-size: 90%;
-  color: #ffffff;
-  background-color: #286090;
-  border-radius: 4px;
-  font-weight: 500;
-  font-family: 'Open Sans';
+  font-family: "Roboto Mono", monospace;
+  font-weight: 600;
+  color: #4c4a4a;
+  background: #e9e9e9;
+  border-radius: 8px;
+  padding: 0 4px 1px;
 }
 
