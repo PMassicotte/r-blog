@@ -35,19 +35,20 @@ tif &lt;- system.file(&quot;tif/L7_ETMs.tif&quot;, package = &quot;stars&quot;)
 r &lt;- read_stars(tif)[, , , 1]
 
 # What are the dimensions?
-st_dimensions(r)</code></pre>
-<pre><code>##      from  to  offset delta                       refsys point values x/y
-## x       1 349  288776  28.5 UTM Zone 25, Southern Hem... FALSE   NULL [x]
-## y       1 352 9120761 -28.5 UTM Zone 25, Southern Hem... FALSE   NULL [y]
-## band    1   1      NA    NA                           NA    NA   NULL</code></pre>
+st_dimensions(r)
+#&gt;      from  to  offset delta                       refsys point values x/y
+#&gt; x       1 349  288776  28.5 UTM Zone 25, Southern Hem... FALSE   NULL [x]
+#&gt; y       1 352 9120761 -28.5 UTM Zone 25, Southern Hem... FALSE   NULL [y]
+#&gt; band    1   1      NA    NA                           NA    NA   NULL</code></pre>
 <p>This is what the original image looks like.</p>
 <pre class="r"><code>plot(r, key.pos = NULL)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>To better visualize the process of subsetting raster values, let’s crop the image so we can see the pixels.</p>
-<pre class="r"><code>st_bbox(r)</code></pre>
-<pre><code>##      xmin      ymin      xmax      ymax 
-##  288776.3 9110728.8  298722.8 9120760.8</code></pre>
-<pre class="r"><code>r &lt;- r %&gt;%
+<pre class="r"><code>st_bbox(r)
+#&gt;      xmin      ymin      xmax      ymax 
+#&gt;  288776.3 9110728.8  298722.8 9120760.8
+
+r &lt;- r %&gt;%
   st_crop(st_bbox(c(
     xmin = 294000,
     xmax = 294500,
@@ -56,10 +57,10 @@ st_dimensions(r)</code></pre>
   ), crs = st_crs(r)))
 
 plot(r, reset = FALSE, key.pos = NULL)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>We can also display the value of each pixel by using <code>text_values = TRUE</code>. This is also where I am using the <code>pal</code> colour vector I created earlier.</p>
 <pre class="r"><code>plot(r, text_values = TRUE, col = pal, key.pos = NULL)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sampling-random-locations" class="section level2">
 <h2>Sampling random locations</h2>
@@ -79,23 +80,23 @@ plot(
   bg = alpha(&quot;red&quot;, 0.5),
   col = alpha(&quot;red&quot;, 0.5)
 )</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extracting-raster-values-using-the-sampled-points" class="section level2">
 <h2>Extracting raster values using the sampled points</h2>
 <p>Extracting raster values at point locations can be done using the <code>st_extract()</code> function. As expected, four values have been extracted.</p>
 <pre class="r"><code>pts_values &lt;- st_extract(r, pts)
-pts_values</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POINT
-## dimension:      XY
-## bbox:           xmin: 294167 ymin: 9110827 xmax: 294401 ymax: 9111014
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##   L7_ETMs.tif                 geometry
-## 1          71   POINT (294401 9110940)
-## 2          70 POINT (294378.3 9110871)
-## 3          72 POINT (294192.5 9111014)
-## 4          68   POINT (294167 9110827)</code></pre>
+pts_values
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POINT
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294167 ymin: 9110827 xmax: 294401 ymax: 9111014
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;   L7_ETMs.tif                 geometry
+#&gt; 1          71   POINT (294401 9110940)
+#&gt; 2          70 POINT (294378.3 9110871)
+#&gt; 3          72 POINT (294192.5 9111014)
+#&gt; 4          68   POINT (294167 9110827)</code></pre>
 </div>
 <div id="extracting-raster-values-using-buffers-around-the-sampled-points" class="section level2">
 <h2>Extracting raster values using buffers around the sampled points</h2>
@@ -105,9 +106,10 @@ pts_values</code></pre>
 <p>Let’s generate buffers of 30 meters around each of the four sampled pixels.</p>
 <pre class="r"><code>poly &lt;- st_buffer(pts, dist = 30)
 
-class(poly)</code></pre>
-<pre><code>## [1] &quot;sfc_POLYGON&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
+class(poly)
+#&gt; [1] &quot;sfc_POLYGON&quot; &quot;sfc&quot;
+
+plot(r, text_values = TRUE, col = pal, key.pos = NULL, reset = FALSE)
 plot(st_sfc(poly), add = TRUE, border = &quot;red&quot;, lwd = 2, col = NA)
 plot(
   pts,
@@ -117,7 +119,7 @@ plot(
   bg = alpha(&quot;red&quot;, 0.5),
   col = alpha(&quot;red&quot;, 0.5)
 )</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>We can visualize which pixels fall within each buffer. Looking at the next figure, one can ask why there are not always the same number of pixels in each buffer. The reason is that the arc of the circle must pass through the center of each pixel to be included in the buffer.</p>
 <pre class="r"><code>r[poly] %&gt;% 
   st_as_sf() %&gt;% 
@@ -130,53 +132,55 @@ plot(
   theme(
     legend.position = &quot;none&quot;
   )</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extracting-pixel-values-covered-by-the-polygons" class="section level3">
 <h3>Extracting pixel values covered by the polygons</h3>
 <p>Now that we have defined four buffers with a 30 meters radius, we could be tempted to re-use <code>st_extract()</code>.</p>
-<pre class="r"><code>st_extract(r, poly)</code></pre>
-<pre><code>## Error in st_extract.stars(r, poly): all(st_dimension(pts) == 0) is not TRUE</code></pre>
+<pre class="r"><code>st_extract(r, poly)
+#&gt; Error in st_extract.stars(r, poly): all(st_dimension(pts) == 0) is not TRUE</code></pre>
 <p>Surprisingly, we can not use <code>st_extract()</code> with polygons. One option is to use <code>aggregate()</code>. In our example, between three and four pixels are falling under each buffer. This is why we have to tell the <code>aggregate()</code> function how to summarize the values within each buffer with the <code>FUN</code> parameter.</p>
 <pre class="r"><code># Extract the average value per polygon
 x &lt;- aggregate(r, poly, FUN = mean)
-st_as_sf(x)</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##         V1                       geometry
-## 1 68.33333 POLYGON ((294431 9110940, 2...
-## 2 70.33333 POLYGON ((294408.3 9110871,...
-## 3 73.50000 POLYGON ((294222.5 9111014,...
-## 4 71.66667 POLYGON ((294197 9110827, 2...</code></pre>
-<pre class="r"><code># Extract the minimum value per polygon
+st_as_sf(x)
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;         V1                       geometry
+#&gt; 1 68.33333 POLYGON ((294431 9110940, 2...
+#&gt; 2 70.33333 POLYGON ((294408.3 9110871,...
+#&gt; 3 73.50000 POLYGON ((294222.5 9111014,...
+#&gt; 4 71.66667 POLYGON ((294197 9110827, 2...
+
+# Extract the minimum value per polygon
 x &lt;- aggregate(r, poly, FUN = min)
-st_as_sf(x)</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##   V1                       geometry
-## 1 67 POLYGON ((294431 9110940, 2...
-## 2 67 POLYGON ((294408.3 9110871,...
-## 3 72 POLYGON ((294222.5 9111014,...
-## 4 68 POLYGON ((294197 9110827, 2...</code></pre>
-<pre class="r"><code># Extract the maximum value per polygon
+st_as_sf(x)
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;   V1                       geometry
+#&gt; 1 67 POLYGON ((294431 9110940, 2...
+#&gt; 2 67 POLYGON ((294408.3 9110871,...
+#&gt; 3 72 POLYGON ((294222.5 9111014,...
+#&gt; 4 68 POLYGON ((294197 9110827, 2...
+
+# Extract the maximum value per polygon
 x &lt;- aggregate(r, poly, FUN = max)
-st_as_sf(x)</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##   V1                       geometry
-## 1 71 POLYGON ((294431 9110940, 2...
-## 2 74 POLYGON ((294408.3 9110871,...
-## 3 76 POLYGON ((294222.5 9111014,...
-## 4 75 POLYGON ((294197 9110827, 2...</code></pre>
+st_as_sf(x)
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294137 ymin: 9110797 xmax: 294431 ymax: 9111044
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;   V1                       geometry
+#&gt; 1 71 POLYGON ((294431 9110940, 2...
+#&gt; 2 74 POLYGON ((294408.3 9110871,...
+#&gt; 3 76 POLYGON ((294222.5 9111014,...
+#&gt; 4 75 POLYGON ((294197 9110827, 2...</code></pre>
 </div>
 <div id="overlapping-polygons" class="section level3">
 <h3>Overlapping polygons</h3>
@@ -198,7 +202,7 @@ plot(
   bg = alpha(&quot;red&quot;, 0.5),
   col = alpha(&quot;red&quot;, 0.5)
 )</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Now let’s calculate the average pixel value in each polygon.</p>
 <div id="using-the-aggregate-function" class="section level4">
 <h4>Using the <code>aggregate()</code> function</h4>
@@ -206,17 +210,17 @@ plot(
 <pre class="r"><code>averaged_using_aggregate &lt;- aggregate(r, poly, FUN = mean) %&gt;% 
   st_as_sf()
 
-averaged_using_aggregate</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294077 ymin: 9110737 xmax: 294491 ymax: 9111104
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##         V1                       geometry
-## 1 71.48485 POLYGON ((294491 9110940, 2...
-## 2 71.40000 POLYGON ((294468.3 9110871,...
-## 3 71.90625 POLYGON ((294282.5 9111014,...
-## 4 70.92000 POLYGON ((294257 9110827, 2...</code></pre>
+averaged_using_aggregate
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294077 ymin: 9110737 xmax: 294491 ymax: 9111104
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;         V1                       geometry
+#&gt; 1 71.48485 POLYGON ((294491 9110940, 2...
+#&gt; 2 71.40000 POLYGON ((294468.3 9110871,...
+#&gt; 3 71.90625 POLYGON ((294282.5 9111014,...
+#&gt; 4 70.92000 POLYGON ((294257 9110827, 2...</code></pre>
 </div>
 <div id="using-the-st_join-function-manually" class="section level4">
 <h4>Using the <code>st_join()</code> function (manually)</h4>
@@ -225,38 +229,38 @@ averaged_using_aggregate</code></pre>
   st_as_sf() %&gt;% 
   rowid_to_column(var = &quot;poly_id&quot;)
 
-poly_sf</code></pre>
-<pre><code>## Simple feature collection with 4 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294077 ymin: 9110737 xmax: 294491 ymax: 9111104
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-##   poly_id                              x
-## 1       1 POLYGON ((294491 9110940, 2...
-## 2       2 POLYGON ((294468.3 9110871,...
-## 3       3 POLYGON ((294282.5 9111014,...
-## 4       4 POLYGON ((294257 9110827, 2...</code></pre>
+poly_sf
+#&gt; Simple feature collection with 4 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294077 ymin: 9110737 xmax: 294491 ymax: 9111104
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt;   poly_id                              x
+#&gt; 1       1 POLYGON ((294491 9110940, 2...
+#&gt; 2       2 POLYGON ((294468.3 9110871,...
+#&gt; 3       3 POLYGON ((294282.5 9111014,...
+#&gt; 4       4 POLYGON ((294257 9110827, 2...</code></pre>
 <p>Convert the raster into a <code>sf</code> object.</p>
 <pre class="r"><code>r_sf &lt;- st_as_sf(r)
 
-r_sf</code></pre>
-<pre><code>## Simple feature collection with 270 features and 1 field
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 293991.8 ymin: 9110786 xmax: 294504.8 ymax: 9111213
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-## First 10 features:
-##    V1                       geometry
-## 1  87 POLYGON ((293991.8 9111213,...
-## 2  83 POLYGON ((294020.3 9111213,...
-## 3  82 POLYGON ((294048.8 9111213,...
-## 4  76 POLYGON ((294077.3 9111213,...
-## 5  80 POLYGON ((294105.8 9111213,...
-## 6  85 POLYGON ((294134.3 9111213,...
-## 7  83 POLYGON ((294162.8 9111213,...
-## 8  87 POLYGON ((294191.3 9111213,...
-## 9  85 POLYGON ((294219.8 9111213,...
-## 10 79 POLYGON ((294248.3 9111213,...</code></pre>
+r_sf
+#&gt; Simple feature collection with 270 features and 1 field
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 293991.8 ymin: 9110786 xmax: 294504.8 ymax: 9111213
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt; First 10 features:
+#&gt;    V1                       geometry
+#&gt; 1  87 POLYGON ((293991.8 9111213,...
+#&gt; 2  83 POLYGON ((294020.3 9111213,...
+#&gt; 3  82 POLYGON ((294048.8 9111213,...
+#&gt; 4  76 POLYGON ((294077.3 9111213,...
+#&gt; 5  80 POLYGON ((294105.8 9111213,...
+#&gt; 6  85 POLYGON ((294134.3 9111213,...
+#&gt; 7  83 POLYGON ((294162.8 9111213,...
+#&gt; 8  87 POLYGON ((294191.3 9111213,...
+#&gt; 9  85 POLYGON ((294219.8 9111213,...
+#&gt; 10 79 POLYGON ((294248.3 9111213,...</code></pre>
 <p>Join the raster and the polygons together and drop the pixels that were not matched to any buffer.</p>
 <pre class="r"><code>df_sf &lt;- st_join(r_sf, poly_sf) %&gt;% 
   drop_na(poly_id)</code></pre>
@@ -271,30 +275,30 @@ r_sf</code></pre>
     values = c(&quot;red&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;green&quot;)
   ) +
   facet_wrap(~poly_id)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-17-1.png" width="960" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Finally, we can calculate the average pixel values in each polygon.</p>
 <pre class="r"><code>averaged_using_st_join &lt;- df_sf %&gt;% 
   group_by(poly_id) %&gt;% 
   summarise(V1 = mean(V1), n = n()) 
 
-averaged_using_st_join</code></pre>
-<pre><code>## Simple feature collection with 4 features and 3 fields
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 294048.8 ymin: 9110786 xmax: 294504.8 ymax: 9111128
-## projected CRS:  UTM Zone 25, Southern Hemisphere
-## # A tibble: 4 x 4
-##   poly_id    V1     n                                                   geometry
-##     &lt;int&gt; &lt;dbl&gt; &lt;int&gt;                                              &lt;POLYGON [m]&gt;
-## 1       1  72.8    45 ((294305.3 9110900, 294305.3 9110928, 294305.3 9110957, 2…
-## 2       2  71.0    42 ((294276.8 9110843, 294276.8 9110871, 294276.8 9110900, 2…
-## 3       3  71.2    48 ((294162.8 9110928, 294134.3 9110928, 294105.8 9110928, 2…
-## 4       4  70.7    33 ((294077.3 9110814, 294048.8 9110814, 294048.8 9110843, 2…</code></pre>
+averaged_using_st_join
+#&gt; Simple feature collection with 4 features and 3 fields
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 294048.8 ymin: 9110786 xmax: 294504.8 ymax: 9111128
+#&gt; projected CRS:  UTM Zone 25, Southern Hemisphere
+#&gt; # A tibble: 4 x 4
+#&gt;   poly_id    V1     n                                                   geometry
+#&gt;     &lt;int&gt; &lt;dbl&gt; &lt;int&gt;                                              &lt;POLYGON [m]&gt;
+#&gt; 1       1  72.8    45 ((294305.3 9110900, 294305.3 9110928, 294305.3 9110957, 2…
+#&gt; 2       2  71.0    42 ((294276.8 9110843, 294276.8 9110871, 294276.8 9110900, 2…
+#&gt; 3       3  71.2    48 ((294162.8 9110928, 294134.3 9110928, 294105.8 9110928, 2…
+#&gt; 4       4  70.7    33 ((294077.3 9110814, 294048.8 9110814, 294048.8 9110843, 2…</code></pre>
 <p>If we compare both the <code>aggregate()</code> and <code>st_join()</code> methods, we can see that there are differences.</p>
-<pre class="r"><code>averaged_using_aggregate$V1</code></pre>
-<pre><code>## [1] 71.48485 71.40000 71.90625 70.92000</code></pre>
-<pre class="r"><code>averaged_using_st_join$V1</code></pre>
-<pre><code>## [1] 72.80000 71.02381 71.22917 70.72727</code></pre>
+<pre class="r"><code>averaged_using_aggregate$V1
+#&gt; [1] 71.48485 71.40000 71.90625 70.92000
+averaged_using_st_join$V1
+#&gt; [1] 72.80000 71.02381 71.22917 70.72727</code></pre>
 <p>At this time of writing this, I can not find why I am getting different values. Please leave out a comment if you have an idea!</p>
 </div>
 </div>
