@@ -8,6 +8,12 @@ subtitle: List of my most recent presentations
 
 ---
 
+## Québec-Océan 2021 Training Workshop: Data Management and Archiving
+
+https://pmassicotte.github.io/quebec_ocean_data_archive_2021/#1
+
+---
+
 ## IVADO Datatrek 2021
 
 Data visualization with `ggplot2`
@@ -42,7 +48,7 @@ https://pmassicotte.github.io/greenedge_2019_nice_data_paper_ice_camp/
 
 ---
 
-## R Québec-Océan 2019 Training Workshop: Data Management and Archiving
+## Québec-Océan 2019 Training Workshop: Data Management and Archiving
 
 Atelier portant sur les bonnes pratiques pour la gestion et l'archivage des données. L'atelier a été présenté le 25 octobre 2019 à Rimouski et le 29 octobre 2019 à Québec.
 
